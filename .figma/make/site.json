@@ -1,0 +1,11 @@
+{
+  "title": "Igreja Evangelica Santuario da Adoração",
+  "description": "Connects members and visitors with church services, events, and resources to support faith and community engagement in an evangelical church setting.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

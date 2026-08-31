@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  --color-background: #F5F1EA;
+  --color-foreground: #162340;
+  --color-primary: #162340;
+  --color-primary-foreground: #F5F1EA;
+  --color-secondary: #2D4E78;
+  --color-secondary-foreground: #F5F1EA;
+  --color-accent: #B8860B;
+  --color-accent-foreground: #FFFFFF;
+  --color-muted: #EAE5D8;
+  --color-muted-foreground: #6B5F50;
+  --color-card: #FDFAF4;
+  --color-card-foreground: #162340;
+  --color-border: #D5CEBD;
+  --color-ring: #B8860B;
+
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+
+  --radius: 0.375rem;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dark mode token overrides */
+.dark {
+  --color-background: #0D1A2B;
+  --color-foreground: #EDE9DF;
+  --color-primary: #EDE9DF;
+  --color-primary-foreground: #0D1A2B;
+  --color-secondary: #1E3A5F;
+  --color-secondary-foreground: #EDE9DF;
+  --color-accent: #D4A820;
+  --color-accent-foreground: #0D1A2B;
+  --color-muted: #162030;
+  --color-muted-foreground: #9A9080;
+  --color-card: #122040;
+  --color-card-foreground: #EDE9DF;
+  --color-border: #243448;
+  --color-ring: #D4A820;
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-muted-foreground); }
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+  padding: 8px 16px;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 600;
+  z-index: 9999;
+  border-radius: 0 0 4px 0;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Bible reader prose */
+.bible-verse-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

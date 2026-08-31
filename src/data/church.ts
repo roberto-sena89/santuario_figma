@@ -1,0 +1,55 @@
+export const CHURCH = {
+  name: "Igreja Evangélica Graça e Verdade",
+  shortName: "IEGV",
+  slogan: "Edificando vidas, transformando gerações",
+  description:
+    "Uma comunidade de fé comprometida com o amor de Deus, o ensino da Palavra e o serviço ao próximo. Todos são bem-vindos aqui.",
+  address: {
+    street: "Rua das Flores, 123",
+    neighborhood: "Centro",
+    city: "São Paulo",
+    state: "SP",
+    cep: "01000-000",
+    full: "Rua das Flores, 123 — Centro, São Paulo/SP",
+    mapsUrl: "https://www.openstreetmap.org",
+  },
+  phone: "(11) 9 9999-9999",
+  email: "contato@igrejagracaeverdade.com.br",
+  whatsapp: "5511999999999",
+  whatsappMessage: "Olá! Vim pelo site e gostaria de mais informações.",
+  social: {
+    instagram: "https://instagram.com/igrejagracaeverdade",
+    facebook: "https://facebook.com/igrejagracaeverdade",
+    youtube: "https://youtube.com/@igrejagracaeverdade",
+  },
+  pix: {
+    key: "pix@igrejagracaeverdade.com.br",
+    keyType: "E-mail",
+    beneficiary: "Igreja Evangélica Graça e Verdade",
+    cnpj: "00.000.000/0001-00",
+    bank: "Banco do Brasil",
+    agency: "0001",
+    account: "00000-0",
+  },
+  leadership: [
+    {
+      name: "Pr. João Carlos Silva",
+      role: "Pastor Presidente",
+      bio: "Pastor fundador com 25 anos de ministério, apaixonado por evangelismo e discipulado.",
+    },
+    {
+      name: "Pra. Tânia Silva",
+      role: "Pastora Auxiliar",
+      bio: "Responsável pelo ministério de mulheres e aconselhamento pastoral.",
+    },
+    {
+      name: "Ev. Marcos Oliveira",
+      role: "Evangelista",
+      bio: "Conduz o ministério de alcance e visitas nas comunidades vizinhas.",
+    },
+  ],
+  founded: 2001,
+  members: 350,
+  youtubeChannelId: "UCxxxxxxxxxxxxxxxx",
+  youtubeStreamId: "dQw4w9WgXcQ",
+} as const;
