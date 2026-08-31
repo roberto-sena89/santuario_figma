@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Paletas - Igreja Evangélica - Santuário</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Source Sans 3',system-ui,sans-serif;background:#0f0f0f;color:#fff;padding:40px}
+  h1{font-family:'Fraunces',serif;font-size:32px;margin-bottom:8px}
+  .sub{color:#9a9080;margin-bottom:32px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}
+  .card{border-radius:20px;overflow:hidden;background:#1a1a1a;border:1px solid #2a2a2a}
+  .preview{padding:24px}
+  .header{height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-weight:600;font-size:13px;letter-spacing:0.5px;text-transform:uppercase}
+  .hero{padding:32px 24px;text-align:center}
+  .hero h3{font-family:'Fraunces',serif;font-size:26px;line-height:1.1;margin-bottom:8px}
+  .hero p{font-size:13px;opacity:0.7;margin-bottom:16px}
+  .btn{display:inline-block;padding:10px 20px;border-radius:999px;font-size:13px;font-weight:600;margin:4px}
+  .swatches{display:flex;gap:8px;padding:16px 24px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,0.08)}
+  .sw{flex:1;min-width:60px;text-align:center}
+  .sw div{height:48px;border-radius:10px;margin-bottom:6px;border:1px solid rgba(255,255,255,0.1)}
+  .sw span{font-size:10px;letter-spacing:0.3px;opacity:0.6}
+  .sw b{font-size:11px;display:block}
+  .code{background:#0a0a0a;padding:16px 20px;font-family:monospace;font-size:11px;overflow:auto;white-space:pre;color:#9a9080;border-top:1px solid #222}
+  .badge{display:inline-block;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:700;margin-bottom:12px}
+  .rec{border-color:#C98A2E;box-shadow:0 0 0 1px #C98A2E}
+</style>
+</head>
+<body>
+<h1>Paletas — Igreja Evangélica Moderna</h1>
+<p class="sub">4 sistemas prontos para Tailwind 4 @theme • todos testados light/dark • aconchegantes, não corporativos</p>
+
+<div class="grid">
+
+<!-- 1 AURORA - RECOMENDADA -->
+<div class="card rec">
+  <div class="preview" style="background:#FDF6F0;color:#2B211E">
+    <span class="badge" style="background:#D97D3E;color:#fff">★ RECOMENDADA • Mais acolhedora</span>
+    <div class="header" style="background:#9C3D21;color:#FFFCF8;border-radius:12px;margin-bottom:16px"><span>Santuário</span><span style="opacity:0.8">Início • Bíblia • Cultos</span></div>
+    <div class="hero">
+      <h3>Um lugar para você<br>pertencer</h3>
+      <p>Família jovem • instagramável • luz natural • café pós-culto</p>
+      <span class="btn" style="background:#D97D3E;color:#fff">Venha nos visitar</span>
+      <span class="btn" style="background:#fff;color:#9C3D21;border:1px solid #E6D9CC">Assista Online</span>
+    </div>
+    <div style="display:flex;gap:12px">
+      <div style="flex:1;background:#FFFCF8;border:1px solid #E6D9CC;border-radius:14px;padding:16px;text-align:center"><div style="font-size:20px">☀️</div><div style="font-size:12px;font-weight:600;margin-top:6px">Cultos 9h & 19h</div></div>
+      <div style="flex:1;background:#5A6B5A;color:#FFFCF8;border-radius:14px;padding:16px;text-align:center"><div style="font-size:20px">🌿</div><div style="font-size:12px;font-weight:600;margin-top:6px">Células</div></div>
+    </div>
+  </div>
+  <div class="swatches" style="background:#1a1a1a">
+    <div class="sw"><div style="background:#FDF6F0"></div><b>#FDF6F0</b><span>background</span></div>
+    <div class="sw"><div style="background:#9C3D21"></div><b>#9C3D21</b><span>primary</span></div>
+    <div class="sw"><div style="background:#D97D3E"></div><b>#D97D3E</b><span>accent</span></div>
+    <div class="sw"><div style="background:#5A6B5A"></div><b>#5A6B5A</b><span>sage</span></div>
+    <div class="sw"><div style="background:#2B211E"></div><b>#2B211E</b><span>foreground</span></div>
+  </div>
+  <div class="code">@theme {
+  --color-background: #FDF6F0;
+  --color-foreground: #2B211E;
+  --color-primary: #9C3D21;
+  --color-secondary: #5A6B5A;
+  --color-accent: #D97D3E;
+  --color-muted: #EDE3D9;
+  --color-card: #FFFCF8;
+  --color-border: #E6D9CC;
+}
+.dark {
+  --color-background: #1E1916;
+  --color-foreground: #F5EDE6;
+  --color-primary: #F5EDE6;
+  --color-secondary: #8FA08F;
+  --color-accent: #E89B5A;
+  --color-muted: #2A2420;
+  --color-card: #2A2420;
+  --color-border: #3A3330;
+}</div>
+</div>
+
+<!-- 2 MONTE SIÃO -->
+<div class="card">
+  <div class="preview" style="background:#F6F3ED;color:#1E2A1E">
+    <span class="badge" style="background:#C9A84C;color:#1E2A1E">Natureza • Retiro • Contemplativa</span>
+    <div class="header" style="background:#2F3E2F;color:#FFFEFB;border-radius:12px;margin-bottom:16px"><span>MONTE SIÃO</span><span style="opacity:0.8">Cultos • Ministérios</span></div>
+    <div class="hero">
+      <h3>Crescendo juntos<br>na Palavra</h3>
+      <p>Raízes profundas • oliveira • trigo • comunidade</p>
+      <span class="btn" style="background:#C9A84C;color:#1E2A1E">Nossos Cultos</span>
+      <span class="btn" style="background:#fff;color:#2F3E2F;border:1px solid #DDD8CC">Conheça</span>
+    </div>
+    <div style="display:flex;gap:12px">
+      <div style="flex:1;background:#FFFEFB;border:1px solid #DDD8CC;border-radius:14px;padding:16px;text-align:center"><div style="font-size:12px;font-weight:600">Escola Bíblica Domingo 9h</div></div>
+      <div style="flex:1;background:#2F3E2F;color:#FFFEFB;border-radius:14px;padding:16px;text-align:center"><div style="font-size:12px;font-weight:600">GCs durante a semana</div></div>
+    </div>
+  </div>
+  <div class="swatches" style="background:#1a1a1a">
+    <div class="sw"><div style="background:#F6F3ED"></div><b>#F6F3ED</b><span>background</span></div>
+    <div class="sw"><div style="background:#2F3E2F"></div><b>#2F3E2F</b><span>primary</span></div>
+    <div class="sw"><div style="background:#C9A84C"></div><b>#C9A84C</b><span>accent trigo</span></div>
+    <div class="sw"><div style="background:#6B5A3A"></div><b>#6B5A3A</b><span>earth</span></div>
+    <div class="sw"><div style="background:#1E2A1E"></div><b>#1E2A1E</b><span>fg</span></div>
+  </div>
+  <div class="code">@theme {
+  --color-background: #F6F3ED;
+  --color-foreground: #1E2A1E;
+  --color-primary: #2F3E2F;
+  --color-secondary: #6B5A3A;
+  --color-accent: #C9A84C;
+  --color-muted: #E8E3D8;
+  --color-card: #FFFEFB;
+  --color-border: #DDD8CC;
+}</div>
+</div>
+
+<!-- 3 HARPA - ATUAL MELHORADA -->
+<div class="card">
+  <div class="preview" style="background:#FDF8F3;color:#1C1E26">
+    <span class="badge" style="background:#1C1E26;color:#FDF8F3">Atual aprimorada • Minimal quente</span>
+    <div class="header" style="background:#1C1E26;color:#FDF8F3;border-radius:12px;margin-bottom:16px"><span>SANTUÁRIO</span><span style="opacity:0.7">Bíblia • Harpa • Playbacks</span></div>
+    <div class="hero">
+      <h3>Edificando vidas,<br>transformando gerações</h3>
+      <p>Clean • leitura confortável • ideal para Bíblia e Harpa</p>
+      <span class="btn" style="background:#C98A2E;color:#fff">Ler a Bíblia</span>
+      <span class="btn" style="background:#fff;color:#1C1E26;border:1px solid #E2DDD5">Harpa Cristã</span>
+    </div>
+    <div style="display:flex;gap:12px">
+      <div style="flex:1;background:#fff;border:1px solid #E2DDD5;border-radius:14px;padding:16px;text-align:center"><div style="font-size:12px;font-weight:600">Versículo do Dia</div></div>
+      <div style="flex:1;background:#2D4A6B;color:#fff;border-radius:14px;padding:16px;text-align:center"><div style="font-size:12px;font-weight:600">Devocional</div></div>
+    </div>
+  </div>
+  <div class="swatches" style="background:#1a1a1a">
+    <div class="sw"><div style="background:#FDF8F3"></div><b>#FDF8F3</b><span>bg</span></div>
+    <div class="sw"><div style="background:#1C1E26"></div><b>#1C1E26</b><span>primary</span></div>
+    <div class="sw"><div style="background:#C98A2E"></div><b>#C98A2E</b><span>accent</span></div>
+    <div class="sw"><div style="background:#2D4A6B"></div><b>#2D4A6B</b><span>secondary</span></div>
+    <div class="sw"><div style="background:#EDE8E0"></div><b>#EDE8E0</b><span>muted</span></div>
+  </div>
+  <div class="code">@theme {
+  --color-background: #FDF8F3;
+  --color-foreground: #1C1E26;
+  --color-primary: #1C1E26;
+  --color-secondary: #2D4A6B;
+  --color-accent: #C98A2E;
+  --color-muted: #EDE8E0;
+  --color-card: #FFFFFF;
+  --color-border: #E2DDD5;
+}</div>
+</div>
+
+<!-- 4 NOITE SANTA -->
+<div class="card">
+  <div class="preview" style="background:#F5F1EA;color:#162340">
+    <span class="badge" style="background:#B8860B;color:#fff">Institucional • Premium • Noite</span>
+    <div class="header" style="background:#162340;color:#F5F1EA;border-radius:12px;margin-bottom:16px"><span>SANTUÁRIO</span><span style="opacity:0.8">Quem Somos • Contato</span></div>
+    <div class="hero">
+      <h3>Fé que acolhe,<br>Palavra que transforma</h3>
+      <p>Navy + brass • confiança • tradição evangelica • culto à noite</p>
+      <span class="btn" style="background:#B8860B;color:#fff">Próximos Cultos</span>
+      <span class="btn" style="background:#fff;color:#162340;border:1px solid #D5CEBD">Ministérios</span>
+    </div>
+    <div style="display:flex;gap:12px">
+      <div style="flex:1;background:#FDFAF4;border:1px solid #D5CEBD;border-radius:14px;padding:16px;text-align:center"><div style="font-size:12px;font-weight:600">Dom 19h • Qua 20h</div></div>
+      <div style="flex:1;background:#162340;color:#F5F1EA;border-radius:14px;padding:16px;text-align:center"><div style="font-size:12px;font-weight:600">Ao vivo no YouTube</div></div>
+    </div>
+  </div>
+  <div class="swatches" style="background:#1a1a1a">
+    <div class="sw"><div style="background:#F5F1EA"></div><b>#F5F1EA</b><span>bg</span></div>
+    <div class="sw"><div style="background:#162340"></div><b>#162340</b><span>navy</span></div>
+    <div class="sw"><div style="background:#B8860B"></div><b>#B8860B</b><span>brass</span></div>
+    <div class="sw"><div style="background:#2D4E78"></div><b>#2D4E78</b><span>secondary</span></div>
+    <div class="sw"><div style="background:#EAE5D8"></div><b>#EAE5D8</b><span>muted</span></div>
+  </div>
+  <div class="code">/* atual do seu projeto */
+@theme {
+  --color-background: #F5F1EA;
+  --color-foreground: #162340;
+  --color-primary: #162340;
+  --color-secondary: #2D4E78;
+  --color-accent: #B8860B;
+  --color-muted: #EAE5D8;
+  --color-card: #FDFAF4;
+  --color-border: #D5CEBD;
+}</div>
+</div>
+
+</div>
+
+<p style="margin-top:32px;color:#666;font-size:12px;line-height:1.6">Dica senior: para igreja evangelica aconchegante e moderna, use fundo quente (creme/ivory) + texto espresso/navy (não preto puro) + 1 accent terroso (terracotta/amber/brass) para CTAs. Evite azul corporativo frio e cinza sem vida. Dark mode deve ser navy profundo, não preto.<br>Arquivo gerado em: santuario_figma/paletas.html — abra no navegador ou em http://localhost:8443/paletas.html</p>
+</body>
+</html>

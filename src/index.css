@@ -4,20 +4,20 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: #F5F1EA;
-  --color-foreground: #162340;
-  --color-primary: #162340;
-  --color-primary-foreground: #F5F1EA;
-  --color-secondary: #2D4E78;
-  --color-secondary-foreground: #F5F1EA;
-  --color-accent: #B8860B;
+  --color-background: #FDF6F0;
+  --color-foreground: #2B211E;
+  --color-primary: #9C3D21;
+  --color-primary-foreground: #FFFCF8;
+  --color-secondary: #5A6B5A;
+  --color-secondary-foreground: #FFFCF8;
+  --color-accent: #D97D3E;
   --color-accent-foreground: #FFFFFF;
-  --color-muted: #EAE5D8;
-  --color-muted-foreground: #6B5F50;
-  --color-card: #FDFAF4;
-  --color-card-foreground: #162340;
-  --color-border: #D5CEBD;
-  --color-ring: #B8860B;
+  --color-muted: #EDE3D9;
+  --color-muted-foreground: #7A6B5E;
+  --color-card: #FFFCF8;
+  --color-card-foreground: #2B211E;
+  --color-border: #E6D9CC;
+  --color-ring: #D97D3E;
 
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-body: 'Source Sans 3', system-ui, -apple-system, sans-serif;
@@ -40,20 +40,20 @@ body {
 
 /* Dark mode token overrides */
 .dark {
-  --color-background: #0D1A2B;
-  --color-foreground: #EDE9DF;
-  --color-primary: #EDE9DF;
-  --color-primary-foreground: #0D1A2B;
-  --color-secondary: #1E3A5F;
-  --color-secondary-foreground: #EDE9DF;
-  --color-accent: #D4A820;
-  --color-accent-foreground: #0D1A2B;
-  --color-muted: #162030;
-  --color-muted-foreground: #9A9080;
-  --color-card: #122040;
-  --color-card-foreground: #EDE9DF;
-  --color-border: #243448;
-  --color-ring: #D4A820;
+  --color-background: #1E1916;
+  --color-foreground: #F5EDE6;
+  --color-primary: #F5EDE6;
+  --color-primary-foreground: #1E1916;
+  --color-secondary: #8FA08F;
+  --color-secondary-foreground: #1E1916;
+  --color-accent: #E89B5A;
+  --color-accent-foreground: #1E1916;
+  --color-muted: #2A2420;
+  --color-muted-foreground: #A99A8D;
+  --color-card: #2A2420;
+  --color-card-foreground: #F5EDE6;
+  --color-border: #3A3330;
+  --color-ring: #E89B5A;
 }
 
 /* Scrollbar polish */
