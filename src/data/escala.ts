@@ -75,8 +75,31 @@ export function papelParaLista(valor: string | string[] | undefined): string[] {
 
 /** Pessoas disponíveis para escalar (cadastro manual). */
 export const PESSOAS_PADRAO: string[] = [
-  "Diaconisa Ivoneide",
   "Irmã Neurismar",
+  "Irmão Edval",
+  "Irmão Nonato",
+  "Irmã Ana Goreth",
+  "Irmão Leandro",
+  "Irmao Israel",
+  "Irmã Rafaela Luna",
+  "Irmão Matheus Neres",
+  "Irmão Daniel Feitosa",
+  "Pr.Wellington Mendes",
+  "Pra.Karina Oliveira",
+  "Irmão Alan Diniz",
+  "Presbítero Edson Leite",
+  "Diácono Marcos Brito",
+  "Irmã Olga Evangelista",
+  "Diaconisa Ivoneide Neres",
+  "Irmã Carla Diniz",
+  "Irmã Eliana Braga",
+  "Irmã Rogelma Duarte",
+  "Irmã Márcia Brito",
+  "Irmã Márcia Pereira",
+  "Irmã Ilderlange Correa",
+  "Irmã Nadja Teixeira",
+  "Irmã Nara Kelma",
+  "Irmão Rene Ferreira",
 ];
 
 /** Emoji representativo de cada dia da escala. */
