@@ -1,28 +1,109 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
 
 @import 'tailwindcss';
 
+/* =========================================================================
+   Paleta "Oliveira & Luz" — Registro Frio
+   Paz (oliveira) + Amor (ameixa sóbria) + Luz (cinza-azulado) + Areia fria
+   ========================================================================= */
 @theme {
-  --color-background: #FDF6F0;
-  --color-foreground: #2B211E;
-  --color-primary: #9C3D21;
-  --color-primary-foreground: #FFFCF8;
-  --color-secondary: #5A6B5A;
-  --color-secondary-foreground: #FFFCF8;
-  --color-accent: #D97D3E;
-  --color-accent-foreground: #FFFFFF;
-  --color-muted: #EDE3D9;
-  --color-muted-foreground: #7A6B5E;
-  --color-card: #FFFCF8;
-  --color-card-foreground: #2B211E;
-  --color-border: #E6D9CC;
-  --color-ring: #D97D3E;
+  /* Semantic (Tailwind 4) */
+  --color-background: #F6F7F4;
+  --color-foreground: #1A2A2A;
+  --color-primary: #4A5754;
+  --color-primary-foreground: #F6F7F4;
+  --color-secondary: #6B5B73;
+  --color-secondary-foreground: #F6F7F4;
+  --color-accent: #A89545;
+  --color-accent-foreground: #1A2A2A;
+  --color-muted: #ECEEEA;
+  --color-muted-foreground: #6A726E;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A2A2A;
+  --color-border: #DDE0DA;
+  --color-ring: #4A5754;
 
+  /* Compat — aliases do legado (Aurora) preservam componentes Playbacks */
+  --color-bg: #F6F7F4;
+  --color-surface: #FFFFFF;
+  --color-surface2: #ECEEEA;
+  --color-surface3: #DDE0DA;
+  --color-text: #1A2A2A;
+  --color-text2: #6A726E;
+  --color-graphite: #1A2A2A;
+  --color-graphite-soft: #2D3433;
+  --color-graphite-border: #DDE0DA;
+  --color-on-accent: #1A2A2A;
+  --color-on-secondary: #F6F7F4;
+  --color-success: #4A5754;
+  --color-warning: #A89545;
+  --color-error: #9A5234;
+  --color-terracota: #8B7A8A;
+  --color-areia: #F6F7F4;
+
+  /* Escala raw (Tailwind 4 color utility) */
+  /* Oliveira fria dessaturada — verde-cinza contemplativo */
+  --color-olive-50:  #F0F1F0;
+  --color-olive-100: #DDE0DD;
+  --color-olive-200: #BCC2BC;
+  --color-olive-300: #959E96;
+  --color-olive-400: #717A72;
+  --color-olive-500: #58615A;
+  --color-olive-600: #4A5754;
+  --color-olive-700: #3A4644;
+  --color-olive-800: #2C3635;
+  --color-olive-900: #1F2726;
+
+  /* Terra fria — ameixa/lavanda sóbria */
+  --color-terra-50:  #F2EFF3;
+  --color-terra-100: #E2DCE5;
+  --color-terra-200: #C5BBC9;
+  --color-terra-300: #A698AD;
+  --color-terra-400: #8B7A93;
+  --color-terra-500: #7A6A82;
+  --color-terra-600: #6B5B73;
+  --color-terra-700: #54475B;
+  --color-terra-800: #3D3445;
+  --color-terra-900: #28222E;
+
+  /* Mel — bronze frio, dourado envelhecido (acento de luz) */
+  --color-mel-50:  #F6F3E9;
+  --color-mel-100: #ECE3CC;
+  --color-mel-200: #D8C8A0;
+  --color-mel-300: #C2AC74;
+  --color-mel-400: #B59C56;
+  --color-mel-500: #A89545;
+  --color-mel-600: #8E7C38;
+  --color-mel-700: #6F602C;
+  --color-mel-800: #4F4420;
+  --color-mel-900: #322B14;
+
+  /* Areia fria — neutros com toque esverdeado */
+  --color-sand-0:   #FFFFFF;
+  --color-sand-50:  #F6F7F4;
+  --color-sand-100: #ECEEEA;
+  --color-sand-200: #DDE0DA;
+  --color-sand-300: #BFC4BD;
+  --color-sand-400: #959A93;
+  --color-sand-500: #6A726E;
+  --color-sand-600: #4A524E;
+  --color-sand-700: #343A36;
+  --color-sand-800: #20241F;
+  --color-sand-900: #121412;
+
+  /* Tipografia */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-body: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-body: 'Geist', 'Source Sans 3', system-ui, -apple-system, sans-serif;
 
-  --radius: 0.375rem;
+  --radius: 0.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-press: 120ms;
+  --dur-soft: 240ms;
 }
 
 html,
@@ -36,24 +117,42 @@ body {
   background-color: var(--color-background);
   color: var(--color-foreground);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Dark mode token overrides */
+/* Dark mode — "Oliveira & Luz" Fria invertida */
 .dark {
-  --color-background: #1E1916;
-  --color-foreground: #F5EDE6;
-  --color-primary: #F5EDE6;
-  --color-primary-foreground: #1E1916;
-  --color-secondary: #8FA08F;
-  --color-secondary-foreground: #1E1916;
-  --color-accent: #E89B5A;
-  --color-accent-foreground: #1E1916;
-  --color-muted: #2A2420;
-  --color-muted-foreground: #A99A8D;
-  --color-card: #2A2420;
-  --color-card-foreground: #F5EDE6;
-  --color-border: #3A3330;
-  --color-ring: #E89B5A;
+  --color-background: #0F1414;
+  --color-foreground: #E5E9E6;
+  --color-primary: #959E96;
+  --color-primary-foreground: #0F1414;
+  --color-secondary: #A698AD;
+  --color-secondary-foreground: #0F1414;
+  --color-accent: #C2AC74;
+  --color-accent-foreground: #0F1414;
+  --color-muted: #1B201F;
+  --color-muted-foreground: #BFC4BD;
+  --color-card: #151A19;
+  --color-card-foreground: #E5E9E6;
+  --color-border: #2A302D;
+  --color-ring: #959E96;
+
+  --color-bg: #0F1414;
+  --color-surface: #151A19;
+  --color-surface2: #1B201F;
+  --color-surface3: #2A302D;
+  --color-text: #E5E9E6;
+  --color-text2: #BFC4BD;
+  --color-graphite: #E5E9E6;
+  --color-graphite-soft: #1B201F;
+  --color-graphite-border: #2A302D;
+  --color-on-accent: #0F1414;
+  --color-on-secondary: #0F1414;
+  --color-success: #959E96;
+  --color-warning: #C2AC74;
+  --color-error: #DCA284;
+  --color-terracota: #A698AD;
+  --color-areia: #0F1414;
 }
 
 /* Scrollbar polish */
@@ -73,15 +172,15 @@ body {
   position: absolute;
   top: -40px;
   left: 0;
-  background: var(--color-accent);
-  color: var(--color-accent-foreground);
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
   padding: 8px 16px;
   text-decoration: none;
   font-family: var(--font-body);
   font-weight: 600;
   z-index: 9999;
   border-radius: 0 0 4px 0;
-  transition: top 0.2s;
+  transition: top 0.2s var(--ease-out);
 }
 .skip-link:focus {
   top: 0;
@@ -93,6 +192,12 @@ body {
   font-size: clamp(1.05rem, 2.5vw, 1.25rem);
   line-height: 1.9;
   letter-spacing: 0.01em;
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+/* Text wrap balance em headings */
+h1, h2, h3, h4 {
+  text-wrap: balance;
 }
 
 /* Reduce motion */

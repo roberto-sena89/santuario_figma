@@ -1,0 +1,531 @@
+import { useState, useEffect } from 'react';
+import {
+  Archive,
+  Bird,
+  BookOpen,
+  ChevronDown,
+  ChevronUp,
+  Cross,
+  Filter,
+  Flame,
+  HandHeart,
+  Heart,
+  HeartPulse,
+  Music,
+  Music2,
+  Search,
+  Sparkles,
+  Sun,
+  Tag,
+  X,
+} from 'lucide-react';
+import { CATEGORIAS } from '../../data/playbacks.js';
+import { normalizar } from '../../utils/format';
+
+// Ícones profissionais por categoria (mesmo padrão do PlaybackGrid)
+const ICONES_CATEGORIA = {
+  Todas: Sparkles,
+  Adoração: Heart,
+  'Louvor/Celebração': Music2,
+  'Oração/Clamor': HandHeart,
+  'Fé e Vitória': Cross,
+  Gratidão: Sun,
+  'Restauração e Cura': HeartPulse,
+  'Consolo e Esperança': Bird,
+  'Espírito Santo': Flame,
+  Geral: Archive,
+};
+
+/**
+ * Barra lateral de filtros personalizados para a página Playbacks.
+ *
+ * Recursos:
+ *   - Sidebar fixa no desktop / drawer no mobile
+ *   - Busca por artista com debounce
+ *   - Accordion expansível por seção (categoria, tom, etc.)
+ *   - Contagem de resultados por categoria
+ *   - Estado vazio com mensagem amigável
+ *   - Acessibilidade (aria-expanded, role, keyboard nav)
+ *   - Performance (lazy render via state)
+ *   - Persistência visual (sticky no desktop)
+ */
+export default function FilterSidebar({
+  // Filtros
+  categoria,
+  setCategoria,
+  tom,
+  setTom,
+  artistaSel,
+  setArtistaSel,
+  artistaBusca,
+  setArtistaBusca,
+  soFavoritas,
+  setSoFavoritas,
+  soHarpa,
+  setSoHarpa,
+  ordenacao,
+  setOrdenacao,
+  // Contagens
+  totalPorCategoria,
+  totalPorTom,
+  // Listas
+  artistasDisponiveis,
+  tomsDisponiveis,
+  contagemPorArtista,
+  // Ações
+  temFiltros,
+  limparFiltros,
+  // Visibilidade (mobile)
+  open = false,
+  onClose = null,
+  favoritasCount = 0,
+}) {
+  // Accordion: controla quais seções estão abertas (padrão: todas abertas)
+  const [secoesAbertas, setSecoesAbertas] = useState({
+    categorias: true,
+    tons: true,
+    artistas: true,
+    ordenacao: true,
+  });
+
+  const toggleSecao = (secao) => {
+    setSecoesAbertas((prev) => ({ ...prev, [secao]: !prev[secao] }));
+  };
+
+  // Fechar drawer no mobile ao pressionar ESC
+  useEffect(() => {
+    if (!open) return;
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') onClose?.();
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, [open, onClose]);
+
+  // Artistas filtrados pela busca (reutiliza lógica de normalização)
+  const artistasFiltrados = artistaBusca.trim()
+    ? artistasDisponiveis
+        .filter((a) => normalizar(a).includes(normalizar(artistaBusca)))
+        .slice(0, 30)
+    : artistasDisponiveis.slice(0, 30);
+
+  return (
+    <>
+      {/* Overlay mobile */}
+      {open && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={`
+          fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] transform overflow-y-auto
+          bg-surface border-r border-border shadow-2xl transition-transform duration-300 ease-out
+          lg:sticky lg:top-4 lg:z-0 lg:h-[calc(100vh-2rem)] lg:w-72 lg:max-w-none
+          lg:translate-x-0 lg:shadow-none lg:backdrop-blur-none
+          ${open ? 'translate-x-0' : '-translate-x-full'}
+        `}
+        aria-label="Filtros do catálogo de playbacks"
+      >
+        {/* Cabeçalho do sidebar */}
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-surface/95 px-5 py-4 backdrop-blur-md">
+          <div className="flex items-center gap-2">
+            <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-secondary/20 to-accent/20 text-secondary">
+              <Filter className="h-4 w-4" aria-hidden="true" />
+            </div>
+            <h2 className="text-sm font-bold uppercase tracking-wider text-text">Filtros</h2>
+            {temFiltros && (
+              <span className="ml-1 grid h-5 min-w-5 place-items-center rounded-full bg-secondary px-1.5 text-[10px] font-bold text-white">
+                {
+                  [
+                    categoria !== 'Todas' && 1,
+                    tom && 1,
+                    artistaSel && 1,
+                    soFavoritas && 1,
+                    soHarpa && 1,
+                  ].filter(Boolean).length
+                }
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1">
+            {temFiltros && (
+              <button
+                onClick={limparFiltros}
+                className="rounded-lg px-2.5 py-1.5 text-[11px] font-semibold text-error transition hover:bg-error/10"
+                aria-label="Limpar todos os filtros"
+              >
+                Limpar
+              </button>
+            )}
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="grid h-8 w-8 place-items-center rounded-lg text-text2 transition hover:bg-surface2 hover:text-text lg:hidden"
+                aria-label="Fechar filtros"
+              >
+                <X className="h-4 w-4" aria-hidden="true" />
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className="space-y-4 p-4">
+          {/* === Switches rápidos (Favoritas + Harpa) === */}
+          <div className="rounded-2xl border border-border/40 bg-surface2/60 p-3">
+            <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted">
+              Atalhos
+            </p>
+            <div className="space-y-1.5">
+              <label
+                className={`flex cursor-pointer items-center justify-between rounded-xl border px-3 py-2.5 text-sm transition ${
+                  soFavoritas
+                    ? 'border-error/40 bg-error/10 text-error'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:border-error/30 hover:text-text'
+                }`}
+              >
+                <span className="flex items-center gap-2.5">
+                  <Heart
+                    className={`h-4 w-4 ${soFavoritas ? 'fill-current' : ''}`}
+                    aria-hidden="true"
+                  />
+                  <span className="font-medium">Favoritas</span>
+                  {favoritasCount > 0 && (
+                    <span className="rounded-full bg-surface px-1.5 py-0.5 text-[10px] font-bold text-muted">
+                      {favoritasCount}
+                    </span>
+                  )}
+                </span>
+                <input
+                  type="checkbox"
+                  checked={soFavoritas}
+                  onChange={(e) => setSoFavoritas(e.target.checked)}
+                  className="sr-only"
+                />
+                <span
+                  className={`relative h-5 w-9 rounded-full transition ${
+                    soFavoritas ? 'bg-error' : 'bg-border'
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
+                      soFavoritas ? 'left-4' : 'left-0.5'
+                    }`}
+                  />
+                </span>
+              </label>
+
+              <label
+                className={`flex cursor-pointer items-center justify-between rounded-xl border px-3 py-2.5 text-sm transition ${
+                  soHarpa
+                    ? 'border-secondary/40 bg-secondary/10 text-secondary'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:border-secondary/30 hover:text-text'
+                }`}
+              >
+                <span className="flex items-center gap-2.5">
+                  <BookOpen className="h-4 w-4" aria-hidden="true" />
+                  <span className="font-medium">Harpa Cristã</span>
+                </span>
+                <input
+                  type="checkbox"
+                  checked={soHarpa}
+                  onChange={(e) => setSoHarpa(e.target.checked)}
+                  className="sr-only"
+                />
+                <span
+                  className={`relative h-5 w-9 rounded-full transition ${
+                    soHarpa ? 'bg-secondary' : 'bg-border'
+                  }`}
+                >
+                  <span
+                    className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-all ${
+                      soHarpa ? 'left-4' : 'left-0.5'
+                    }`}
+                  />
+                </span>
+              </label>
+            </div>
+          </div>
+
+          {/* === Ordenação === */}
+          <SecaoAccordion
+            titulo="Ordenar por"
+            icone={Filter}
+            aberta={secoesAbertas.ordenacao}
+            onToggle={() => toggleSecao('ordenacao')}
+            contador={ordenacao !== 'titulo-az' ? 1 : 0}
+          >
+            <div className="space-y-1">
+              {[
+                { id: 'titulo-az', label: 'Título A → Z' },
+                { id: 'titulo-za', label: 'Título Z → A' },
+                { id: 'artista-az', label: 'Artista A → Z' },
+              ].map((opt) => (
+                <button
+                  key={opt.id}
+                  onClick={() => setOrdenacao(opt.id)}
+                  className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm transition ${
+                    ordenacao === opt.id
+                      ? 'bg-secondary/15 text-secondary font-semibold'
+                      : 'text-text2 hover:bg-surface2/60 hover:text-text'
+                  }`}
+                >
+                  <span>{opt.label}</span>
+                  {ordenacao === opt.id && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </SecaoAccordion>
+
+          {/* === Categorias === */}
+          <SecaoAccordion
+            titulo="Categoria"
+            icone={Tag}
+            aberta={secoesAbertas.categorias}
+            onToggle={() => toggleSecao('categorias')}
+            contador={categoria !== 'Todas' ? 1 : 0}
+          >
+            <div className="space-y-0.5 max-h-64 overflow-y-auto pr-1">
+              {['Todas', ...CATEGORIAS].map((c) => {
+                const Icon = ICONES_CATEGORIA[c] || Archive;
+                const count = totalPorCategoria?.[c] ?? 0;
+                const ativa = categoria === c;
+                return (
+                  <button
+                    key={c}
+                    onClick={() => setCategoria(c)}
+                    className={`flex w-full items-center justify-between gap-2 rounded-xl px-2.5 py-1.5 text-sm transition ${
+                      ativa
+                        ? 'bg-secondary/15 text-secondary font-semibold'
+                        : 'text-text2 hover:bg-surface2/60 hover:text-text'
+                    }`}
+                  >
+                    <span className="flex min-w-0 items-center gap-2">
+                      <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                      <span className="truncate">{c}</span>
+                    </span>
+                    <span
+                      className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
+                        ativa ? 'bg-secondary/20 text-secondary' : 'bg-surface/60 text-muted'
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </SecaoAccordion>
+
+          {/* === Tom === */}
+          <SecaoAccordion
+            titulo="Tom"
+            icone={Music2}
+            aberta={secoesAbertas.tons}
+            onToggle={() => toggleSecao('tons')}
+            contador={tom ? 1 : 0}
+          >
+            <button
+              onClick={() => setTom('')}
+              className={`mb-1 flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-sm transition ${
+                !tom
+                  ? 'bg-secondary/15 text-secondary font-semibold'
+                  : 'text-text2 hover:bg-surface2/60 hover:text-text'
+              }`}
+            >
+              <span>Todos os tons</span>
+              {!tom && <span className="h-1.5 w-1.5 rounded-full bg-secondary" />}
+            </button>
+            <div className="max-h-48 space-y-2 overflow-y-auto pr-1">
+              {tomsDisponiveis.maiores.length > 0 && (
+                <GrupoTom
+                  label="Maiores"
+                  tons={tomsDisponiveis.maiores}
+                  tom={tom}
+                  setTom={setTom}
+                  count={totalPorTom}
+                />
+              )}
+              {tomsDisponiveis.menores.length > 0 && (
+                <GrupoTom
+                  label="Menores"
+                  tons={tomsDisponiveis.menores}
+                  tom={tom}
+                  setTom={setTom}
+                  count={totalPorTom}
+                />
+              )}
+              {tomsDisponiveis.desloc.length > 0 && (
+                <GrupoTom
+                  label="Deslocamentos"
+                  tons={tomsDisponiveis.desloc}
+                  tom={tom}
+                  setTom={setTom}
+                  count={totalPorTom}
+                />
+              )}
+              {tomsDisponiveis.outros.length > 0 && (
+                <GrupoTom
+                  label="Vozes / outros"
+                  tons={tomsDisponiveis.outros}
+                  tom={tom}
+                  setTom={setTom}
+                  count={totalPorTom}
+                />
+              )}
+            </div>
+          </SecaoAccordion>
+
+          {/* === Artista === */}
+          <SecaoAccordion
+            titulo="Artista"
+            icone={Music}
+            aberta={secoesAbertas.artistas}
+            onToggle={() => toggleSecao('artistas')}
+            contador={artistaSel ? 1 : 0}
+          >
+            <div className="relative mb-2">
+              <Search
+                className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted"
+                aria-hidden="true"
+              />
+              <input
+                value={artistaBusca}
+                onChange={(e) => setArtistaBusca(e.target.value)}
+                onFocus={() => setArtistaSel('')}
+                placeholder="Buscar artista…"
+                aria-label="Filtrar por artista"
+                className="w-full rounded-lg border border-border/40 bg-surface py-2 pl-8 pr-8 text-sm text-text outline-none transition placeholder:text-muted focus:border-secondary/50 focus:ring-2 focus:ring-secondary/15"
+              />
+              {artistaBusca && (
+                <button
+                  onClick={() => setArtistaBusca('')}
+                  className="absolute right-2 top-1/2 grid h-5 w-5 -translate-y-1/2 place-items-center rounded-full text-muted hover:bg-surface2 hover:text-text"
+                  aria-label="Limpar busca"
+                >
+                  <X className="h-3 w-3" aria-hidden="true" />
+                </button>
+              )}
+            </div>
+            <div className="max-h-64 space-y-0.5 overflow-y-auto pr-1">
+              {artistaSel && (
+                <button
+                  onClick={() => {
+                    setArtistaSel('');
+                    setArtistaBusca('');
+                  }}
+                  className="mb-1 flex w-full items-center gap-2 rounded-xl bg-error/10 px-2.5 py-1.5 text-sm font-semibold text-error transition hover:bg-error/20"
+                >
+                  <X className="h-3 w-3" aria-hidden="true" />
+                  Limpar: {artistaSel}
+                </button>
+              )}
+              {artistasFiltrados.length === 0 ? (
+                <p className="px-2 py-3 text-center text-xs text-muted">
+                  Nenhum artista encontrado
+                </p>
+              ) : (
+                artistasFiltrados.map((a) => {
+                  const count = contagemPorArtista?.get(a) || 0;
+                  const ativo = artistaSel === a;
+                  return (
+                    <button
+                      key={a}
+                      onClick={() => setArtistaSel(ativo ? '' : a)}
+                      className={`flex w-full items-center justify-between gap-2 rounded-xl px-2.5 py-1.5 text-sm transition ${
+                        ativo
+                          ? 'bg-secondary/15 text-secondary font-semibold'
+                          : 'text-text2 hover:bg-surface2/60 hover:text-text'
+                      }`}
+                    >
+                      <span className="min-w-0 truncate text-left">{a}</span>
+                      <span
+                        className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
+                          ativo ? 'bg-secondary/20 text-secondary' : 'bg-surface/60 text-muted'
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })
+              )}
+            </div>
+          </SecaoAccordion>
+        </div>
+      </aside>
+    </>
+  );
+}
+
+/**
+ * Subcomponente: cabeçalho de seção com accordion
+ */
+function SecaoAccordion({ titulo, icone: Icone, aberta, onToggle, contador, children }) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border/40 bg-surface2/40">
+      <button
+        onClick={onToggle}
+        aria-expanded={aberta}
+        className="flex w-full items-center justify-between px-3.5 py-3 text-left transition hover:bg-surface2/60"
+      >
+        <span className="flex items-center gap-2 text-sm font-bold text-text">
+          {Icone && <Icone className="h-4 w-4 text-secondary" aria-hidden="true" />}
+          {titulo}
+          {contador > 0 && (
+            <span className="rounded-full bg-secondary/20 px-1.5 py-0.5 text-[10px] font-bold text-secondary">
+              {contador}
+            </span>
+          )}
+        </span>
+        {aberta ? (
+          <ChevronUp className="h-4 w-4 text-muted" aria-hidden="true" />
+        ) : (
+          <ChevronDown className="h-4 w-4 text-muted" aria-hidden="true" />
+        )}
+      </button>
+      {aberta && <div className="border-t border-border/40 px-2 py-2">{children}</div>}
+    </div>
+  );
+}
+
+/**
+ * Subcomponente: grupo de tons (maiores, menores, etc.)
+ */
+function GrupoTom({ label, tons, tom, setTom, count = {} }) {
+  return (
+    <div>
+      <p className="px-1.5 pb-1 pt-1 text-[10px] font-bold uppercase tracking-wider text-muted">
+        {label}
+      </p>
+      <div className="flex flex-wrap gap-1">
+        {tons.map((t) => {
+          const ativo = tom === t;
+          const total = count[t] || 0;
+          return (
+            <button
+              key={t}
+              onClick={() => setTom(ativo ? '' : t)}
+              className={`rounded-md border px-2 py-1 text-[11px] font-semibold transition ${
+                ativo
+                  ? 'border-secondary/50 bg-secondary/20 text-secondary'
+                  : total === 0
+                    ? 'cursor-not-allowed border-border/20 bg-surface/30 text-muted/40'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:border-secondary/30 hover:text-text'
+              }`}
+              disabled={total === 0 && !ativo}
+              aria-pressed={ativo}
+            >
+              {t.replace('Tom ', '')}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

@@ -4,8 +4,7 @@ import { MINISTERIOS } from "../data/ministerios";
 import { CHURCH } from "../data/church";
 import type { Page } from "../components/Navigation";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1763645274832-3f63395dd8f6?w=1800&h=1000&fit=crop&auto=format";
+const HERO_IMAGE = "/fotos/homepage/1.jfif";
 
 const BIBLE_IMAGE =
   "https://images.unsplash.com/photo-1497621122273-f5cfb6065c56?w=800&h=600&fit=crop&auto=format";
@@ -32,16 +31,16 @@ export default function Home({ onNavigate }: HomeProps) {
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         aria-label="Boas-vindas"
       >
-        <div className="absolute inset-0 bg-primary">
+        <div className="absolute inset-0 bg-sand-900">
           <img
             src={HERO_IMAGE}
             alt="Interior de uma igreja iluminada com fiéis adorando"
-            className="w-full h-full object-cover opacity-30"
+            className="w-full h-full object-cover opacity-90"
             loading="eager"
             width={1800}
             height={1000}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-primary/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-sand-900/60 via-sand-900/30 to-sand-900/80" />
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -81,32 +80,6 @@ export default function Home({ onNavigate }: HomeProps) {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
-        </div>
-      </section>
-
-      {/* Palavra do Dia */}
-      <section className="py-20 bg-primary" aria-label="Palavra do Dia">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-accent text-sm font-medium uppercase tracking-widest mb-4">
-            Palavra do Dia
-          </p>
-          <blockquote className="font-display text-2xl sm:text-3xl lg:text-4xl font-light text-primary-foreground leading-relaxed italic mb-6">
-            "{verse.text}"
-          </blockquote>
-          <cite className="not-italic text-primary-foreground/60 font-medium text-base">
-            — {verse.reference}
-          </cite>
-          <div className="mt-8">
-            <button
-              onClick={() => navigate("palavra-do-dia")}
-              className="text-accent hover:text-accent/80 text-sm font-medium flex items-center gap-2 mx-auto transition-colors"
-            >
-              Ver versículo completo
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
         </div>
       </section>
 
@@ -162,6 +135,32 @@ export default function Home({ onNavigate }: HomeProps) {
                 <div className="text-muted-foreground text-sm">{item.desc}</div>
               </button>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Palavra do Dia */}
+      <section className="py-20 bg-primary" aria-label="Palavra do Dia">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <p className="text-accent text-sm font-medium uppercase tracking-widest mb-4">
+            Palavra do Dia
+          </p>
+          <blockquote className="font-display text-2xl sm:text-3xl lg:text-4xl font-light text-primary-foreground leading-relaxed italic mb-6">
+            "{verse.text}"
+          </blockquote>
+          <cite className="not-italic text-primary-foreground/60 font-medium text-base">
+            — {verse.reference}
+          </cite>
+          <div className="mt-8">
+            <button
+              onClick={() => navigate("palavra-do-dia")}
+              className="text-accent hover:text-accent/80 text-sm font-medium flex items-center gap-2 mx-auto transition-colors"
+            >
+              Ver versículo completo
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
