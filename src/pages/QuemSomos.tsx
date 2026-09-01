@@ -41,34 +41,40 @@ export default function QuemSomos() {
     <main id="main-content" className="min-h-screen bg-background pt-16">
       {/* Hero */}
       <section className="relative h-72 sm:h-96 overflow-hidden" aria-label="Foto da igreja">
-        <div className="absolute inset-0 bg-primary">
-          <img
-            src={STAINED_IMAGE}
-            alt="Vitral colorido de uma igreja com luz solar"
-            className="w-full h-full object-cover opacity-40"
-            loading="lazy"
-            width={1200}
-            height={700}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-primary/20" />
-        </div>
+        <div className="absolute inset-0">
+                  <img
+                    src={STAINED_IMAGE}
+                    alt="Vitral colorido de uma igreja com luz solar"
+                    className="w-full h-full object-cover opacity-70 saturate-[0.5]"
+                    loading="lazy"
+                    width={1200}
+                    height={700}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                </div>
         <div className="relative h-full flex flex-col items-center justify-end pb-12 text-center px-4">
-          <p className="text-accent text-sm font-medium uppercase tracking-widest mb-2">
-            Nossa História
-          </p>
-          <h1 className="font-display text-3xl sm:text-5xl font-light text-white">
-            Quem Somos
-          </h1>
-        </div>
+                  <p className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-accent/40 px-4 py-1.5 text-accent text-xs font-semibold uppercase tracking-[0.18em] mb-3 backdrop-blur-sm">
+                    <span aria-hidden="true">⛪</span>
+                    Nossa História
+                  </p>
+                  <h1 className="font-display text-3xl sm:text-5xl font-bold text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)]">
+                    Quem Somos
+                  </h1>
+                </div>
       </section>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Story */}
         <section className="grid lg:grid-cols-2 gap-12 items-start mb-20" aria-label="Nossa história">
           <div>
-            <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground mb-6">
-              Uma história de fé e crescimento
-            </h2>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20">
+                📖
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground">
+                Uma história de fé e crescimento
+              </h2>
+            </div>
             <div className="space-y-4 text-muted-foreground text-base leading-relaxed">
               <p>
                 A {CHURCH.name} foi fundada em {CHURCH.founded} com um pequeno grupo de famílias reunidas em torno de um sonho: estabelecer uma comunidade de fé comprometida com o amor de Deus e o serviço ao próximo.
@@ -82,22 +88,22 @@ export default function QuemSomos() {
             </div>
           </div>
           <div className="space-y-5">
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="text-4xl font-display font-bold text-accent mb-2">
+            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+              <div className="text-4xl font-display font-bold text-[#B8860B] dark:text-[#E8B35E] mb-2">
                 {new Date().getFullYear() - CHURCH.founded}+
               </div>
               <div className="font-semibold text-foreground">Anos de ministério</div>
               <div className="text-muted-foreground text-sm">Desde {CHURCH.founded}</div>
             </div>
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="text-4xl font-display font-bold text-accent mb-2">
+            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+              <div className="text-4xl font-display font-bold text-[#B8860B] dark:text-[#E8B35E] mb-2">
                 {CHURCH.members}+
               </div>
               <div className="font-semibold text-foreground">Membros ativos</div>
               <div className="text-muted-foreground text-sm">E crescendo a cada dia</div>
             </div>
-            <div className="bg-card border border-border rounded-xl p-6">
-              <div className="text-4xl font-display font-bold text-accent mb-2">7</div>
+            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+              <div className="text-4xl font-display font-bold text-[#B8860B] dark:text-[#E8B35E] mb-2">7</div>
               <div className="font-semibold text-foreground">Ministérios ativos</div>
               <div className="text-muted-foreground text-sm">Servindo a cidade</div>
             </div>
@@ -106,76 +112,99 @@ export default function QuemSomos() {
 
         {/* Mission Vision Values */}
         <section className="mb-20" aria-label="Missão, visão e valores">
-          <div className="grid sm:grid-cols-3 gap-6 mb-12">
-            <div className="bg-primary text-primary-foreground rounded-2xl p-7">
-              <div className="w-10 h-10 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <h2 className="font-display text-xl font-semibold mb-3">Nossa Missão</h2>
-              <p className="text-primary-foreground/80 text-sm leading-relaxed">
-                Glorificar a Deus fazendo discípulos de Jesus Cristo em todos os âmbitos da vida, edificando o corpo de Cristo com a Palavra e o Espírito.
-              </p>
-            </div>
-            <div className="bg-accent text-white rounded-2xl p-7">
-              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </div>
-              <h2 className="font-display text-xl font-semibold mb-3">Nossa Visão</h2>
-              <p className="text-white/90 text-sm leading-relaxed">
-                Ser uma igreja relevante, acolhedora e transformadora, que alcance gerações e comunidades com o amor de Cristo, impactando nossa cidade e além.
-              </p>
-            </div>
-            <div className="bg-card border border-border rounded-2xl p-7">
-              <div className="w-10 h-10 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                </svg>
-              </div>
-              <h2 className="font-display text-xl font-semibold text-foreground mb-3">Nossos Valores</h2>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Fé bíblica, amor ao próximo, integridade, comunhão, evangelismo, adoração genuína e serviço incondicional.
-              </p>
-            </div>
-          </div>
+                  <div className="flex items-center gap-3 mb-8">
+                    <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20">
+                      🎯
+                    </span>
+                    <div>
+                      <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground">
+                        Missão, Visão e Valores
+                      </h2>
+                      <p className="text-sm text-muted-foreground">
+                        O que nos move, onde queremos chegar e quem somos
+                      </p>
+                    </div>
+                  </div>
 
-          {/* Values grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {VALUES.map((v, i) => (
-              <div key={i} className="bg-card border border-border rounded-xl p-5 flex gap-4">
-                <div className="text-accent text-xl flex-shrink-0 mt-0.5" aria-hidden="true">
-                  {v.icon}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground text-sm mb-1">{v.title}</h3>
-                  <p className="text-muted-foreground text-xs leading-relaxed">{v.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+                  <div className="grid sm:grid-cols-3 gap-6 mb-12">
+                    <div className="group bg-card/80 backdrop-blur-sm border border-[#D4A24C]/30 rounded-2xl p-7 transition-all duration-300 hover:shadow-lg hover:shadow-[#D4A24C]/15 hover:-translate-y-0.5">
+                      <div className="w-10 h-10 bg-[#D4A24C]/15 rounded-xl flex items-center justify-center mb-4 ring-1 ring-[#D4A24C]/20 transition-transform duration-300 group-hover:scale-110">
+                        <span className="text-lg" aria-hidden="true">📜</span>
+                      </div>
+                      <h2 className="font-display text-xl font-semibold text-foreground mb-3">
+                        Nossa Missão
+                      </h2>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        Glorificar a Deus fazendo discípulos de Jesus Cristo em todos os âmbitos da vida, edificando o corpo de Cristo com a Palavra e o Espírito.
+                      </p>
+                    </div>
+                    <div className="group bg-card/80 backdrop-blur-sm border border-[#D4A24C]/30 rounded-2xl p-7 transition-all duration-300 hover:shadow-lg hover:shadow-[#D4A24C]/15 hover:-translate-y-0.5">
+                      <div className="w-10 h-10 bg-[#D4A24C]/15 rounded-xl flex items-center justify-center mb-4 ring-1 ring-[#D4A24C]/20 transition-transform duration-300 group-hover:scale-110">
+                        <span className="text-lg" aria-hidden="true">👁️</span>
+                      </div>
+                      <h2 className="font-display text-xl font-semibold text-foreground mb-3">
+                        Nossa Visão
+                      </h2>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        Ser uma igreja relevante, acolhedora e transformadora, que alcance gerações e comunidades com o amor de Cristo, impactando nossa cidade e além.
+                      </p>
+                    </div>
+                    <div className="group bg-card/80 backdrop-blur-sm border border-[#D4A24C]/30 rounded-2xl p-7 transition-all duration-300 hover:shadow-lg hover:shadow-[#D4A24C]/15 hover:-translate-y-0.5">
+                      <div className="w-10 h-10 bg-[#D4A24C]/15 rounded-xl flex items-center justify-center mb-4 ring-1 ring-[#D4A24C]/20 transition-transform duration-300 group-hover:scale-110">
+                        <span className="text-lg" aria-hidden="true">💎</span>
+                      </div>
+                      <h2 className="font-display text-xl font-semibold text-foreground mb-3">
+                        Nossos Valores
+                      </h2>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        Fé bíblica, amor ao próximo, integridade, comunhão, evangelismo, adoração genuína e serviço incondicional.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Values grid */}
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {VALUES.map((v, i) => (
+                      <div key={i} className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5 flex gap-4 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+                        <div className="text-[#B8860B] dark:text-[#E8B35E] text-xl flex-shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" aria-hidden="true">
+                          {v.icon}
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-foreground text-sm mb-1">{v.title}</h3>
+                          <p className="text-muted-foreground text-xs leading-relaxed">{v.text}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
 
         {/* Leadership */}
         <section aria-label="Liderança">
-          <h2 className="font-display text-2xl font-light text-foreground mb-8">
-            Nossa Liderança
-          </h2>
+          <div className="flex items-center gap-3 mb-8">
+            <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20">
+              🙌
+            </span>
+            <div>
+              <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground">
+                Nossa Liderança
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Pessoas que conduzem nossa comunidade com fé e dedicação
+              </p>
+            </div>
+          </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {CHURCH.leadership.map((leader, i) => (
-              <div key={i} className="bg-card border border-border rounded-xl p-6">
-                <div className="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center mb-4">
-                  <svg className="w-7 h-7 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <div key={i} className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+                <div className="w-14 h-14 bg-[#D4A24C]/15 rounded-full flex items-center justify-center mb-4 ring-1 ring-[#D4A24C]/25 transition-transform duration-300 group-hover:scale-110">
+                  <svg className="w-7 h-7 text-[#B8860B] dark:text-[#E8B35E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
                 <h3 className="font-display font-semibold text-foreground text-base">
                   {leader.name}
                 </h3>
-                <p className="text-accent text-xs font-medium uppercase tracking-wide mt-0.5 mb-3">
+                <p className="text-[#B8860B] dark:text-[#E8B35E] text-xs font-semibold uppercase tracking-wide mt-1 mb-3">
                   {leader.role}
                 </p>
                 <p className="text-muted-foreground text-sm leading-relaxed">{leader.bio}</p>

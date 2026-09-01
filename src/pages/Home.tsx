@@ -1,8 +1,9 @@
 import { getDailyVerse } from "../data/verses";
-import { WEEKLY_SCHEDULE, UPCOMING_EVENTS, formatDate } from "../data/schedule";
+import { UPCOMING_EVENTS, formatDate } from "../data/schedule";
 import { MINISTERIOS } from "../data/ministerios";
 import { CHURCH } from "../data/church";
 import type { Page } from "../components/Navigation";
+import EscalaSemanaCard from "../components/EscalaSemanaCard";
 
 const HERO_IMAGE = "/fotos/homepage/1.jfif";
 
@@ -15,8 +16,7 @@ interface HomeProps {
 
 export default function Home({ onNavigate }: HomeProps) {
   const verse = getDailyVerse();
-  const nextCultos = WEEKLY_SCHEDULE.filter((s) => s.type === "culto").slice(0, 3);
-  const featuredMinistries = MINISTERIOS.slice(0, 4);
+    const featuredMinistries = MINISTERIOS.slice(0, 4);
   const nextEvents = UPCOMING_EVENTS.slice(0, 3);
 
   const navigate = (page: Page) => {
@@ -44,11 +44,6 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 bg-accent/20 border border-accent/40 text-accent-foreground backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium mb-8">
-            <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-            Todos são bem-vindos
-          </div>
-
           <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-light text-white leading-tight mb-6">
             Um lugar para você<br />
             <span className="italic text-accent">encontrar a Deus</span>
@@ -59,27 +54,21 @@ export default function Home({ onNavigate }: HomeProps) {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => navigate("cultos")}
-              className="bg-accent hover:bg-accent/90 text-white font-semibold px-8 py-4 rounded-lg text-base transition-all hover:shadow-lg hover:shadow-accent/25"
-            >
-              Ver horários dos cultos
-            </button>
-            <button
-              onClick={() => navigate("quem-somos")}
-              className="border border-white/30 hover:border-white/60 text-white font-medium px-8 py-4 rounded-lg text-base backdrop-blur-sm transition-colors"
-            >
-              Novo por aqui?
-            </button>
-          </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-xs uppercase tracking-widest">Rolar</span>
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+                      <button
+                        onClick={() => navigate("cultos")}
+                        className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold pl-3 pr-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/45 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+                      >
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">⛪</span>
+                        Ver horários dos cultos
+                      </button>
+                      <button
+                        onClick={() => navigate("quem-somos")}
+                        className="group inline-flex items-center gap-3 rounded-full border border-white/40 bg-white/10 px-6 py-2.5 text-white font-medium backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/15 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+                      >
+                        <span className="text-base transition-transform duration-300 group-hover:scale-110" aria-hidden="true">👋</span>
+                        Novo por aqui?
+                      </button>
+                    </div>
         </div>
       </section>
 
@@ -124,12 +113,12 @@ export default function Home({ onNavigate }: HomeProps) {
               <button
                 key={item.page}
                 onClick={() => navigate(item.page)}
-                className="bg-card border border-border rounded-xl p-6 text-left hover:border-accent/40 hover:shadow-md transition-all group"
+                className="group bg-card border border-border/70 rounded-2xl p-6 text-left hover:border-[#D4A24C]/50 hover:shadow-xl hover:shadow-[#D4A24C]/10 hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="text-accent mb-3 group-hover:scale-110 transition-transform origin-left">
+                <div className="inline-flex w-11 h-11 items-center justify-center rounded-xl bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#9C7A2E] mb-4 transition-transform duration-300 group-hover:scale-110">
                   {item.icon}
                 </div>
-                <div className="font-display font-semibold text-foreground text-base mb-1">
+                <div className="font-display font-semibold text-foreground text-base mb-1 group-hover:text-[#9C7A2E] transition-colors">
                   {item.label}
                 </div>
                 <div className="text-muted-foreground text-sm">{item.desc}</div>
@@ -140,243 +129,271 @@ export default function Home({ onNavigate }: HomeProps) {
       </section>
 
       {/* Palavra do Dia */}
-      <section className="py-20 bg-primary" aria-label="Palavra do Dia">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-accent text-sm font-medium uppercase tracking-widest mb-4">
-            Palavra do Dia
-          </p>
-          <blockquote className="font-display text-2xl sm:text-3xl lg:text-4xl font-light text-primary-foreground leading-relaxed italic mb-6">
-            "{verse.text}"
-          </blockquote>
-          <cite className="not-italic text-primary-foreground/60 font-medium text-base">
-            — {verse.reference}
-          </cite>
-          <div className="mt-8">
-            <button
-              onClick={() => navigate("palavra-do-dia")}
-              className="text-accent hover:text-accent/80 text-sm font-medium flex items-center gap-2 mx-auto transition-colors"
-            >
-              Ver versículo completo
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
+            <section className="py-20 relative overflow-hidden" aria-label="Palavra do Dia">
+                          <img
+                            src="/fotos/homepage/7.jfif"
+                            alt=""
+                            className="absolute inset-0 w-full h-full object-cover object-center opacity-85"
+                            loading="lazy"
+                            aria-hidden="true"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
+                          <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+                      <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-gradient-to-r from-accent/15 via-white/10 to-accent/15 px-4 py-1.5 text-accent text-xs font-semibold uppercase tracking-[0.18em] backdrop-blur-md shadow-sm shadow-black/20 [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
+                                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/20 text-[11px]" aria-hidden="true">🙏</span>
+                                              Palavra do Dia
+                                            </span>
+                      <span className="text-5xl sm:text-6xl leading-none text-accent/80 block mb-2 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]" aria-hidden="true">❝</span>
+                                            <div className="mx-auto max-w-3xl rounded-2xl bg-graphite/25 px-5 py-4 sm:px-8 sm:py-6 backdrop-blur-sm mb-6">
+                                                                                        <blockquote className="font-bible text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-snug sm:leading-tight [text-shadow:0_2px_18px_rgba(0,0,0,0.65)]">
+                                                                                          {verse.text}
+                                                                                        </blockquote>
+                                                                                        <cite className="not-italic block mt-3 font-bible text-white/80 font-medium text-base [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
+                                              — {verse.reference}
+                                            </cite>
+                                            </div>
+                      <div className="mt-8">
+                        <button
+                                                  onClick={() => navigate("palavra-do-dia")}
+                                                  className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold text-sm sm:text-base pl-2.5 pr-6 py-2 rounded-full shadow-lg shadow-[#D4A24C]/35 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                                                >
+                                                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
+                                                  Ler a Palavra do Dia completa
+                                                  <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">✨</span>
+                                                </button>
+                      </div>
         </div>
       </section>
 
       {/* Próximos Cultos + Bíblia */}
       <section className="py-20 bg-muted/40" aria-label="Cultos e Bíblia">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Cultos */}
-            <div>
-              <p className="text-accent text-sm font-medium uppercase tracking-widest mb-2">
-                Programação Semanal
-              </p>
-              <h2 className="font-display text-3xl sm:text-4xl font-light text-foreground mb-8">
-                Venha nos visitar
-              </h2>
-              <div className="space-y-4">
-                {nextCultos.map((culto, i) => (
-                  <div
-                    key={i}
-                    className="bg-card border border-border rounded-xl p-5 flex items-start gap-4"
-                  >
-                    <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 flex-shrink-0">
-                      <svg className="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="font-semibold text-foreground text-base mb-0.5">
-                        {culto.title}
-                      </div>
-                      <div className="text-accent font-medium text-sm mb-1">
-                        {culto.day} às {culto.time}
-                      </div>
-                      <div className="text-muted-foreground text-sm">{culto.description}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <button
-                onClick={() => navigate("cultos")}
-                className="mt-6 text-accent hover:text-accent/80 font-medium text-sm flex items-center gap-2 transition-colors"
-              >
-                Ver agenda completa
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-
+          <div className="mx-auto max-w-2xl">
             {/* Bíblia CTA */}
-            <div className="relative rounded-2xl overflow-hidden">
-              <div className="bg-primary h-80 relative">
-                <img
-                  src={BIBLE_IMAGE}
-                  alt="Bíblia aberta com luz natural"
-                  className="w-full h-full object-cover opacity-40"
-                  loading="lazy"
-                  width={800}
-                  height={600}
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                  <svg className="w-12 h-12 text-accent mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                  <h3 className="font-display text-2xl text-white font-light mb-3">
-                    Leia a Bíblia Sagrada
-                  </h3>
-                  <p className="text-white/70 text-sm leading-relaxed mb-6">
+            <div>
+              <EscalaSemanaCard />
+              <div className="relative rounded-2xl overflow-hidden">
+                          <div className="h-80 sm:h-96 relative">
+                            <img
+                              src={BIBLE_IMAGE}
+                              alt="Bíblia aberta com luz natural"
+                              className="w-full h-full object-cover opacity-75"
+                              loading="lazy"
+                              width={800}
+                              height={600}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/30" />
+                                                        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+                                              <svg className="w-12 h-12 text-accent mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                              </svg>
+                                              <h3 className="font-display text-2xl text-white font-normal mb-3 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
+                                                                  Leia a Bíblia Sagrada
+                                                                </h3>
+                                                                <p className="text-white/90 text-sm leading-relaxed mb-6 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
                     Acesse todos os livros do Antigo e Novo Testamento na tradução Almeida.
                   </p>
                   <button
-                    onClick={() => navigate("biblia")}
-                    className="bg-accent hover:bg-accent/90 text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors"
+                                      onClick={() => navigate("biblia")}
+                                      className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold pl-2.5 pr-6 py-2 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                                    >
+                                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
+                                      Ler Bíblia Agora
+                                    </button>
+                </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </section>
+
+      {/* Próximos Eventos */}
+            <section className="py-20 bg-background" aria-label="Próximos eventos">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+                  <div>
+                    <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
+                      <span aria-hidden="true">🗓️</span>
+                      Em Breve
+                    </p>
+                    <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
+                      Próximos eventos
+                    </h2>
+                  </div>
+                  <button
+                    onClick={() => navigate("cultos")}
+                    className="group inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-5 py-2.5 text-sm font-medium text-[#9C7A2E] transition-all duration-200 hover:border-[#D4A24C]/70 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 flex-shrink-0"
                   >
-                    Abrir leitor bíblico
+                    Ver todos
+                    <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {nextEvents.map((event) => (
+                    <article
+                      key={event.id}
+                      className="group bg-gradient-to-b from-gray-800 to-gray-900 border border-gray-700 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-black/30 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
+                                    >
+                                      {event.highlight && (
+                                        <div className="bg-gradient-to-r from-[#D4A24C] to-[#C4933C] px-4 py-1.5">
+                                                                            <span className="inline-flex items-center gap-1.5 text-gray-900 text-xs font-bold uppercase tracking-wide">
+                                                                              <span aria-hidden="true">⭐</span>
+                                                                              Destaque
+                                                                            </span>
+                                                                          </div>
+                                      )}
+                                      <div className="p-6">
+                                                        <time
+                                                          className="inline-flex items-center gap-1.5 text-[#D4A24C] text-xs font-semibold uppercase tracking-wide"
+                                                          dateTime={event.date}
+                                                        >
+                                                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                                          {formatDate(event.date)} · {event.time}
+                                                        </time>
+                                                        <h3 className="font-display text-lg font-semibold text-white mt-3 mb-2 group-hover:text-[#D4A24C] transition-colors">
+                                                          {event.title}
+                                                        </h3>
+                                                        <p className="text-white/75 text-sm leading-relaxed mb-5">
+                                          {event.description}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-white/60 text-xs border-t border-white/10 pt-4">
+                          <svg className="w-3.5 h-3.5 flex-shrink-0 text-[#D4A24C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          </svg>
+                          <span>{event.location}</span>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+      {/* Ministérios */}
+            <section className="py-20 bg-muted/40" aria-label="Ministérios">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12">
+                  <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3 mx-auto">
+                    <span aria-hidden="true">🤝</span>
+                    Comunidade
+                  </p>
+                  <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
+                    Nossos ministérios
+                  </h2>
+                  <p className="text-muted-foreground mt-4 max-w-xl mx-auto text-base">
+                    Cada pessoa tem um lugar e um chamado. Conheça os ministérios e encontre onde você se encaixa.
+                  </p>
+                </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                  {featuredMinistries.map((m) => (
+                    <div
+                      key={m.id}
+                      className="group bg-gradient-to-b from-card to-card/60 border border-border/70 rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D4A24C]/15 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4 bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#9C7A2E] transition-transform duration-300 group-hover:scale-110 shadow-sm"
+                        aria-hidden="true"
+                      >
+                        {m.icon}
+                      </div>
+                      <h3 className="font-display font-semibold text-foreground text-base mb-2 group-hover:text-[#9C7A2E] transition-colors">
+                        {m.name}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                        {m.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <div className="text-center mt-10">
+                  <button
+                    onClick={() => navigate("ministerios")}
+                    className="group inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-6 py-3 text-sm font-medium text-[#9C7A2E] transition-all duration-200 hover:border-[#D4A24C]/70 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    Ver todos os ministérios
+                    <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </button>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            </section>
 
-      {/* Próximos Eventos */}
-      <section className="py-20 bg-background" aria-label="Próximos eventos">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-            <div>
-              <p className="text-accent text-sm font-medium uppercase tracking-widest mb-2">
-                Em Breve
-              </p>
-              <h2 className="font-display text-3xl sm:text-4xl font-light text-foreground">
-                Próximos eventos
-              </h2>
-            </div>
+      {/* Novo por aqui */}
+      <section className="relative overflow-hidden" aria-label="Novo por aqui">
+        {/* Imagem de fundo */}
+        <img
+          src="/fotos/homepage/9.jfif"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        {/* Gradiente — fade escuro nas bordas + leve overlay central pra legibilidade */}
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-graphite/85 via-graphite/55 to-graphite/85"
+          aria-hidden="true"
+        />
+        {/* Ornam — linha bronze sutil no topo */}
+        <div
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent"
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 mx-auto max-w-3xl px-4 py-24 sm:py-28 text-center">
+          {/* Eyebrow */}
+                    <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-white/10 px-5 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur-sm shadow-lg shadow-black/20 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
+                      <span className="text-sm" aria-hidden="true">🕊️</span>
+                      Primeira visita
+                      <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" aria-hidden="true" />
+                    </p>
+
+          {/* Headline */}
+                    <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.1] text-white mb-3 text-balance [text-shadow:0_2px_20px_rgba(0,0,0,0.65)]">
+                      Está visitando pela primeira vez?
+                    </h2>
+
+                    {/* Divider decorativo */}
+                    <div className="mx-auto mb-5 h-0.5 w-16 rounded-full bg-accent/60" aria-hidden="true" />
+
+          {/* Subhead */}
+          <p className="mx-auto max-w-2xl text-base sm:text-lg leading-[1.75] text-white mb-10 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
+            Seja muito bem-vindo. Aqui você vai encontrar uma comunidade acolhedora, ensino bíblico
+            sólido e pessoas que se importam com você.
+          </p>
+
+          {/* CTAs — hierarquia clara: primário (bronze) + secundário (outline branco) */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
-              onClick={() => navigate("cultos")}
-              className="text-accent hover:text-accent/80 font-medium text-sm flex items-center gap-2 transition-colors flex-shrink-0"
+              onClick={() => navigate("quem-somos")}
+              className="group inline-flex items-center gap-2 rounded-full bg-[#D4A24C] hover:bg-[#C4933C] px-7 py-3.5 text-sm sm:text-base font-semibold text-gray-900 shadow-lg shadow-[#D4A24C]/25 ring-1 ring-[#B8860B]/40 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/45 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
             >
-              Ver todos
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              Conheça nossa história
+              <svg
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {nextEvents.map((event) => (
-              <article
-                key={event.id}
-                className="bg-card border border-border rounded-xl overflow-hidden hover:shadow-md hover:border-accent/30 transition-all"
-              >
-                {event.highlight && (
-                  <div className="bg-accent px-4 py-1.5">
-                    <span className="text-white text-xs font-semibold uppercase tracking-wide">
-                      Destaque
-                    </span>
-                  </div>
-                )}
-                <div className="p-6">
-                  <time
-                    className="text-accent text-xs font-semibold uppercase tracking-wide"
-                    dateTime={event.date}
-                  >
-                    {formatDate(event.date)} · {event.time}
-                  </time>
-                  <h3 className="font-display text-lg font-semibold text-foreground mt-2 mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                    {event.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-muted-foreground text-xs">
-                    <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    </svg>
-                    <span>{event.location}</span>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Ministérios */}
-      <section className="py-20 bg-muted/40" aria-label="Ministérios">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <p className="text-accent text-sm font-medium uppercase tracking-widest mb-2">
-              Comunidade
-            </p>
-            <h2 className="font-display text-3xl sm:text-4xl font-light text-foreground">
-              Nossos ministérios
-            </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto text-base">
-              Cada pessoa tem um lugar e um chamado. Conheça os ministérios e encontre onde você se encaixa.
-            </p>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {featuredMinistries.map((m) => (
-              <div
-                key={m.id}
-                className="bg-card border border-border rounded-xl p-6 hover:shadow-md transition-all hover:border-accent/30 group"
-              >
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center text-xl mb-4"
-                  style={{ backgroundColor: `${m.color}15`, color: m.color }}
-                  aria-hidden="true"
-                >
-                  {m.icon}
-                </div>
-                <h3 className="font-display font-semibold text-foreground text-base mb-2">
-                  {m.name}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                  {m.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <button
-              onClick={() => navigate("ministerios")}
-              className="border border-border hover:border-accent/50 text-foreground font-medium px-6 py-3 rounded-lg text-sm transition-colors"
-            >
-              Ver todos os ministérios
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Novo por aqui */}
-      <section className="py-20 bg-accent" aria-label="Novo por aqui">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-light text-white mb-4">
-            Está visitando pela primeira vez?
-          </h2>
-          <p className="text-white/80 text-lg leading-relaxed max-w-2xl mx-auto mb-8">
-            Seja muito bem-vindo! Aqui você vai encontrar uma comunidade acolhedora, ensino bíblico sólido e pessoas que se importam com você.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => navigate("quem-somos")}
-              className="bg-white text-accent font-semibold px-8 py-4 rounded-lg text-base hover:bg-white/90 transition-colors"
-            >
-              Conheça nossa história
-            </button>
             <a
-              href={`https://wa.me/${CHURCH.whatsapp}?text=${encodeURIComponent(CHURCH.whatsappMessage)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border border-white/40 hover:border-white/70 text-white font-medium px-8 py-4 rounded-lg text-base transition-colors"
-            >
-              Falar pelo WhatsApp
-            </a>
+                          href={`https://wa.me/${CHURCH.whatsapp}?text=${encodeURIComponent(CHURCH.whatsappMessage)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex items-center gap-2.5 rounded-full border border-[#D4A24C]/50 bg-[#D4A24C]/10 px-7 py-3.5 text-sm sm:text-base font-medium text-[#D4A24C] backdrop-blur-sm transition-all duration-200 hover:border-[#D4A24C]/80 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
+                        >
+                          <svg className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.099 1.523 5.82L0 24l6.334-1.5C8.024 23.427 9.979 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-1.983 0-3.847-.535-5.455-1.47l-.393-.228-4.003.949.964-3.87-.253-.407A9.776 9.776 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182 17.41 2.182 21.818 6.59 21.818 12c0 5.41-4.408 9.818-9.818 9.818z" />
+                          </svg>
+                          <span>Falar pelo WhatsApp</span>
+                        </a>
           </div>
         </div>
       </section>

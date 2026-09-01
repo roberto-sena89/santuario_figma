@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getDailyDevotional, getAllDevotionals } from "../data/devotionals";
+import PageTitle from "../components/ui/PageTitle";
 
 export default function Devocional() {
   const today = getDailyDevotional();
@@ -31,17 +32,14 @@ export default function Devocional() {
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-8">
-          <p className="text-accent text-sm font-medium uppercase tracking-widest mb-2">
-            Devocional Diário
-          </p>
-          <h1 className="font-display text-3xl sm:text-4xl font-light text-foreground">
-            Momento com Deus
-          </h1>
-          <p className="text-muted-foreground mt-2">
-            Reflexões diárias para edificação espiritual e aproximação com Deus.
-          </p>
-        </div>
+        <PageTitle
+                  eyebrow="Devocional Diario"
+                  eyebrowIcon="🕊️"
+                  title="Momento com Deus"
+                  subtitle="Reflexoes diarias para edificacao espiritual e aproximacao com Deus."
+                  subtitleIcon="☀️"
+                  align="left"
+                />
 
         <div className="grid lg:grid-cols-[240px_1fr] gap-8">
           {/* Day selector */}

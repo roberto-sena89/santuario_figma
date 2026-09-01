@@ -1,6 +1,6 @@
 export const CHURCH = {
-  name: "Igreja Evangélica Graça e Verdade",
-  shortName: "IEGV",
+  name: "Igreja Evangélica Santuário da Adoração",
+  shortName: "Santuário",
   slogan: "Edificando vidas, transformando gerações",
   description:
     "Uma comunidade de fé comprometida com o amor de Deus, o ensino da Palavra e o serviço ao próximo. Todos são bem-vindos aqui.",

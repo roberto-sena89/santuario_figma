@@ -53,9 +53,10 @@ export default function PalavraDodia({ onNavigate }: Props) {
       {/* Hero card */}
       <section className="bg-primary py-20" aria-label="Versículo do dia">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <p className="text-accent text-sm font-medium uppercase tracking-widest mb-3">
-            Palavra do Dia
-          </p>
+          <p className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-accent/40 px-4 py-1.5 text-accent text-xs font-semibold uppercase tracking-[0.18em] mb-3 backdrop-blur-sm">
+                                <span aria-hidden="true">📖</span>
+                                Palavra do Dia
+                              </p>
           <time
             className="text-primary-foreground/50 text-sm capitalize"
             dateTime={new Date().toISOString().split("T")[0]}

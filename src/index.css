@@ -1,59 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
 @import 'tailwindcss';
 
 /* =========================================================================
-   Paleta "Oliveira & Luz" — Registro Frio
-   Paz (oliveira) + Amor (ameixa sóbria) + Luz (cinza-azulado) + Areia fria
-   ========================================================================= */
+  Paleta Dark Mode — padrão do site
+  Fundo grafite-azulado + âmbar dourado frio (mel) + texto areia clara
+  ========================================================================= */
 @theme {
-  /* Semantic (Tailwind 4) */
-  --color-background: #F6F7F4;
-  --color-foreground: #1A2A2A;
-  --color-primary: #4A5754;
-  --color-primary-foreground: #F6F7F4;
-  --color-secondary: #6B5B73;
-  --color-secondary-foreground: #F6F7F4;
-  --color-accent: #A89545;
-  --color-accent-foreground: #1A2A2A;
-  --color-muted: #ECEEEA;
-  --color-muted-foreground: #6A726E;
-  --color-card: #FFFFFF;
-  --color-card-foreground: #1A2A2A;
-  --color-border: #DDE0DA;
-  --color-ring: #4A5754;
+  /* Semantic (Tailwind 4) — dark como padrão */
+  --color-background: #0F1414;
+  --color-foreground: #E5E9E6;
+  --color-primary: #969696;
+  --color-primary-foreground: #0F1414;
+  --color-secondary: #A698AD;
+  --color-secondary-foreground: #0F1414;
+  --color-accent: #C8B888;
+  --color-accent-foreground: #0F1414;
+  --color-muted: #1B201F;
+  --color-muted-foreground: #BFC4BD;
+  --color-card: #151A19;
+  --color-card-foreground: #E5E9E6;
+  --color-border: #2A302D;
+  --color-ring: #959E96;
 
   /* Compat — aliases do legado (Aurora) preservam componentes Playbacks */
-  --color-bg: #F6F7F4;
-  --color-surface: #FFFFFF;
-  --color-surface2: #ECEEEA;
-  --color-surface3: #DDE0DA;
-  --color-text: #1A2A2A;
-  --color-text2: #6A726E;
-  --color-graphite: #1A2A2A;
-  --color-graphite-soft: #2D3433;
-  --color-graphite-border: #DDE0DA;
-  --color-on-accent: #1A2A2A;
-  --color-on-secondary: #F6F7F4;
-  --color-success: #4A5754;
-  --color-warning: #A89545;
-  --color-error: #9A5234;
-  --color-terracota: #8B7A8A;
-  --color-areia: #F6F7F4;
+  --color-bg: #0F1414;
+  --color-surface: #151A19;
+  --color-surface2: #1B201F;
+  --color-surface3: #2A302D;
+  --color-text: #E5E9E6;
+  --color-text2: #BFC4BD;
+  --color-graphite: #1A1A1A;
+  --color-graphite-soft: #2A2A2A;
+  --color-graphite-fg: #E5E9E6;
+  --color-graphite-border: #383838;
+  --color-on-accent: #0F1414;
+  --color-on-secondary: #0F1414;
+  --color-success: #959E96;
+  --color-warning: #C8B888;
+  --color-error: #DCA284;
+  --color-terracota: #A698AD;
+  --color-areia: #0F1414;
 
   /* Escala raw (Tailwind 4 color utility) */
   /* Oliveira fria dessaturada — verde-cinza contemplativo */
-  --color-olive-50:  #F0F1F0;
-  --color-olive-100: #DDE0DD;
-  --color-olive-200: #BCC2BC;
-  --color-olive-300: #959E96;
-  --color-olive-400: #717A72;
-  --color-olive-500: #58615A;
-  --color-olive-600: #4A5754;
-  --color-olive-700: #3A4644;
-  --color-olive-800: #2C3635;
-  --color-olive-900: #1F2726;
+  --color-olive-50:  #F0F0F0;
+  --color-olive-100: #DEDEDE;
+  --color-olive-200: #BDBDBD;
+  --color-olive-300: #969696;
+  --color-olive-400: #727272;
+  --color-olive-500: #5A5A5A;
+  --color-olive-600: #4D5454;
+  --color-olive-700: #3B4242;
+  --color-olive-800: #2D3232;
+  --color-olive-900: #202424;
 
   /* Terra fria — ameixa/lavanda sóbria */
   --color-terra-50:  #F2EFF3;
@@ -67,17 +66,17 @@
   --color-terra-800: #3D3445;
   --color-terra-900: #28222E;
 
-  /* Mel — bronze frio, dourado envelhecido (acento de luz) */
-  --color-mel-50:  #F6F3E9;
-  --color-mel-100: #ECE3CC;
-  --color-mel-200: #D8C8A0;
-  --color-mel-300: #C2AC74;
-  --color-mel-400: #B59C56;
-  --color-mel-500: #A89545;
-  --color-mel-600: #8E7C38;
-  --color-mel-700: #6F602C;
-  --color-mel-800: #4F4420;
-  --color-mel-900: #322B14;
+  /* Mel — dourado âmbar frio e suave */
+  --color-mel-50:  #F6F4EC;
+  --color-mel-100: #ECE6D0;
+  --color-mel-200: #D8CDA8;
+  --color-mel-300: #C8B888;
+  --color-mel-400: #C2A968;
+  --color-mel-500: #B8A267;
+  --color-mel-600: #9C8952;
+  --color-mel-700: #7A6B40;
+  --color-mel-800: #564B2D;
+  --color-mel-900: #36301C;
 
   /* Areia fria — neutros com toque esverdeado */
   --color-sand-0:   #FFFFFF;
@@ -94,7 +93,10 @@
 
   /* Tipografia */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-bible: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body: 'Geist', 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Geist', 'Source Sans 3', system-ui, -apple-system, sans-serif;
 
   --radius: 0.5rem;
 
@@ -124,11 +126,11 @@ body {
 .dark {
   --color-background: #0F1414;
   --color-foreground: #E5E9E6;
-  --color-primary: #959E96;
+  --color-primary: #969696;
   --color-primary-foreground: #0F1414;
   --color-secondary: #A698AD;
   --color-secondary-foreground: #0F1414;
-  --color-accent: #C2AC74;
+  --color-accent: #C8B888;
   --color-accent-foreground: #0F1414;
   --color-muted: #1B201F;
   --color-muted-foreground: #BFC4BD;
@@ -143,13 +145,14 @@ body {
   --color-surface3: #2A302D;
   --color-text: #E5E9E6;
   --color-text2: #BFC4BD;
-  --color-graphite: #E5E9E6;
-  --color-graphite-soft: #1B201F;
-  --color-graphite-border: #2A302D;
+  --color-graphite: #1A1A1A;
+  --color-graphite-soft: #2A2A2A;
+  --color-graphite-fg: #E5E9E6;
+  --color-graphite-border: #383838;
   --color-on-accent: #0F1414;
   --color-on-secondary: #0F1414;
   --color-success: #959E96;
-  --color-warning: #C2AC74;
+  --color-warning: #C8B888;
   --color-error: #DCA284;
   --color-terracota: #A698AD;
   --color-areia: #0F1414;

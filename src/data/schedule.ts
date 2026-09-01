@@ -48,6 +48,15 @@ export const WEEKLY_SCHEDULE: ServiceSchedule[] = [
     type: "culto",
   },
   {
+    day: "Segunda-feira",
+    dayShort: "Seg",
+    time: "18:00",
+    title: "Círculo de Oração",
+    description: "Oração e intercessão pelos pedidos da comunidade.",
+    location: "Salão Principal",
+    type: "oracao",
+  },
+  {
     day: "Terça-feira",
     dayShort: "Ter",
     time: "19:30",

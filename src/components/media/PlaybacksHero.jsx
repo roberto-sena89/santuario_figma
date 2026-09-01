@@ -46,7 +46,7 @@ export default function PlaybacksHero({
       <div className="absolute inset-0 bg-noise pointer-events-none z-0" aria-hidden="true" />
 
       {/* Elementos decorativos */}
-      <div className="absolute -top-20 -right-20 w-80 h-80 bg-secondary/5 rounded-full blur-3xl pointer-events-none z-10" />
+      <div className="absolute -top-20 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none z-10" />
       <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none z-10" />
 
       <div className="relative z-20 mx-auto max-w-6xl px-4 pt-12 pb-6 sm:pt-16 sm:pb-8">
@@ -56,29 +56,29 @@ export default function PlaybacksHero({
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <p className="text-[11px] sm:text-xs uppercase tracking-[0.25em] font-semibold text-muted mb-3">
-            <Music className="inline h-3 w-3 mr-1.5 -mt-0.5" aria-hidden="true" />
-            Música · Adoração · Louvor
+          <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+            <Music className="h-3.5 w-3.5" aria-hidden="true" />
+            Musica · Adoracao · Louvor
           </p>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-text tracking-tight leading-tight">
-            Playbacks <span className="text-secondary italic font-light">com</span> Letra
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-text tracking-tight leading-tight">
+            Playbacks <span className="text-[#9C7A2E] italic font-medium">com</span> Letra
           </h1>
-          <p className="mt-3 text-sm sm:text-base text-text2 max-w-xl mx-auto leading-relaxed">
-            Curadoria de playbacks legendados para sua igreja, ensaio ou momento devocional. A letra
-            aparece na tela — basta tocar.
+          <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-[#D4A24C]/20 px-4 py-3 text-sm sm:text-base text-text2 max-w-xl mx-auto leading-relaxed">
+            <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#D4A24C]/15 text-base" aria-hidden="true">🎶</span>
+            <span>Curadoria de playbacks legendados para sua igreja, ensaio ou momento devocional. A letra aparece na tela — basta tocar.</span>
           </p>
         </div>
 
         {/* Cards de stats */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div
-            className={`group relative rounded-2xl border border-secondary/40 bg-surface2/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-secondary/10 hover:-translate-y-0.5 ${
+            className={`group relative rounded-2xl border border-primary/40 bg-surface2/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-0.5 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '100ms' }}
           >
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-secondary/15 text-secondary">
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/15 text-primary">
                 <Music className="h-5 w-5" aria-hidden="true" />
               </div>
               <div className="min-w-0">
@@ -93,7 +93,7 @@ export default function PlaybacksHero({
           <button
             onClick={() => destaque && onAbrirPlayerDestaque(destaque)}
             disabled={!destaque}
-            className={`group relative overflow-hidden rounded-2xl border border-secondary/40 bg-gradient-to-br from-surface2 to-surface p-4 text-left shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-secondary/15 hover:-translate-y-0.5 ${
+            className={`group relative overflow-hidden rounded-2xl border border-primary/40 bg-gradient-to-br from-surface2 to-surface p-4 text-left shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-primary/15 hover:-translate-y-0.5 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '200ms' }}
@@ -105,11 +105,11 @@ export default function PlaybacksHero({
           >
             {destaque ? (
               <div className="flex items-center gap-3">
-                <div className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-secondary to-secondary-dark text-white shadow-md">
+                <div className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-olive-800 text-white shadow-md">
                   <Play className="h-4 w-4 ml-0.5" fill="currentColor" aria-hidden="true" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider font-semibold text-secondary mb-0.5">
+                  <p className="text-[10px] uppercase tracking-wider font-semibold text-primary mb-0.5">
                     Em destaque
                   </p>
                   <p className="text-sm font-semibold text-text truncate">{destaque.titulo}</p>
@@ -127,17 +127,17 @@ export default function PlaybacksHero({
           </button>
 
           <div
-            className={`relative rounded-2xl border border-secondary/40 bg-surface2/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-accent/10 hover:-translate-y-0.5 ${
+            className={`relative rounded-2xl border border-primary/40 bg-surface2/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-accent/10 hover:-translate-y-0.5 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '300ms' }}
           >
             <div className="flex items-start gap-3">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-secondary/15 text-secondary">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
                 <BookOpen className="h-5 w-5" aria-hidden="true" />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] uppercase tracking-wider font-semibold text-secondary mb-0.5">
+                <p className="text-[10px] uppercase tracking-wider font-semibold text-primary mb-0.5">
                   Versículo
                 </p>
                 <p className="text-xs italic text-text leading-snug">
@@ -151,7 +151,7 @@ export default function PlaybacksHero({
 
         {/* Barra de busca + categorias */}
         <div
-          className={`mt-8 relative rounded-2xl border border-secondary/40 bg-surface2/90 backdrop-blur-md p-3 sm:p-4 shadow-lg shadow-black/5 transition-all duration-700 ${
+          className={`mt-8 relative rounded-2xl border border-primary/40 bg-surface2/90 backdrop-blur-md p-3 sm:p-4 shadow-lg shadow-black/5 transition-all duration-700 ${
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: '400ms' }}
@@ -159,7 +159,7 @@ export default function PlaybacksHero({
           <div className="relative">
             <Search
               className={`pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-300 ${
-                focusedSearch ? 'text-secondary' : 'text-muted'
+                focusedSearch ? 'text-primary' : 'text-muted'
               }`}
               aria-hidden="true"
             />
@@ -172,12 +172,12 @@ export default function PlaybacksHero({
               aria-label="Buscar no catálogo de playbacks"
               className={`w-full rounded-xl border bg-surface py-3.5 pl-11 pr-10 text-sm text-text outline-none transition-all duration-300 placeholder:text-muted ${
                 focusedSearch
-                  ? 'border-secondary/50 ring-4 ring-secondary/10'
-                  : 'border-secondary/30'
+                  ? 'border-primary/50 ring-4 ring-primary/10'
+                  : 'border-primary/30'
               }`}
             />
             {busca && (
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-secondary uppercase tracking-wider">
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-primary uppercase tracking-wider">
                 {busca !== buscaDebounced ? '…' : '✓'}
               </span>
             )}
@@ -195,8 +195,8 @@ export default function PlaybacksHero({
                   style={{ animationDelay: `${idx * 30}ms` }}
                   className={`group relative flex items-center justify-center rounded-xl px-3 py-2.5 text-xs font-semibold tracking-tight transition-all duration-300 ease-out ${
                     ativa
-                      ? 'bg-gradient-to-br from-secondary via-secondary-soft to-secondary-dark text-white shadow-lg shadow-secondary/25'
-                      : 'bg-surface text-text2 hover:bg-surface2 hover:text-secondary hover:shadow-md hover:shadow-secondary/10 hover:-translate-y-0.5 border border-secondary/40 hover:border-secondary/30'
+                      ? 'bg-gradient-to-br from-primary via-olive-700 to-olive-800 text-white shadow-lg shadow-primary/25'
+                      : 'bg-surface text-text2 hover:bg-surface2 hover:text-primary hover:shadow-md hover:shadow-primary/10 hover:-translate-y-0.5 border border-primary/40 hover:border-primary/30'
                   }`}
                 >
                   {c}

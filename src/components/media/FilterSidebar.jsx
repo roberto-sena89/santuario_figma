@@ -133,12 +133,12 @@ export default function FilterSidebar({
         {/* Cabeçalho do sidebar */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-surface/95 px-5 py-4 backdrop-blur-md">
           <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-secondary/20 to-accent/20 text-secondary">
+            <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-primary/20 to-accent/20 text-primary">
               <Filter className="h-4 w-4" aria-hidden="true" />
             </div>
             <h2 className="text-sm font-bold uppercase tracking-wider text-text">Filtros</h2>
             {temFiltros && (
-              <span className="ml-1 grid h-5 min-w-5 place-items-center rounded-full bg-secondary px-1.5 text-[10px] font-bold text-white">
+              <span className="ml-1 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1.5 text-[10px] font-bold text-white">
                 {
                   [
                     categoria !== 'Todas' && 1,
@@ -221,8 +221,8 @@ export default function FilterSidebar({
               <label
                 className={`flex cursor-pointer items-center justify-between rounded-xl border px-3 py-2.5 text-sm transition ${
                   soHarpa
-                    ? 'border-secondary/40 bg-secondary/10 text-secondary'
-                    : 'border-border/40 bg-surface/50 text-text2 hover:border-secondary/30 hover:text-text'
+                    ? 'border-primary/40 bg-primary/10 text-primary'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:border-primary/30 hover:text-text'
                 }`}
               >
                 <span className="flex items-center gap-2.5">
@@ -237,7 +237,7 @@ export default function FilterSidebar({
                 />
                 <span
                   className={`relative h-5 w-9 rounded-full transition ${
-                    soHarpa ? 'bg-secondary' : 'bg-border'
+                    soHarpa ? 'bg-primary' : 'bg-border'
                   }`}
                 >
                   <span
@@ -269,13 +269,13 @@ export default function FilterSidebar({
                   onClick={() => setOrdenacao(opt.id)}
                   className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm transition ${
                     ordenacao === opt.id
-                      ? 'bg-secondary/15 text-secondary font-semibold'
+                      ? 'bg-primary/15 text-primary font-semibold'
                       : 'text-text2 hover:bg-surface2/60 hover:text-text'
                   }`}
                 >
                   <span>{opt.label}</span>
                   {ordenacao === opt.id && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                   )}
                 </button>
               ))}
@@ -301,7 +301,7 @@ export default function FilterSidebar({
                     onClick={() => setCategoria(c)}
                     className={`flex w-full items-center justify-between gap-2 rounded-xl px-2.5 py-1.5 text-sm transition ${
                       ativa
-                        ? 'bg-secondary/15 text-secondary font-semibold'
+                        ? 'bg-primary/15 text-primary font-semibold'
                         : 'text-text2 hover:bg-surface2/60 hover:text-text'
                     }`}
                   >
@@ -311,7 +311,7 @@ export default function FilterSidebar({
                     </span>
                     <span
                       className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
-                        ativa ? 'bg-secondary/20 text-secondary' : 'bg-surface/60 text-muted'
+                        ativa ? 'bg-primary/20 text-primary' : 'bg-surface/60 text-muted'
                       }`}
                     >
                       {count}
@@ -334,12 +334,12 @@ export default function FilterSidebar({
               onClick={() => setTom('')}
               className={`mb-1 flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-sm transition ${
                 !tom
-                  ? 'bg-secondary/15 text-secondary font-semibold'
+                  ? 'bg-primary/15 text-primary font-semibold'
                   : 'text-text2 hover:bg-surface2/60 hover:text-text'
               }`}
             >
               <span>Todos os tons</span>
-              {!tom && <span className="h-1.5 w-1.5 rounded-full bg-secondary" />}
+              {!tom && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
             </button>
             <div className="max-h-48 space-y-2 overflow-y-auto pr-1">
               {tomsDisponiveis.maiores.length > 0 && (
@@ -400,7 +400,7 @@ export default function FilterSidebar({
                 onFocus={() => setArtistaSel('')}
                 placeholder="Buscar artista…"
                 aria-label="Filtrar por artista"
-                className="w-full rounded-lg border border-border/40 bg-surface py-2 pl-8 pr-8 text-sm text-text outline-none transition placeholder:text-muted focus:border-secondary/50 focus:ring-2 focus:ring-secondary/15"
+                className="w-full rounded-lg border border-border/40 bg-surface py-2 pl-8 pr-8 text-sm text-text outline-none transition placeholder:text-muted focus:border-primary/50 focus:ring-2 focus:ring-primary/15"
               />
               {artistaBusca && (
                 <button
@@ -439,14 +439,14 @@ export default function FilterSidebar({
                       onClick={() => setArtistaSel(ativo ? '' : a)}
                       className={`flex w-full items-center justify-between gap-2 rounded-xl px-2.5 py-1.5 text-sm transition ${
                         ativo
-                          ? 'bg-secondary/15 text-secondary font-semibold'
+                          ? 'bg-primary/15 text-primary font-semibold'
                           : 'text-text2 hover:bg-surface2/60 hover:text-text'
                       }`}
                     >
                       <span className="min-w-0 truncate text-left">{a}</span>
                       <span
                         className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
-                          ativo ? 'bg-secondary/20 text-secondary' : 'bg-surface/60 text-muted'
+                          ativo ? 'bg-primary/20 text-primary' : 'bg-surface/60 text-muted'
                         }`}
                       >
                         {count}
@@ -475,10 +475,10 @@ function SecaoAccordion({ titulo, icone: Icone, aberta, onToggle, contador, chil
         className="flex w-full items-center justify-between px-3.5 py-3 text-left transition hover:bg-surface2/60"
       >
         <span className="flex items-center gap-2 text-sm font-bold text-text">
-          {Icone && <Icone className="h-4 w-4 text-secondary" aria-hidden="true" />}
+          {Icone && <Icone className="h-4 w-4 text-primary" aria-hidden="true" />}
           {titulo}
           {contador > 0 && (
-            <span className="rounded-full bg-secondary/20 px-1.5 py-0.5 text-[10px] font-bold text-secondary">
+            <span className="rounded-full bg-primary/20 px-1.5 py-0.5 text-[10px] font-bold text-primary">
               {contador}
             </span>
           )}
@@ -513,10 +513,10 @@ function GrupoTom({ label, tons, tom, setTom, count = {} }) {
               onClick={() => setTom(ativo ? '' : t)}
               className={`rounded-md border px-2 py-1 text-[11px] font-semibold transition ${
                 ativo
-                  ? 'border-secondary/50 bg-secondary/20 text-secondary'
+                  ? 'border-primary/50 bg-primary/20 text-primary'
                   : total === 0
                     ? 'cursor-not-allowed border-border/20 bg-surface/30 text-muted/40'
-                    : 'border-border/40 bg-surface/50 text-text2 hover:border-secondary/30 hover:text-text'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:border-primary/30 hover:text-text'
               }`}
               disabled={total === 0 && !ativo}
               aria-pressed={ativo}
