@@ -16,7 +16,12 @@ interface HomeProps {
 
 export default function Home({ onNavigate }: HomeProps) {
   const verse = getDailyVerse();
-    const featuredMinistries = MINISTERIOS.slice(0, 4);
+  // Destaques: troca Infantil por Missões no grid da Home
+  const featuredMinistries = MINISTERIOS.filter(
+    (m) => m.id !== "criancas" && m.id !== "evangelismo"
+  ).slice(0, 3);
+  const missoes = MINISTERIOS.find((m) => m.id === "evangelismo");
+  if (missoes) featuredMinistries.push(missoes);
   const nextEvents = UPCOMING_EVENTS.slice(0, 3);
 
   const navigate = (page: Page) => {
@@ -72,61 +77,55 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
       </section>
 
-      {/* Quick links */}
-      <section className="py-16 bg-background" aria-label="Acesso rápido">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                ),
-                label: "Leitura Bíblica",
-                page: "biblia" as Page,
-                desc: "Leia a Palavra",
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg>
-                ),
-                label: "Playbacks",
-                page: "playbacks" as Page,
-                desc: "Louvores e ministração",
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                ),
-                label: "Agenda",
-                page: "cultos" as Page,
-                desc: "Eventos e cultos",
-              },
-              {
-                icon: (
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                ),
-                label: "Ministérios",
-                page: "ministerios" as Page,
-                desc: "Conheça nossa equipe",
-              },
-            ].map((item) => (
-              <button
-                key={item.page}
-                onClick={() => navigate(item.page)}
-                className="group bg-card border border-border/70 rounded-2xl p-6 text-left hover:border-[#D4A24C]/50 hover:shadow-xl hover:shadow-[#D4A24C]/10 hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="inline-flex w-11 h-11 items-center justify-center rounded-xl bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#9C7A2E] mb-4 transition-transform duration-300 group-hover:scale-110">
-                  {item.icon}
+      {/* Ministérios */}
+            <section className="py-20 bg-muted/40" aria-label="Ministérios">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-12">
+                  <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3 mx-auto">
+                    <span aria-hidden="true">🤝</span>
+                    Comunidade
+                  </p>
+                  <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
+                    Nossos ministérios
+                  </h2>
+                  <p className="text-muted-foreground mt-4 max-w-xl mx-auto text-base">
+                    Cada pessoa tem um lugar e um chamado. Conheça os ministérios e encontre onde você se encaixa.
+                  </p>
                 </div>
-                <div className="font-display font-semibold text-foreground text-base mb-1 group-hover:text-[#9C7A2E] transition-colors">
-                  {item.label}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                  {featuredMinistries.map((m) => (
+                    <div
+                      key={m.id}
+                      className="group bg-gradient-to-b from-card to-card/60 border border-border/70 rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D4A24C]/15 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <div
+                        className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4 bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#9C7A2E] transition-transform duration-300 group-hover:scale-110 shadow-sm"
+                        aria-hidden="true"
+                      >
+                        {m.icon}
+                      </div>
+                      <h3 className="font-display font-semibold text-foreground text-base mb-2 group-hover:text-[#9C7A2E] transition-colors">
+                        {m.name}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                        {m.description}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <div className="text-muted-foreground text-sm">{item.desc}</div>
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
+                <div className="text-center mt-10">
+                  <button
+                    onClick={() => navigate("ministerios")}
+                    className="group inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-6 py-3 text-sm font-medium text-[#9C7A2E] transition-all duration-200 hover:border-[#D4A24C]/70 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0"
+                  >
+                    Ver todos os ministérios
+                    <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </section>
 
       {/* Palavra do Dia */}
             <section className="py-20 relative overflow-hidden" aria-label="Palavra do Dia">
@@ -165,48 +164,65 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
       </section>
 
-      {/* Próximos Cultos + Bíblia */}
+      {/* Cultos + Escala + Bíblia */}
       <section className="py-20 bg-muted/40" aria-label="Cultos e Bíblia">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl">
-            {/* Bíblia CTA */}
-            <div>
+          <div className="text-center mb-12">
+            <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
+              <span aria-hidden="true">⛪</span>
+              Programação da semana
+            </p>
+            <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
+              Sua semana na igreja
+            </h2>
+            <p className="text-muted-foreground mt-4 max-w-xl mx-auto text-base">
+              Acompanhe a escala de ministérios e mergulhe na Palavra todos os dias.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+            {/* Escala da Semana — à esquerda no desktop, abaixo no mobile */}
+            <div className="bg-card/60 border border-border/70 rounded-2xl p-5 sm:p-6 backdrop-blur-sm shadow-sm">
               <EscalaSemanaCard />
-              <div className="relative rounded-2xl overflow-hidden">
-                          <div className="h-80 sm:h-96 relative">
-                            <img
-                              src={BIBLE_IMAGE}
-                              alt="Bíblia aberta com luz natural"
-                              className="w-full h-full object-cover opacity-75"
-                              loading="lazy"
-                              width={800}
-                              height={600}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/30" />
-                                                        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                                              <svg className="w-12 h-12 text-accent mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                              </svg>
-                                              <h3 className="font-display text-2xl text-white font-normal mb-3 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
-                                                                  Leia a Bíblia Sagrada
-                                                                </h3>
-                                                                <p className="text-white/90 text-sm leading-relaxed mb-6 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
-                    Acesse todos os livros do Antigo e Novo Testamento na tradução Almeida.
-                  </p>
-                  <button
-                                      onClick={() => navigate("biblia")}
-                                      className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold pl-2.5 pr-6 py-2 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
-                                    >
-                                      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
-                                      Ler Bíblia Agora
-                                    </button>
-                </div>
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                      </section>
+            </div>
+
+            {/* Bíblia CTA — à direita no desktop, abaixo no mobile */}
+            <div className="relative rounded-2xl overflow-hidden shadow-lg shadow-black/20 border border-border/60 min-h-[420px] lg:min-h-0 lg:h-full">
+              <div className="absolute inset-0">
+                <img
+                  src={BIBLE_IMAGE}
+                  alt="Bíblia aberta com luz natural"
+                  className="w-full h-full object-cover opacity-75"
+                  loading="lazy"
+                  width={800}
+                  height={600}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/35" />
+              </div>
+              <div className="relative z-10 flex flex-col items-center justify-center p-8 sm:p-10 text-center min-h-[420px] lg:min-h-[560px]">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-[#D4A24C]/20 ring-1 ring-[#D4A24C]/40 backdrop-blur-sm mb-5 shadow-lg shadow-[#D4A24C]/20">
+                  <svg className="w-7 h-7 text-[#E8B35E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </span>
+                <h3 className="font-display text-2xl sm:text-3xl text-white font-normal mb-3 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
+                  Leia a Bíblia Sagrada
+                </h3>
+                <p className="text-white/90 text-sm leading-relaxed mb-6 max-w-sm [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
+                  Acesse todos os livros do Antigo e Novo Testamento na tradução Almeida.
+                </p>
+                <button
+                  onClick={() => navigate("biblia")}
+                  className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold pl-2.5 pr-6 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
+                  Ler Bíblia Agora
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Próximos Eventos */}
             <section className="py-20 bg-background" aria-label="Próximos eventos">
@@ -272,52 +288,74 @@ export default function Home({ onNavigate }: HomeProps) {
               </div>
             </section>
 
-      {/* Ministérios */}
-            <section className="py-20 bg-muted/40" aria-label="Ministérios">
+
+
+      {/* Quick links — Navegação rápida */}
+            <section className="py-20 bg-muted relative" aria-label="Acesso rápido">
+              {/* Linha decorativa sutil no topo da seção */}
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border/60 to-transparent" aria-hidden="true" />
+
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-12">
-                  <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3 mx-auto">
-                    <span aria-hidden="true">🤝</span>
-                    Comunidade
+                {/* Badge + título sutis */}
+                <div className="text-center mb-10">
+                  <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/12 border border-[#D4A24C]/25 px-4 py-1.5 text-[#9C7A2E] dark:text-[#D4A24C] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
+                    <span aria-hidden="true">🗺️</span>
+                    Navegue pelo site
                   </p>
-                  <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
-                    Nossos ministérios
+                  <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground/75">
+                    Encontre o que precisa
                   </h2>
-                  <p className="text-muted-foreground mt-4 max-w-xl mx-auto text-base">
-                    Cada pessoa tem um lugar e um chamado. Conheça os ministérios e encontre onde você se encaixa.
-                  </p>
                 </div>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                  {featuredMinistries.map((m) => (
-                    <div
-                      key={m.id}
-                      className="group bg-gradient-to-b from-card to-card/60 border border-border/70 rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D4A24C]/15 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+                  {[
+                    {
+                      icon: (
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                      ),
+                      label: "Leitura Bíblica",
+                      page: "biblia" as Page,
+                      desc: "Leia a Palavra",
+                    },
+                    {
+                      icon: (
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg>
+                      ),
+                      label: "Playbacks",
+                      page: "playbacks" as Page,
+                      desc: "Louvores e ministração",
+                    },
+                    {
+                      icon: (
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                      ),
+                      label: "Agenda",
+                      page: "cultos" as Page,
+                      desc: "Eventos e cultos",
+                    },
+                    {
+                      icon: (
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                      ),
+                      label: "Ministérios",
+                      page: "ministerios" as Page,
+                      desc: "Conheça nossa equipe",
+                    },
+                  ].map((item) => (
+                    <button
+                      key={item.page}
+                      onClick={() => navigate(item.page)}
+                      className="group relative bg-card/80 border border-border/60 rounded-2xl p-7 text-left backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-1 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-muted"
                     >
-                      <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4 bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#9C7A2E] transition-transform duration-300 group-hover:scale-110 shadow-sm"
-                        aria-hidden="true"
-                      >
-                        {m.icon}
+                      <div className="inline-flex w-12 h-12 items-center justify-center rounded-xl bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#D4A24C] mb-4 transition-all duration-300 group-hover:bg-[#D4A24C]/15 group-hover:border-[#D4A24C]/40 group-hover:shadow-sm group-hover:shadow-[#D4A24C]/20">
+                        {item.icon}
                       </div>
-                      <h3 className="font-display font-semibold text-foreground text-base mb-2 group-hover:text-[#9C7A2E] transition-colors">
-                        {m.name}
-                      </h3>
-                      <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
-                        {m.description}
-                      </p>
-                    </div>
+                      <div className="font-display font-semibold text-foreground text-base mb-1 group-hover:text-[#D4A24C] transition-colors">
+                        {item.label}
+                      </div>
+                      <div className="text-muted-foreground/80 text-sm leading-relaxed">{item.desc}</div>
+                    </button>
                   ))}
-                </div>
-                <div className="text-center mt-10">
-                  <button
-                    onClick={() => navigate("ministerios")}
-                    className="group inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-6 py-3 text-sm font-medium text-[#9C7A2E] transition-all duration-200 hover:border-[#D4A24C]/70 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0"
-                  >
-                    Ver todos os ministérios
-                    <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
                 </div>
               </div>
             </section>
@@ -382,21 +420,21 @@ export default function Home({ onNavigate }: HomeProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
-            <a
-                          href={`https://wa.me/${CHURCH.whatsapp}?text=${encodeURIComponent(CHURCH.whatsappMessage)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group inline-flex items-center gap-2.5 rounded-full border border-[#D4A24C]/50 bg-[#D4A24C]/10 px-7 py-3.5 text-sm sm:text-base font-medium text-[#D4A24C] backdrop-blur-sm transition-all duration-200 hover:border-[#D4A24C]/80 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
-                        >
-                          <svg className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                            <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.099 1.523 5.82L0 24l6.334-1.5C8.024 23.427 9.979 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-1.983 0-3.847-.535-5.455-1.47l-.393-.228-4.003.949.964-3.87-.253-.407A9.776 9.776 0 012.182 12C2.182 6.59 6.59 2.182 12 2.182 17.41 2.182 21.818 6.59 21.818 12c0 5.41-4.408 9.818-9.818 9.818z" />
-                          </svg>
-                          <span>Falar pelo WhatsApp</span>
-                        </a>
+            <button
+                                      onClick={() => onNavigate("missoes")}
+                                      className="group inline-flex items-center gap-2.5 rounded-full border border-[#D4A24C]/50 bg-[#D4A24C]/10 px-7 py-3.5 text-sm sm:text-base font-medium text-[#D4A24C] backdrop-blur-sm transition-all duration-200 hover:border-[#D4A24C]/80 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
+                                    >
+                                      <svg className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3a15 15 0 010 18 15 15 0 010-18z" />
+                                      </svg>
+                                      <span>Conheça a obra missionária</span>
+                                    </button>
           </div>
         </div>
       </section>
+
     </main>
   );
 }

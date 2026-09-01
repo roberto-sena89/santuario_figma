@@ -33,21 +33,22 @@ export default function PlaybacksHero({
           backgroundImage: "url('/fotos/playbacks/play.jfif?v=2')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.9,
+          opacity: 0.7,
+          filter: 'saturate(0.55)',
         }}
         aria-hidden="true"
       />
-      {/* Overlay gradiente */}
+      {/* Overlay gradiente neutro — imagem visível, texto legível */}
       <div
-        className="absolute inset-0 z-0 bg-gradient-to-b from-bg/80 via-bg/70 to-bg"
+        className="absolute inset-0 z-0 bg-gradient-to-b from-black/60 via-black/30 to-bg"
         aria-hidden="true"
       />
       {/* Textura sutil */}
       <div className="absolute inset-0 bg-noise pointer-events-none z-0" aria-hidden="true" />
 
-      {/* Elementos decorativos */}
-      <div className="absolute -top-20 -right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none z-10" />
-      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-accent/5 rounded-full blur-3xl pointer-events-none z-10" />
+      {/* Glows decorativos âmbar */}
+      <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#D4A24C]/10 rounded-full blur-3xl pointer-events-none z-10" />
+      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#E8B35E]/6 rounded-full blur-3xl pointer-events-none z-10" />
 
       <div className="relative z-20 mx-auto max-w-6xl px-4 pt-12 pb-6 sm:pt-16 sm:pb-8">
         {/* Breadcrumb + título */}
@@ -69,16 +70,17 @@ export default function PlaybacksHero({
           </p>
         </div>
 
-        {/* Cards de stats */}
+        {/* Cards de stats + destaque + versículo */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Stats: playbacks */}
           <div
-            className={`group relative rounded-2xl border border-primary/40 bg-surface2/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-0.5 ${
+            className={`group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '100ms' }}
           >
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary/15 text-primary">
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#D4A24C]/15 text-[#B8860B] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]">
                 <Music className="h-5 w-5" aria-hidden="true" />
               </div>
               <div className="min-w-0">
@@ -90,10 +92,11 @@ export default function PlaybacksHero({
             </div>
           </div>
 
+          {/* Em destaque — CTA âmbar sólido */}
           <button
             onClick={() => destaque && onAbrirPlayerDestaque(destaque)}
             disabled={!destaque}
-            className={`group relative overflow-hidden rounded-2xl border border-primary/40 bg-gradient-to-br from-surface2 to-surface p-4 text-left shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-primary/15 hover:-translate-y-0.5 ${
+            className={`group relative overflow-hidden rounded-2xl bg-[#D4A24C] p-4 text-left shadow-lg shadow-[#D4A24C]/25 transition-all duration-500 hover:-translate-y-0.5 hover:bg-[#C4933C] hover:shadow-[#D4A24C]/40 disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-[#D4A24C] ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '200ms' }}
@@ -105,43 +108,50 @@ export default function PlaybacksHero({
           >
             {destaque ? (
               <div className="flex items-center gap-3">
-                <div className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-olive-800 text-white shadow-md">
+                <div className="relative grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/25 text-gray-900 shadow-inner transition-transform duration-300 group-hover:scale-110">
                   <Play className="h-4 w-4 ml-0.5" fill="currentColor" aria-hidden="true" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[10px] uppercase tracking-wider font-semibold text-primary mb-0.5">
+                  <p className="text-[10px] uppercase tracking-wider font-semibold text-gray-800/80 mb-0.5">
                     Em destaque
                   </p>
-                  <p className="text-sm font-semibold text-text truncate">{destaque.titulo}</p>
-                  <p className="text-xs text-text2 truncate">{destaque.artista}</p>
+                  <p className="text-sm font-semibold text-gray-900 truncate">{destaque.titulo}</p>
+                  <p className="text-xs text-gray-800/75 truncate">{destaque.artista || '—'}</p>
                 </div>
+                <span
+                  className="hidden sm:grid h-8 w-8 shrink-0 place-items-center rounded-full bg-white/20 text-gray-900 transition-transform duration-300 group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
               </div>
             ) : (
-              <div className="flex items-center gap-3 text-text2">
-                <div className="grid h-10 w-10 place-items-center rounded-xl bg-surface">
+              <div className="flex items-center gap-3 text-gray-900/80">
+                <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/25 text-gray-900">
                   <Volume2 className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <p className="text-xs">Em breve</p>
+                <p className="text-xs font-semibold">Em breve</p>
               </div>
             )}
           </button>
 
+          {/* Versículo */}
           <div
-            className={`relative rounded-2xl border border-primary/40 bg-surface2/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:shadow-lg hover:shadow-accent/10 hover:-translate-y-0.5 ${
+            className={`group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '300ms' }}
           >
             <div className="flex items-start gap-3">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#D4A24C]/15 text-[#B8860B] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]">
                 <BookOpen className="h-5 w-5" aria-hidden="true" />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] uppercase tracking-wider font-semibold text-primary mb-0.5">
+                <p className="text-[10px] uppercase tracking-wider font-semibold text-[#B8860B] dark:text-[#E8B35E] mb-0.5">
                   Versículo
                 </p>
-                <p className="text-xs italic text-text leading-snug">
-                  "Cantai ao Senhor um cântico novo"
+                <p className="font-bible text-sm italic text-text leading-snug">
+                  &quot;Cantai ao Senhor um cântico novo&quot;
                 </p>
                 <p className="text-[10px] text-text2 mt-0.5">Salmos 96:1</p>
               </div>
@@ -151,7 +161,7 @@ export default function PlaybacksHero({
 
         {/* Barra de busca + categorias */}
         <div
-          className={`mt-8 relative rounded-2xl border border-primary/40 bg-surface2/90 backdrop-blur-md p-3 sm:p-4 shadow-lg shadow-black/5 transition-all duration-700 ${
+          className={`mt-8 relative rounded-2xl border border-[#D4A24C]/20 bg-card/90 backdrop-blur-md p-3 sm:p-4 shadow-lg shadow-black/10 transition-all duration-700 ${
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: '400ms' }}
@@ -159,7 +169,7 @@ export default function PlaybacksHero({
           <div className="relative">
             <Search
               className={`pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-300 ${
-                focusedSearch ? 'text-primary' : 'text-muted'
+                focusedSearch ? 'text-[#D4A24C]' : 'text-muted-foreground'
               }`}
               aria-hidden="true"
             />
@@ -170,20 +180,16 @@ export default function PlaybacksHero({
               onBlur={() => setFocusedSearch(false)}
               placeholder="Buscar música, artista ou tom…"
               aria-label="Buscar no catálogo de playbacks"
-              className={`w-full rounded-xl border bg-surface py-3.5 pl-11 pr-10 text-sm text-text outline-none transition-all duration-300 placeholder:text-muted ${
-                focusedSearch
-                  ? 'border-primary/50 ring-4 ring-primary/10'
-                  : 'border-primary/30'
-              }`}
+              className="w-full rounded-xl border border-border bg-surface py-3.5 pl-11 pr-10 text-sm text-text outline-none transition-all duration-300 placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25"
             />
             {busca && (
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-primary uppercase tracking-wider">
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-[#D4A24C] uppercase tracking-wider">
                 {busca !== buscaDebounced ? '…' : '✓'}
               </span>
             )}
           </div>
 
-          <div className="mt-4 grid grid-cols-5 gap-2">
+          <div className="mt-4 flex flex-wrap items-center gap-2">
             {['Todas', ...CATEGORIAS].map((c, idx) => {
               const ativa = categoria === c;
               return (
@@ -193,19 +199,13 @@ export default function PlaybacksHero({
                   onClick={() => setCategoria(c)}
                   aria-pressed={ativa}
                   style={{ animationDelay: `${idx * 30}ms` }}
-                  className={`group relative flex items-center justify-center rounded-xl px-3 py-2.5 text-xs font-semibold tracking-tight transition-all duration-300 ease-out ${
+                  className={`inline-flex items-center justify-center rounded-full px-4 py-2 text-xs font-semibold tracking-tight transition-all duration-300 ease-out ${
                     ativa
-                      ? 'bg-gradient-to-br from-primary via-olive-700 to-olive-800 text-white shadow-lg shadow-primary/25'
-                      : 'bg-surface text-text2 hover:bg-surface2 hover:text-primary hover:shadow-md hover:shadow-primary/10 hover:-translate-y-0.5 border border-primary/40 hover:border-primary/30'
+                      ? 'bg-[#D4A24C] text-gray-800 shadow-lg shadow-[#D4A24C]/30 hover:bg-[#C4933C]'
+                      : 'border border-border bg-surface text-text2 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:bg-surface2 hover:text-[#E8B35E]'
                   }`}
                 >
                   {c}
-                  {ativa && (
-                    <span
-                      className="absolute -bottom-px left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-white/80"
-                      aria-hidden="true"
-                    />
-                  )}
                 </button>
               );
             })}
@@ -213,19 +213,19 @@ export default function PlaybacksHero({
 
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[11px] text-text2">
             <span className="inline-flex items-center gap-1.5">
-              <Heart className="h-3 w-3" aria-hidden="true" />
+              <Heart className="h-3 w-3 text-[#D4A24C]" aria-hidden="true" />
               <span>
                 <strong className="text-text">{totalArtistas}</strong> artistas
               </span>
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <BookOpen className="h-3 w-3" aria-hidden="true" />
+              <BookOpen className="h-3 w-3 text-[#D4A24C]" aria-hidden="true" />
               <span>
                 <strong className="text-text">{harpaCount}</strong> hinos da Harpa
               </span>
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <Music className="h-3 w-3" aria-hidden="true" />
+              <Music className="h-3 w-3 text-[#D4A24C]" aria-hidden="true" />
               <span>
                 <strong className="text-text">{totalCategorias}</strong> categorias
               </span>

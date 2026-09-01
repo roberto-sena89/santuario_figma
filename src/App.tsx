@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navigation, { type Page } from "./components/Navigation";
 import Footer from "./components/Footer";
 import PrayerButton from "./components/PrayerButton";
+import SupportButton from "./components/SupportButton";
 import Home from "./pages/Home";
 import Bible from "./pages/Bible";
 import PalavraDodia from "./pages/PalavraDodia";
@@ -13,24 +14,30 @@ import Ministerios from "./pages/Ministerios";
 import QuemSomos from "./pages/QuemSomos";
 import Contribuicoes from "./pages/Contribuicoes";
 import Contato from "./pages/Contato";
+import Missoes from "./pages/Missoes";
+import MinisterioDetalhe from "./pages/MinisterioDetalhe";
 import AdminScale from "./components/AdminScale";
 import { CHURCH } from "./data/church";
+import { MINISTERIOS } from "./data/ministerios";
 
 const NO_FOOTER_PAGES: Page[] = ["playbacks", "admin"];
 
 const ALL_PAGES: Page[] = [
   "home", "biblia", "palavra-do-dia", "devocional", "playbacks",
   "harpa", "cultos", "ministerios", "quem-somos", "contribuicoes",
-  "contato", "admin",
+  "contato", "admin", "missoes",
 ];
 
 function hashToPage(): Page {
-  const h = window.location.hash.replace(/^#\/?/, "").toLowerCase();
+  const h = window.location.hash.replace(/^#\/?/, "").toLowerCase().split("?")[0];
+  // Sub-rota #/ministerios/<id> → página ministerios
+  if (h.startsWith("ministerios/")) return "ministerios";
   return (ALL_PAGES as string[]).includes(h) ? (h as Page) : "home";
 }
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>(hashToPage);
+  const [activeMinistry, setActiveMinistry] = useState<string | null>(null);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
@@ -54,19 +61,32 @@ export default function App() {
       cultos: `Cultos e Agenda — ${CHURCH.shortName}`,
       ministerios: `Ministérios — ${CHURCH.shortName}`,
       "quem-somos": `Quem Somos — ${CHURCH.shortName}`,
-      contribuicoes: `Contribuições — ${CHURCH.shortName}`,
+      contribuicoes: `Apoie a Obra — ${CHURCH.shortName}`,
       contato: `Contato — ${CHURCH.shortName}`,
       admin: `Escala — ${CHURCH.shortName}`,
+      missoes: `Missões — ${CHURCH.shortName}`,
     };
-    document.title = titles[currentPage] || CHURCH.name;
-  }, [currentPage]);
+    document.title = activeMinistry
+      ? `${MINISTERIOS.find((x) => x.id === activeMinistry)?.name ?? "Ministério"} — ${CHURCH.shortName}`
+      : titles[currentPage] || CHURCH.name;
+  }, [currentPage, activeMinistry]);
 
   // Sincroniza hash com a navegação (ex: /#/admin)
-  useEffect(() => {
-    const onHash = () => setCurrentPage(hashToPage());
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, []);
+    useEffect(() => {
+      const onHash = () => {
+        setCurrentPage(hashToPage());
+        // Extrai sub-rota de ministério (#/ministerios/louvor)
+        const m = window.location.hash.match(/^#\/ministerios\/([a-z]+)/);
+        if (m && MINISTERIOS.some((x) => x.id === m[1])) {
+          setActiveMinistry(m[1]);
+        } else {
+          setActiveMinistry(null);
+        }
+      };
+      onHash();
+      window.addEventListener("hashchange", onHash);
+      return () => window.removeEventListener("hashchange", onHash);
+    }, []);
 
   const navigate = (page: Page) => {
     setCurrentPage(page);
@@ -93,7 +113,8 @@ export default function App() {
       case "cultos":
         return <Cultos />;
       case "ministerios":
-        return <Ministerios />;
+              if (activeMinistry) return <MinisterioDetalhe id={activeMinistry} onNavigate={navigate} />;
+              return <Ministerios onNavigate={navigate} />;
       case "quem-somos":
         return <QuemSomos />;
       case "contribuicoes":
@@ -102,6 +123,8 @@ export default function App() {
         return <Contato />;
       case "admin":
         return <AdminScale />;
+      case "missoes":
+        return <Missoes onNavigate={navigate} />;
       default:
         return <Home onNavigate={navigate} />;
     }
@@ -120,21 +143,22 @@ export default function App() {
 
       {showFooter && <Footer onNavigate={navigate} />}
 
-      {/* Prayer request floating button (canto inferior direito) */}
-      <PrayerButton />
-
-      {/* Back to top */}
-      {showBackToTop && (
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-24 right-6 z-40 w-10 h-10 bg-card border border-border text-muted-foreground hover:text-foreground hover:border-accent/50 rounded-full shadow flex items-center justify-center transition-all"
-          aria-label="Voltar ao topo"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-          </svg>
-        </button>
-      )}
+            {/* FABs: Voltar ao topo + Apoie a Obra + Pedido de Oração */}
+                                    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+                                      {showBackToTop && (
+                                        <button
+                                          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                                          className="w-10 h-10 bg-card border border-border text-muted-foreground hover:text-foreground hover:border-accent/50 rounded-full shadow flex items-center justify-center transition-all"
+                                          aria-label="Voltar ao topo"
+                                        >
+                                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                                          </svg>
+                                        </button>
+                                      )}
+                                      <SupportButton onNavigate={navigate} />
+                                      <PrayerButton />
+                                    </div>
     </div>
   );
 }

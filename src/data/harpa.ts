@@ -81,20 +81,6 @@ export function getEmbedUrl(): string | null {
 export const HARPA_HYMNS: HarpaHymn[] = [
   // ═══════════ SALVAÇÃO / REDENÇÃO ═══════════
   {
-    number: 1,
-    title: "A Prova do Amor",
-    author: "Domínio público",
-    category: "Salvação",
-    key: "G",
-    verses: [
-      "Deus amou o mundo de tal maneira\nQue enviou seu Filho para nos salvar;\nQuem nEle crê e segue a sua trilha\nA vida eterna irá desfrutar.",
-      "Jesus veio ao mundo para nos dar vida,\nPara resgatar-nos do poder do mal;\nEm seu sangue precioso somos limpos,\nPor sua graça somos mais que vencedores, afinal.",
-      "Que amor tão maravilhoso é esse\nQue Deus enviou Jesus para morrer;\nE que Jesus ressuscitou glorioso,\nDando-nos a todos nova vida e poder.",
-    ],
-    chorus:
-      "Oh! Que amor, oh! Que amor,\nO amor de Deus que nos salvou!\nOh! Que amor, oh! Que amor,\nO amor de Deus que nos salvou!",
-  },
-  {
     number: 2,
     title: "Que Segurança",
     author: "Domínio público",

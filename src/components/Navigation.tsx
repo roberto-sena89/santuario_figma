@@ -13,7 +13,8 @@ export type Page =
   | "quem-somos"
   | "contribuicoes"
   | "contato"
-  | "admin";
+  | "admin"
+  | "missoes";
 
 interface NavProps {
   currentPage: Page;
@@ -25,8 +26,10 @@ interface NavItem {
   page: Page;
   icon: React.ReactNode;
   group?: "core" | "more";
-  submenu?: { label: string; page: Page; icon: React.ReactNode; desc: string }[];
+  submenu?: { label: string; page: Page; icon: React.ReactNode; desc: string; hash?: string }[];
   submenuLabel?: string;
+  /** Pai também navega pra sua página ao clicar (além de abrir o dropdown) */
+  navigateParent?: boolean;
 }
 
 const NAV_ITEMS: NavItem[] = [
@@ -44,7 +47,23 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
-  { label: "Ministérios", page: "ministerios", icon: <UsersIcon />, group: "core" },
+  {
+    label: "Ministérios",
+    page: "ministerios",
+    icon: <UsersIcon />,
+    group: "core",
+    navigateParent: true,
+    submenuLabel: "Conheça os ministérios",
+    submenu: [
+      { label: "Ministério de Louvor", page: "ministerios", icon: <SparklesIcon />, desc: "Adoração corporativa nos cultos", hash: "#/ministerios/louvor" },
+      { label: "Ministério de Jovens", page: "ministerios", icon: <UsersIcon />, desc: "Jovens de 15 a 30 anos", hash: "#/ministerios/jovens" },
+      { label: "Ministério Infantil", page: "ministerios", icon: <HeartIcon />, desc: "Ensino bíblico para crianças", hash: "#/ministerios/criancas" },
+      { label: "Ministério de Intercessão", page: "ministerios", icon: <SparklesIcon />, desc: "Oração pela comunidade", hash: "#/ministerios/intercessao" },
+      { label: "Ministério de Casais", page: "ministerios", icon: <HeartIcon />, desc: "Apoio e comunhão para casais", hash: "#/ministerios/casais" },
+      { label: "Diaconia Social", page: "ministerios", icon: <UsersIcon />, desc: "Ação social e assistência", hash: "#/ministerios/diaconia" },
+      { label: "Ministério de Missões", page: "missoes", icon: <GlobeIcon />, desc: "Conheça a obra missionária" },
+    ],
+  },
   {
     label: "Multimídia",
     page: "playbacks",
@@ -242,7 +261,10 @@ export default function Navigation({
                   return (
                     <div key={item.page} className="relative" ref={setSubmenuRef(item.page)}>
                       <button
-                        onClick={() => setOpenSubmenu(isOpen ? null : item.page)}
+                        onClick={() => {
+                          if (item.navigateParent) navigate(item.page);
+                          setOpenSubmenu(isOpen ? null : item.page);
+                        }}
                         className={`group relative flex items-center gap-1 px-3.5 py-2 rounded-md text-[13.5px] font-medium transition-colors duration-200 ${
                           subActive || isOpen
                             ? "text-accent"
@@ -290,11 +312,16 @@ export default function Navigation({
                             </p>
                           </div>
                           {item.submenu.map((sub) => {
-                            const subActive = currentPage === sub.page;
+                            const subActive = sub.hash
+                              ? window.location.hash === sub.hash
+                              : currentPage === sub.page;
                             return (
                               <button
-                                key={sub.page}
-                                onClick={() => navigate(sub.page)}
+                                key={sub.page + (sub.hash ?? "")}
+                                onClick={() => {
+                                  navigate(sub.page);
+                                  if (sub.hash) window.location.hash = sub.hash;
+                                }}
                                 className={`group flex w-full items-center gap-3 px-3 py-2.5 text-[13.5px] transition-colors duration-150 ${
                                   subActive
                                     ? "text-accent bg-accent/8"
@@ -446,9 +473,10 @@ export default function Navigation({
                         style={{ animationDelay: `${i * 30}ms` }}
                       >
                         <button
-                          onClick={() =>
-                            setMobileOpenSubmenu(open ? null : item.page)
-                          }
+                          onClick={() => {
+                            if (item.navigateParent) navigate(item.page);
+                            setMobileOpenSubmenu(open ? null : item.page);
+                          }}
                           aria-expanded={open}
                           aria-haspopup="true"
                           className={`group flex w-full items-center gap-3 px-3.5 py-3 rounded-lg text-[13.5px] font-medium transition-all duration-200 ${
@@ -491,11 +519,16 @@ export default function Navigation({
                         {open && (
                           <div className="mt-1 flex flex-col gap-0.5 pl-4">
                             {item.submenu.map((sub) => {
-                              const subActive = currentPage === sub.page;
+                              const subActive = sub.hash
+                                ? window.location.hash === sub.hash
+                                : currentPage === sub.page;
                               return (
                                 <button
-                                  key={sub.page}
-                                  onClick={() => navigate(sub.page)}
+                                  key={sub.page + (sub.hash ?? "")}
+                                  onClick={() => {
+                                    navigate(sub.page);
+                                    if (sub.hash) window.location.hash = sub.hash;
+                                  }}
                                   className={`group flex w-full items-center gap-3 px-3.5 py-2.5 rounded-lg text-[13px] font-medium transition-all duration-150 ${
                                     subActive
                                       ? "bg-accent/10 text-accent ring-1 ring-accent/15"
@@ -691,6 +724,19 @@ function InfoIcon() {
         strokeLinejoin="round"
         strokeWidth={1.7}
         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      />
+    </svg>
+  );
+}
+
+function GlobeIcon() {
+  return (
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.7}
+        d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"
       />
     </svg>
   );

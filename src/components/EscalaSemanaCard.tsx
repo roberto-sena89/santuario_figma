@@ -25,11 +25,13 @@ export default function EscalaSemanaCard() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-1">
-        {escala.dias.map((dia) => {
+        {escala.dias
+          .filter((dia) => {
+            const papeis = PAPEIS_POR_DIA[dia.key] ?? [];
+            return papeis.some((p) => papelParaLista(dia.papeis[p.key]).length > 0);
+          })
+          .map((dia) => {
           const papeis = PAPEIS_POR_DIA[dia.key] ?? [];
-          const preenchidos = papeis.some(
-            (p) => papelParaLista(dia.papeis[p.key]).length > 0
-          );
           return (
             <div
               key={dia.key}
@@ -43,50 +45,41 @@ export default function EscalaSemanaCard() {
                   <h3 className="font-display text-lg font-semibold leading-tight tracking-tight text-foreground">
                     {dia.titulo}
                   </h3>
-                  <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-muted/60 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                  <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-muted/60 px-2.5 py-1 text-xs font-medium text-muted-foreground">
                     <span className="text-[#B8860B] dark:text-[#E8B35E]" aria-hidden="true">🕐</span>
                     {dia.dia} às {dia.horario}
                   </div>
                 </div>
-                {preenchidos && (
-                  <span className="ml-auto inline-flex items-center gap-1 rounded-full bg-green-500/10 px-2.5 py-0.5 text-[10px] font-medium text-green-600 dark:text-green-400">
-                    ✓ definida
-                  </span>
-                )}
               </div>
 
               <div className="px-5 py-4">
                 {papeis.length === 0 ? (
                   <p className="text-sm text-muted-foreground">Sem escala nesta semana.</p>
                 ) : (
-                  <ul className="space-y-2.5">
-                    {papeis.map((papel) => {
-                      const nomes = papelParaLista(dia.papeis[papel.key]);
-                      return (
-                        <li key={papel.key} className="flex items-center justify-between gap-3">
-                          <span className="text-xs font-medium text-muted-foreground">
-                            {papel.label}
-                          </span>
-                          {nomes.length > 0 ? (
-                            <span className="flex flex-wrap justify-end gap-1">
+                  <ul className="space-y-3">
+                    {papeis
+                      .filter((papel) => papelParaLista(dia.papeis[papel.key]).length > 0)
+                      .map((papel) => {
+                        const nomes = papelParaLista(dia.papeis[papel.key]);
+                        return (
+                          <li key={papel.key} className="flex items-center justify-between gap-3">
+                            <span className="text-[13px] font-semibold text-foreground/70">
+                              {papel.label}
+                            </span>
+                            <span className="flex flex-wrap justify-end gap-1.5">
                               {nomes.map((nome) => (
                                 <span
                                   key={nome}
-                                  className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-3 py-1 text-xs font-medium text-[#B8860B] ring-1 ring-[#D4A24C]/25 dark:text-[#E8B35E]"
+                                  className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/12 px-3.5 py-1.5 text-[13px] font-medium text-[#C4933C] ring-1 ring-[#D4A24C]/30 dark:text-[#E8B35E]"
                                 >
                                   <span className="h-1.5 w-1.5 rounded-full bg-[#D4A24C]" aria-hidden="true" />
                                   {nome}
                                 </span>
                               ))}
                             </span>
-                          ) : (
-                            <span className="rounded-full bg-muted/60 px-3 py-1 text-[11px] text-muted-foreground/60">
-                              A definir
-                            </span>
-                          )}
-                        </li>
-                      );
-                    })}
+                          </li>
+                        );
+                      })}
                   </ul>
                 )}
               </div>

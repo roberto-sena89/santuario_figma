@@ -30,13 +30,13 @@ export default function Contribuicoes() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
                 <PageTitle
-                                  eyebrow="Contribuicoes"
-                                  eyebrowIcon="💛"
-                                  title="Dizimos e Ofertas"
-                                  subtitle="Sua contribuicao financia os ministerios da igreja, as acoes sociais e a missao evangelistica. Cada oferta e um ato de adoracao e parceria com o trabalho de Deus."
-                                  subtitleIcon="🎁"
-                                  align="center"
-                                />
+                                                  eyebrow="Contribuições"
+                                                  eyebrowIcon="🕊️"
+                                                  title="Apoie a Obra"
+                                                  subtitle="Sua contribuicao financia os ministerios da igreja, as acoes sociais e a missao evangelistica. Cada oferta e um ato de adoracao e parceria com o trabalho de Deus."
+                                                  subtitleIcon="🎁"
+                                                  align="center"
+                                                />
                 <div className="text-center max-w-3xl mx-auto my-10">
                                   <div className="bg-[#D4A24C]/8 border border-[#D4A24C]/20 rounded-2xl p-6 sm:p-8 shadow-sm">
                                     <blockquote className="font-bible italic text-foreground/80 text-xl leading-relaxed">
