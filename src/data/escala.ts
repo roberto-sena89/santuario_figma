@@ -21,7 +21,37 @@ export interface EscalaSemana {
   dias: EscalaDia[];
 }
 
-/** Define quais dias têm escala e quais papéis cada um tem. */
+/** Ordem canônica dos dias para ordenação. */
+export const ORDEM_DIAS: Record<string, number> = {
+  segunda: 1, terca: 2, quarta: 3, quinta: 4, sexta: 5, sabado: 6, domingo: 7,
+};
+export const DIAS_SEMANA_OPCOES: { key: string; label: string }[] = [
+  { key: "segunda", label: "Segunda-feira" },
+  { key: "terca", label: "Terça-feira" },
+  { key: "quarta", label: "Quarta-feira" },
+  { key: "quinta", label: "Quinta-feira" },
+  { key: "sexta", label: "Sexta-feira" },
+  { key: "sabado", label: "Sábado" },
+  { key: "domingo", label: "Domingo" },
+];
+
+/** Nomes de culto mais comuns — sugestões para autocomplete/atalhos. */
+export const SUGESTOES_CULTO: string[] = [
+  "Círculo de Oração",
+  "Culto da Família",
+  "Culto da Rede de Jovens",
+  "Culto de Adoração",
+  "Culto de Ensino e Crescimento",
+  "Culto de Missões",
+  "Culto de Santa Ceia",
+  "Ensaio do Louvor (Rede de Crianças)",
+  "Ensaio do Louvor (Rede de Jovens)",
+  "Ensaio do Louvor (Rede de Mulheres)",
+  "Ensaio do Louvor (Rede de Pré-Adolescente)",
+  "Estudo Bíblico para Crianças",
+];
+
+/** Define quais dias têm escala e quais papéis cada um tem. (padrão inicial) */
 export const DIAS_ESCALA: Omit<EscalaDia, "papeis">[] = [
   {
     key: "segunda",
@@ -39,7 +69,7 @@ export const DIAS_ESCALA: Omit<EscalaDia, "papeis">[] = [
     key: "quarta",
     dia: "Quarta-feira",
     horario: "19:00",
-    titulo: "Culto de Ensino",
+    titulo: "Culto de Ensino e Crescimento",
   },
 ];
 
@@ -50,18 +80,57 @@ export const PAPEIS_POR_DIA: Record<
 > = {
   segunda: [
     { key: "dirigente", label: "Dirigente" },
+    { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
+    { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
   ],
   quarta: [
     { key: "dirigente", label: "Dirigente" },
     { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
   ],
   terca: [
     { key: "dirigente", label: "Dirigente" },
+    { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
+    { key: "louvor", label: "Louvor da Oferta" },
+    { key: "porteiro", label: "Porteiro" },
+    { key: "auxiliar", label: "Auxiliar", multi: true },
+  ],
+  quinta: [
+    { key: "dirigente", label: "Dirigente" },
+    { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
+    { key: "louvor", label: "Louvor da Oferta" },
+    { key: "porteiro", label: "Porteiro" },
+    { key: "auxiliar", label: "Auxiliar", multi: true },
+  ],
+  sexta: [
+    { key: "dirigente", label: "Dirigente" },
+    { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
+    { key: "louvor", label: "Louvor da Oferta" },
+    { key: "porteiro", label: "Porteiro" },
+    { key: "auxiliar", label: "Auxiliar", multi: true },
+  ],
+  sabado: [
+    { key: "dirigente", label: "Dirigente" },
+    { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
+    { key: "louvor", label: "Louvor da Oferta" },
+    { key: "porteiro", label: "Porteiro" },
+    { key: "auxiliar", label: "Auxiliar", multi: true },
+  ],
+  domingo: [
+    { key: "dirigente", label: "Dirigente" },
+    { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
+    { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
   ],
@@ -105,14 +174,19 @@ export const PESSOAS_PADRAO: string[] = [
 /** Emoji representativo de cada dia da escala. */
 export const EMOJI_DIA: Record<string, string> = {
   segunda: "🕊️",
-  quarta: "📖",
   terca: "🧒",
+  quarta: "📖",
+  quinta: "🎸",
+  sexta: "🎤",
+  sabado: "✨",
+  domingo: "☀️",
 };
 
 /** Emoji representativo de cada papel. */
 export const PAPEL_EMOJI: Record<string, string> = {
   dirigente: "🎤",
   pregador: "📖",
+  louvor_geral: "🎵",
   louvor: "🎶",
   porteiro: "🚪",
   auxiliar: "🤝",
@@ -170,17 +244,61 @@ export function formatSemana(semana: string): string {
 // ============================================================
 
 const STORAGE_KEY = "santuario_escala";
+const CULTOS_KEY = "santuario_cultos_def";
 const SENHA_KEY = "santuario_escala_senha";
 
 export const SENHA_PADRAO = "santuario2026"; // senha fixa do painel admin
 
+/** Carrega cultos cadastrados (ou padrão). Ordena por dia da semana + horário. */
+export function carregarCultos(): Omit<EscalaDia, "papeis">[] {
+  try {
+    const raw = localStorage.getItem(CULTOS_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as Omit<EscalaDia, "papeis">[];
+      if (Array.isArray(parsed) && parsed.length > 0) return ordenarCultos(parsed);
+    }
+  } catch { /* ignore */ }
+  return [...DIAS_ESCALA];
+}
+
+export function salvarCultos(cultos: Omit<EscalaDia, "papeis">[]) {
+  localStorage.setItem(CULTOS_KEY, JSON.stringify(ordenarCultos(cultos)));
+}
+
+function ordenarCultos(cultos: Omit<EscalaDia, "papeis">[]) {
+  // mapa label -> ordem (para quando key tem slug "quinta-ensaio-...")
+  const ordemPorLabel: Record<string, number> = {};
+  DIAS_SEMANA_OPCOES.forEach((o) => { ordemPorLabel[o.label] = ORDEM_DIAS[o.key] ?? 99; });
+  return [...cultos].sort((a, b) => {
+    // tenta por key direto, senão por dia label
+    const oa = ORDEM_DIAS[a.key] ?? ordemPorLabel[a.dia] ?? 99;
+    const ob = ORDEM_DIAS[b.key] ?? ordemPorLabel[b.dia] ?? 99;
+    if (oa !== ob) return oa - ob;
+    return a.horario.localeCompare(b.horario);
+  });
+}
+
+/** Papeis padrão para um culto (fallback se não houver em PAPEIS_POR_DIA). */
+export function papeisParaCulto(cultoKey: string) {
+  const base = [
+    { key: "dirigente", label: "Dirigente" },
+    { key: "pregador", label: "Pregador da Palavra" },
+    { key: "louvor_geral", label: "Louvor" },
+    { key: "louvor", label: "Louvor da Oferta" },
+    { key: "porteiro", label: "Porteiro" },
+    { key: "auxiliar", label: "Auxiliar", multi: true },
+  ] as const;
+  return (PAPEIS_POR_DIA[cultoKey] as typeof base | undefined) ?? [...base];
+}
+
 export function escalaVazia(semana: string): EscalaSemana {
+  const cultos = carregarCultos();
   return {
     semana,
-    dias: DIAS_ESCALA.map((d) => ({
+    dias: cultos.map((d) => ({
       ...d,
       papeis: Object.fromEntries(
-        PAPEIS_POR_DIA[d.key].map((p) => [p.key, ""])
+        papeisParaCulto(d.key).map((p) => [p.key, p.multi ? [] : ""])
       ),
     })),
   };

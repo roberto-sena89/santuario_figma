@@ -8,7 +8,7 @@ import { CHURCH } from "../data/church";
  *
  * Copy prioriza acolhimento, sigilo e fe:
  *  - Eyebrow: "Com amor e fe" (acolhimento + fe)
- *  - Headline: "Peca uma oracao" (CTA claro: peca que orem por voce)
+ *  - Headline: "Peça uma oração" (CTA claro: peça que orem por você)
  *  - Tooltip no hover: "Sigilo pastoral" + "Tiago 5:14"
  *  - Mensagem WhatsApp cita Tiago 5:14 e oferece confidencialidade
  *
@@ -24,13 +24,13 @@ import { CHURCH } from "../data/church";
  */
 export default function PrayerButton() {
   // Mensagem pastoral — Tiago 5:14 + convite + sigilo
-  // ASCII puro + acentos UTF-8 (sem em-dash, bullet, emoji)
+  // Acentos UTF-8 (sem em-dash, bullet, emoji)
   const message = encodeURIComponent(
-    "Ola, equipe de intercessao!\n\n" +
-      "Conforme Tiago 5:14, gostaria de pedir oracao. " +
-      "Estou passando por um momento e creio que Deus ouve as nossas oracoes. " +
-      "Se possivel, gostaria de manter em sigilo. " +
-      "Que Deus abencoe cada um de voces pela dedicacao.\n\n" +
+    "Olá, equipe de intercessão!\n\n" +
+      "Conforme Tiago 5:14, gostaria de pedir oração. " +
+      "Estou passando por um momento e creio que Deus ouve as nossas orações. " +
+      "Se possível, gostaria de manter em sigilo. " +
+      "Que Deus abençoe cada um de vocês pela dedicação.\n\n" +
       "Muito obrigado(a)!"
   );
 
@@ -42,7 +42,7 @@ export default function PrayerButton() {
       target="_blank"
       rel="noopener noreferrer"
       className="group relative inline-flex items-center gap-3 rounded-full bg-[#D4A24C] pl-3 pr-5 py-3 text-gray-900 shadow-lg shadow-[#D4A24C]/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#D4A24C]/45 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-      aria-label="Pedir oracao pelo WhatsApp - equipe de intercessao"
+      aria-label="Pedir oração pelo WhatsApp - equipe de intercessão"
     >
       {/* Halo de pulso (nao-interativo) */}
       <span
@@ -80,7 +80,7 @@ export default function PrayerButton() {
           Fale Conosco
         </span>
         <span className="font-serif text-[15.5px] font-semibold tracking-tight">
-          Peca uma oracao
+          Peça Uma Oração
         </span>
       </span>
 
@@ -102,7 +102,7 @@ export default function PrayerButton() {
       >
         <span className="block font-semibold tracking-wide">Sigilo pastoral</span>
         <span className="block text-[10.5px] text-gray-400">
-          Equipe de intercessao - Tiago 5:14
+          Equipe de intercessão - Tiago 5:14
         </span>
       </span>
     </a>
