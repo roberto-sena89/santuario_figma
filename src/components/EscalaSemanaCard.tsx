@@ -28,22 +28,22 @@ export default function EscalaSemanaCard() {
   }, []);
 
   return (
-    <section aria-label="Escala da semana" className="mb-4">
-      <div className="flex items-center gap-2.5 mb-4">
-        <span className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-xl bg-[#D4A24C]/15 text-base shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20" aria-hidden="true">
+    <section aria-label="Escala da semana">
+      <div className="flex items-center gap-2 mb-3">
+        <span className="grid h-7 w-7 flex-shrink-0 place-items-center rounded-lg bg-[#D4A24C]/12 text-sm ring-1 ring-[#D4A24C]/15" aria-hidden="true">
           📋
         </span>
         <div>
-          <h2 className="font-display text-xl font-semibold text-foreground">
+          <h2 className="font-display text-lg font-semibold leading-none text-foreground">
             Escala da Semana
           </h2>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[11px] leading-none mt-1 text-muted-foreground">
             {formatSemana(semana)}
           </p>
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {(() => {
           // todos os eventos da semana — mesmo sem escala preenchida
           const ordemPorDia: Record<string, number> = {};
@@ -67,51 +67,50 @@ export default function EscalaSemanaCard() {
             return (
             <div
               key={diaLabel}
-              className="overflow-hidden rounded-xl border border-border bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-md hover:shadow-[#D4A24C]/10 hover:border-[#D4A24C]/30"
+              className="overflow-hidden rounded-lg border border-border/50 bg-card shadow-none transition-colors hover:border-[#D4A24C]/25"
             >
-              <div className="flex items-center gap-2.5 px-4 py-3 border-b border-border/60 bg-gradient-to-r from-[#D4A24C]/10 via-transparent to-transparent">
-                <span className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-lg bg-[#D4A24C]/15 text-base shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/25" aria-hidden="true">
+              <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border/40 bg-[#D4A24C]/[0.06]">
+                <span className="grid h-6 w-6 flex-shrink-0 place-items-center rounded-md bg-[#D4A24C]/12 text-xs ring-1 ring-[#D4A24C]/15" aria-hidden="true">
                   {EMOJI_DIA[baseKey] ?? "📅"}
                 </span>
-                <div className="min-w-0">
-                  <h3 className="font-display text-base font-semibold leading-tight tracking-tight text-foreground">
+                <div className="min-w-0 flex items-baseline gap-2">
+                  <h3 className="font-display text-sm font-semibold leading-none text-foreground">
                     {diaLabel}
                   </h3>
-                  <div className="mt-0.5 inline-flex items-center gap-1 rounded-full bg-muted/60 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                    <span className="text-[#B8860B] dark:text-[#E8B35E]" aria-hidden="true">🕐</span>
-                    {dias.length === 1 ? `${dias[0].horario}` : `${dias.length} horários`}
-                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                    {dias.length === 1 ? dias[0].horario : `${dias.length}×`}
+                  </span>
                 </div>
               </div>
 
-              <div className="divide-y divide-border/40">
+              <div className="divide-y divide-border/30">
                 {dias.map((dia) => {
                   const papeis = PAPEIS_POR_DIA[dia.key] ?? PAPEIS_POR_DIA[dia.key.split("-")[0]] ?? [];
                   const temEscala = papeis.some(p => papelParaLista(dia.papeis[p.key]).length > 0);
                   return (
-                    <div key={dia.key} className="px-4 py-3">
-                      <div className="mb-2 flex items-center gap-2">
-                        <span className="inline-flex items-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/20 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-[#B8860B] dark:text-[#E8B35E]">{dia.horario}</span>
-                        <span className="text-xs font-medium text-foreground/80 truncate">{dia.titulo}</span>
+                    <div key={dia.key} className="px-3 py-2">
+                      <div className="mb-1.5 flex items-center gap-1.5">
+                        <span className="inline-flex items-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/15 px-1.5 py-0.5 text-[10px] font-semibold text-[#B8860B] dark:text-[#E8B35E]">{dia.horario}</span>
+                        <span className="text-[11px] font-medium leading-none text-foreground/70 truncate">{dia.titulo}</span>
                       </div>
                       {papeis.length === 0 ? (
-                        <p className="text-xs text-muted-foreground">Sem papéis definidos.</p>
+                        <p className="text-[11px] text-muted-foreground">Sem papéis.</p>
                       ) : temEscala ? (
-                        <ul className="space-y-2">
+                        <ul className="space-y-1.5">
                           {papeis
                             .filter((papel) => papelParaLista(dia.papeis[papel.key]).length > 0)
                             .map((papel) => {
                               const nomes = papelParaLista(dia.papeis[papel.key]);
                               return (
                                 <li key={papel.key} className="flex items-center justify-between gap-2">
-                                  <span className="text-xs font-semibold text-foreground/70">
+                                  <span className="text-[11px] font-medium text-foreground/60">
                                     {papel.label}
                                   </span>
                                   <span className="flex flex-wrap justify-end gap-1">
                                     {nomes.map((nome) => (
                                       <span
                                         key={nome}
-                                        className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/12 px-2.5 py-1 text-xs font-medium text-[#C4933C] ring-1 ring-[#D4A24C]/30 dark:text-[#E8B35E]"
+                                        className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-2 py-0.5 text-[11px] font-medium leading-none text-[#C4933C] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]"
                                       >
                                         <span className="h-1 w-1 rounded-full bg-[#D4A24C]" aria-hidden="true" />
                                         {nome}
