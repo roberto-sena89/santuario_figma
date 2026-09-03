@@ -80,8 +80,8 @@ export default async function handler(req, res) {
         content: Buffer.from(novoConteudo, "utf-8").toString("base64"),
         sha,
         branch,
-        committer: { name: "Roberto Sena", email: "315856640+roberto-sena89@users.noreply.github.com" },
-        author: { name: "Roberto Sena", email: "315856640+roberto-sena89@users.noreply.github.com" },
+        committer: { name: "Roberto Sena", email: "roberto_sena10@hotmail.com" },
+        author: { name: "Roberto Sena", email: "roberto_sena10@hotmail.com" },
       }),
     });
     if (!putRes.ok) {
