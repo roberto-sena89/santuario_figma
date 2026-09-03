@@ -1,1 +1,132 @@
-{}
+{
+  "2026-36": {
+    "semana": "2026-36",
+    "dias": [
+      {
+        "key": "segunda",
+        "dia": "Segunda-feira",
+        "horario": "18:00",
+        "titulo": "Círculo de Oração",
+        "papeis": {
+          "dirigente": "Diaconisa Ivoneide Neres",
+          "pregador": "",
+          "louvor_geral": "",
+          "louvor": "",
+          "porteiro": "",
+          "auxiliar": [
+            "Irmã Neurismar"
+          ],
+          "regente": ""
+        }
+      },
+      {
+        "key": "terca",
+        "dia": "Terça-feira",
+        "horario": "18:00",
+        "titulo": "Estudo Bíblico para Crianças",
+        "papeis": {
+          "dirigente": "Irmã Carla Diniz",
+          "pregador": "",
+          "louvor_geral": "",
+          "louvor": "",
+          "porteiro": "",
+          "auxiliar": [
+            "Irmã Eliana Braga",
+            "Irmã Rogelma Duarte"
+          ],
+          "regente": ""
+        }
+      },
+      {
+        "key": "quarta",
+        "dia": "Quarta-feira",
+        "horario": "19:00",
+        "titulo": "Culto de Ensino e Crescimento",
+        "papeis": {
+          "dirigente": "Pr.Wellington Mendes",
+          "pregador": "Diácono Marcos Brito",
+          "louvor_geral": "Irmã Rafaela Luna",
+          "louvor": "Irmã Olga Evangelista",
+          "porteiro": "Irmão Edval",
+          "auxiliar": [],
+          "regente": ""
+        }
+      },
+      {
+        "key": "quinta",
+        "dia": "Quinta-feira",
+        "horario": "18:00",
+        "titulo": "Ensaio do Louvor (Rede de Jovens)",
+        "papeis": {
+          "dirigente": "",
+          "pregador": "",
+          "louvor_geral": "",
+          "louvor": "",
+          "porteiro": "",
+          "auxiliar": [],
+          "regente": "Irmão Leandro"
+        }
+      },
+      {
+        "key": "sexta",
+        "dia": "Sexta-feira",
+        "horario": "18:00",
+        "titulo": "Ensaio do Louvor (Rede de Mulheres)",
+        "papeis": {
+          "dirigente": "",
+          "pregador": "",
+          "louvor_geral": "",
+          "louvor": "",
+          "porteiro": "",
+          "auxiliar": [],
+          "regente": "Irmã Rafaela Luna"
+        }
+      },
+      {
+        "key": "sabado",
+        "dia": "Sábado",
+        "horario": "17:00",
+        "titulo": "Ensaio do Louvor (Rede de Crianças)",
+        "papeis": {
+          "dirigente": "",
+          "pregador": "",
+          "louvor_geral": "",
+          "louvor": "",
+          "porteiro": "",
+          "auxiliar": [],
+          "regente": "Irmã Carla Diniz"
+        }
+      },
+      {
+        "key": "sabado-ensaio-do-louvor-red-2",
+        "dia": "Sábado",
+        "horario": "18:00",
+        "titulo": "Ensaio do Louvor (Rede de Pré-Adolescente)",
+        "papeis": {
+          "dirigente": "",
+          "pregador": "",
+          "louvor_geral": "",
+          "louvor": "",
+          "porteiro": "",
+          "auxiliar": [],
+          "regente": "Irmã Márcia Brito"
+        }
+      },
+      {
+        "key": "domingo",
+        "dia": "Domingo",
+        "horario": "18:00",
+        "titulo": "Culto da Rede de Jovens",
+        "papeis": {
+          "dirigente": "Irmão Leandro",
+          "pregador": "Irmão David Wilson",
+          "louvor_geral": "Irmão Adrian Ryan",
+          "louvor": "Irmão Matheus Neres",
+          "porteiro": "Irmão Rene Ferreira",
+          "auxiliar": [],
+          "regente": ""
+        }
+      }
+    ]
+  }
+}
