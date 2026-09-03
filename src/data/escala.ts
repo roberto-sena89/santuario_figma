@@ -255,7 +255,7 @@ const STORAGE_KEY = "santuario_escala";
 const CULTOS_KEY = "santuario_cultos_def";
 const SENHA_KEY = "santuario_escala_senha";
 
-export const SENHA_PADRAO = "santuario2026"; // senha fixa do painel admin
+export const SENHA_PADRAO = "santuario2026"; // senha fixa do painel admin — também usada em /api/admin-sync via env ADMIN_SENHA
 
 /** Carrega cultos cadastrados (ou padrão). Ordena por dia da semana + horário. */
 export function carregarCultos(): Omit<EscalaDia, "papeis">[] {

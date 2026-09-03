@@ -841,28 +841,49 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
             );
           })()}
           <p className="mt-5 flex items-start gap-2 rounded-xl bg-[#D4A24C]/[0.06] border border-[#D4A24C]/10 px-3.5 py-2.5 text-xs leading-relaxed text-foreground/60">
-            <span aria-hidden="true" className="mt-0.5">💾</span> <span>Salvo neste navegador (localStorage). Para aparecer para todos no Vercel, use Exportar abaixo e faça commit.</span>
+            <span aria-hidden="true" className="mt-0.5">💾</span> <span>Salvo neste navegador (localStorage). Para aparecer para todos no Vercel, use Publicar abaixo — commit direto no GitHub.</span>
           </p>
-          {/* Exportar PESSOAS_PADRAO p/ Vercel */}
+          {/* Publicar direto no GitHub → Vercel */}
           <div className="mt-4 rounded-xl border border-[#D4A24C]/20 bg-gradient-to-br from-[#D4A24C]/[0.07] to-transparent p-3.5">
             <div className="mb-2 flex items-center gap-2">
-              <span className="text-xs font-bold tracking-widest uppercase text-foreground/60">Exportar para o código</span>
+              <span className="text-xs font-bold tracking-widest uppercase text-foreground/60">Publicar no GitHub</span>
               <span className="ml-auto text-[11px] text-foreground/40">{pessoas.length} pessoas</span>
             </div>
-            <p className="mb-3 text-xs leading-relaxed text-foreground/55">Copia o array pronto para colar em <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">src/data/escala.ts → PESSOAS_PADRAO</code> e dar commit/push — aí todo navegador vê.</p>
+            <p className="mb-3 text-xs leading-relaxed text-foreground/55">Envia <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">PESSOAS_PADRAO</code> direto para <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">src/data/escala.ts</code> no GitHub — Vercel faz deploy automático em ~30s. Precisa de <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">GH_TOKEN</code> configurado na Vercel.</p>
             <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={async () => {
+                const senha = prompt("Confirme a senha do painel (santuario2026):", "") || "";
+                if (!senha) return;
+                const btn = document.getElementById("btn-publicar-pessoas") as HTMLButtonElement | null;
+                if (btn) { btn.textContent = "⏳ Publicando..."; btn.setAttribute("disabled","true"); }
+                try {
+                  const res = await fetch("/api/admin-sync", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json", "x-admin-senha": senha },
+                    body: JSON.stringify({ senha, pessoas }),
+                  });
+                  const data = await res.json().catch(()=>({}));
+                  if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+                  alert(data.message || "Publicado! Vercel deploy em ~30s");
+                } catch (e: unknown) {
+                  const msg = e instanceof Error ? e.message : String(e);
+                  alert("Falha ao publicar: " + msg + "\n\nDica: verifique GH_TOKEN na Vercel ou use Copiar abaixo.");
+                } finally {
+                  if (btn) { btn.textContent = "🚀 Publicar no GitHub → Vercel"; btn.removeAttribute("disabled"); }
+                }
+              }} id="btn-publicar-pessoas" className="inline-flex items-center gap-1.5 h-8 rounded-full bg-[#D4A24C] px-5 text-xs font-bold text-gray-900 shadow-sm hover:bg-[#C4933C] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">🚀 Publicar no GitHub → Vercel</button>
               <button type="button" onClick={async () => {
                 const sorted = [...pessoas].sort((a,b)=>a.localeCompare(b,"pt-BR"));
                 const snippet = `export const PESSOAS_PADRAO: string[] = [\n${sorted.map(s=>`  "${s.replace(/"/g,'\\"')}",`).join("\n")}\n];`;
                 try { await navigator.clipboard.writeText(snippet); alert("Copiado! Cole em escala.ts e faça commit."); } catch { prompt("Copie o snippet:", snippet); }
-              }} className="inline-flex items-center gap-1.5 h-8 rounded-full bg-[#D4A24C] px-4 text-xs font-bold text-gray-900 shadow-sm hover:bg-[#C4933C] transition-colors">📋 Copiar PESSOAS_PADRAO</button>
+              }} className="inline-flex items-center gap-1.5 h-8 rounded-full border border-border/60 bg-card px-4 text-xs font-semibold text-foreground/70 hover:border-[#D4A24C]/30 hover:text-foreground transition-colors">📋 Copiar</button>
               <button type="button" onClick={() => {
                 const blob = new Blob([JSON.stringify([...pessoas].sort((a,b)=>a.localeCompare(b,"pt-BR")), null, 2)], { type: "application/json" });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement("a");
                 a.href = url; a.download = "pessoas.json"; a.click();
                 URL.revokeObjectURL(url);
-              }} className="inline-flex items-center gap-1.5 h-8 rounded-full border border-border/60 bg-card px-4 text-xs font-semibold text-foreground/70 hover:border-[#D4A24C]/30 hover:text-foreground transition-colors">⬇ Baixar JSON</button>
+              }} className="inline-flex items-center gap-1.5 h-8 rounded-full border border-border/60 bg-card px-4 text-xs font-semibold text-foreground/70 hover:border-[#D4A24C]/30 hover:text-foreground transition-colors">⬇ JSON</button>
             </div>
           </div>
         </div>
