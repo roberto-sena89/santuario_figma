@@ -76,6 +76,36 @@ export const DIAS_ESCALA: Omit<EscalaDia, "papeis">[] = [
     horario: "19:00",
     titulo: "Culto de Ensino e Crescimento",
   },
+  {
+    key: "quinta",
+    dia: "Quinta-feira",
+    horario: "18:00",
+    titulo: "Ensaio do Louvor (Rede de Jovens)",
+  },
+  {
+    key: "sexta",
+    dia: "Sexta-feira",
+    horario: "18:00",
+    titulo: "Ensaio do Louvor (Rede de Mulheres)",
+  },
+  {
+    key: "sabado",
+    dia: "Sábado",
+    horario: "17:00",
+    titulo: "Ensaio do Louvor (Rede de Crianças)",
+  },
+  {
+    key: "sabado-ensaio-do-louvor-red-2",
+    dia: "Sábado",
+    horario: "18:00",
+    titulo: "Ensaio do Louvor (Rede de Pré-Adolescente)",
+  },
+  {
+    key: "domingo",
+    dia: "Domingo",
+    horario: "18:00",
+    titulo: "Culto da Rede de Jovens",
+  },
 ];
 
 /** Papéis por dia (ordem de exibição). `multi: true` aceita várias pessoas. */
@@ -348,13 +378,41 @@ export function salvarEscala(escala: EscalaSemana) {
   try { window.dispatchEvent(new CustomEvent("santuario:escala-updated", { detail: escala.semana })); } catch {}
 }
 
-/** Retorna a escala de uma semana (cria vazia se não existir). Mescla cultos novos/removidos. */
+/** Retorna a escala de uma semana (cria vazia se não existir). Preserva dias salvos mesmo se DIAS_ESCALA desatualizado. */
 export function getEscala(semana: string): EscalaSemana {
   const all = carregarEscalas();
   const cultos = carregarCultos();
   const stored = all[semana];
   if (!stored) return escalaVazia(semana);
-  // mescla cultos atuais com papeis já salvos — garante 2 eventos no mesmo dia (17h/18h) apareçam
+  // se stored tem mais dias que cultos (ex: 8 eventos salvos mas DIAS_ESCALA ainda com 3), preserva stored
+  // isso corrige caso onde produção ainda não recebeu commit de cultos
+  if (stored.dias.length > cultos.length) {
+    // atualiza apenas se culto mudou titulo/horario/dia mas mantém lista stored
+    const mapaCultos = new Map(cultos.map((c) => [c.key, c]));
+    let changed = false;
+    const diasAtualizados = stored.dias.map((d) => {
+      const c = mapaCultos.get(d.key);
+      if (c && (c.dia !== d.dia || c.horario !== d.horario || c.titulo !== d.titulo)) {
+        changed = true;
+        return { ...c, papeis: d.papeis };
+      }
+      return d;
+    });
+    // inclui cultos novos que ainda não estão no stored
+    for (const c of cultos) if (!stored.dias.some((d) => d.key === c.key)) {
+      changed = true;
+      diasAtualizados.push({ ...c, papeis: Object.fromEntries(papeisParaCulto(c.key).map((p) => [p.key, p.multi ? [] : ""])) });
+    }
+    if (!changed) return stored;
+    const merged: EscalaSemana = { semana, dias: ordenarCultos(diasAtualizados) as EscalaDia[] };
+    try {
+      all[semana] = merged;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+      try { window.dispatchEvent(new CustomEvent("santuario:escala-updated", { detail: semana })); } catch {}
+    } catch {}
+    return merged;
+  }
+  // caso normal: mescla cultos atuais com papeis já salvos — garante 2 eventos no mesmo dia (17h/18h) apareçam
   const mapaStored = new Map(stored.dias.map((d) => [d.key, d]));
   let needsUpdate = stored.dias.length !== cultos.length;
   const diasMesclados = cultos.map((c) => {
