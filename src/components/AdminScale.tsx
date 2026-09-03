@@ -187,6 +187,18 @@ function CultosManager({ onCultosChange }: { onCultosChange: () => void }) {
     salvarCultos(lista);
     setCultos(carregarCultos());
     onCultosChange();
+    // sync cultos para repo (DIAS_ESCALA) — fixa em todos os navegadores após deploy
+    try {
+      const senha = sessionStorage.getItem("santuario_admin_senha") || "santuario2026";
+      fetch("/api/admin-sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-senha": senha },
+        body: JSON.stringify({ senha, cultos: lista }),
+      }).then((r)=>r.json().catch(()=>({}))).then((d)=>{
+        if (d?.commit) console.log("cultos publicados:", d.message);
+        else if (d?.error) console.warn("sync cultos:", d.error);
+      }).catch((e)=>console.warn("sync cultos erro", e));
+    } catch {}
   };
 
   const handleSubmit = (e: React.FormEvent) => {
