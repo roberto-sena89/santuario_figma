@@ -29,11 +29,11 @@ export default function EscalaSemanaCard() {
 
   return (
     <section aria-label="Escala da semana">
-      <div className="mb-3">
+      <div className="mb-4 text-center">
         <h2 className="font-display text-lg font-semibold leading-none text-foreground">
           Escala da Semana
         </h2>
-        <p className="text-[11px] leading-none mt-1 text-muted-foreground">
+        <p className="text-[11px] leading-none mt-1.5 text-muted-foreground">
           {formatSemana(semana)}
         </p>
       </div>
