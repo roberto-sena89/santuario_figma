@@ -216,8 +216,7 @@ export default function Home({ onNavigate }: HomeProps) {
           aria-hidden="true"
         />
         <div className="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:py-20 text-center">
-          <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-white/10 px-5 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur-sm shadow-lg shadow-black/20 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
-            <span className="text-sm" aria-hidden="true">🕊️</span>
+          <p className="mb-5 inline-flex items-center justify-center gap-2 rounded-full border border-accent/40 bg-white/10 px-5 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur-sm shadow-lg shadow-black/20 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
             Primeira visita
             <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" aria-hidden="true" />
           </p>
