@@ -201,7 +201,74 @@ export default function Home({ onNavigate }: HomeProps) {
               </button>
             </div>
           </div>
+        </div>
+      </section>
 
+      {/* Novo por aqui — abaixo da Bíblia Sagrada */}
+      <section className="relative overflow-hidden" aria-label="Novo por aqui">
+        <img
+          src="/fotos/homepage/9.jfif"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="lazy"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-graphite/85 via-graphite/55 to-graphite/85"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:py-20 text-center">
+          <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-white/10 px-5 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur-sm shadow-lg shadow-black/20 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
+            <span className="text-sm" aria-hidden="true">🕊️</span>
+            Primeira visita
+            <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" aria-hidden="true" />
+          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-normal leading-[1.1] text-white mb-3 text-balance [text-shadow:0_2px_20px_rgba(0,0,0,0.65)]">
+            Está visitando pela primeira vez?
+          </h2>
+          <div className="mx-auto mb-5 h-0.5 w-16 rounded-full bg-accent/60" aria-hidden="true" />
+          <p className="mx-auto max-w-2xl text-sm sm:text-base leading-[1.75] text-white mb-8 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
+            Seja muito bem-vindo. Aqui você vai encontrar uma comunidade acolhedora, ensino bíblico
+            sólido e pessoas que se importam com você.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <button
+              onClick={() => navigate("quem-somos")}
+              className="group inline-flex items-center gap-2 rounded-full bg-[#D4A24C] hover:bg-[#C4933C] px-7 py-3.5 text-sm sm:text-base font-semibold text-gray-900 shadow-lg shadow-[#D4A24C]/25 ring-1 ring-[#B8860B]/40 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/45 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
+            >
+              Conheça nossa história
+              <svg
+                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            <button
+              onClick={() => onNavigate("missoes")}
+              className="group inline-flex items-center gap-2.5 rounded-full border border-[#D4A24C]/50 bg-[#D4A24C]/10 px-7 py-3.5 text-sm sm:text-base font-medium text-[#D4A24C] backdrop-blur-sm transition-all duration-200 hover:border-[#D4A24C]/80 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
+            >
+              <svg className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 3a15 15 0 010 18 15 15 0 010-18z" />
+              </svg>
+              <span>Conheça a obra missionária</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Programação da semana */}
+      <section className="py-12 bg-muted/30" aria-label="Programação da semana">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
             <p className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/20 px-3 py-1 text-[#9C7A2E] text-[11px] font-semibold uppercase tracking-[0.16em] mb-2">
               <span aria-hidden="true">⛪</span>
@@ -357,80 +424,6 @@ export default function Home({ onNavigate }: HomeProps) {
               </div>
             </section>
 
-      {/* Novo por aqui */}
-      <section className="relative overflow-hidden" aria-label="Novo por aqui">
-        {/* Imagem de fundo */}
-        <img
-          src="/fotos/homepage/9.jfif"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          loading="lazy"
-          aria-hidden="true"
-        />
-        {/* Gradiente — fade escuro nas bordas + leve overlay central pra legibilidade */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-graphite/85 via-graphite/55 to-graphite/85"
-          aria-hidden="true"
-        />
-        {/* Ornam — linha bronze sutil no topo */}
-        <div
-          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent"
-          aria-hidden="true"
-        />
-
-        <div className="relative z-10 mx-auto max-w-3xl px-4 py-24 sm:py-28 text-center">
-          {/* Eyebrow */}
-                    <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-white/10 px-5 py-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur-sm shadow-lg shadow-black/20 [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
-                      <span className="text-sm" aria-hidden="true">🕊️</span>
-                      Primeira visita
-                      <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" aria-hidden="true" />
-                    </p>
-
-          {/* Headline */}
-                    <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.1] text-white mb-3 text-balance [text-shadow:0_2px_20px_rgba(0,0,0,0.65)]">
-                      Está visitando pela primeira vez?
-                    </h2>
-
-                    {/* Divider decorativo */}
-                    <div className="mx-auto mb-5 h-0.5 w-16 rounded-full bg-accent/60" aria-hidden="true" />
-
-          {/* Subhead */}
-          <p className="mx-auto max-w-2xl text-base sm:text-lg leading-[1.75] text-white mb-10 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
-            Seja muito bem-vindo. Aqui você vai encontrar uma comunidade acolhedora, ensino bíblico
-            sólido e pessoas que se importam com você.
-          </p>
-
-          {/* CTAs — hierarquia clara: primário (bronze) + secundário (outline branco) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <button
-              onClick={() => navigate("quem-somos")}
-              className="group inline-flex items-center gap-2 rounded-full bg-[#D4A24C] hover:bg-[#C4933C] px-7 py-3.5 text-sm sm:text-base font-semibold text-gray-900 shadow-lg shadow-[#D4A24C]/25 ring-1 ring-[#B8860B]/40 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/45 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
-            >
-              Conheça nossa história
-              <svg
-                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-            <button
-                                      onClick={() => onNavigate("missoes")}
-                                      className="group inline-flex items-center gap-2.5 rounded-full border border-[#D4A24C]/50 bg-[#D4A24C]/10 px-7 py-3.5 text-sm sm:text-base font-medium text-[#D4A24C] backdrop-blur-sm transition-all duration-200 hover:border-[#D4A24C]/80 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
-                                    >
-                                      <svg className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.6 9h16.8M3.6 15h16.8" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3a15 15 0 010 18 15 15 0 010-18z" />
-                                      </svg>
-                                      <span>Conheça a obra missionária</span>
-                                    </button>
-          </div>
-        </div>
-      </section>
 
     </main>
   );
