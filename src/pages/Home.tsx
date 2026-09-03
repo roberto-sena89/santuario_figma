@@ -189,9 +189,8 @@ export default function Home({ onNavigate }: HomeProps) {
               </p>
               <button
                 onClick={() => navigate("biblia")}
-                className="group inline-flex items-center gap-2.5 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 text-sm font-semibold pl-2 pr-5 py-2 rounded-full shadow-md shadow-[#D4A24C]/25 ring-1 ring-[#B8860B]/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 text-sm font-semibold px-6 py-2.5 rounded-full shadow-md shadow-[#D4A24C]/25 ring-1 ring-[#B8860B]/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
               >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/25 text-sm shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
                 Ler Bíblia Agora
               </button>
             </div>
