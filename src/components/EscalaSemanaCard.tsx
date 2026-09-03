@@ -64,13 +64,10 @@ export default function EscalaSemanaCard() {
               key={diaLabel}
               className="overflow-hidden rounded-lg border border-border/50 bg-card shadow-none transition-colors hover:border-[#D4A24C]/25"
             >
-              <div className="flex items-center gap-2 px-3 py-2.5 border-b border-border/40 bg-[#D4A24C]/[0.06]">
+              <div className="flex items-center px-3 py-2.5 border-b border-border/40 bg-[#D4A24C]/[0.06]">
                 <h3 className="font-display text-sm font-semibold leading-none text-foreground">
                   {diaLabel}
                 </h3>
-                <span className="inline-flex items-center gap-1 rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                  {dias.length === 1 ? dias[0].horario : `${dias.length}×`}
-                </span>
               </div>
 
               <div className="divide-y divide-border/30">
