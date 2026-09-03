@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEscala, formatSemana, isoWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES, mondayOfWeek } from "../data/escala";
+import { getEscala, formatSemana, isoWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
 
 /**
  * Card compacto "Escala da Semana" — mostra os papéis definidos no painel
@@ -69,27 +69,19 @@ export default function EscalaSemanaCard() {
                   {diaLabel}
                 </h3>
                 {(() => {
-                  const [y, m] = diaLabel === "Sábado" ? [2026, 8] : [2026, 9];
-                  const ref = new Date(Date.UTC(y, m, 1));
-                  const refMonday = new Date(ref);
-                  refMonday.setUTCDate(refMonday.getUTCDate() + (1 - (refMonday.getUTCDay() || 7)));
-                  let targetMonday: Date;
-                  if (diaLabel === "Sábado") {
-                    targetMonday = new Date(refMonday);
-                    targetMonday.setUTCDate(targetMonday.getUTCDate() + 5);
-                  } else if (diaLabel === "Domingo") {
-                    targetMonday = new Date(refMonday);
-                    targetMonday.setUTCDate(targetMonday.getUTCDate() + 6);
-                  } else {
-                    const idx = ["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira"].indexOf(diaLabel);
-                    targetMonday = new Date(refMonday);
-                    targetMonday.setUTCDate(targetMonday.getUTCDate() + idx);
+                  const data = new Date(Date.UTC(2026, 8, 28));
+                  const diasSemana = ["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"];
+                  const idx = diasSemana.indexOf(diaLabel);
+                  if (idx >= 0) {
+                    const d = new Date(data);
+                    d.setUTCDate(d.getUTCDate() + idx);
+                    const dd = String(d.getUTCDate()).padStart(2, "0");
+                    const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+                    return (
+                      <span className="ml-1.5 text-[10px] font-medium text-muted-foreground tabular-nums">{dd}/{mm}</span>
+                    );
                   }
-                  const dd = String(targetMonday.getUTCDate()).padStart(2, "0");
-                  const mm = String(targetMonday.getUTCMonth() + 1).padStart(2, "0");
-                  return (
-                    <span className="ml-1.5 text-[10px] font-medium text-muted-foreground tabular-nums">{dd}/{mm}</span>
-                  );
+                  return null;
                 })()}
               </div>
 
