@@ -129,7 +129,7 @@ export default function Cultos() {
                                                                       })}
                       </ul>
                     ) : (
-                      <p className="text-xs italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#B8860B] dark:text-[#E8B35E]">#/admin</span></p>
+                      <p className="text-xs italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#B8860B] dark:text-[#E8B35E]">#/escala</span></p>
                     )}
                   </div>
                       );

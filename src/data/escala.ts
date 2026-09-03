@@ -21,6 +21,8 @@ export interface EscalaSemana {
   /** Semana civil no formato AAAA-SS (ISO week). Ex: "2026-36" */
   semana: string;
   dias: EscalaDia[];
+  /** Timestamp da última edição (local ou publicado). O mais novo vence no merge. */
+  atualizadoEm?: number;
 }
 
 // Escalas do repo (commitadas via /api/admin-sync) — visíveis em todos os navegadores após deploy
@@ -349,7 +351,8 @@ export function escalaVazia(semana: string): EscalaSemana {
   };
 }
 
- /** Lê todas as semanas salvas. Repo é autoritativo — garante que visitante veja publicado. */
+ /** Lê todas as semanas salvas. O dado com `atualizadoEm` mais recente vence
+  * (edição local nova supera JSON publicado antigo; publicação nova supera cache local). */
 export function carregarEscalas(): Record<string, EscalaSemana> {
   let repo: Record<string, EscalaSemana> = {};
   try { repo = ESCALAS_REPO || {}; } catch { repo = {}; }
@@ -358,22 +361,23 @@ export function carregarEscalas(): Record<string, EscalaSemana> {
     const raw = localStorage.getItem(STORAGE_KEY);
     local = raw ? (JSON.parse(raw) as Record<string, EscalaSemana>) : {};
   } catch { local = {}; }
-  // repo vence local — publicado fixa Home/Agenda em todos os navegadores
-  const merged: Record<string, EscalaSemana> = { ...local, ...repo };
-  // se repo trouxe semana nova, hidrata cache local para próximo load offline
-  if (Object.keys(repo).length > 0) {
-    try {
-      const needsHydrate = Object.keys(repo).some((k) => JSON.stringify(local[k]) !== JSON.stringify(repo[k]));
-      if (needsHydrate) localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-    } catch {}
+  const merged: Record<string, EscalaSemana> = { ...repo };
+  for (const [k, v] of Object.entries(local)) {
+    const r = repo[k];
+    if (!r || (v.atualizadoEm ?? 0) > (r.atualizadoEm ?? 0)) merged[k] = v;
   }
+  // se merge trouxe dado novo, hidrata cache local para próximo load offline
+  try {
+    const needsHydrate = Object.entries(merged).some(([k, v]) => JSON.stringify(local[k]) !== JSON.stringify(v));
+    if (needsHydrate) localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+  } catch {}
   return merged;
 }
 
 /** Salva a escala de uma semana. */
 export function salvarEscala(escala: EscalaSemana) {
   const all = carregarEscalas();
-  all[escala.semana] = escala;
+  all[escala.semana] = { ...escala, atualizadoEm: Date.now() };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
   try { window.dispatchEvent(new CustomEvent("santuario:escala-updated", { detail: escala.semana })); } catch {}
 }

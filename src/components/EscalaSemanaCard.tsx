@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEscala, formatSemana, isoWeek, mondayOfWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
+import { getEscala, isoWeek, mondayOfWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
 
 /**
  * Card compacto "Escala da Semana" — mostra os papéis definidos no painel
@@ -29,16 +29,23 @@ export default function EscalaSemanaCard() {
 
   return (
     <section aria-label="Escala da semana">
-      <div className="mb-4 text-center">
-        <h2 className="font-display text-lg font-semibold leading-none text-foreground">
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <h2 className="font-display text-sm font-semibold leading-none text-foreground">
           Escala da Semana
         </h2>
-        <p className="text-[11px] leading-none mt-1.5 text-muted-foreground">
-          {formatSemana(semana)}
-        </p>
+        <span className="inline-flex items-center rounded-full bg-[#D4A24C]/10 px-2.5 py-1 text-[10px] font-semibold leading-none text-[#9C7A2E] dark:text-[#E8B35E] tabular-nums">
+          {(() => {
+            const monday = mondayOfWeek(semana);
+            const nextSunday = new Date(monday);
+            nextSunday.setUTCDate(nextSunday.getUTCDate() + 6);
+            const fmt = (d: Date) =>
+              `${String(d.getUTCDate()).padStart(2, "0")}/${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+            return `${fmt(monday)} — ${fmt(nextSunday)}`;
+          })()}
+        </span>
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {(() => {
           // todos os eventos da semana — mesmo sem escala preenchida
           const ordemPorDia: Record<string, number> = {};
@@ -62,10 +69,11 @@ export default function EscalaSemanaCard() {
             return (
             <div
               key={diaLabel}
-              className="overflow-hidden rounded-lg border border-border/50 bg-card shadow-none transition-colors hover:border-[#D4A24C]/25"
+              className="rounded-xl border border-border/50 bg-card"
             >
-              <div className="flex items-center px-3 py-2.5 border-b border-border/40 bg-[#D4A24C]/[0.06]">
-                <h3 className="font-display text-sm font-semibold leading-none text-foreground">
+              {/* Cabeçalho do dia */}
+              <div className="flex items-center justify-between gap-2 px-3 py-2 border-b border-border/40">
+                <h3 className="text-xs font-semibold leading-none text-foreground">
                   {diaLabel}
                 </h3>
                 {(() => {
@@ -80,42 +88,45 @@ export default function EscalaSemanaCard() {
                     const dd = String(d.getUTCDate()).padStart(2, "0");
                     const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
                     return (
-                      <span className="ml-1.5 text-[10px] font-medium text-muted-foreground tabular-nums">{dd}/{mm}</span>
+                      <span className="text-[10px] font-medium leading-none text-muted-foreground tabular-nums">{dd}/{mm}</span>
                     );
                   }
                   return null;
                 })()}
               </div>
 
+              {/* Eventos do dia */}
               <div className="divide-y divide-border/30">
                 {dias.map((dia) => {
                   const papeis = PAPEIS_POR_DIA[dia.key] ?? PAPEIS_POR_DIA[dia.key.split("-")[0]] ?? [];
                   const temEscala = papeis.some(p => papelParaLista(dia.papeis[p.key]).length > 0);
                   return (
                     <div key={dia.key} className="px-3 py-2">
-                      <div className="mb-1.5 flex items-center justify-center relative">
-                        <span className="absolute left-0 text-[10px] font-medium leading-none text-muted-foreground tabular-nums">{dia.horario}H</span>
-                        <span className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/15 px-2.5 py-0.5 text-[10px] font-semibold leading-none text-[#B8860B] dark:text-[#E8B35E] text-center max-w-[75%] truncate">{dia.titulo}</span>
+                      <div className="flex items-center gap-1.5">
+                        <span className="shrink-0 text-[10px] font-semibold leading-none text-[#C4933C] dark:text-[#E8B35E] tabular-nums">{dia.horario}H</span>
+                        <span className="h-2.5 w-px bg-border/60" aria-hidden="true" />
+                        <span className="min-w-0 flex-1 truncate text-[11px] font-medium leading-none text-foreground/90" title={dia.titulo}>
+                          {dia.titulo}
+                        </span>
                       </div>
                       {papeis.length === 0 ? (
-                        <p className="text-[11px] text-muted-foreground">Sem papéis.</p>
+                        <p className="mt-1.5 text-[10px] text-muted-foreground">Sem papéis.</p>
                       ) : temEscala ? (
-                        <ul className="space-y-1.5">
+                        <ul className="mt-1.5 space-y-1">
                           {papeis
                             .filter((papel) => papelParaLista(dia.papeis[papel.key]).length > 0)
                             .map((papel) => {
                               const nomes = papelParaLista(dia.papeis[papel.key]);
                               return (
-                                <li key={papel.key} className="flex items-center justify-between gap-2">
-                                  <span className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-2 py-0.5 text-[11px] font-medium leading-none text-[#C4933C] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]">
-                                    <span className="h-1 w-1 rounded-full bg-[#D4A24C]" aria-hidden="true" />
+                                <li key={papel.key} className="flex items-baseline justify-between gap-2">
+                                  <span className="shrink-0 text-[10px] font-medium leading-snug text-muted-foreground">
                                     {papel.label}
                                   </span>
-                                  <span className="flex flex-wrap justify-end gap-1">
+                                  <span className="flex min-w-0 flex-wrap justify-end gap-x-1.5 gap-y-0.5">
                                     {nomes.map((nome) => (
                                       <span
                                         key={nome}
-                                        className="text-[11px] font-medium text-foreground/70 text-right"
+                                        className="text-[10px] font-medium leading-snug text-foreground/85 text-right"
                                       >
                                         {nome}
                                       </span>
@@ -126,7 +137,7 @@ export default function EscalaSemanaCard() {
                             })}
                         </ul>
                       ) : (
-                        <p className="text-[11px] italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#B8860B] dark:text-[#E8B35E]">#/escala</span></p>
+                        <p className="mt-1.5 text-[10px] italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#B8860B] dark:text-[#E8B35E]">#/escala</span></p>
                       )}
                     </div>
                   );

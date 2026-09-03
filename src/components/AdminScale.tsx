@@ -478,7 +478,7 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
   };
 
   const salvar = async () => {
-    const payload = { ...escala, semana };
+    const payload = { ...escala, semana, atualizadoEm: Date.now() };
     salvarEscala(payload);
     setSalvo(true);
     setTimeout(() => setSalvo(false), 2500);

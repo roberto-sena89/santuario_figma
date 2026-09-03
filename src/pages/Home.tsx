@@ -354,8 +354,7 @@ export default function Home({ onNavigate }: HomeProps) {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Badge + título sutis */}
                 <div className="text-center mb-10">
-                  <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/12 border border-[#D4A24C]/25 px-4 py-1.5 text-[#9C7A2E] dark:text-[#D4A24C] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
-                    <span aria-hidden="true">🗺️</span>
+                  <p className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D4A24C]/12 border border-[#D4A24C]/25 px-4 py-1.5 text-[#9C7A2E] dark:text-[#D4A24C] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
                     Navegue pelo site
                   </p>
                   <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground/75">
