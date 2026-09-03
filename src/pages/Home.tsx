@@ -150,13 +150,11 @@ export default function Home({ onNavigate }: HomeProps) {
                                             </div>
                       <div className="mt-8">
                         <button
-                                                  onClick={() => navigate("palavra-do-dia")}
-                                                  className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold text-sm sm:text-base pl-2.5 pr-6 py-2 rounded-full shadow-lg shadow-[#D4A24C]/35 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
-                                                >
-                                                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
-                                                  Ler a Palavra do Dia completa
-                                                  <span className="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">✨</span>
-                                                </button>
+                          onClick={() => navigate("palavra-do-dia")}
+                          className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/35 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                        >
+                          Ler a Palavra do Dia completa
+                        </button>
                       </div>
         </div>
       </section>
