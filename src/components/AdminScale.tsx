@@ -19,6 +19,7 @@ import {
   DIAS_SEMANA_OPCOES,
   SUGESTOES_CULTO,
   papeisParaCulto,
+  ORDEM_DIAS,
   type EscalaSemana,
   type EscalaDia,
 } from "../data/escala";
@@ -467,17 +468,23 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
   const adicionarPessoa = (e: React.FormEvent) => {
     e.preventDefault();
     const nome = novaPessoa.trim();
-    if (!nome || pessoas.includes(nome)) return;
-    const nova = [...pessoas, nome];
-    setPessoas(nova);
-    salvarPessoas(nova);
+    if (!nome) return;
+    // dedup por normalize p/ evitar "João" duplicado com acento/caixa
+    if (pessoas.some((p) => normalize(p) === normalize(nome))) return;
+    setPessoas((prev) => {
+      const nova = [...prev, nome].sort((a, b) => a.localeCompare(b, "pt-BR"));
+      salvarPessoas(nova);
+      return nova;
+    });
     setNovaPessoa("");
   };
 
   const removerPessoa = (nome: string) => {
-    const nova = pessoas.filter((p) => p !== nome);
-    setPessoas(nova);
-    salvarPessoas(nova);
+    setPessoas((prev) => {
+      const nova = prev.filter((p) => p !== nome);
+      salvarPessoas(nova);
+      return nova;
+    });
   };
 
   return (
@@ -572,27 +579,49 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
 
         {aba === "escala" && (
         <>
-        {/* Escala por dia */}
+        {/* Escala por dia — agrupado por dia (2 horários no mesmo card) */}
         <div className="space-y-5">
-          {escala.dias.map((dia) => (
+          {(() => {
+            const ordemPorDia: Record<string, number> = {};
+            DIAS_SEMANA_OPCOES.forEach(o => ordemPorDia[o.label] = ORDEM_DIAS[o.key] ?? 99);
+            const grupos = new Map<string, typeof escala.dias>();
+            for (const d of escala.dias) {
+              const g = grupos.get(d.dia) ?? [];
+              g.push(d);
+              grupos.set(d.dia, g);
+            }
+            const gruposOrdenados = Array.from(grupos.entries()).sort((a,b)=>(ordemPorDia[a[0]]??99)-(ordemPorDia[b[0]]??99));
+            gruposOrdenados.forEach(([,arr]) => arr.sort((a,b)=>a.horario.localeCompare(b.horario)));
+            return gruposOrdenados.map(([diaLabel, dias]) => {
+              const baseKey = DIAS_SEMANA_OPCOES.find(o=>o.label===diaLabel)?.key ?? dias[0].key.split("-")[0];
+              return (
             <div
-              key={dia.key}
+              key={diaLabel}
               className="rounded-[22px] border border-[#D4A24C]/10 bg-gradient-to-br from-card/90 via-card to-card/60 p-6 sm:p-7 shadow-[0_4px_24px_rgba(0,0,0,0.12)] backdrop-blur-sm"
             >
               <div className="mb-6 flex items-center gap-4">
                 <span className="grid h-12 w-12 flex-shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#D4A24C]/20 to-[#D4A24C]/10 text-[22px] shadow-sm shadow-[#D4A24C]/15 ring-1 ring-[#D4A24C]/20">
-                  {EMOJI_DIA[dia.key] ?? EMOJI_DIA[DIAS_SEMANA_OPCOES.find(o=>o.label===dia.dia)?.key ?? ""] ?? "📅"}
+                  {EMOJI_DIA[baseKey] ?? "📅"}
                 </span>
                 <div className="min-w-0 flex-1">
                   <h2 className="font-display text-[20px] font-bold leading-none tracking-tight text-foreground">
-                    {dia.titulo}
+                    {diaLabel}
                   </h2>
                   <div className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/15 px-3 py-1 text-xs font-semibold tracking-wide text-foreground/70">
                     <span className="text-[#D4A24C] text-xs" aria-hidden="true">◷</span>
-                    {dia.dia} às {dia.horario}
+                    {dias.length === 1 ? `${dias[0].horario}` : `${dias.length} horários`}
                   </div>
                 </div>
               </div>
+
+              <div className="space-y-6 divide-y divide-border/40">
+                {dias.map((dia) => (
+                <div key={dia.key} className="pt-5 first:pt-0">
+                  <div className="mb-4 flex items-center gap-2">
+                    <span className="inline-flex items-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/20 px-3 py-1 text-xs font-bold tracking-wide text-[#B8860B] dark:text-[#E8B35E]">{dia.horario}</span>
+                    <span className="text-[13px] font-semibold text-foreground/80 truncate">{dia.titulo}</span>
+                    <button type="button" onClick={() => setAba("cultos")} className="ml-auto text-[11px] font-medium text-[#D4A24C] hover:text-[#C4933C] transition-colors">✎ editar</button>
+                  </div>
 
               {(() => {
                 const todos = papeisParaCulto(dia.key) ?? [];
@@ -642,7 +671,14 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
                                   {lista.length > 0 ? `✓ ${lista.length} ${lista.length === 1 ? "pessoa" : "pessoas"}` : "selecione"}
                                 </span>
                               </div>
-                              <AuxiliarPicker diaKey={dia.key} papelKey={papel.key} pessoas={pessoas} lista={lista} onToggle={togglePapel} onAddPessoa={(nome) => { if (!nome || pessoas.includes(nome)) return; const nova = [...pessoas, nome].sort((a,b)=>a.localeCompare(b,"pt-BR")); setPessoas(nova); salvarPessoas(nova); }} />
+                              <AuxiliarPicker diaKey={dia.key} papelKey={papel.key} pessoas={pessoas} lista={lista} onToggle={togglePapel} onAddPessoa={(nome) => {
+                                if (!nome || pessoas.some((p) => normalize(p) === normalize(nome))) return;
+                                setPessoas((prev) => {
+                                  const nova = [...prev, nome].sort((a,b)=>a.localeCompare(b,"pt-BR"));
+                                  salvarPessoas(nova);
+                                  return nova;
+                                });
+                              }} />
                             </div>
                           );
                         }
@@ -671,8 +707,13 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
                   </div>
                 );
               })()}
+                </div>
+                ))}
+              </div>
             </div>
-          ))}
+              );
+            });
+          })()}
         </div>
 
         {/* Salvar */}
@@ -800,8 +841,30 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
             );
           })()}
           <p className="mt-5 flex items-start gap-2 rounded-xl bg-[#D4A24C]/[0.06] border border-[#D4A24C]/10 px-3.5 py-2.5 text-xs leading-relaxed text-foreground/60">
-            <span aria-hidden="true" className="mt-0.5">💾</span> <span>A lista é salva neste navegador e usada em todos os papéis e semanas.</span>
+            <span aria-hidden="true" className="mt-0.5">💾</span> <span>Salvo neste navegador (localStorage). Para aparecer para todos no Vercel, use Exportar abaixo e faça commit.</span>
           </p>
+          {/* Exportar PESSOAS_PADRAO p/ Vercel */}
+          <div className="mt-4 rounded-xl border border-[#D4A24C]/20 bg-gradient-to-br from-[#D4A24C]/[0.07] to-transparent p-3.5">
+            <div className="mb-2 flex items-center gap-2">
+              <span className="text-xs font-bold tracking-widest uppercase text-foreground/60">Exportar para o código</span>
+              <span className="ml-auto text-[11px] text-foreground/40">{pessoas.length} pessoas</span>
+            </div>
+            <p className="mb-3 text-xs leading-relaxed text-foreground/55">Copia o array pronto para colar em <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">src/data/escala.ts → PESSOAS_PADRAO</code> e dar commit/push — aí todo navegador vê.</p>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={async () => {
+                const sorted = [...pessoas].sort((a,b)=>a.localeCompare(b,"pt-BR"));
+                const snippet = `export const PESSOAS_PADRAO: string[] = [\n${sorted.map(s=>`  "${s.replace(/"/g,'\\"')}",`).join("\n")}\n];`;
+                try { await navigator.clipboard.writeText(snippet); alert("Copiado! Cole em escala.ts e faça commit."); } catch { prompt("Copie o snippet:", snippet); }
+              }} className="inline-flex items-center gap-1.5 h-8 rounded-full bg-[#D4A24C] px-4 text-xs font-bold text-gray-900 shadow-sm hover:bg-[#C4933C] transition-colors">📋 Copiar PESSOAS_PADRAO</button>
+              <button type="button" onClick={() => {
+                const blob = new Blob([JSON.stringify([...pessoas].sort((a,b)=>a.localeCompare(b,"pt-BR")), null, 2)], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url; a.download = "pessoas.json"; a.click();
+                URL.revokeObjectURL(url);
+              }} className="inline-flex items-center gap-1.5 h-8 rounded-full border border-border/60 bg-card px-4 text-xs font-semibold text-foreground/70 hover:border-[#D4A24C]/30 hover:text-foreground transition-colors">⬇ Baixar JSON</button>
+            </div>
+          </div>
         </div>
         </>
         )}
