@@ -81,8 +81,7 @@ export default function Home({ onNavigate }: HomeProps) {
             <section className="py-20 bg-muted/40" aria-label="Ministérios">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
-                  <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3 mx-auto">
-                    <span aria-hidden="true">🤝</span>
+                  <p className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3 mx-auto">
                     Comunidade
                   </p>
                   <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
