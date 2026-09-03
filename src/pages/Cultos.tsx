@@ -84,7 +84,7 @@ export default function Cultos() {
 
                   <div className="divide-y divide-border/40">
                     {dias.map((dia) => {
-                      const papeis = PAPEIS_POR_DIA[dia.key] ?? [];
+                      const papeis = PAPEIS_POR_DIA[dia.key] ?? PAPEIS_POR_DIA[dia.key.split("-")[0]] ?? [];
                       const temEscala = papeis.some(p => papelParaLista(dia.papeis[p.key]).length > 0);
                       return (
                     <div key={dia.key} className="px-5 py-4">
