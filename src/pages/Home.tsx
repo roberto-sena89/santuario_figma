@@ -67,9 +67,8 @@ export default function Home({ onNavigate }: HomeProps) {
                       </button>
                       <button
                         onClick={() => navigate("quem-somos")}
-                        className="group inline-flex items-center gap-3 rounded-full border border-white/40 bg-white/10 px-6 py-2.5 text-white font-medium backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/15 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+                        className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/10 px-6 py-2.5 text-white font-medium backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/15 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
                       >
-                        <span className="text-base transition-transform duration-300 group-hover:scale-110" aria-hidden="true">👋</span>
                         Novo por aqui?
                       </button>
                     </div>
