@@ -43,7 +43,7 @@ export default function EscalaSemanaCard() {
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-1">
+      <div className="grid gap-5 sm:grid-cols-2">
         {(() => {
           // todos os eventos da semana — mesmo sem escala preenchida
           const ordemPorDia: Record<string, number> = {};

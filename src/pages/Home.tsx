@@ -215,7 +215,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto bg-card/60 border border-border/70 rounded-2xl p-5 sm:p-6 backdrop-blur-sm shadow-sm">
+          <div className="bg-card/60 border border-border/70 rounded-2xl p-5 sm:p-6 backdrop-blur-sm shadow-sm">
             <EscalaSemanaCard />
           </div>
         </div>
