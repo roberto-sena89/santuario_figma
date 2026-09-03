@@ -54,15 +54,12 @@ export default function Cultos() {
             {(() => {
               const ordemPorDia: Record<string, number> = {};
               DIAS_SEMANA_OPCOES.forEach(o => ordemPorDia[o.label] = ORDEM_DIAS[o.key] ?? 99);
-              const filtrados = escala.dias.filter(d => {
-                const papeis = PAPEIS_POR_DIA[d.key] ?? [];
-                return papeis.some(p => papelParaLista(d.papeis[p.key]).length > 0);
-              });
+              const filtrados = escala.dias;
               const grupos = new Map<string, typeof filtrados>();
               for (const d of filtrados) { const g = grupos.get(d.dia) ?? []; g.push(d); grupos.set(d.dia, g); }
               const gruposOrdenados = Array.from(grupos.entries()).sort((a,b) => (ordemPorDia[a[0]]??99)-(ordemPorDia[b[0]]??99));
               gruposOrdenados.forEach(([,arr]) => arr.sort((a,b)=>a.horario.localeCompare(b.horario)));
-              if (gruposOrdenados.length === 0) return null;
+              if (gruposOrdenados.length === 0) return <p className="text-sm text-muted-foreground">Nenhum evento cadastrado nesta semana.</p>;
               return gruposOrdenados.map(([diaLabel, dias]) => {
                 const baseKey = DIAS_SEMANA_OPCOES.find(o=>o.label===diaLabel)?.key ?? dias[0].key.split("-")[0];
                 return (
@@ -88,6 +85,7 @@ export default function Cultos() {
                   <div className="divide-y divide-border/40">
                     {dias.map((dia) => {
                       const papeis = PAPEIS_POR_DIA[dia.key] ?? [];
+                      const temEscala = papeis.some(p => papelParaLista(dia.papeis[p.key]).length > 0);
                       return (
                     <div key={dia.key} className="px-5 py-4">
                       <div className="mb-3 flex items-center gap-2">
@@ -96,9 +94,9 @@ export default function Cultos() {
                       </div>
                     {papeis.length === 0 ? (
                       <p className="text-sm text-muted-foreground">
-                        Sem escala nesta semana.
+                        Sem papéis definidos.
                       </p>
-                    ) : (
+                    ) : temEscala ? (
                       <ul className="space-y-2.5">
                                               {papeis
                                                 .filter((papel) => papelParaLista(dia.papeis[papel.key]).length > 0)
@@ -130,6 +128,8 @@ export default function Cultos() {
                                                                         );
                                                                       })}
                       </ul>
+                    ) : (
+                      <p className="text-xs italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#B8860B] dark:text-[#E8B35E]">#/admin</span></p>
                     )}
                   </div>
                       );
