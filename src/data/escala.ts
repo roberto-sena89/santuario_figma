@@ -332,10 +332,40 @@ export function salvarEscala(escala: EscalaSemana) {
   try { window.dispatchEvent(new CustomEvent("santuario:escala-updated", { detail: escala.semana })); } catch {}
 }
 
-/** Retorna a escala de uma semana (cria vazia se não existir). */
+/** Retorna a escala de uma semana (cria vazia se não existir). Mescla cultos novos/removidos. */
 export function getEscala(semana: string): EscalaSemana {
   const all = carregarEscalas();
-  return all[semana] ?? escalaVazia(semana);
+  const cultos = carregarCultos();
+  const stored = all[semana];
+  if (!stored) return escalaVazia(semana);
+  // mescla cultos atuais com papeis já salvos — garante 2 eventos no mesmo dia (17h/18h) apareçam
+  const mapaStored = new Map(stored.dias.map((d) => [d.key, d]));
+  let needsUpdate = stored.dias.length !== cultos.length;
+  const diasMesclados = cultos.map((c) => {
+    const ex = mapaStored.get(c.key);
+    if (ex) {
+      // atualiza dados do culto se mudaram, preserva papeis escalados
+      if (ex.dia !== c.dia || ex.horario !== c.horario || ex.titulo !== c.titulo) {
+        needsUpdate = true;
+        return { ...c, papeis: ex.papeis };
+      }
+      return ex;
+    }
+    needsUpdate = true;
+    return { ...c, papeis: Object.fromEntries(papeisParaCulto(c.key).map((p) => [p.key, p.multi ? [] : ""])) };
+  });
+  // detecta dias removidos
+  if (!needsUpdate) {
+    for (const d of stored.dias) if (!cultos.some((c) => c.key === d.key)) { needsUpdate = true; break; }
+  }
+  if (!needsUpdate) return stored;
+  const merged: EscalaSemana = { semana, dias: ordenarCultos(diasMesclados) as EscalaDia[] };
+  try {
+    all[semana] = merged;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+    try { window.dispatchEvent(new CustomEvent("santuario:escala-updated", { detail: semana })); } catch {}
+  } catch {}
+  return merged;
 }
 
 /** Verifica se a senha está correta. */
