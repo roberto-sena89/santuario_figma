@@ -180,14 +180,14 @@ export default function Home({ onNavigate }: HomeProps) {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+          <div className="grid lg:grid-cols-2 gap-8 items-start">
             {/* Escala da Semana — à esquerda no desktop, abaixo no mobile */}
             <div className="bg-card/60 border border-border/70 rounded-2xl p-5 sm:p-6 backdrop-blur-sm shadow-sm">
               <EscalaSemanaCard />
             </div>
 
             {/* Bíblia CTA — à direita no desktop, abaixo no mobile */}
-            <div className="relative rounded-2xl overflow-hidden shadow-lg shadow-black/20 border border-border/60 min-h-[420px] lg:min-h-0 lg:h-full">
+            <div className="relative rounded-2xl overflow-hidden shadow-lg shadow-black/20 border border-border/60 h-auto self-start">
               <div className="absolute inset-0">
                 <img
                   src={BIBLE_IMAGE}
@@ -199,16 +199,16 @@ export default function Home({ onNavigate }: HomeProps) {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/35" />
               </div>
-              <div className="relative z-10 flex flex-col items-center justify-center p-8 sm:p-10 text-center min-h-[420px] lg:min-h-[560px]">
-                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-[#D4A24C]/20 ring-1 ring-[#D4A24C]/40 backdrop-blur-sm mb-5 shadow-lg shadow-[#D4A24C]/20">
-                  <svg className="w-7 h-7 text-[#E8B35E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <div className="relative z-10 flex flex-col items-center justify-center p-6 sm:p-8 text-center">
+                <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#D4A24C]/20 ring-1 ring-[#D4A24C]/40 backdrop-blur-sm mb-4 shadow-lg shadow-[#D4A24C]/20">
+                  <svg className="w-6 h-6 text-[#E8B35E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </span>
-                <h3 className="font-display text-2xl sm:text-3xl text-white font-normal mb-3 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
+                <h3 className="font-display text-xl sm:text-2xl text-white font-normal mb-2 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
                   Leia a Bíblia Sagrada
                 </h3>
-                <p className="text-white/90 text-sm leading-relaxed mb-6 max-w-sm [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
+                <p className="text-white/90 text-sm leading-relaxed mb-5 max-w-xs [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
                   Acesse todos os livros do Antigo e Novo Testamento na tradução Almeida.
                 </p>
                 <button

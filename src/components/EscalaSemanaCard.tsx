@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { getEscala, formatSemana, isoWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA } from "../data/escala";
 
 /**
@@ -5,8 +6,26 @@ import { getEscala, formatSemana, isoWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI
  * admin para a semana atual. Usado na Home ao lado da Bíblia.
  */
 export default function EscalaSemanaCard() {
-  const semana = isoWeek(new Date());
-  const escala = getEscala(semana);
+  const [semana, setSemana] = useState(() => isoWeek(new Date()));
+  const [escala, setEscala] = useState(() => getEscala(isoWeek(new Date())));
+  useEffect(() => {
+    const refresh = () => {
+      const s = isoWeek(new Date());
+      setSemana(s);
+      setEscala(getEscala(s));
+    };
+    const onStorage = (e: StorageEvent) => {
+      if (!e.key || e.key.includes("santuario")) refresh();
+    };
+    window.addEventListener("santuario:escala-updated", refresh as EventListener);
+    window.addEventListener("storage", onStorage);
+    // também atualiza ao voltar para a aba
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") refresh(); });
+    return () => {
+      window.removeEventListener("santuario:escala-updated", refresh as EventListener);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
 
   return (
     <section aria-label="Escala da semana" className="mb-6">

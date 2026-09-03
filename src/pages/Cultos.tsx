@@ -1,9 +1,25 @@
+import { useState, useEffect } from "react";
 import PageTitle from "../components/ui/PageTitle";
 import { getEscala, formatSemana, isoWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA } from "../data/escala";
 
 export default function Cultos() {
-  const semanaAtual = isoWeek(new Date());
-  const escala = getEscala(semanaAtual);
+  const [semanaAtual, setSemanaAtual] = useState(() => isoWeek(new Date()));
+  const [escala, setEscala] = useState(() => getEscala(semanaAtual));
+  useEffect(() => {
+    const refresh = () => {
+      const s = isoWeek(new Date());
+      setSemanaAtual(s);
+      setEscala(getEscala(s));
+    };
+    const onStorage = (e: StorageEvent) => { if (!e.key || e.key.includes("santuario")) refresh(); };
+    window.addEventListener("santuario:escala-updated", refresh as EventListener);
+    window.addEventListener("storage", onStorage);
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") refresh(); });
+    return () => {
+      window.removeEventListener("santuario:escala-updated", refresh as EventListener);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
 
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">

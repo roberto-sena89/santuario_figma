@@ -85,6 +85,7 @@ export const PAPEIS_POR_DIA: Record<
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ],
   quarta: [
     { key: "dirigente", label: "Dirigente" },
@@ -93,6 +94,7 @@ export const PAPEIS_POR_DIA: Record<
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ],
   terca: [
     { key: "dirigente", label: "Dirigente" },
@@ -101,6 +103,7 @@ export const PAPEIS_POR_DIA: Record<
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ],
   quinta: [
     { key: "dirigente", label: "Dirigente" },
@@ -109,6 +112,7 @@ export const PAPEIS_POR_DIA: Record<
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ],
   sexta: [
     { key: "dirigente", label: "Dirigente" },
@@ -117,6 +121,7 @@ export const PAPEIS_POR_DIA: Record<
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ],
   sabado: [
     { key: "dirigente", label: "Dirigente" },
@@ -125,6 +130,7 @@ export const PAPEIS_POR_DIA: Record<
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ],
   domingo: [
     { key: "dirigente", label: "Dirigente" },
@@ -133,6 +139,7 @@ export const PAPEIS_POR_DIA: Record<
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ],
 };
 
@@ -144,31 +151,31 @@ export function papelParaLista(valor: string | string[] | undefined): string[] {
 
 /** Pessoas disponíveis para escalar (cadastro manual). */
 export const PESSOAS_PADRAO: string[] = [
-  "Irmã Neurismar",
-  "Irmão Edval",
-  "Irmão Nonato",
-  "Irmã Ana Goreth",
-  "Irmão Leandro",
-  "Irmao Israel",
-  "Irmã Rafaela Luna",
-  "Irmão Matheus Neres",
-  "Irmão Daniel Feitosa",
-  "Pr.Wellington Mendes",
-  "Pra.Karina Oliveira",
-  "Irmão Alan Diniz",
-  "Presbítero Edson Leite",
-  "Diácono Marcos Brito",
-  "Irmã Olga Evangelista",
   "Diaconisa Ivoneide Neres",
+  "Diácono Marcos Brito",
+  "Irmã Ana Goreth",
   "Irmã Carla Diniz",
   "Irmã Eliana Braga",
-  "Irmã Rogelma Duarte",
+  "Irmã Ilderlange Correa",
   "Irmã Márcia Brito",
   "Irmã Márcia Pereira",
-  "Irmã Ilderlange Correa",
   "Irmã Nadja Teixeira",
   "Irmã Nara Kelma",
+  "Irmã Neurismar",
+  "Irmã Olga Evangelista",
+  "Irmã Rafaela Luna",
+  "Irmã Rogelma Duarte",
+  "Irmão Alan Diniz",
+  "Irmão Daniel Feitosa",
+  "Irmão Edval",
+  "Irmao Israel",
+  "Irmão Leandro",
+  "Irmão Matheus Neres",
+  "Irmão Nonato",
   "Irmão Rene Ferreira",
+  "Pr.Wellington Mendes",
+  "Pra.Karina Oliveira",
+  "Presbítero Edson Leite",
 ];
 
 /** Emoji representativo de cada dia da escala. */
@@ -190,6 +197,7 @@ export const PAPEL_EMOJI: Record<string, string> = {
   louvor: "🎶",
   porteiro: "🚪",
   auxiliar: "🤝",
+  regente: "🎼",
 };
 
 // ============================================================
@@ -263,6 +271,7 @@ export function carregarCultos(): Omit<EscalaDia, "papeis">[] {
 
 export function salvarCultos(cultos: Omit<EscalaDia, "papeis">[]) {
   localStorage.setItem(CULTOS_KEY, JSON.stringify(ordenarCultos(cultos)));
+  try { window.dispatchEvent(new CustomEvent("santuario:escala-updated")); } catch {}
 }
 
 function ordenarCultos(cultos: Omit<EscalaDia, "papeis">[]) {
@@ -287,6 +296,7 @@ export function papeisParaCulto(cultoKey: string) {
     { key: "louvor", label: "Louvor da Oferta" },
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
+    { key: "regente", label: "Regente de Louvor" },
   ] as const;
   return (PAPEIS_POR_DIA[cultoKey] as typeof base | undefined) ?? [...base];
 }
@@ -319,6 +329,7 @@ export function salvarEscala(escala: EscalaSemana) {
   const all = carregarEscalas();
   all[escala.semana] = escala;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
+  try { window.dispatchEvent(new CustomEvent("santuario:escala-updated", { detail: escala.semana })); } catch {}
 }
 
 /** Retorna a escala de uma semana (cria vazia se não existir). */

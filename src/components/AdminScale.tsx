@@ -28,15 +28,18 @@ const PESSOAS_KEY = "santuario_escala_pessoas";
 function carregarPessoas(): string[] {
   try {
     const raw = localStorage.getItem(PESSOAS_KEY);
-    if (raw) return JSON.parse(raw) as string[];
+    if (raw) {
+      const arr = JSON.parse(raw) as string[];
+      if (Array.isArray(arr)) return [...arr].sort((a,b)=>a.localeCompare(b,"pt-BR"));
+    }
   } catch {
     /* ignore */
   }
-  return [...PESSOAS_PADRAO];
+  return [...PESSOAS_PADRAO].sort((a,b)=>a.localeCompare(b,"pt-BR"));
 }
 
 function salvarPessoas(pessoas: string[]) {
-  localStorage.setItem(PESSOAS_KEY, JSON.stringify(pessoas));
+  localStorage.setItem(PESSOAS_KEY, JSON.stringify([...pessoas].sort((a,b)=>a.localeCompare(b,"pt-BR"))));
 }
 
 function normalize(str: string) {
@@ -250,15 +253,15 @@ function CultosManager({ onCultosChange }: { onCultosChange: () => void }) {
       <div className="mb-6 flex items-center gap-4">
         <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#D4A24C]/20 to-[#D4A24C]/10 text-[20px] shadow-sm shadow-[#D4A24C]/15 ring-1 ring-[#D4A24C]/20" aria-hidden="true">⛪</span>
         <div className="min-w-0 flex-1">
-          <h2 className="font-display text-[22px] font-bold leading-none tracking-tight text-foreground">Cultos da igreja</h2>
-          <p className="mt-1.5 text-[13px] font-normal leading-relaxed text-foreground/65">Escolha ou crie o nome do culto — dia, horário e título</p>
+          <h2 className="font-display text-[22px] font-bold leading-none tracking-tight text-foreground">Eventos da Igreja</h2>
+          <p className="mt-1.5 text-[13px] font-normal leading-relaxed text-foreground/65">Escolha ou crie o evento — dia, horário e título</p>
         </div>
-        <span className="hidden sm:inline-flex items-center rounded-full bg-[#D4A24C] px-3.5 py-1.5 text-xs font-bold tracking-wide text-gray-900 shadow-sm shadow-[#D4A24C]/20">{cultos.length} {cultos.length === 1 ? "culto" : "cultos"}</span>
+        <span className="hidden sm:inline-flex items-center rounded-full bg-[#D4A24C] px-3.5 py-1.5 text-xs font-bold tracking-wide text-gray-900 shadow-sm shadow-[#D4A24C]/20">{cultos.length} {cultos.length === 1 ? "evento" : "eventos"}</span>
       </div>
 
       {/* Tabela */}
       <div className="mb-5 overflow-hidden rounded-2xl border border-border/60 bg-background/40 shadow-sm">
-        <div className="flex items-center gap-3 border-b border-border/60 bg-muted/[0.04] px-4 py-3">
+        <div className="flex items-center gap-3 border-b border-[#D4A24C]/15 bg-gradient-to-r from-[#D4A24C]/[0.09] via-[#D4A24C]/[0.04] to-transparent px-4 py-3">
           <div className="relative flex-1">
             <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/40 text-[13px]" aria-hidden="true">⌕</span>
             <input value={filtro} onChange={(e) => setFiltro(e.target.value)} placeholder="Filtrar culto (ex: Família)" aria-label="Filtrar cultos" className="w-full h-9 rounded-full border border-border/60 bg-card pl-10 pr-9 text-[13px] font-medium text-foreground placeholder:text-foreground/40 focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/20 focus:outline-none transition-all" />
@@ -268,7 +271,7 @@ function CultosManager({ onCultosChange }: { onCultosChange: () => void }) {
         </div>
         <div className="divide-y divide-border/50">
           {/* header */}
-          <div className="hidden sm:grid grid-cols-[1.25fr_96px_1.7fr_148px] gap-3 bg-[#D4A24C]/[0.06] px-4 py-3 text-[11px] font-semibold uppercase tracking-widest text-foreground/50">
+          <div className="hidden sm:grid grid-cols-[1.25fr_96px_1.7fr_148px] gap-3 rounded-t-xl border-b border-[#D4A24C]/20 bg-gradient-to-r from-[#D4A24C]/[0.14] via-[#D4A24C]/[0.08] to-[#D4A24C]/[0.04] px-4 py-3.5 text-[11px] font-bold uppercase tracking-widest text-foreground/65 shadow-sm">
             <span>Dia</span><span>Horário</span><span>Nome do Culto/Ensaio</span><span className="text-right">Ações</span>
           </div>
           {filtrados.map((c, idx) => {
@@ -278,7 +281,7 @@ function CultosManager({ onCultosChange }: { onCultosChange: () => void }) {
               <div key={c.key} className={`grid gap-3 px-4 py-3.5 text-[14px] sm:grid-cols-[1.25fr_96px_1.7fr_148px] sm:items-center ${isEdit ? "bg-[#D4A24C]/[0.09] ring-1 ring-inset ring-[#D4A24C]/20" : "bg-card/40 hover:bg-[#D4A24C]/[0.04]"} transition-colors`}>
                 <span className="flex items-center gap-2.5 text-foreground"><span className="grid h-8 w-8 place-items-center rounded-xl bg-[#D4A24C]/10 text-[13px] ring-1 ring-[#D4A24C]/15 flex-shrink-0">{EMOJI_DIA[c.key] ?? EMOJI_DIA[DIAS_SEMANA_OPCOES.find(o=>o.label===c.dia)?.key ?? ""] ?? "📅"}</span><span className="font-medium text-[14px] leading-tight text-foreground">{c.dia}</span><span className="sm:hidden ml-auto inline-flex items-center rounded-full bg-muted px-2.5 py-1 font-mono text-xs font-medium text-foreground/75">{c.horario}</span></span>
                 <span className="hidden sm:inline-flex items-center justify-center rounded-full bg-muted/70 border border-border/40 px-2.5 py-1 font-mono text-xs font-medium tracking-wide text-foreground/80 w-fit">{c.horario}</span>
-                <span className="font-medium text-[14px] leading-snug text-foreground sm:truncate pr-2" title={c.titulo}>{c.titulo}</span>
+                <span className="font-medium text-[14px] leading-snug text-foreground break-words pr-2" title={c.titulo}>{c.titulo}</span>
                 <span className="flex justify-end gap-1.5">
                   <button type="button" onClick={() => editar(realIdx)} aria-label={`Editar ${c.titulo}`} title="Editar nome/horário/dia" className={`inline-flex items-center gap-1 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${isEdit ? "bg-[#D4A24C] text-gray-900 shadow-sm shadow-[#D4A24C]/20" : "bg-card border border-[#D4A24C]/25 text-[#D4A24C] hover:bg-[#D4A24C] hover:text-gray-900 hover:border-transparent shadow-sm"}`}>✎ {isEdit ? "editando" : "Editar"}</button>
                   <button type="button" onClick={() => remover(realIdx)} disabled={cultos.length <= 1} aria-label={`Excluir ${c.titulo}`} title={cultos.length <= 1 ? "Mantenha ao menos 1 culto" : "Excluir culto"} className="inline-flex items-center justify-center h-[30px] w-[30px] rounded-full bg-transparent border border-transparent text-foreground/40 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 disabled:opacity-25 disabled:cursor-not-allowed transition-colors text-[13px]">✕</button>
@@ -291,7 +294,7 @@ function CultosManager({ onCultosChange }: { onCultosChange: () => void }) {
       </div>
 
       {/* Form criar/editar */}
-      <form onSubmit={handleSubmit} className="space-y-2.5">
+      <form onSubmit={handleSubmit} className="space-y-2.5 rounded-xl border border-[#D4A24C]/15 bg-gradient-to-r from-[#D4A24C]/[0.09] via-[#D4A24C]/[0.04] to-transparent p-3.5 shadow-sm shadow-[#D4A24C]/5">
         <div className="flex flex-col sm:flex-row gap-2 items-end">
           <label className="flex-1 min-w-0 space-y-1 w-full">
             <span className="text-[11px] font-medium tracking-wide text-foreground/40 ml-1">Dia</span>
@@ -505,7 +508,7 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
 
         {/* Navegação de semanas */}
         <div className="mb-6 rounded-[20px] border border-[#D4A24C]/10 bg-gradient-to-br from-card/80 to-card/40 p-4 sm:p-5 shadow-[0_4px_24px_rgba(0,0,0,0.12)] backdrop-blur-sm">
-          <div className="mb-3 flex items-center gap-2 px-1">
+          <div className="mb-3 flex items-center gap-2 rounded-xl border border-[#D4A24C]/15 bg-gradient-to-r from-[#D4A24C]/[0.11] via-[#D4A24C]/[0.06] to-transparent px-3 py-2.5 shadow-sm shadow-[#D4A24C]/5">
             <span className="grid h-7 w-7 place-items-center rounded-lg bg-[#D4A24C]/15 text-xs ring-1 ring-[#D4A24C]/15">📅</span>
             <span className="text-xs font-bold tracking-widest uppercase text-foreground/55">Semanas</span>
             <span className="ml-auto inline-flex items-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/15 px-2.5 py-1 text-xs font-semibold text-foreground/70">{formatSemana(semana)}</span>
@@ -530,8 +533,8 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
         {/* Sub-menu Admin — 3 abas */}
         <div className="mb-6 flex rounded-full border border-border/60 bg-card p-1.5 gap-1.5 shadow-sm">
           {([
+            { key: "cultos", label: "Eventos da Igreja", icon: "⛪" },
             { key: "escala", label: "Escala Semanal", icon: "🗓️" },
-            { key: "cultos", label: "Cultos da Igreja", icon: "⛪" },
             { key: "pessoas", label: "Pessoas", icon: "👥", count: pessoas.length },
           ] as const).map((t) => {
             const ativo = aba === t.key;
@@ -593,8 +596,8 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
 
               {(() => {
                 const todos = papeisParaCulto(dia.key) ?? [];
-                const singles = todos.filter((p) => !p.multi);
-                const multis = todos.filter((p) => p.multi);
+                const singles = todos.filter((p) => !p.multi && p.key !== "regente");
+                const direita = todos.filter((p) => p.multi || p.key === "regente");
                 return (
                   <div className="grid gap-6 sm:grid-cols-2 items-start">
                     {/* Coluna esquerda — papéis single empilhados */}
@@ -615,17 +618,35 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
                               className="w-full h-9 rounded-full border border-border/60 bg-card px-3.5 text-[13px] font-medium text-foreground shadow-sm focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/20 focus:outline-none hover:border-[#D4A24C]/20 transition-all"
                             >
                               <option value="">— Escolher pessoa —</option>
-                              {pessoas.map((p) => (<option key={p} value={p}>{p}</option>))}
+                              {[...pessoas].sort((a,b)=>a.localeCompare(b,"pt-BR")).map((p) => (<option key={p} value={p}>{p}</option>))}
                             </select>
                           </div>
                         );
                       })}
                     </div>
-                    {/* Coluna direita — Auxiliar alinhado à direita de Porteiro */}
+                    {/* Coluna direita — Auxiliar + Regente abaixo */}
                     <div className="space-y-5 sm:sticky sm:top-4">
-                      {multis.map((papel) => {
+                      {direita.map((papel) => {
                         const valor = dia.papeis[papel.key];
-                        const lista = Array.isArray(valor) ? valor : [];
+                        const isMulti = !!papel.multi;
+                        if (isMulti) {
+                          const lista = Array.isArray(valor) ? valor : [];
+                          return (
+                            <div key={papel.key}>
+                              <div className="mb-2.5 flex items-center gap-2.5">
+                                <span className="grid h-8 w-8 place-items-center rounded-xl bg-[#D4A24C]/10 text-[13px] ring-1 ring-[#D4A24C]/15 flex-shrink-0" aria-hidden="true">
+                                  {PAPEL_EMOJI[papel.key] ?? "👤"}
+                                </span>
+                                <span className="font-display text-[13px] font-bold tracking-wide text-foreground/85">{papel.label}</span>
+                                <span className={`ml-auto rounded-full border px-2.5 py-1 text-[11px] font-bold tracking-wide transition-all ${lista.length > 0 ? "bg-[#D4A24C] border-[#D4A24C] text-gray-900 shadow-sm shadow-[#D4A24C]/20" : "bg-card border-border/60 text-foreground/45"}`}>
+                                  {lista.length > 0 ? `✓ ${lista.length} ${lista.length === 1 ? "pessoa" : "pessoas"}` : "selecione"}
+                                </span>
+                              </div>
+                              <AuxiliarPicker diaKey={dia.key} papelKey={papel.key} pessoas={pessoas} lista={lista} onToggle={togglePapel} onAddPessoa={(nome) => { if (!nome || pessoas.includes(nome)) return; const nova = [...pessoas, nome].sort((a,b)=>a.localeCompare(b,"pt-BR")); setPessoas(nova); salvarPessoas(nova); }} />
+                            </div>
+                          );
+                        }
+                        // Regente de Louvor — single abaixo de Auxiliar
                         return (
                           <div key={papel.key}>
                             <div className="mb-2.5 flex items-center gap-2.5">
@@ -633,15 +654,19 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
                                 {PAPEL_EMOJI[papel.key] ?? "👤"}
                               </span>
                               <span className="font-display text-[13px] font-bold tracking-wide text-foreground/85">{papel.label}</span>
-                              <span className={`ml-auto rounded-full border px-2.5 py-1 text-[11px] font-bold tracking-wide transition-all ${lista.length > 0 ? "bg-[#D4A24C] border-[#D4A24C] text-gray-900 shadow-sm shadow-[#D4A24C]/20" : "bg-card border-border/60 text-foreground/45"}`}>
-                                {lista.length > 0 ? `✓ ${lista.length} ${lista.length === 1 ? "pessoa" : "pessoas"}` : "selecione"}
-                              </span>
                             </div>
-                            <AuxiliarPicker diaKey={dia.key} papelKey={papel.key} pessoas={pessoas} lista={lista} onToggle={togglePapel} onAddPessoa={(nome) => { if (!nome || pessoas.includes(nome)) return; const nova = [...pessoas, nome].sort((a,b)=>a.localeCompare(b,"pt-BR")); setPessoas(nova); salvarPessoas(nova); }} />
+                            <select
+                              value={typeof valor === "string" ? valor : ""}
+                              onChange={(e) => setPapel(dia.key, papel.key, e.target.value)}
+                              className="w-full h-9 rounded-full border border-border/60 bg-card px-3.5 text-[13px] font-medium text-foreground shadow-sm focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/20 focus:outline-none hover:border-[#D4A24C]/20 transition-all"
+                            >
+                              <option value="">— Escolher pessoa —</option>
+                              {[...pessoas].sort((a,b)=>a.localeCompare(b,"pt-BR")).map((p) => (<option key={p} value={p}>{p}</option>))}
+                            </select>
                           </div>
                         );
                       })}
-                      {multis.length === 0 && <div className="hidden sm:block" />}
+                      {direita.length === 0 && <div className="hidden sm:block" />}
                     </div>
                   </div>
                 );
@@ -669,8 +694,8 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
         {aba === "pessoas" && (
         <>
         <div className="rounded-[24px] border border-[#D4A24C]/15 bg-gradient-to-br from-card/95 via-card to-card/70 p-6 sm:p-7 shadow-[0_8px_40px_-16px_rgba(212,162,76,0.18),0_4px_16px_rgba(0,0,0,0.2)] backdrop-blur-sm">
-          <div className="mb-6 flex items-center gap-4">
-            <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#D4A24C]/20 to-[#D4A24C]/10 text-[20px] shadow-sm shadow-[#D4A24C]/15 ring-1 ring-[#D4A24C]/20" aria-hidden="true">
+          <div className="mb-6 flex items-center gap-4 rounded-2xl border border-[#D4A24C]/20 bg-gradient-to-r from-[#D4A24C]/[0.11] via-[#D4A24C]/[0.06] to-transparent px-4 py-3.5 shadow-sm shadow-[#D4A24C]/10">
+            <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-[#D4A24C]/25 to-[#D4A24C]/15 text-[20px] shadow-sm shadow-[#D4A24C]/15 ring-1 ring-[#D4A24C]/25" aria-hidden="true">
               👥
             </span>
             <div className="min-w-0 flex-1">
@@ -685,21 +710,23 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
               {pessoas.length} {pessoas.length === 1 ? "pessoa" : "pessoas"}
             </span>
           </div>
-          <form onSubmit={adicionarPessoa} className="mb-5 flex gap-3">
-            <input
-              value={novaPessoa}
-              onChange={(e) => setNovaPessoa(e.target.value)}
-              placeholder="Nome da pessoa (ex: Irmão João)"
-              className="flex-1 h-[44px] rounded-xl border border-border/60 bg-card px-4 text-[13px] font-medium text-foreground placeholder:text-foreground/40 focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/20 focus:outline-none transition-all"
-            />
-            <button
-              type="submit"
-              className="inline-flex items-center gap-1.5 h-[44px] rounded-xl bg-[#D4A24C] px-6 text-[13px] font-bold tracking-wide text-gray-900 shadow-sm shadow-[#D4A24C]/20 transition-all duration-200 hover:bg-[#C4933C] hover:shadow-md hover:shadow-[#D4A24C]/25 active:scale-[0.98]"
-            >
-              <span aria-hidden="true">＋</span>
-              Adicionar
-            </button>
-          </form>
+          <div className="mb-4 rounded-xl border border-[#D4A24C]/15 bg-[#D4A24C]/[0.06] p-2.5">
+            <form onSubmit={adicionarPessoa} className="flex gap-2">
+              <input
+                value={novaPessoa}
+                onChange={(e) => setNovaPessoa(e.target.value)}
+                placeholder="Nome da pessoa (ex: Irmão João)"
+                className="flex-1 h-9 rounded-full border border-border/60 bg-card px-4 text-[13px] font-medium text-foreground placeholder:text-foreground/40 focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/20 focus:outline-none transition-all"
+              />
+              <button
+                type="submit"
+                className="inline-flex items-center gap-1.5 h-9 rounded-full bg-[#D4A24C] px-5 text-[13px] font-bold tracking-wide text-gray-900 shadow-sm shadow-[#D4A24C]/20 transition-all duration-200 hover:bg-[#C4933C] hover:shadow-md hover:shadow-[#D4A24C]/25 active:scale-[0.98]"
+              >
+                <span aria-hidden="true">＋</span>
+                Adicionar
+              </button>
+            </form>
+          </div>
           {/* Filtro e ordenação — mesmo padrão do Auxiliar */}
           {(() => {
             const cargoDeP = (nome: string) => {
@@ -717,7 +744,7 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
             const ordenadas = ordemPessoas === "az" ? [...filtradas].sort((a,b)=>a.localeCompare(b,"pt-BR")) : filtradas;
             return (
               <>
-                <div className="mb-3 flex gap-2">
+                <div className="mb-3 flex gap-2 rounded-xl border border-[#D4A24C]/15 bg-[#D4A24C]/[0.08] p-2.5 shadow-sm shadow-[#D4A24C]/5">
                   <div className="relative flex-1">
                     <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/40 text-[13px]" aria-hidden="true">⌕</span>
                     <input
@@ -742,7 +769,7 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
                     <button type="button" onClick={() => { setBuscaPessoas(""); setFiltroCargoPessoas("todos"); }} className="text-xs font-medium text-foreground/50 hover:text-[#D4A24C] transition-colors">Limpar filtros</button>
                   )}
                 </div>
-                <div className="mb-3 flex flex-wrap gap-2">
+                <div className="mb-3 flex flex-wrap gap-2 rounded-xl border border-[#D4A24C]/15 bg-[#D4A24C]/[0.06] px-3 py-2.5">
                   {([ "todos", "obreiros", "diacono", "presbitero", "pastor"] as const).map((c) => {
                     const label: Record<string,string> = { todos:"Todos", obreiros:"Obreiros", diacono:"Diácono", presbitero:"Presbítero", pastor:"Pastor" };
                     const ativo = filtroCargoPessoas === c;
