@@ -345,6 +345,7 @@ export default function AdminScale() {
       e.preventDefault();
       if (verificarSenha(senha)) {
         sessionStorage.setItem("santuario_admin", "1");
+        sessionStorage.setItem("santuario_admin_senha", senha);
         setAutenticado(true);
       } else {
         setErro(true);
@@ -406,6 +407,7 @@ export default function AdminScale() {
 
   return <EscalaEditor onSair={() => {
     sessionStorage.removeItem("santuario_admin");
+    sessionStorage.removeItem("santuario_admin_senha");
     setAutenticado(false);
   }} />;
 }
@@ -459,10 +461,23 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
     setSalvo(false);
   };
 
-  const salvar = () => {
-    salvarEscala({ ...escala, semana });
+  const salvar = async () => {
+    const payload = { ...escala, semana };
+    salvarEscala(payload);
     setSalvo(true);
     setTimeout(() => setSalvo(false), 2500);
+    // sync para todos os navegadores via GitHub -> Vercel (escalas.json)
+    try {
+      const senha = sessionStorage.getItem("santuario_admin_senha") || "santuario2026";
+      const res = await fetch("/api/admin-sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-senha": senha },
+        body: JSON.stringify({ senha, escala: payload }),
+      });
+      const data = await res.json().catch(()=>({}));
+      if (!res.ok) console.warn("sync escala falhou:", data.error);
+      else console.log("escala publicada:", data.message);
+    } catch (e) { console.warn("sync escala erro", e); }
   };
 
   const adicionarPessoa = (e: React.FormEvent) => {

@@ -2,6 +2,8 @@
 // ESCALA SEMANAL — dados e lógica de persistência (localStorage)
 // ============================================================
 
+import escalasRepoJson from "./escalas.json";
+
 export interface EscalaDia {
   key: string; // ex: "segunda", "quarta"
   dia: string; // ex: "Segunda-feira"
@@ -20,6 +22,9 @@ export interface EscalaSemana {
   semana: string;
   dias: EscalaDia[];
 }
+
+// Escalas do repo (commitadas via /api/admin-sync) — visíveis em todos os navegadores após deploy
+const ESCALAS_REPO: Record<string, EscalaSemana> = (escalasRepoJson as Record<string, EscalaSemana>) || {};
 
 /** Ordem canônica dos dias para ordenação. */
 export const ORDEM_DIAS: Record<string, number> = {
@@ -314,14 +319,22 @@ export function escalaVazia(semana: string): EscalaSemana {
   };
 }
 
-/** Lê todas as semanas salvas. */
+ /** Lê todas as semanas salvas. Mescla localStorage + repo (repo vence se mais novo). */
 export function carregarEscalas(): Record<string, EscalaSemana> {
+  let repo: Record<string, EscalaSemana> = {};
+  try { repo = ESCALAS_REPO || {}; } catch { repo = {}; }
+  let local: Record<string, EscalaSemana> = {};
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as Record<string, EscalaSemana>) : {};
-  } catch {
-    return {};
-  }
+    local = raw ? (JSON.parse(raw) as Record<string, EscalaSemana>) : {};
+  } catch { local = {}; }
+  // merge: repo base + local por cima (local é mais recente no navegador atual)
+  // mas se local vazio, usa repo para que outro navegador veja dados publicados
+  if (Object.keys(local).length === 0 && Object.keys(repo).length > 0) return repo;
+  // mescla chave a chave: se chave só existe no repo, inclui
+  const merged: Record<string, EscalaSemana> = { ...repo };
+  for (const [k,v] of Object.entries(local)) merged[k] = v;
+  return merged;
 }
 
 /** Salva a escala de uma semana. */
