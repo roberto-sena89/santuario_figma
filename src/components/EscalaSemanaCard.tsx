@@ -77,7 +77,7 @@ export default function EscalaSemanaCard() {
                   return (
                     <div key={dia.key} className="px-3 py-2">
                       <div className="mb-1.5 flex items-center justify-center relative">
-                        <span className="absolute left-0 text-[10px] font-medium leading-none text-muted-foreground tabular-nums">{dia.horario}</span>
+                        <span className="absolute left-0 text-[10px] font-medium leading-none text-muted-foreground tabular-nums">{dia.horario}H</span>
                         <span className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/15 px-2.5 py-0.5 text-[10px] font-semibold leading-none text-[#B8860B] dark:text-[#E8B35E] text-center max-w-[75%] truncate">{dia.titulo}</span>
                       </div>
                       {papeis.length === 0 ? (
