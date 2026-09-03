@@ -272,14 +272,14 @@ export function semanasAoRedor(central: Date, raio = 4): string[] {
   return semanas;
 }
 
-/** Formata uma semana ISO como "Semana de 08/09 a 14/09". */
+/** Formata uma semana ISO como "Semana de 31/08 a 06/09" (segunda a domingo). */
 export function formatSemana(semana: string): string {
   const monday = mondayOfWeek(semana);
-  const sunday = new Date(monday);
-  sunday.setDate(monday.getDate() + 6);
+  const nextSunday = new Date(monday);
+  nextSunday.setUTCDate(nextSunday.getUTCDate() + 6);
   const fmt = (d: Date) =>
-    d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
-  return `${fmt(monday)} a ${fmt(sunday)}`;
+    `${String(d.getUTCDate()).padStart(2, "0")}/${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+  return `${fmt(monday)} a ${fmt(nextSunday)}`;
 }
 
 // ============================================================

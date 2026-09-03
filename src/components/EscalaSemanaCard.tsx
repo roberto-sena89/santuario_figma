@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getEscala, formatSemana, isoWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
+import { getEscala, formatSemana, isoWeek, mondayOfWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
 
 /**
  * Card compacto "Escala da Semana" — mostra os papéis definidos no painel
@@ -69,11 +69,13 @@ export default function EscalaSemanaCard() {
                   {diaLabel}
                 </h3>
                 {(() => {
-                  const data = new Date(Date.UTC(2026, 8, 28));
                   const diasSemana = ["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"];
                   const idx = diasSemana.indexOf(diaLabel);
                   if (idx >= 0) {
-                    const d = new Date(data);
+                    // Semana inicia na segunda-feira: segunda = mondayOfWeek, domingo = +6.
+                    // Ex.: semana 2026-36 → seg 31/08 a dom 06/09.
+                    const monday = mondayOfWeek(semana);
+                    const d = new Date(Date.UTC(monday.getUTCFullYear(), monday.getUTCMonth(), monday.getUTCDate()));
                     d.setUTCDate(d.getUTCDate() + idx);
                     const dd = String(d.getUTCDate()).padStart(2, "0");
                     const mm = String(d.getUTCMonth() + 1).padStart(2, "0");

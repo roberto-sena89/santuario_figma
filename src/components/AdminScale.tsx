@@ -434,7 +434,11 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
   const [filtroCargoPessoas, setFiltroCargoPessoas] = useState<"todos" | "obreiros" | "diacono" | "presbitero" | "pastor">("todos");
   const [ordemPessoas, setOrdemPessoas] = useState<"az" | "orig">("az");
 
-  const semanas = useMemo(() => semanasAoRedor(new Date(), 6), []);
+  // Somente a semana atual (inicia na segunda) e as futuras
+  const semanas = useMemo(
+    () => semanasAoRedor(new Date(), 6).filter((s) => s >= isoWeek(new Date())),
+    []
+  );
 
   const [aba, setAba] = useState<"escala" | "cultos" | "pessoas">("escala");
 
