@@ -263,8 +263,7 @@ export default function Home({ onNavigate }: HomeProps) {
       <section className="py-12 bg-muted/30" aria-label="Programação da semana">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
-            <p className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/20 px-3 py-1 text-[#9C7A2E] text-[11px] font-semibold uppercase tracking-[0.16em] mb-2">
-              <span aria-hidden="true">⛪</span>
+            <p className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/20 px-3 py-1 text-[#9C7A2E] text-[11px] font-semibold uppercase tracking-[0.16em] mb-2">
               Programação da semana
             </p>
             <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
