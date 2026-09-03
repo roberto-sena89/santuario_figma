@@ -90,16 +90,16 @@ export default function EscalaSemanaCard() {
                               const nomes = papelParaLista(dia.papeis[papel.key]);
                               return (
                                 <li key={papel.key} className="flex items-center justify-between gap-2">
-                                  <span className="text-[11px] font-medium text-foreground/60">
+                                  <span className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-2 py-0.5 text-[11px] font-medium leading-none text-[#C4933C] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]">
+                                    <span className="h-1 w-1 rounded-full bg-[#D4A24C]" aria-hidden="true" />
                                     {papel.label}
                                   </span>
                                   <span className="flex flex-wrap justify-end gap-1">
                                     {nomes.map((nome) => (
                                       <span
                                         key={nome}
-                                        className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-2 py-0.5 text-[11px] font-medium leading-none text-[#C4933C] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]"
+                                        className="text-[11px] font-medium text-foreground/70 text-right"
                                       >
-                                        <span className="h-1 w-1 rounded-full bg-[#D4A24C]" aria-hidden="true" />
                                         {nome}
                                       </span>
                                     ))}
