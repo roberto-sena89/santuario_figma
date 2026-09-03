@@ -30,6 +30,7 @@ const ALL_PAGES: Page[] = [
 
 function hashToPage(): Page {
   const h = window.location.hash.replace(/^#\/?/, "").toLowerCase().split("?")[0];
+  if (h === "escala") return "admin";
   // Sub-rota #/ministerios/<id> → página ministerios
   if (h.startsWith("ministerios/")) return "ministerios";
   return (ALL_PAGES as string[]).includes(h) ? (h as Page) : "home";
@@ -71,9 +72,14 @@ export default function App() {
       : titles[currentPage] || CHURCH.name;
   }, [currentPage, activeMinistry]);
 
-  // Sincroniza hash com a navegação (ex: /#/admin)
+  // Sincroniza hash com a navegação (ex: /#/escala)
     useEffect(() => {
       const onHash = () => {
+        // redirect legado #/admin → #/escala
+        if (window.location.hash.toLowerCase() === "#/admin") {
+          window.location.hash = "#/escala";
+          return;
+        }
         setCurrentPage(hashToPage());
         // Extrai sub-rota de ministério (#/ministerios/louvor)
         const m = window.location.hash.match(/^#\/ministerios\/([a-z]+)/);
@@ -90,7 +96,8 @@ export default function App() {
 
   const navigate = (page: Page) => {
     setCurrentPage(page);
-    const h = page === "home" ? "" : `#/${page}`;
+    const hash = page === "admin" ? "escala" : page;
+    const h = page === "home" ? "" : `#/${hash}`;
     if (window.location.hash !== h) window.location.hash = h;
   };
 
