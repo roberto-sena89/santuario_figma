@@ -167,6 +167,41 @@ export default function Home({ onNavigate }: HomeProps) {
       {/* Cultos + Escala + Bíblia */}
       <section className="py-20 bg-muted/40" aria-label="Cultos e Bíblia">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Bíblia CTA — acima da programação, alinhada ao container */}
+          <div className="relative rounded-2xl overflow-hidden shadow-lg shadow-black/20 border border-border/60 mb-12">
+            <div className="absolute inset-0">
+              <img
+                src={BIBLE_IMAGE}
+                alt="Bíblia aberta com luz natural"
+                className="w-full h-full object-cover opacity-75"
+                loading="lazy"
+                width={800}
+                height={600}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/35" />
+            </div>
+            <div className="relative z-10 flex flex-col items-center justify-center p-6 sm:p-8 text-center">
+              <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#D4A24C]/20 ring-1 ring-[#D4A24C]/40 backdrop-blur-sm mb-4 shadow-lg shadow-[#D4A24C]/20">
+                <svg className="w-6 h-6 text-[#E8B35E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </span>
+              <h3 className="font-display text-xl sm:text-2xl text-white font-normal mb-2 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
+                Leia a Bíblia Sagrada
+              </h3>
+              <p className="text-white/90 text-sm leading-relaxed mb-5 max-w-xs [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
+                Acesse todos os livros do Antigo e Novo Testamento na tradução Almeida.
+              </p>
+              <button
+                onClick={() => navigate("biblia")}
+                className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold pl-2.5 pr-6 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
+                Ler Bíblia Agora
+              </button>
+            </div>
+          </div>
+
           <div className="text-center mb-12">
             <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
               <span aria-hidden="true">⛪</span>
@@ -180,46 +215,8 @@ export default function Home({ onNavigate }: HomeProps) {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8 items-start">
-            {/* Escala da Semana — à esquerda no desktop, abaixo no mobile */}
-            <div className="bg-card/60 border border-border/70 rounded-2xl p-5 sm:p-6 backdrop-blur-sm shadow-sm">
-              <EscalaSemanaCard />
-            </div>
-
-            {/* Bíblia CTA — à direita no desktop, abaixo no mobile */}
-            <div className="relative rounded-2xl overflow-hidden shadow-lg shadow-black/20 border border-border/60 h-auto self-start">
-              <div className="absolute inset-0">
-                <img
-                  src={BIBLE_IMAGE}
-                  alt="Bíblia aberta com luz natural"
-                  className="w-full h-full object-cover opacity-75"
-                  loading="lazy"
-                  width={800}
-                  height={600}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/35" />
-              </div>
-              <div className="relative z-10 flex flex-col items-center justify-center p-6 sm:p-8 text-center">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-[#D4A24C]/20 ring-1 ring-[#D4A24C]/40 backdrop-blur-sm mb-4 shadow-lg shadow-[#D4A24C]/20">
-                  <svg className="w-6 h-6 text-[#E8B35E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </span>
-                <h3 className="font-display text-xl sm:text-2xl text-white font-normal mb-2 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
-                  Leia a Bíblia Sagrada
-                </h3>
-                <p className="text-white/90 text-sm leading-relaxed mb-5 max-w-xs [text-shadow:0_1px_6px_rgba(0,0,0,0.45)]">
-                  Acesse todos os livros do Antigo e Novo Testamento na tradução Almeida.
-                </p>
-                <button
-                  onClick={() => navigate("biblia")}
-                  className="group inline-flex items-center gap-3 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold pl-2.5 pr-6 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
-                >
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/25 text-base shadow-inner transition-transform duration-300 group-hover:scale-110" aria-hidden="true">📖</span>
-                  Ler Bíblia Agora
-                </button>
-              </div>
-            </div>
+          <div className="max-w-3xl mx-auto bg-card/60 border border-border/70 rounded-2xl p-5 sm:p-6 backdrop-blur-sm shadow-sm">
+            <EscalaSemanaCard />
           </div>
         </div>
       </section>
