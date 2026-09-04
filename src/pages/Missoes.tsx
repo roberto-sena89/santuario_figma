@@ -12,37 +12,32 @@ export default function Missoes({ onNavigate }: MissoesProps) {
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
       {/* Hero */}
-      <section className="relative overflow-hidden" aria-label="Missões">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#047857]/30 via-background/90 to-background" />
+      <section
+        className="relative overflow-hidden"
+        aria-label="Missões"
+        style={{
+          backgroundImage: "url('/fotos/minsterios/missões/3.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center 30%",
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-[#047857]/35 via-background/85 to-background/90" />
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/40 to-transparent" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <div className="max-w-3xl">
-            <span className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/12 border border-[#D4A24C]/25 px-4 py-1.5 text-[#D4A24C] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
-              <span aria-hidden="true">{m.icone}</span>
-              {m.nome}
-            </span>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-normal text-foreground leading-tight mb-4">
+            <div className="mb-5 flex items-center gap-3">
+              <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#D4A24C]/80" aria-hidden="true" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#E8B35E] leading-none drop-shadow-sm">
+                {m.nome}
+              </span>
+            </div>
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-white leading-[1.1] mb-5 tracking-tight drop-shadow-md">
               {m.nome}
             </h1>
-            <p className="text-muted-foreground text-lg sm:text-xl leading-relaxed max-w-2xl">
+            <p className="text-white/85 text-lg sm:text-xl leading-relaxed max-w-2xl drop-shadow-sm">
               {m.resumo}
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Versículo */}
-      <section className="py-16 bg-muted/40">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <div className="bg-card/80 border border-border/60 rounded-2xl p-8 sm:p-10 shadow-sm backdrop-blur-sm">
-            <span className="text-5xl leading-none text-[#D4A24C]/60 block mb-3" aria-hidden="true">❝</span>
-            <blockquote className="font-bible text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground leading-snug">
-              {m.versiculo.texto}
-            </blockquote>
-            <cite className="not-italic block mt-4 text-[#D4A24C] font-medium text-base">
-              — {m.versiculo.referencia}
-            </cite>
           </div>
         </div>
       </section>
@@ -53,22 +48,19 @@ export default function Missoes({ onNavigate }: MissoesProps) {
           <div className="grid lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2">
               {/* Cabeçalho da seção */}
-              <div className="flex items-center gap-3 mb-5">
-                <span
-                  className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl text-xl ring-1 ring-black/5 shadow-sm"
-                  style={{ backgroundColor: `${m.cor}20`, color: m.cor }}
-                  aria-hidden="true"
-                >
-                  {m.icone}
-                </span>
-                <div>
-                  <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground leading-tight">
-                    Sobre o ministério
-                  </h2>
-                  <p className="text-xs text-muted-foreground">
+              <div className="mb-6">
+                <div className="mb-3 flex items-center gap-3">
+                  <span
+                    className="block h-px w-10 bg-gradient-to-r from-transparent to-[#047857]/70"
+                    aria-hidden="true"
+                  />
+                  <span className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-[#047857] leading-none">
                     Nossa missão e propósito
-                  </p>
+                  </span>
                 </div>
+                <h2 className="font-display text-2xl sm:text-3xl font-semibold text-foreground leading-tight tracking-tight">
+                  Sobre o ministério
+                </h2>
               </div>
               <p className="text-muted-foreground text-base leading-relaxed max-w-3xl">
                 {m.descricao}
@@ -509,25 +501,57 @@ export default function Missoes({ onNavigate }: MissoesProps) {
       >
         {/* Overlay suave para legibilidade */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-graphite/20 via-graphite/10 to-graphite/20"
+          className="absolute inset-0 bg-gradient-to-b from-graphite/50 via-graphite/35 to-graphite/50"
           aria-hidden="true"
         />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
-          <div className="bg-card/80 border border-border/60 rounded-2xl p-8 sm:p-10 backdrop-blur-sm shadow-sm">
-            <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground mb-4">
-              Quer apoiar a obra missionária?
-            </h2>
-            <p className="text-muted-foreground text-base mb-6 max-w-lg mx-auto">
-              Sua contribuição ajuda a sustentar missionários, viagens e eventos missionários. Entre em contato conosco.
-            </p>
-            <div className="flex justify-center">
-              <button
-                onClick={() => onNavigate("contribuicoes")}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-6 py-3 rounded-full shadow-lg shadow-[#D4A24C]/30 transition-all hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0"
+          {/* Ornamento superior */}
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <span className="block h-px w-12 bg-gradient-to-r from-transparent to-[#D4A24C]/70" aria-hidden="true" />
+            <span className="font-serif text-[16px] text-[#E8B35E] drop-shadow-sm" aria-hidden="true">✦</span>
+            <span className="block h-px w-12 bg-gradient-to-l from-transparent to-[#D4A24C]/70" aria-hidden="true" />
+          </div>
+
+          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-[1.15] mb-5 tracking-tight drop-shadow-md">
+            Quer apoiar a obra missionária?
+          </h2>
+
+          <p className="text-white/85 text-base sm:text-lg leading-relaxed max-w-xl mx-auto mb-8 drop-shadow-sm">
+            Sua contribuição ajuda a sustentar missionários, viagens e eventos missionários. Cada gesto faz diferença no campo.
+          </p>
+
+          {/* Versículo bíblico */}
+          <figure className="mx-auto mb-12 max-w-xl">
+            <blockquote className="font-bible text-[22px] sm:text-[26px] lg:text-[28px] italic leading-[1.45] text-white drop-shadow-md text-balance font-medium">
+              <span className="text-[#E8B35E]/90 not-italic font-serif" aria-hidden="true">“</span>
+              <span className="px-0.5">Ide por todo o mundo, pregai o evangelho a toda criatura.</span>
+              <span className="text-[#E8B35E]/90 not-italic font-serif" aria-hidden="true">”</span>
+            </blockquote>
+            <figcaption className="mt-5 inline-flex items-center gap-2.5">
+              <span className="block h-px w-6 bg-[#D4A24C]/70" aria-hidden="true" />
+              <cite className="not-italic text-[11px] font-bold uppercase tracking-[0.3em] text-[#E8B35E] leading-none drop-shadow-sm">
+                Marcos 16:15
+              </cite>
+              <span className="block h-px w-6 bg-[#D4A24C]/70" aria-hidden="true" />
+            </figcaption>
+          </figure>
+
+          <div className="flex justify-center">
+            <button
+              onClick={() => onNavigate("contribuicoes")}
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#D4A24C]/30 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Apoie a obra
+              <svg
+                className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
               >
-                Apoie a obra
-              </button>
-            </div>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </section>
