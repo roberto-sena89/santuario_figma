@@ -39,11 +39,9 @@ export default function PageTitle({
     >
       {/* Badge eyebrow — amber pill */}
       {eyebrow && (
-        {eyebrow && (
-          <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
-            {eyebrow}
-          </p>
-        )}
+        <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+          {eyebrow}
+        </p>
       )}
 
       {/* H1 — Fraunces (font-display) bold */}
