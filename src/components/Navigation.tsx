@@ -46,12 +46,15 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexões para seu momento com Deus" },
     ],
   },
-  { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
   {
-    label: "Ministérios",
-    page: "ministerios",
-    icon: <UsersIcon />,
-    group: "core",
+    label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core",
+    submenuLabel: "Próximos cultos",
+    submenu: [
+      { label: "Agenda Semanal", page: "cultos", icon: <CalendarIcon />, desc: "Programação dos cultos" },
+      { label: "Harpa Cristã", page: "harpa", icon: <SparklesIcon />, desc: "Hinos e cânticos de adoração" },
+    ],
+  },
+  { label: "Ministérios", page: "ministerios", icon: <UsersIcon />, group: "core",
     navigateParent: true,
     submenuLabel: "Conheça os ministérios",
     submenu: [
