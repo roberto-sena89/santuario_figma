@@ -66,13 +66,19 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
               {m.icon}
             </div>
             <div>
-              <p
-                className="inline-flex items-center gap-2 rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] mb-3 ring-1"
-                style={{ backgroundColor: `${m.color}15`, color: m.color, borderColor: `${m.color}30` }}
-              >
-                <span aria-hidden="true">🤝</span>
-                Comunidade
-              </p>
+              <div className="mb-3 flex items-center gap-3">
+                <span
+                  className="block h-px w-8 bg-gradient-to-r from-transparent"
+                  style={{ backgroundImage: `linear-gradient(to right, transparent, ${m.color}99)` }}
+                  aria-hidden="true"
+                />
+                <span
+                  className="text-[10.5px] font-semibold uppercase tracking-[0.28em] leading-none"
+                  style={{ color: m.color }}
+                >
+                  Comunidade
+                </span>
+              </div>
               <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal text-foreground leading-tight mb-3">
                 {m.name}
               </h1>
@@ -86,8 +92,26 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
 
       {/* Versículo */}
       {m.versiculo && (
-        <section className="py-12 bg-muted/40">
-          <div className="max-w-4xl mx-auto px-4 text-center">
+        <section
+          className="relative py-12 bg-muted/40 overflow-hidden"
+          style={
+            m.id === "louvor"
+              ? {
+                  backgroundImage: `url('/fotos/minsterios/${m.id}.jpg')`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }
+              : undefined
+          }
+        >
+          {/* Overlay suave para legibilidade quando há imagem de fundo */}
+          {m.id === "louvor" && (
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-graphite/20 via-graphite/10 to-graphite/20"
+              aria-hidden="true"
+            />
+          )}
+          <div className="relative max-w-4xl mx-auto px-4 text-center">
             <div className="bg-card/80 border border-border/60 rounded-2xl p-8 backdrop-blur-sm shadow-sm">
               <span className="text-5xl leading-none text-[#D4A24C]/60 block mb-3" aria-hidden="true">❝</span>
               <blockquote className="font-bible text-2xl sm:text-3xl font-medium text-foreground leading-snug">
@@ -148,20 +172,27 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
                         key={a.titulo}
                         className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-5 backdrop-blur-sm shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A24C]/30 hover:shadow-lg"
                       >
-                        {/* Glow sutil no hover */}
+                        {/* Barra de cor dinâmica no topo */}
                         <div
                           className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                           style={{ background: `linear-gradient(to right, ${m.color}, ${m.color}00)` }}
                           aria-hidden="true"
                         />
-                        <div
-                          className="grid h-11 w-11 place-items-center rounded-xl text-xl mb-4 ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-110"
-                          style={{ backgroundColor: `${m.color}15`, color: m.color }}
-                          aria-hidden="true"
-                        >
-                          {a.icon}
+                        {/* Indicador visual de cor */}
+                        <div className="mb-3 flex items-center gap-2.5">
+                          <div
+                            className="h-1 w-1 rounded-full ring-1 ring-black/5"
+                            style={{ backgroundColor: m.color }}
+                            aria-hidden="true"
+                          />
+                          <span
+                            className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none"
+                            style={{ color: m.color }}
+                          >
+                            {m.name}
+                          </span>
                         </div>
-                        <h4 className="font-display font-semibold text-foreground text-sm mb-1.5">
+                        <h4 className="font-display font-semibold text-foreground text-sm mb-1.5 leading-snug">
                           {a.titulo}
                         </h4>
                         <p className="text-muted-foreground text-[13px] leading-relaxed">
@@ -179,23 +210,34 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
                   {m.beneficios && m.beneficios.length > 0 && (
                     <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm">
                       <div
-                        className="px-6 py-4 border-b border-border/60"
+                        className="px-6 py-5 border-b border-border/60"
                         style={{ background: `linear-gradient(135deg, ${m.color}1e, transparent 70%)` }}
                       >
+                        <div className="mb-1 flex items-center gap-2">
+                          <div
+                            className="h-0.5 w-5 rounded-full"
+                            style={{ backgroundColor: m.color }}
+                            aria-hidden="true"
+                          />
+                          <span
+                            className="text-[9.5px] font-semibold uppercase tracking-[0.26em] leading-none"
+                            style={{ color: m.color }}
+                          >
+                            Benefícios
+                          </span>
+                        </div>
                         <h3 className="font-display font-semibold text-foreground text-base leading-tight">
-                          ✨ O que você ganha
+                          O que você ganha
                         </h3>
                       </div>
-                      <ul className="space-y-2.5 px-6 py-5">
+                      <ul className="space-y-3 px-6 py-5">
                         {m.beneficios.map((b) => (
-                          <li key={b} className="flex items-start gap-2.5 text-sm text-muted-foreground leading-relaxed">
+                          <li key={b} className="flex items-start gap-3 text-[13.5px] leading-relaxed text-muted-foreground">
                             <span
-                              className="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full text-[10px]"
-                              style={{ backgroundColor: `${m.color}18`, color: m.color }}
+                              className="mt-2.5 h-1 w-1 shrink-0 rounded-full"
+                              style={{ backgroundColor: m.color }}
                               aria-hidden="true"
-                            >
-                              ✓
-                            </span>
+                            />
                             {b}
                           </li>
                         ))}
@@ -205,23 +247,34 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
                   {m.requisitos && m.requisitos.length > 0 && (
                     <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm">
                       <div
-                        className="px-6 py-4 border-b border-border/60"
+                        className="px-6 py-5 border-b border-border/60"
                         style={{ background: `linear-gradient(135deg, ${m.color}1e, transparent 70%)` }}
                       >
+                        <div className="mb-1 flex items-center gap-2">
+                          <div
+                            className="h-0.5 w-5 rounded-full"
+                            style={{ backgroundColor: m.color }}
+                            aria-hidden="true"
+                          />
+                          <span
+                            className="text-[9.5px] font-semibold uppercase tracking-[0.26em] leading-none"
+                            style={{ color: m.color }}
+                          >
+                            Requisitos
+                          </span>
+                        </div>
                         <h3 className="font-display font-semibold text-foreground text-base leading-tight">
-                          📋 Para participar
+                          Para participar
                         </h3>
                       </div>
-                      <ul className="space-y-2.5 px-6 py-5">
+                      <ul className="space-y-3 px-6 py-5">
                         {m.requisitos.map((r) => (
-                          <li key={r} className="flex items-start gap-2.5 text-sm text-muted-foreground leading-relaxed">
+                          <li key={r} className="flex items-start gap-3 text-[13.5px] leading-relaxed text-muted-foreground">
                             <span
-                              className="mt-0.5 grid h-5 w-5 flex-shrink-0 place-items-center rounded-full text-[10px]"
-                              style={{ backgroundColor: `${m.color}18`, color: m.color }}
+                              className="mt-2.5 h-1 w-1 shrink-0 rounded-full"
+                              style={{ backgroundColor: m.color }}
                               aria-hidden="true"
-                            >
-                              ▸
-                            </span>
+                            />
                             {r}
                           </li>
                         ))}
@@ -343,10 +396,13 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
         <section className="py-16 bg-muted/40">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
-              <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/12 border border-[#D4A24C]/25 px-4 py-1.5 text-[#D4A24C] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
-                <span aria-hidden="true">📸</span>
-                Galeria
-              </p>
+              <div className="mb-3 flex items-center justify-center gap-3">
+                <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+                  Galeria
+                </span>
+                <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+              </div>
               <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
                 Momentos do ministério
               </h2>
@@ -379,37 +435,6 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
         </section>
       )}
 
-      {/* CTA */}
-      <section className="py-16 bg-background">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <div className="bg-card/80 border border-border/60 rounded-2xl p-8 sm:p-10 backdrop-blur-sm shadow-sm">
-            <span className="text-4xl block mb-4" aria-hidden="true">{m.icon}</span>
-            <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground mb-4">
-              Vamos servir juntos?
-            </h2>
-            <p className="text-muted-foreground text-base mb-6 max-w-lg mx-auto">
-              O {m.name} está de braços abertos para você. Venha conhecer e descobrir onde seus dons
-              podem brilhar.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <button
-                onClick={() => onNavigate("ministerios")}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-6 py-3 rounded-full shadow-lg shadow-[#D4A24C]/30 transition-all hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0"
-              >
-                Conheça os ministérios
-              </button>
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/50 bg-[#D4A24C]/10 px-6 py-3 text-sm font-medium text-[#D4A24C] backdrop-blur-sm transition-all hover:border-[#D4A24C]/80 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5"
-              >
-                💬 Falar com o líder
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

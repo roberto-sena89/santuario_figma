@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import PageTitle from "../components/ui/PageTitle";
-import { getEscala, formatSemana, isoWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
+import { getEscala, formatSemana, isoWeek, mondayOfWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
 
 export default function Cultos() {
   const [semanaAtual, setSemanaAtual] = useState(() => isoWeek(new Date()));
@@ -67,18 +67,32 @@ export default function Cultos() {
                   key={diaLabel}
                   className="overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:border-[#D4A24C]/30"
                 >
-                  <div className="flex items-center gap-3 px-5 py-4 border-b border-border/60 bg-gradient-to-r from-[#D4A24C]/10 via-transparent to-transparent">
-                                      <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-[#D4A24C]/15 text-lg shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/25" aria-hidden="true">
-                                        {EMOJI_DIA[baseKey] ?? "📅"}
-                                      </span>
-                                      <div className="min-w-0">
+                  <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-border/60 bg-gradient-to-r from-[#D4A24C]/10 via-transparent to-transparent">
+                                      <div className="min-w-0 flex-1">
                                         <h3 className="font-display text-lg font-semibold leading-tight tracking-tight text-foreground">
                                           {diaLabel}
                                         </h3>
-                                        <div className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-muted/60 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
-                                          <span className="text-[#B8860B] dark:text-[#E8B35E]" aria-hidden="true">🕐</span>
-                                          {dias.length === 1 ? dias[0].horario : `${dias.length} horários`}
-                                        </div>
+                                      </div>
+                                      <div className="flex flex-col items-end justify-center flex-shrink-0">
+                                        {(() => {
+                                          const meses = ["JAN","FEV","MAR","ABR","MAI","JUN","JUL","AGO","SET","OUT","NOV","DEZ"];
+                                          const diasSemana = ["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"];
+                                          const idx = diasSemana.indexOf(diaLabel);
+                                          if (idx >= 0) {
+                                            const monday = mondayOfWeek(semanaAtual);
+                                            const d = new Date(Date.UTC(monday.getUTCFullYear(), monday.getUTCMonth(), monday.getUTCDate()));
+                                            d.setUTCDate(d.getUTCDate() + idx);
+                                            const dd = String(d.getUTCDate()).padStart(2, "0");
+                                            const mm = meses[d.getUTCMonth()];
+                                            return (
+                                              <div className="flex items-baseline gap-1.5 leading-none">
+                                                <span className="font-display text-2xl font-bold tabular-nums text-[#B8860B] dark:text-[#E8B35E] tracking-tight">{dd}</span>
+                                                <span className="text-[11px] font-bold uppercase tracking-wider text-[#B8860B]/80 dark:text-[#E8B35E]/80">{mm}</span>
+                                              </div>
+                                            );
+                                          }
+                                          return null;
+                                        })()}
                                       </div>
                                       </div>
 

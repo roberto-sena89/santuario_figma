@@ -29,20 +29,29 @@ export default function EscalaSemanaCard() {
 
   return (
     <section aria-label="Escala da semana">
-      <div className="mb-3 flex items-center justify-between gap-2">
-        <h2 className="font-display text-sm font-semibold leading-none text-foreground">
-          Escala da Semana
-        </h2>
-        <span className="inline-flex items-center rounded-full bg-[#D4A24C]/10 px-2.5 py-1 text-[10px] font-semibold leading-none text-[#9C7A2E] dark:text-[#E8B35E] tabular-nums">
-          {(() => {
-            const monday = mondayOfWeek(semana);
-            const nextSunday = new Date(monday);
-            nextSunday.setUTCDate(nextSunday.getUTCDate() + 6);
-            const fmt = (d: Date) =>
-              `${String(d.getUTCDate()).padStart(2, "0")}/${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
-            return `${fmt(monday)} — ${fmt(nextSunday)}`;
-          })()}
-        </span>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-[#D4A24C]/15 ring-1 ring-[#D4A24C]/20">
+          <svg className="h-5 w-5 text-[#B8860B] dark:text-[#E8B35E]" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
+            <rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M8 14h16M8 18h12" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+          </svg>
+        </div>
+        <div>
+          <h2 className="font-display text-2xl font-semibold text-foreground">
+            Escala da Semana
+          </h2>
+          <p className="text-sm font-medium text-[#9C7A2E] dark:text-[#E8B35E]">
+            {(() => {
+              const monday = mondayOfWeek(semana);
+              const nextSunday = new Date(monday);
+              nextSunday.setUTCDate(nextSunday.getUTCDate() + 6);
+              const fmt = (d: Date) =>
+                `${String(d.getUTCDate()).padStart(2, "0")}/${String(d.getUTCMonth() + 1).padStart(2, "0")}`;
+              return `${fmt(monday)} a ${fmt(nextSunday)}`;
+            })()}
+          </p>
+        </div>
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">

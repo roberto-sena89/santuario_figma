@@ -221,9 +221,9 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Newsletter col — 7/12 */}
           <div className="lg:col-span-7 flex flex-col">
             <div className="rounded-2xl border border-[#D4A24C]/15 bg-gradient-to-br from-[#D4A24C]/10 via-transparent to-graphite-soft/20 p-6 sm:p-8 shadow-sm shadow-[#D4A24C]/5">
-              <div className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/25 px-3 py-1 mb-4">
-                <span className="text-[11px]" aria-hidden="true">✉️</span>
-                <span className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-[#E8B35E]">
+              <div className="mb-4 flex items-center gap-3">
+                <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E]/90 leading-none">
                   Palavra diária
                 </span>
               </div>
@@ -324,26 +324,26 @@ export default function Footer({ onNavigate }: FooterProps) {
                 </ContactRow>
               </div>
 
-              <div className="rounded-xl border border-[#D4A24C]/15 bg-[#D4A24C]/5 px-4 py-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="grid h-6 w-6 place-items-center rounded-md bg-[#D4A24C]/15 text-[11px] ring-1 ring-[#D4A24C]/20" aria-hidden="true">🕐</span>
-                  <h3 className="font-display text-sm font-semibold text-graphite-fg">
+              <div className="rounded-xl border border-[#D4A24C]/15 bg-[#D4A24C]/5 px-5 py-5">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="block h-px w-6 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+                  <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E]/90 leading-none">
                     Horários dos Cultos
                   </h3>
                 </div>
-                <ul className="space-y-2 text-[12.5px]">
-                  <li className="flex items-start gap-3 leading-snug">
-                    <span className="flex-shrink-0 w-18 text-graphite-fg/55 font-medium">Domingo</span>
-                    <span className="tabular-nums text-graphite-fg/85">
-                      09h · Congregação Fazenda Nova<br />
-                      18h · Igreja Sede
-                    </span>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-4">
+                    <span className="flex-shrink-0 w-20 text-[12.5px] font-medium uppercase tracking-wider text-graphite-fg/55 pt-px">Domingo</span>
+                    <div className="flex flex-col gap-1.5 text-[12.5px] leading-snug tabular-nums text-graphite-fg/85">
+                      <span>09h <span className="text-graphite-fg/45">·</span> Congregação Fazenda Nova</span>
+                      <span>18h <span className="text-graphite-fg/45">·</span> Igreja Sede</span>
+                    </div>
                   </li>
-                  <li className="flex items-start gap-3 leading-snug">
-                    <span className="flex-shrink-0 w-18 text-graphite-fg/55 font-medium">Quarta</span>
-                    <span className="tabular-nums text-graphite-fg/85">
-                      19h · Culto de Ensino · Igreja Sede
-                    </span>
+                  <li className="flex items-start gap-4 pt-3 border-t border-[#D4A24C]/10">
+                    <span className="flex-shrink-0 w-20 text-[12.5px] font-medium uppercase tracking-wider text-graphite-fg/55 pt-px">Quarta</span>
+                    <div className="flex flex-col gap-1.5 text-[12.5px] leading-snug tabular-nums text-graphite-fg/85">
+                      <span>19h <span className="text-graphite-fg/45">·</span> Culto de Ensino <span className="text-graphite-fg/45">·</span> Igreja Sede</span>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -354,16 +354,28 @@ export default function Footer({ onNavigate }: FooterProps) {
         {/* ════════════════════════════════════════════════════
             BLOCO 3 — Versículo editorial + bottom bar
             ════════════════════════════════════════════════════ */}
-        <div className="mt-20 flex flex-col items-center gap-3 text-center">
-          <div className="font-serif text-[10.5px] uppercase tracking-[0.4em] text-[#E8B35E]/50">
-            ✦
-          </div>
-          <p className="font-bible text-[17px] sm:text-[18px] italic leading-[1.65] text-graphite-fg/70 max-w-xl text-balance">
-            “Porque dele, e por ele, e para ele são todas as coisas.”
-          </p>
-          <p className="text-[11px] uppercase tracking-[0.22em] text-[#E8B35E]/70 font-semibold">
-            — Romanos 11:36
-          </p>
+        <div className="mt-20">
+          <figure className="relative w-full overflow-hidden rounded-2xl border border-[#D4A24C]/20 bg-gradient-to-br from-[#D4A24C]/10 via-graphite-soft/40 to-[#D4A24C]/5 px-8 py-10 sm:px-12 sm:py-12 text-center shadow-sm shadow-[#D4A24C]/5 backdrop-blur-sm">
+            {/* Ornamento superior */}
+            <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#D4A24C]/50" aria-hidden="true" />
+              <span className="font-serif text-[14px] text-[#D4A24C]/70 leading-none" aria-hidden="true">✦</span>
+              <span className="block h-px w-10 bg-gradient-to-l from-transparent to-[#D4A24C]/50" aria-hidden="true" />
+            </div>
+            {/* Aspas decorativas grandes */}
+            <span className="pointer-events-none absolute left-4 top-4 font-serif text-[64px] leading-none text-[#D4A24C]/15 select-none" aria-hidden="true">“</span>
+            <span className="pointer-events-none absolute right-4 bottom-2 font-serif text-[64px] leading-none text-[#D4A24C]/15 select-none" aria-hidden="true">”</span>
+            <blockquote className="font-bible text-[19px] sm:text-[21px] italic leading-[1.6] text-graphite-fg/85 max-w-xl mx-auto text-balance">
+              Porque dele, e por ele, e para ele são todas as coisas.
+            </blockquote>
+            <figcaption className="mt-5 inline-flex items-center gap-2">
+              <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
+              <cite className="not-italic text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E]/85 leading-none">
+                Romanos 11:36
+              </cite>
+              <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
+            </figcaption>
+          </figure>
         </div>
 
         {/* Bottom bar */}

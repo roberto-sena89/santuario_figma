@@ -65,7 +65,6 @@ export default function PlaybacksHero({
             Playbacks <span className="text-[#9C7A2E] italic font-medium">com</span> Letra
           </h1>
           <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-[#D4A24C]/20 px-4 py-3 text-sm sm:text-base text-text2 max-w-xl mx-auto leading-relaxed">
-            <span className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#D4A24C]/15 text-base" aria-hidden="true">🎶</span>
             <span>Curadoria de playbacks legendados para sua igreja, ensaio ou momento devocional. A letra aparece na tela — basta tocar.</span>
           </p>
         </div>
