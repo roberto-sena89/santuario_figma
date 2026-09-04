@@ -135,10 +135,9 @@ export default function Home({ onNavigate }: HomeProps) {
                           />
                           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
                           <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-                      <span className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-gradient-to-r from-accent/15 via-white/10 to-accent/15 px-4 py-1.5 text-accent text-xs font-semibold uppercase tracking-[0.18em] backdrop-blur-md shadow-sm shadow-black/20 [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
-                                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/20 text-[11px]" aria-hidden="true">🙏</span>
-                                              Palavra do Dia
-                                            </span>
+                      <span className="mb-5 inline-flex items-center justify-center rounded-full border border-accent/30 bg-gradient-to-r from-accent/15 via-white/10 to-accent/15 px-4 py-1.5 text-accent text-xs font-semibold uppercase tracking-[0.18em] backdrop-blur-md shadow-sm shadow-black/20 [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
+                        Palavra do Dia
+                      </span>
                       <span className="text-5xl sm:text-6xl leading-none text-accent/80 block mb-2 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]" aria-hidden="true">❝</span>
                                             <div className="mx-auto max-w-3xl rounded-2xl bg-graphite/25 px-5 py-4 sm:px-8 sm:py-6 backdrop-blur-sm mb-6">
                                                                                         <blockquote className="font-bible text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-snug sm:leading-tight [text-shadow:0_2px_18px_rgba(0,0,0,0.65)]">
