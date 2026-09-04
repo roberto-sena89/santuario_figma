@@ -47,8 +47,10 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
-  { label: "Ministérios", page: "ministerios", icon: <UsersIcon />, group: "core",
-    navigateParent: true,
+  {
+    label: "Ministérios",
+    icon: <UsersIcon />,
+    group: "core",
     submenuLabel: "Conheça os ministérios",
     submenu: [
       { label: "Ministério de Louvor", page: "ministerios", icon: <SparklesIcon />, desc: "Adoração corporativa nos cultos", hash: "#/ministerios/louvor" },
