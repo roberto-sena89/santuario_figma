@@ -7,7 +7,6 @@
  * Uso:
  *   <PageTitle
  *     eyebrow="Programacao"
- *     eyebrowIcon={<Calendar className="h-3.5 w-3.5" />}  // ou emoji "📅"
  *     title="Cultos e"
  *     titleAccent="Agenda"        // palavra em dourado italico (opcional)
  *     subtitle="Nossa programacao semanal..."
@@ -15,7 +14,6 @@
  *
  * Props:
  *   - eyebrow: texto pequeno do badge (uppercase automatico)
- *   - eyebrowIcon: ReactNode (icon lucide ou emoji) exibido antes do texto
  *   - title: string principal
  *   - titleAccent: string opcional — palavra em dourado `#9C7A2E` italico
  *   - titleSuffix: string opcional — parte final apos o accent (ex: "Letra")
@@ -26,7 +24,6 @@
  */
 export default function PageTitle({
   eyebrow,
-  eyebrowIcon,
   title,
   titleAccent,
   titleSuffix,
@@ -42,14 +39,11 @@ export default function PageTitle({
     >
       {/* Badge eyebrow — amber pill */}
       {eyebrow && (
-        <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
-          {eyebrowIcon && (
-            <span className="flex h-3.5 w-3.5 items-center" aria-hidden="true">
-              {eyebrowIcon}
-            </span>
-          )}
-          {eyebrow}
-        </p>
+        {eyebrow && (
+          <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+            {eyebrow}
+          </p>
+        )}
       )}
 
       {/* H1 — Fraunces (font-display) bold */}
@@ -68,12 +62,6 @@ export default function PageTitle({
             align === 'center' ? 'mx-auto max-w-xl' : 'max-w-xl'
           } leading-relaxed`}
         >
-          <span
-            className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-[#D4A24C]/15 text-base"
-            aria-hidden="true"
-          >
-            {subtitleIcon}
-          </span>
           <span>{subtitle}</span>
         </p>
       ) : subtitle ? (
