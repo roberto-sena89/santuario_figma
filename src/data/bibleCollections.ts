@@ -7,6 +7,8 @@
  *  - Identidade visual própria (paleta, decoração)
  */
 
+import { useState, useEffect } from "react";
+
 export interface CuratedVerse {
   book: number; // 1..66 (id do BIBLE_BOOKS)
   chapter: number;
@@ -556,8 +558,8 @@ export const CURATED_COLLECTIONS: CuratedCollection[] = [
       { book: 60, chapter: 1, verse: 15, theme: "Santidade" },
       { book: 19, chapter: 119, verse: 9, theme: "Pureza" },
       { book: 19, chapter: 119, verse: 11, theme: "Palavra" },
-      { book: 50, chapter: 5, verse: 1, theme: "Imitação" },
-      { book: 50, chapter: 5, verse: 16, theme: "Propósito" },
+      { book: 49, chapter: 5, verse: 1, theme: "Imitação" },
+      { book: 49, chapter: 5, verse: 16, theme: "Propósito" },
       { book: 45, chapter: 12, verse: 2, theme: "Transformação" },
       { book: 19, chapter: 25, verse: 4, theme: "Direção" },
       { book: 19, chapter: 25, verse: 5, theme: "Direção" },
@@ -651,8 +653,14 @@ export const THEME_MAP: ThemeMap[] = [
     verses: [
       { book: 24, chapter: 29, verse: 11 },
       { book: 45, chapter: 15, verse: 13 },
-      { book: 19, chapter: 42, verse: 5 },
-      { book: 19, chapter: 130, verse: 5 },
+      { book: 25, chapter: 3, verse: 24 },
+      { book: 19, chapter: 42, verse: 11 },
+      { book: 19, chapter: 71, verse: 5 },
+      { book: 19, chapter: 130, verse: 7 },
+      { book: 19, chapter: 33, verse: 20 },
+      { book: 58, chapter: 11, verse: 1 },
+      { book: 60, chapter: 1, verse: 3 },
+      { book: 56, chapter: 2, verse: 13 },
     ],
   },
   {
@@ -661,8 +669,13 @@ export const THEME_MAP: ThemeMap[] = [
     emoji: "💭",
     verses: [
       { book: 50, chapter: 4, verse: 6 },
-      { book: 19, chapter: 94, verse: 19 },
+      { book: 50, chapter: 4, verse: 7 },
+      { book: 60, chapter: 5, verse: 7 },
+      { book: 19, chapter: 55, verse: 22 },
       { book: 40, chapter: 6, verse: 34 },
+      { book: 40, chapter: 6, verse: 33 },
+      { book: 19, chapter: 94, verse: 19 },
+      { book: 20, chapter: 12, verse: 25 },
       { book: 23, chapter: 41, verse: 10 },
     ],
   },
@@ -671,10 +684,15 @@ export const THEME_MAP: ThemeMap[] = [
     label: "Gratidão",
     emoji: "🙏",
     verses: [
-      { book: 46, chapter: 10, verse: 31 },
+      { book: 52, chapter: 5, verse: 18 },
+      { book: 19, chapter: 103, verse: 2 },
+      { book: 19, chapter: 100, verse: 4 },
+      { book: 51, chapter: 3, verse: 17 },
+      { book: 49, chapter: 5, verse: 20 },
       { book: 19, chapter: 107, verse: 1 },
       { book: 19, chapter: 118, verse: 24 },
-      { book: 50, chapter: 5, verse: 18 },
+      { book: 47, chapter: 9, verse: 15 },
+      { book: 46, chapter: 10, verse: 31 },
     ],
   },
   {
@@ -684,8 +702,13 @@ export const THEME_MAP: ThemeMap[] = [
     verses: [
       { book: 50, chapter: 4, verse: 13 },
       { book: 23, chapter: 40, verse: 31 },
-      { book: 19, chapter: 18, verse: 32 },
+      { book: 19, chapter: 46, verse: 1 },
       { book: 49, chapter: 6, verse: 10 },
+      { book: 47, chapter: 12, verse: 9 },
+      { book: 47, chapter: 12, verse: 10 },
+      { book: 16, chapter: 8, verse: 10 },
+      { book: 19, chapter: 18, verse: 32 },
+      { book: 2, chapter: 15, verse: 2 },
     ],
   },
   {
@@ -693,10 +716,16 @@ export const THEME_MAP: ThemeMap[] = [
     label: "Perdão",
     emoji: "🕊️",
     verses: [
-      { book: 19, chapter: 103, verse: 12 },
+      { book: 62, chapter: 1, verse: 9 },
       { book: 49, chapter: 4, verse: 32 },
+      { book: 51, chapter: 3, verse: 13 },
+      { book: 19, chapter: 103, verse: 12 },
+      { book: 40, chapter: 6, verse: 14 },
+      { book: 41, chapter: 11, verse: 25 },
+      { book: 33, chapter: 7, verse: 18 },
       { book: 42, chapter: 6, verse: 37 },
       { book: 23, chapter: 1, verse: 18 },
+      { book: 40, chapter: 18, verse: 21 },
     ],
   },
   {
@@ -704,10 +733,17 @@ export const THEME_MAP: ThemeMap[] = [
     label: "Consolo",
     emoji: "🤍",
     verses: [
-      { book: 24, chapter: 31, verse: 13 },
+      { book: 47, chapter: 1, verse: 3 },
+      { book: 47, chapter: 1, verse: 4 },
+      { book: 40, chapter: 5, verse: 4 },
+      { book: 19, chapter: 34, verse: 18 },
+      { book: 19, chapter: 147, verse: 3 },
       { book: 19, chapter: 23, verse: 4 },
-      { book: 45, chapter: 8, verse: 28 },
+      { book: 24, chapter: 31, verse: 13 },
+      { book: 43, chapter: 16, verse: 33 },
       { book: 66, chapter: 21, verse: 4 },
+      { book: 23, chapter: 66, verse: 13 },
+      { book: 19, chapter: 56, verse: 8 },
     ],
   },
   {
@@ -716,9 +752,13 @@ export const THEME_MAP: ThemeMap[] = [
     emoji: "🦁",
     verses: [
       { book: 6, chapter: 1, verse: 9 },
-      { book: 5, chapter: 31, verse: 6 },
-      { book: 27, chapter: 1, verse: 8 },
+      { book: 55, chapter: 1, verse: 7 },
       { book: 19, chapter: 27, verse: 14 },
+      { book: 5, chapter: 31, verse: 6 },
+      { book: 46, chapter: 16, verse: 13 },
+      { book: 19, chapter: 31, verse: 24 },
+      { book: 23, chapter: 41, verse: 13 },
+      { book: 20, chapter: 28, verse: 1 },
     ],
   },
   {
@@ -726,12 +766,115 @@ export const THEME_MAP: ThemeMap[] = [
     label: "Paz",
     emoji: "🕊️",
     verses: [
+      { book: 43, chapter: 14, verse: 27 },
+      { book: 23, chapter: 26, verse: 3 },
       { book: 45, chapter: 5, verse: 1 },
       { book: 49, chapter: 2, verse: 14 },
+      { book: 19, chapter: 4, verse: 8 },
+      { book: 19, chapter: 29, verse: 11 },
+      { book: 19, chapter: 119, verse: 165 },
       { book: 40, chapter: 11, verse: 28 },
-      { book: 19, chapter: 4, verse: 9 },
+      { book: 53, chapter: 3, verse: 16 },
+      { book: 45, chapter: 15, verse: 33 },
     ],
   },
 ];
 
 export const THEMES_BY_ID = Object.fromEntries(THEME_MAP.map((t) => [t.id, t]));
+
+// ============================================================
+// PROGRESSO DE LEITURA
+// ============================================================
+
+const PROGRESS_KEY = "iegv_bible_collection_progress";
+
+/** Lê o Set de IDs de subtemas já lidos pelo usuário. */
+function readReadSubtemas(): Set<string> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if (!raw) return new Set();
+    return new Set(JSON.parse(raw) as string[]);
+  } catch {
+    return new Set();
+  }
+}
+
+/** Salva o Set de IDs lidos no localStorage. */
+function writeReadSubtemas(ids: Set<string>) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(Array.from(ids)));
+  } catch {
+    /* ignore */
+  }
+}
+
+export interface CollectionProgress {
+  /** IDs de subtemas já lidos (persiste no localStorage) */
+  readIds: Set<string>;
+  /** Quantos subtemas já foram lidos (0..total) */
+  readCount: number;
+  /** Total de subtemas da coleção */
+  total: number;
+  /** Percentual de progresso (0-100) */
+  percent: number;
+  /** Se o subtema ativo foi lido */
+  isCurrentRead: boolean;
+  /** Marca o subtema como lido e retorna o novo Set */
+  markAsRead: (id: string) => void;
+  /** Reseta o progresso da coleção */
+  reset: () => void;
+}
+
+/**
+ * Hook que gerencia o progresso de leitura de uma coleção.
+ * Lê/escreve no localStorage automaticamente.
+ */
+export function useCollectionProgress(
+  collectionId: string,
+  subtemas: Subtema[],
+  activeSubtemaId: string
+): CollectionProgress {
+  const [readIds, setReadIds] = useState<Set<string>>(() => {
+    const all = readReadSubtemas();
+    // Filtra só IDs que pertencem a esta coleção
+    return new Set(
+      Array.from(all).filter((id) => subtemas.some((s) => s.id === id))
+    );
+  });
+
+  // Salva no localStorage sempre que muda
+  useEffect(() => {
+    // Mescla com outros IDs de outras coleções
+    const all = readReadSubtemas();
+    subtemas.forEach((s) => all.add(s.id));
+    // Remove os antigos que não estão em nenhuma coleção
+    const validIds = new Set<string>();
+    for (const id of all) {
+      if (subtemas.some((s) => s.id === id)) {
+        validIds.add(id);
+      }
+    }
+    writeReadSubtemas(validIds);
+  }, [readIds, subtemas]);
+
+  const total = subtemas.length;
+  const readCount = subtemas.filter((s) => readIds.has(s.id)).length;
+  const percent = total > 0 ? Math.round((readCount / total) * 100) : 0;
+  const isCurrentRead = readIds.has(activeSubtemaId);
+
+  const markAsRead = (id: string) => {
+    setReadIds((prev) => {
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+  };
+
+  const reset = () => {
+    setReadIds(new Set());
+  };
+
+  return { readIds, readCount, total, percent, isCurrentRead, markAsRead, reset };
+}

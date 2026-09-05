@@ -36,7 +36,7 @@ export default function BookGrid({
   return (
     <div className="w-full">
       {filtered.length === 0 ? (
-        <div className="text-center py-8">
+        <div className="rounded-xl border border-dashed border-border bg-muted/30 px-4 py-8 text-center">
           <p className="text-sm text-muted-foreground">{emptyMessage}</p>
           <p className="text-xs text-muted-foreground/70 mt-1">
             Tente outro termo ou apague a busca.
@@ -44,7 +44,7 @@ export default function BookGrid({
         </div>
       ) : (
         <div
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2"
+          className="grid grid-cols-4 gap-1.5"
           role="listbox"
           aria-label="Livros"
         >
@@ -56,24 +56,45 @@ export default function BookGrid({
                 onClick={() => onSelect(book)}
                 role="option"
                 aria-selected={isActive}
+                title={`${book.pt} · ${book.chapters} ${
+                  book.chapters === 1 ? "capítulo" : "capítulos"
+                }`}
+                aria-label={`${book.pt} — ${book.chapters} ${
+                  book.chapters === 1 ? "capítulo" : "capítulos"
+                }`}
                 className={`
-                  group flex flex-col items-start gap-0.5 rounded-lg p-3 text-left
-                  border transition-all duration-200 min-h-[64px]
+                  group relative aspect-square w-full rounded-xl p-1.5
+                  flex flex-col items-center justify-center gap-1
+                  border transition-all duration-200
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
                   focus-visible:ring-offset-2 focus-visible:ring-offset-background
                   ${
                     isActive
-                      ? "bg-accent/15 border-accent text-accent"
-                      : "bg-card border-border text-foreground hover:border-accent/40 hover:bg-muted/50"
+                      ? "border-[#D4A24C]/45 bg-gradient-to-b from-[#D4A24C]/20 to-[#C4933C]/12 shadow-md shadow-black/20"
+                      : "border-border bg-card text-foreground hover:border-[#D4A24C]/40 hover:bg-muted/60 hover:-translate-y-0.5"
                   }
                 `}
               >
-                <span className="text-sm font-semibold leading-tight">
-                  {book.pt}
+                {/* Abreviação — elemento principal do tile */}
+                <span
+                  className={`font-display text-lg font-semibold leading-none tracking-wide transition-colors duration-200 ${
+                    isActive
+                      ? "text-[#D4A24C]"
+                      : "text-foreground/90 group-hover:text-[#D4A24C]"
+                  }`}
+                >
+                  {book.abbr}
                 </span>
-                <span className="text-[11px] text-muted-foreground leading-tight">
-                  {book.chapters} {book.chapters === 1 ? "capítulo" : "capítulos"}
-                </span>
+
+                {/* Indicador de seleção */}
+                <span
+                  aria-hidden="true"
+                  className={`h-0.5 w-4 rounded-full transition-all duration-200 ${
+                    isActive
+                      ? "bg-[#D4A24C]"
+                      : "bg-border group-hover:bg-[#D4A24C]/40"
+                  }`}
+                />
               </button>
             );
           })}

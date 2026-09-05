@@ -32,6 +32,30 @@ const styleInactive: Record<CollectionStyle, string> = {
   generico: "bg-card/60 border-border text-foreground hover:border-accent/40 hover:bg-accent/5",
 };
 
+const styleBadgeActive: Record<CollectionStyle, string> = {
+  mulher: "bg-[#E8B4B8]/20 text-[#E8B4B8] ring-1 ring-[#E8B4B8]/25",
+  homem: "bg-[#2C5F7A]/25 text-[#A8C5DD] ring-1 ring-[#2C5F7A]/30",
+  generico: "bg-accent/15 text-accent ring-1 ring-accent/25",
+};
+
+const styleBadgeInactive: Record<CollectionStyle, string> = {
+  mulher: "bg-muted/70 text-muted-foreground group-hover:bg-[#E8B4B8]/10 group-hover:text-[#E8B4B8]",
+  homem: "bg-muted/70 text-muted-foreground group-hover:bg-[#2C5F7A]/10 group-hover:text-[#A8C5DD]",
+  generico: "bg-muted/70 text-muted-foreground group-hover:bg-accent/10 group-hover:text-accent",
+};
+
+const styleDotActive: Record<CollectionStyle, string> = {
+  mulher: "bg-[#E8B4B8]",
+  homem: "bg-[#A8C5DD]",
+  generico: "bg-accent",
+};
+
+const styleDotInactive: Record<CollectionStyle, string> = {
+  mulher: "bg-border group-hover:bg-[#E8B4B8]/50",
+  homem: "bg-border group-hover:bg-[#A8C5DD]/50",
+  generico: "bg-border group-hover:bg-accent/50",
+};
+
 export default function SubtemaTabs({
   subtemas,
   active,
@@ -50,7 +74,7 @@ export default function SubtemaTabs({
   if (variant === "sidebar") {
     return (
       <nav
-        className="space-y-1"
+        className="space-y-1.5"
         role="tablist"
         aria-label="Subtemas"
         aria-orientation="vertical"
@@ -64,19 +88,44 @@ export default function SubtemaTabs({
               role="tab"
               aria-selected={isActive}
               className={`
-                w-full text-left rounded-lg p-3 border transition-all duration-200
+                group relative flex w-full items-center gap-3 rounded-xl p-2.5 text-left
+                border transition-all duration-200
                 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent
                 ${isActive ? styleActive[style] : styleInactive[style]}
               `}
             >
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-bold text-muted-foreground w-5">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <span className="text-sm font-semibold leading-tight">
+              {/* Badge da numeração — âncora de alinhamento */}
+              <span
+                aria-hidden="true"
+                className={`
+                  grid h-7 w-7 shrink-0 place-items-center rounded-lg
+                  text-[10px] font-bold tabular-nums transition-colors duration-200
+                  ${isActive ? styleBadgeActive[style] : styleBadgeInactive[style]}
+                `}
+              >
+                {String(idx + 1).padStart(2, "0")}
+              </span>
+
+              {/* Título + descrição em coluna fixa */}
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-[13px] font-semibold leading-snug">
                   {s.titulo}
                 </span>
-              </div>
+                {s.descricao && (
+                  <span className="mt-0.5 block line-clamp-1 text-[11px] leading-snug text-muted-foreground/80">
+                    {s.descricao}
+                  </span>
+                )}
+              </span>
+
+              {/* Indicador de seleção */}
+              <span
+                aria-hidden="true"
+                className={`
+                  h-1.5 w-1.5 shrink-0 rounded-full transition-all duration-200
+                  ${isActive ? styleDotActive[style] : styleDotInactive[style]}
+                `}
+              />
             </button>
           );
         })}
@@ -87,7 +136,7 @@ export default function SubtemaTabs({
   // horizontal: chips com scroll
   return (
     <div
-      className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible"
+      className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible no-scrollbar"
       role="tablist"
       aria-label="Subtemas"
     >

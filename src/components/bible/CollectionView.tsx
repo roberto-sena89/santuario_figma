@@ -13,13 +13,17 @@ import type {
   CuratedVerse,
   CuratedCollection,
 } from "../../data/bibleCollections";
+import { useCollectionProgress } from "../../data/bibleCollections";
 import { BIBLE_BOOKS } from "../../data/bibleBooks";
+import { getChapterVerses, type ArcBible } from "../../data/arcCompleta";
 import SubtemaTabs from "./SubtemaTabs";
 import SubtemaView from "./SubtemaView";
 
 interface CollectionViewProps {
   collection: CuratedCollection;
   initialSubtemaId?: string | null;
+  /** Bíblia ARC carregada (para exibir o texto completo dos versículos). */
+  bible?: ArcBible | null;
   onCopy?: (text: string) => Promise<void> | void;
   onNavigateToBook?: (bookId: number, chapter: number, verse: number) => void;
   copyFeedback?: number | null;
@@ -38,6 +42,7 @@ function groupByTheme(verses: CuratedVerse[]) {
 export default function CollectionView({
   collection,
   initialSubtemaId,
+  bible,
   onCopy,
   onNavigateToBook,
   copyFeedback,
@@ -48,7 +53,7 @@ export default function CollectionView({
   }
 
   // ============ Coleções sem subtemas (Jovens/Família/Consolo) ============
-  return <CollectionSimpleList collection={collection} onCopy={onCopy} onNavigateToBook={onNavigateToBook} copyFeedback={copyFeedback} />;
+  return <CollectionSimpleList collection={collection} bible={bible} onCopy={onCopy} onNavigateToBook={onNavigateToBook} copyFeedback={copyFeedback} />;
 }
 
 // =================================================================
@@ -76,6 +81,13 @@ function CollectionWithSubtemas({
     [activeSubtemaId, collection]
   );
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Progresso de leitura da coleção
+  const progress = useCollectionProgress(
+    collection.id,
+    collection.subtemas,
+    activeSubtemaId
+  );
 
   // Sincroniza hash da URL
   useEffect(() => {
@@ -123,11 +135,11 @@ function CollectionWithSubtemas({
 
         {/* Header da coleção (sidebar) */}
         <div className="mb-5 pb-4 border-b border-border">
-          <p className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-accent/80 mb-1">
-            {collection.emoji} {collection.label}
+          <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent">
+            {collection.label}
           </p>
-          <p className="text-xs text-muted-foreground">
-            {collection.curator}
+          <p className="mt-1.5 text-[11.5px] leading-snug text-muted-foreground">
+            Curadoria — {collection.curator}
           </p>
         </div>
 
@@ -160,18 +172,47 @@ function CollectionWithSubtemas({
 
         {/* Header da coleção (sempre visível no topo) */}
         <header className="mb-6 pb-6 border-b border-border">
-          <p className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-accent mb-2">
-            {collection.emoji} Coleção
+          <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent mb-2">
+            Coleção
           </p>
-          <h1 className="font-display text-3xl sm:text-4xl font-light text-foreground leading-tight">
+          <h1 className="font-display text-3xl sm:text-4xl font-light text-foreground leading-tight text-pretty">
             {collection.label}
           </h1>
-          <p className="text-muted-foreground text-sm sm:text-base mt-2 max-w-2xl">
+          <p className="text-muted-foreground text-sm sm:text-base mt-2 max-w-2xl leading-relaxed text-pretty">
             {collection.subtitulo}
           </p>
-          <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground/80 mt-3">
-            {collection.curator}
+          <p className="mt-4 text-[11.5px] leading-snug text-muted-foreground">
+            Curadoria — {collection.curator}
           </p>
+
+          {/* Barra de progresso de leitura */}
+          {progress.total > 0 && (
+            <div
+              className="mt-5 max-w-md"
+              role="status"
+              aria-label={`Progresso de leitura: ${progress.readCount} de ${progress.total} subtemas lidos`}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                  {progress.readCount === progress.total
+                    ? "Coleção completa"
+                    : `Você leu ${progress.readCount} de ${progress.total}`}
+                </span>
+                <span className="text-[10.5px] font-semibold text-accent tabular-nums">
+                  {progress.percent}%
+                </span>
+              </div>
+              <div
+                className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60"
+                aria-hidden="true"
+              >
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-accent/80 to-accent transition-all duration-700 ease-out"
+                  style={{ width: `${progress.percent}%` }}
+                />
+              </div>
+            </div>
+          )}
         </header>
 
         {/* Navegação horizontal (mobile/tablet) */}
@@ -193,6 +234,7 @@ function CollectionWithSubtemas({
           collectionCurator={collection.curator}
           style={collection.style}
           onNavigateToBook={onNavigateToBook}
+          onRead={progress.markAsRead}
         />
       </div>
     </div>
@@ -205,6 +247,7 @@ function CollectionWithSubtemas({
 
 interface CollectionSimpleListProps {
   collection: CuratedCollection;
+  bible?: ArcBible | null;
   onCopy?: (text: string) => Promise<void> | void;
   onNavigateToBook?: (bookId: number, chapter: number, verse: number) => void;
   copyFeedback?: number | null;
@@ -212,28 +255,30 @@ interface CollectionSimpleListProps {
 
 function CollectionSimpleList({
   collection,
+  bible,
   onCopy,
   onNavigateToBook,
   copyFeedback: _copyFeedback,
 }: CollectionSimpleListProps) {
   const groups = groupByTheme(collection.verses ?? []);
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
   return (
     <article className="space-y-8">
       <header className="border-b border-border pb-6">
-        <p className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-accent mb-2">
-          {collection.emoji} Coleção
+        <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent mb-2">
+          Coleção
         </p>
-        <h1 className="font-display text-3xl sm:text-4xl font-light text-foreground leading-tight">
+        <h1 className="font-display text-3xl sm:text-4xl font-light text-foreground leading-tight text-pretty">
           {collection.label}
         </h1>
-        <p className="text-muted-foreground text-sm sm:text-base mt-2 max-w-2xl">
+        <p className="text-muted-foreground text-sm sm:text-base mt-2 max-w-2xl leading-relaxed text-pretty">
           {collection.subtitulo}
         </p>
-        <p className="text-foreground/80 mt-4 leading-relaxed max-w-2xl">
+        <p className="text-foreground/80 mt-4 leading-relaxed max-w-2xl text-pretty">
           {collection.intro}
         </p>
-        <p className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mt-3">
-          {collection.curator}
+        <p className="mt-4 text-[11.5px] leading-snug text-muted-foreground">
+          Curadoria — {collection.curator}
         </p>
       </header>
 
@@ -248,15 +293,19 @@ function CollectionSimpleList({
                 const book = BIBLE_BOOKS[cv.book - 1];
                 if (!book) return null;
                 const ref = `${book.pt} ${cv.chapter}:${cv.verse}`;
+                const texts = bible
+                  ? getChapterVerses(bible, cv.book, cv.chapter)
+                  : null;
+                const text = texts ? texts[cv.verse - 1] : null;
                 return (
                   <li
                     key={`${cv.book}-${cv.chapter}-${cv.verse}-${idx}`}
-                    className="group bg-card border border-border rounded-2xl p-5 sm:p-6 hover:border-accent/30 transition-colors"
+                    className="group rounded-xl border border-border bg-background/40 p-4 sm:p-5 transition-colors duration-200 hover:border-[#D4A24C]/35"
                   >
-                    <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="flex items-center justify-between gap-3 mb-2.5">
                       <button
                         onClick={() => onNavigateToBook?.(cv.book, cv.chapter, cv.verse)}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 border border-accent/20 px-3 py-1 text-xs font-semibold text-accent hover:bg-accent/20 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/25 px-3 py-1 text-[11px] font-semibold tracking-wide text-[#D4A24C] transition-colors hover:bg-[#D4A24C]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                         aria-label={`Abrir ${ref} na Bíblia`}
                       >
                         {ref}
@@ -266,17 +315,29 @@ function CollectionSimpleList({
                       </button>
                       {onCopy && (
                         <button
-                          onClick={() => onCopy(ref)}
-                          className="text-xs text-muted-foreground hover:text-foreground transition-colors focus:outline-none focus-visible:underline"
-                          aria-label="Copiar referência"
+                          onClick={async () => {
+                            await onCopy(
+                              text
+                                ? `"${text.trim()}" — ${ref}`
+                                : ref
+                            );
+                            setCopiedIdx(idx);
+                            setTimeout(() => setCopiedIdx(null), 2000);
+                          }}
+                          className="text-[11px] text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:underline"
+                          aria-label={text ? "Copiar versículo completo" : "Copiar referência"}
                         >
-                          Copiar
+                          {copiedIdx === idx ? "Copiado!" : "Copiar"}
                         </button>
                       )}
                     </div>
-                    <p className="text-sm text-muted-foreground">
-                      Texto completo disponível em {book.pt} {cv.chapter}:{cv.verse}
-                    </p>
+                    {text ? (
+                      <p className="bible-verse-text">{text.trim()}</p>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        Texto completo disponível em {ref}
+                      </p>
+                    )}
                   </li>
                 );
               })}

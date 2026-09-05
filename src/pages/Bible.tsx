@@ -19,6 +19,7 @@ import ChapterGrid from "../components/bible/ChapterGrid";
 import ThemeChips from "../components/bible/ThemeChips";
 import CollectionView from "../components/bible/CollectionView";
 import Highlights from "../components/bible/Highlights";
+import PageTitle from "../components/ui/PageTitle";
 
 interface BibleVerse {
   verse: number;
@@ -38,6 +39,22 @@ const fontSizeClass: Record<FontSize, string> = {
   xl: "text-xl",
 };
 
+// Estatísticas e atalhos do painel inicial
+const TOTAL_CHAPTERS = BIBLE_BOOKS.reduce((sum, b) => sum + b.chapters, 0);
+const QUICK_BOOK_NAMES = ["Gênesis", "Salmos", "Provérbios", "Isaías", "João", "Romanos"];
+const QUICK_BOOKS = QUICK_BOOK_NAMES.map((name) =>
+  BIBLE_BOOKS.find((b) => b.pt === name)
+).filter((b): b is BibleBook => Boolean(b));
+
+// Resultado de um tema selecionado (chips "Por sentimento")
+interface ThemeResultItem {
+  bookId: number;
+  chapter: number;
+  verse: number;
+  ref: string;
+  text: string;
+}
+
 export default function Bible() {
   // Estado da Bíblia
   const [bible, setBible] = useState<ArcBible | null>(null);
@@ -48,7 +65,7 @@ export default function Bible() {
   const [initialSubtemaId, setInitialSubtemaId] = useState<string | null>(null);
   const [activeCollection, setActiveCollection] = useState<string>("complete");
   const [testament, setTestament] = useState<"AT" | "NT">("AT");
-  const [selectedBook, setSelectedBook] = useState<BibleBook>(BIBLE_BOOKS[18]); // Jó
+  const [selectedBook, setSelectedBook] = useState<BibleBook | null>(null);
   const [selectedChapter, setSelectedChapter] = useState(1);
   const [bookQuery, setBookQuery] = useState("");
   const [verseQuery, setVerseQuery] = useState("");
@@ -78,6 +95,13 @@ export default function Bible() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const verseContainerRef = useRef<HTMLElement>(null);
+  // Última leitura (do histórico) para o painel inicial
+  const [lastRead, setLastRead] = useState<{ book: BibleBook; chapter: number } | null>(null);
+  // Resultado de tema selecionado (chips "Por sentimento")
+  const [themeResult, setThemeResult] = useState<{
+    label: string;
+    items: ThemeResultItem[];
+  } | null>(null);
 
   // ============================================================
   // Carregamento da Bíblia (uma vez, lazy, offline-first)
@@ -111,6 +135,10 @@ export default function Bible() {
   // ============================================================
   // Hash routing — sincroniza URL ↔ estado (back/forward + share)
   // ============================================================
+  // Flag pra evitar que o useEffect de escrita sobrescreva a hash
+  // antes do useEffect de leitura ter sido processado.
+  const [hashReady, setHashReady] = useState(false);
+
   useEffect(() => {
     // Inicializa a partir do hash atual
     const initial = decodeBibleHash(window.location.hash);
@@ -137,19 +165,50 @@ export default function Bible() {
       }
       if (initial.chapter) setSelectedChapter(initial.chapter);
     }
+    // Marca como pronto depois de um tick (deixa o estado assentar)
+    const t = setTimeout(() => setHashReady(true), 0);
+    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {
-    const newHash = encodeBibleHash(
-      activeCollection === "complete" ? null : activeCollection,
-      activeCollection === "complete" ? testament : null,
-      activeCollection === "complete" ? selectedBook.id : null,
-      activeCollection === "complete" ? selectedChapter : null
-    );
+    if (!hashReady) return; // espera a leitura inicial
+    const newHash =
+      activeCollection !== "complete"
+        ? encodeBibleHash(activeCollection, null, null, null)
+        : selectedBook
+          ? encodeBibleHash(null, testament, selectedBook.id, selectedChapter)
+          : "#/biblia";
     if (window.location.hash !== newHash) {
       window.history.replaceState(null, "", newHash);
     }
-  }, [activeCollection, testament, selectedBook.id, selectedChapter]);
+  }, [hashReady, activeCollection, testament, selectedBook, selectedChapter]);
+
+  // Reage a mudanças externas de hash (menu, back/forward, link compartilhado)
+  useEffect(() => {
+    const onHash = () => {
+      const state = decodeBibleHash(window.location.hash);
+      if (state.collectionId && state.collectionId !== activeCollection) {
+        handleCollectionChange(state.collectionId);
+        if (state.subtemaSlug) setInitialSubtemaId(state.subtemaSlug);
+      } else if (!state.collectionId && activeCollection !== "complete") {
+        handleCollectionChange("complete");
+      } else if (
+        !state.collectionId &&
+        activeCollection === "complete" &&
+        state.bookId
+      ) {
+        const book = BIBLE_BOOKS.find((b) => b.id === state.bookId);
+        if (book) {
+          setSelectedBook(book);
+          if (state.chapter) setSelectedChapter(state.chapter);
+          if (book.testament !== testament) setTestament(book.testament);
+        }
+      }
+    };
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCollection, testament]);
 
   // ============================================================
   // Carregamento de capítulo (com cache em memória)
@@ -193,10 +252,26 @@ export default function Bible() {
   );
 
   useEffect(() => {
-    if (bible && activeCollection === "complete") {
+    if (bible && activeCollection === "complete" && selectedBook) {
       fetchChapter(selectedBook, selectedChapter);
     }
   }, [bible, activeCollection, selectedBook, selectedChapter, fetchChapter]);
+
+  // Lê a última leitura do histórico (para "Continuar leitura" no painel inicial)
+  useEffect(() => {
+    try {
+      const hist: string[] = JSON.parse(
+        localStorage.getItem(STORAGE_KEY_HISTORY) || "[]"
+      );
+      const ref = hist[0];
+      if (!ref) return;
+      const [bookId, chapter] = ref.split("-").map(Number);
+      const book = BIBLE_BOOKS.find((b) => b.id === bookId);
+      if (book && chapter >= 1 && chapter <= book.chapters) {
+        setLastRead({ book, chapter });
+      }
+    } catch {}
+  }, []);
 
   // ============================================================
   // Handlers de navegação
@@ -205,26 +280,29 @@ export default function Bible() {
     setActiveCollection(id);
     setBookQuery("");
     setVerseQuery("");
+    setThemeResult(null);
     setSidebarOpen(false);
   };
 
   const handleTestamentChange = (t: "AT" | "NT") => {
     setTestament(t);
     setBookQuery("");
-    const firstBook = t === "AT" ? AT_BOOKS[0] : NT_BOOKS[0];
-    setSelectedBook(firstBook);
-    setSelectedChapter(1);
   };
 
   const handleBookChange = (book: BibleBook) => {
     setSelectedBook(book);
     setSelectedChapter(1);
+    setThemeResult(null);
     if (book.testament !== testament) setTestament(book.testament);
   };
 
-  const handleChapterChange = (n: number) => setSelectedChapter(n);
+  const handleChapterChange = (n: number) => {
+    setThemeResult(null);
+    setSelectedChapter(n);
+  };
 
   const prevChapter = () => {
+    if (!selectedBook) return;
     if (selectedChapter > 1) {
       setSelectedChapter((c) => c - 1);
     } else {
@@ -239,6 +317,7 @@ export default function Bible() {
   };
 
   const nextChapter = () => {
+    if (!selectedBook) return;
     if (selectedChapter < selectedBook.chapters) {
       setSelectedChapter((c) => c + 1);
     } else {
@@ -266,6 +345,7 @@ export default function Bible() {
   };
 
   const copyVerse = async (verse: BibleVerse) => {
+    if (!selectedBook) return;
     const text = `"${verse.text.trim()}" — ${selectedBook.pt} ${selectedChapter}:${verse.verse}`;
     try {
       await navigator.clipboard.writeText(text);
@@ -306,6 +386,7 @@ export default function Bible() {
     setSelectedChapter(chapter);
     setBookQuery("");
     setVerseQuery("");
+    setThemeResult(null);
     setTimeout(() => {
       const el = document.getElementById(`verse-${verse}`);
       if (el && verseContainerRef.current) {
@@ -328,19 +409,27 @@ export default function Bible() {
   const collectionData =
     activeCollection !== "complete" ? COLLECTIONS_BY_ID[activeCollection] : null;
 
+  // Extremos para desabilitar navegação de capítulos
+  const bookIdx = selectedBook
+    ? BIBLE_BOOKS.findIndex((b) => b.id === selectedBook.id)
+    : -1;
+  const isFirstChapter =
+    selectedBook !== null && bookIdx === 0 && selectedChapter === 1;
+  const isLastChapter =
+    selectedBook !== null &&
+    bookIdx === BIBLE_BOOKS.length - 1 &&
+    selectedChapter === selectedBook.chapters;
+
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <header className="mb-6">
-          <h1 className="font-display text-3xl sm:text-4xl font-light text-foreground leading-tight">
-            Bíblia Sagrada
-          </h1>
-          <p className="text-muted-foreground mt-1 text-sm">
-            Tradução {ARC_FULL_NAME} ({ARC_TRANSLATION}) — navegação por livro,
-            capítulo ou coleções temáticas.
-          </p>
-        </header>
+        {/* Header — padrão PageTitle do site */}
+        <PageTitle
+          eyebrow="Leitura e Devoção"
+          title="Bíblia"
+          titleAccent="Sagrada"
+          subtitle={`Tradução ${ARC_FULL_NAME} (${ARC_TRANSLATION}) — navegue por livro e capítulo ou explore coleções temáticas curadas para o seu momento.`}
+        />
 
         {/* Nível 1: Coleções Temáticas */}
         <div className="mb-8">
@@ -355,12 +444,30 @@ export default function Bible() {
           <div className="mb-8">
             <ThemeChips
               onSelect={(verses, label) => {
-                // Mostra a primeira referência, em modo Bíblia Completa
-                if (verses.length > 0) {
-                  const first = verses[0];
-                  navigateToVerse(first.book, first.chapter, first.verse);
-                  setVerseQuery(label);
+                if (!bible) {
+                  // Bíblia ainda carregando: cai na primeira referência
+                  if (verses.length > 0) {
+                    navigateToVerse(verses[0].book, verses[0].chapter, verses[0].verse);
+                  }
+                  return;
                 }
+                // Extrai o texto real de cada versículo curado
+                const items: ThemeResultItem[] = [];
+                for (const cv of verses) {
+                  const book = BIBLE_BOOKS[cv.book - 1];
+                  if (!book) continue;
+                  const texts = getChapterVerses(bible, cv.book, cv.chapter);
+                  const text = texts[cv.verse - 1];
+                  if (!text) continue;
+                  items.push({
+                    bookId: cv.book,
+                    chapter: cv.chapter,
+                    verse: cv.verse,
+                    ref: `${book.pt} ${cv.chapter}:${cv.verse}`,
+                    text: text.trim(),
+                  });
+                }
+                setThemeResult({ label, items });
               }}
             />
           </div>
@@ -368,12 +475,12 @@ export default function Bible() {
 
         {/* Erro ao carregar Bíblia */}
         {bibleError && (
-          <div className="bg-red-900/20 border border-red-800 rounded-xl p-6 text-center">
-            <p className="text-red-400 font-medium mb-2">Erro ao carregar a Bíblia</p>
-            <p className="text-red-300 text-sm mb-4">{bibleError}</p>
+          <div className="bg-error/10 border border-error/30 rounded-2xl p-6 text-center">
+            <p className="text-error font-medium mb-2">Erro ao carregar a Bíblia</p>
+            <p className="text-muted-foreground text-sm mb-4">{bibleError}</p>
             <button
               onClick={() => window.location.reload()}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+              className="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-medium hover:bg-accent/85 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Tentar novamente
             </button>
@@ -386,8 +493,8 @@ export default function Bible() {
             {/* Sidebar / Drawer Mobile */}
             <aside
               className={`
-                ${sidebarOpen ? "fixed inset-0 z-50 bg-background p-4 overflow-y-auto lg:static lg:p-0 lg:bg-transparent" : "hidden lg:block"}
-                lg:sticky lg:top-24 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto
+                ${sidebarOpen ? "fixed inset-0 z-50 bg-background p-4 lg:static lg:p-0 lg:bg-transparent" : "hidden lg:block"}
+                lg:sticky lg:top-24
               `}
               aria-label="Navegação da Bíblia"
             >
@@ -403,14 +510,18 @@ export default function Bible() {
                 </button>
               </div>
 
-              {/* Nível 2: Testamentos */}
-              <div className="flex rounded-lg overflow-hidden border border-border mb-4" role="tablist" aria-label="Testamento">
+              {/* Nível 2: Testamentos — segmented control */}
+              <div
+                className="grid grid-cols-2 gap-1 bg-card border border-border rounded-xl p-1 mb-4"
+                role="tablist"
+                aria-label="Testamento"
+              >
                 <button
                   onClick={() => handleTestamentChange("AT")}
-                  className={`flex-1 py-2.5 text-sm font-medium transition-colors ${
+                  className={`rounded-lg py-2.5 text-sm font-medium border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                     testament === "AT"
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-card text-muted-foreground hover:text-foreground"
+                      ? "border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 text-[#D4A24C] shadow-md shadow-black/20"
+                      : "border-transparent text-muted-foreground hover:text-[#D4A24C] hover:bg-[#D4A24C]/5"
                   }`}
                   aria-pressed={testament === "AT"}
                   role="tab"
@@ -421,10 +532,10 @@ export default function Bible() {
                 </button>
                 <button
                   onClick={() => handleTestamentChange("NT")}
-                  className={`flex-1 py-2.5 text-sm font-medium transition-colors ${
+                  className={`rounded-lg py-2.5 text-sm font-medium border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                     testament === "NT"
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-card text-muted-foreground hover:text-foreground"
+                      ? "border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 text-[#D4A24C] shadow-md shadow-black/20"
+                      : "border-transparent text-muted-foreground hover:text-[#D4A24C] hover:bg-[#D4A24C]/5"
                   }`}
                   aria-pressed={testament === "NT"}
                   role="tab"
@@ -436,13 +547,13 @@ export default function Bible() {
               </div>
 
               {/* Nível 3a: Busca + Grid de Livros */}
-              <div className="bg-card border border-border rounded-xl p-3 mb-4">
-                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+              <div className="bg-card/60 border border-border rounded-2xl p-4 mb-4">
+                <p className="text-[10.5px] font-semibold text-muted-foreground uppercase tracking-[0.22em] mb-3">
                   Livros
                 </p>
                 <div className="relative mb-3">
                   <svg
-                    className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground"
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -456,12 +567,12 @@ export default function Bible() {
                     onChange={(e) => setBookQuery(e.target.value)}
                     placeholder="Buscar livro..."
                     aria-label="Buscar livro"
-                    className="w-full pl-8 pr-3 py-1.5 text-sm rounded border border-border bg-background focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent"
+                    className="w-full pl-10 pr-3 py-2.5 text-sm rounded-xl border border-border bg-muted/30 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-[#D4A24C]/40 focus:border-[#D4A24C]/40 transition-colors"
                   />
                 </div>
                 <BookGrid
                   testament={testament}
-                  selectedBookId={selectedBook.id}
+                  selectedBookId={selectedBook?.id ?? -1}
                   onSelect={(b) => {
                     handleBookChange(b);
                     setSidebarOpen(false);
@@ -471,15 +582,17 @@ export default function Bible() {
                 />
               </div>
 
-              {/* Nível 3b: Grid de Capítulos */}
-              <div className="bg-card border border-border rounded-xl p-3">
-                <ChapterGrid
-                  total={selectedBook.chapters}
-                  selected={selectedChapter}
-                  onSelect={handleChapterChange}
-                  bookLabel={selectedBook.pt}
-                />
-              </div>
+              {/* Nível 3b: Grid de Capítulos — só com livro selecionado */}
+              {selectedBook && (
+                <div className="bg-card/60 border border-border rounded-2xl p-4">
+                  <ChapterGrid
+                    total={selectedBook.chapters}
+                    selected={selectedChapter}
+                    onSelect={handleChapterChange}
+                    bookLabel={selectedBook.pt}
+                  />
+                </div>
+              )}
             </aside>
 
             {/* Main content */}
@@ -495,25 +608,25 @@ export default function Bible() {
                   </svg>
                   Navegar
                 </button>
-                <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-1" role="group" aria-label="Tamanho da fonte">
-                  {(["sm", "base", "lg", "xl"] as FontSize[]).map((size, i) => (
-                    <button
-                      key={size}
-                      onClick={() => changeFontSize(size)}
-                      className={`w-7 h-7 flex items-center justify-center rounded text-xs font-medium transition-colors ${
-                        fontSize === size
-                          ? "bg-accent text-accent-foreground"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                      aria-label={`Fonte ${["pequena", "normal", "grande", "extra grande"][i]}`}
-                      aria-pressed={fontSize === size}
-                    >
-                      A{i > 0 ? "+" : ""}
-                    </button>
-                  ))}
-                </div>
+                {selectedBook && (
+                  <FontSizeControl value={fontSize} onChange={changeFontSize} compact />
+                )}
               </div>
 
+              {themeResult ? (
+                <ThemeResultPanel
+                  result={themeResult}
+                  favorites={favorites}
+                  fontSizeClass={fontSizeClass[fontSize]}
+                  onToggleFavorite={toggleFavorite}
+                  onOpenVerse={(bookId, chapter) => {
+                    setThemeResult(null);
+                    navigateToVerse(bookId, chapter, 1);
+                  }}
+                  onClose={() => setThemeResult(null)}
+                />
+              ) : selectedBook ? (
+                <>
               {/* Header bar (desktop) */}
               <div className="hidden lg:flex flex-wrap items-center justify-between gap-4 mb-6">
                 <div>
@@ -526,23 +639,7 @@ export default function Bible() {
                   </p>
                 </div>
 
-                <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-1" role="group" aria-label="Tamanho da fonte">
-                  {(["sm", "base", "lg", "xl"] as FontSize[]).map((size, i) => (
-                    <button
-                      key={size}
-                      onClick={() => changeFontSize(size)}
-                      className={`w-8 h-8 flex items-center justify-center rounded text-xs font-medium transition-colors ${
-                        fontSize === size
-                          ? "bg-accent text-accent-foreground"
-                          : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                      }`}
-                      aria-label={`Fonte ${["pequena", "normal", "grande", "extra grande"][i]}`}
-                      aria-pressed={fontSize === size}
-                    >
-                      A{i > 0 ? "+" : ""}
-                    </button>
-                  ))}
-                </div>
+                <FontSizeControl value={fontSize} onChange={changeFontSize} />
               </div>
 
               {/* Busca dentro do capítulo */}
@@ -590,14 +687,14 @@ export default function Bible() {
                 </div>
               )}
 
-              {/* Skeleton / loading do capítulo */}
+              {/* Skeleton / loading do capítulo — larguras determinísticas */}
               {!bibleLoading && loading && (
-                <div className="space-y-2" aria-busy="true">
-                  {Array.from({ length: 8 }).map((_, i) => (
+                <div className="space-y-3" aria-busy="true">
+                  {[92, 100, 78, 96, 85, 100, 72, 88].map((w, i) => (
                     <div
                       key={i}
-                      className="h-6 bg-muted rounded animate-pulse"
-                      style={{ width: `${60 + Math.random() * 35}%` }}
+                      className="h-5 bg-muted/70 rounded animate-pulse"
+                      style={{ width: `${w}%` }}
                     />
                   ))}
                 </div>
@@ -605,12 +702,12 @@ export default function Bible() {
 
               {/* Erro ao carregar capítulo */}
               {error && (
-                <div className="bg-red-900/20 border border-red-800 rounded-xl p-6 text-center">
-                  <p className="text-red-400 font-medium mb-2">Erro ao carregar</p>
-                  <p className="text-red-300 text-sm mb-4">{error}</p>
+                <div className="bg-error/10 border border-error/30 rounded-2xl p-6 text-center">
+                  <p className="text-error font-medium mb-2">Erro ao carregar</p>
+                  <p className="text-muted-foreground text-sm mb-4">{error}</p>
                   <button
                     onClick={() => fetchChapter(selectedBook, selectedChapter)}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-red-700 transition-colors"
+                    className="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-medium hover:bg-accent/85 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     Tentar novamente
                   </button>
@@ -621,8 +718,21 @@ export default function Bible() {
               {!bibleLoading && !loading && !error && verses.length > 0 && (
                 <article
                   ref={verseContainerRef}
-                  className="bg-card border border-border rounded-2xl p-6 sm:p-10"
+                  className="relative bg-card border border-border rounded-2xl px-6 py-8 sm:px-12 sm:py-12 overflow-hidden"
                 >
+                  {/* Ornamentos de citação */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-4 top-3 font-display text-6xl leading-none text-accent/10 select-none"
+                  >
+                    “
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute right-4 bottom-3 font-display text-6xl leading-none text-accent/10 select-none"
+                  >
+                    ”
+                  </span>
                   {/* Header do capítulo (mobile) */}
                   <div className="lg:hidden mb-6 pb-4 border-b border-border">
                     <h2 className="font-display text-xl font-light text-foreground">
@@ -647,7 +757,7 @@ export default function Bible() {
                     </div>
                   ) : (
                     <div
-                      className={`bible-verse-text space-y-1 ${fontSizeClass[fontSize]}`}
+                      className={`bible-verse-text space-y-1 mx-auto max-w-[72ch] ${fontSizeClass[fontSize]}`}
                       aria-live="polite"
                     >
                       {filteredVerses.map((verse) => {
@@ -659,7 +769,7 @@ export default function Bible() {
                             className="group relative py-1 rounded-lg hover:bg-accent/5 px-2 -mx-2 transition-colors"
                             id={`verse-${verse.verse}`}
                           >
-                            <span className="select-none inline-block w-7 text-accent font-semibold text-xs align-top mt-1.5 flex-shrink-0">
+                            <span className="select-none inline-block w-7 text-accent/80 font-semibold text-[11px] align-top mt-2 tabular-nums flex-shrink-0">
                               {verse.verse}
                             </span>
                             <span className="text-foreground leading-[1.9] font-bible">
@@ -718,7 +828,8 @@ export default function Bible() {
                   <div className="flex justify-between mt-10 pt-6 border-t border-border">
                     <button
                       onClick={prevChapter}
-                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+                      disabled={isFirstChapter}
+                      className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-all duration-200 hover:border-accent/50 hover:text-accent disabled:opacity-40 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                       aria-label="Capítulo anterior"
                     >
                       <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -728,7 +839,8 @@ export default function Bible() {
                     </button>
                     <button
                       onClick={nextChapter}
-                      className="flex items-center gap-2 text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+                      disabled={isLastChapter}
+                      className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-all duration-200 hover:border-accent/50 hover:text-accent disabled:opacity-40 disabled:pointer-events-none focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                       aria-label="Próximo capítulo"
                     >
                       Próximo capítulo
@@ -739,14 +851,31 @@ export default function Bible() {
                   </div>
                 </article>
               )}
+                </>
+              ) : (
+                <BibleWelcome
+                  lastRead={lastRead}
+                  favoritesCount={favorites.length}
+                  onPickBook={handleBookChange}
+                  onContinue={(book, chapter) => {
+                    setSelectedBook(book);
+                    setSelectedChapter(chapter);
+                  }}
+                />
+              )}
 
               {/* Favoritos count */}
               {favorites.length > 0 && (
-                <p className="text-center text-muted-foreground text-xs mt-4">
-                  {favorites.length}{" "}
-                  {favorites.length === 1
-                    ? "versículo favoritado"
-                    : "versículos favoritados"}
+                <p className="text-center mt-6">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                    {favorites.length}{" "}
+                    {favorites.length === 1
+                      ? "versículo favoritado"
+                      : "versículos favoritados"}
+                  </span>
                 </p>
               )}
             </div>
@@ -758,6 +887,7 @@ export default function Bible() {
           <CollectionView
             collection={collectionData}
             initialSubtemaId={initialSubtemaId}
+            bible={bible}
             onCopy={async (text: string) => {
               try {
                 await navigator.clipboard.writeText(text);
@@ -772,5 +902,316 @@ export default function Bible() {
         )}
       </div>
     </main>
+  );
+}
+
+/* ════════════════════════════════════════════════════
+   FontSizeControl — seletor segmentado de tamanho de fonte
+   ════════════════════════════════════════════════════ */
+
+function FontSizeControl({
+  value,
+  onChange,
+  compact = false,
+}: {
+  value: FontSize;
+  onChange: (size: FontSize) => void;
+  compact?: boolean;
+}) {
+  const sizes: FontSize[] = ["sm", "base", "lg", "xl"];
+  const labels = ["pequena", "normal", "grande", "extra grande"];
+  return (
+    <div
+      className="inline-flex items-center gap-1 bg-card border border-border rounded-full p-1"
+      role="group"
+      aria-label="Tamanho da fonte"
+    >
+      {sizes.map((size, i) => (
+        <button
+          key={size}
+          onClick={() => onChange(size)}
+          className={`${
+            compact ? "w-7 h-7" : "w-8 h-8"
+          } flex items-center justify-center rounded-full text-xs font-medium transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+            value === size
+              ? "bg-accent text-accent-foreground shadow-sm"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted"
+          }`}
+          aria-label={`Fonte ${labels[i]}`}
+          aria-pressed={value === size}
+        >
+          {i === 0 ? "A" : `A${"+".repeat(i)}`}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/* ════════════════════════════════════════════════════
+   ThemeResultPanel — versículos de um tema ("Por sentimento")
+   ════════════════════════════════════════════════════ */
+
+function ThemeResultPanel({
+  result,
+  favorites,
+  fontSizeClass,
+  onToggleFavorite,
+  onOpenVerse,
+  onClose,
+}: {
+  result: { label: string; items: ThemeResultItem[] };
+  favorites: string[];
+  fontSizeClass: string;
+  onToggleFavorite: (key: string) => void;
+  onOpenVerse: (bookId: number, chapter: number) => void;
+  onClose: () => void;
+}) {
+  const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
+
+  const copy = async (idx: number, text: string, ref: string) => {
+    try {
+      await navigator.clipboard.writeText(`"${text}" — ${ref}`);
+      setCopiedIdx(idx);
+      setTimeout(() => setCopiedIdx(null), 2000);
+    } catch {
+      /* ignore */
+    }
+  };
+
+  return (
+    <article
+      className="relative bg-card border border-border rounded-2xl px-6 py-8 sm:px-12 sm:py-12 overflow-hidden"
+      aria-label={`Versículos sobre ${result.label}`}
+    >
+      {/* Ornamentos de citação */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute left-4 top-3 font-display text-6xl leading-none text-accent/10 select-none"
+      >
+        “
+      </span>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute right-4 bottom-3 font-display text-6xl leading-none text-accent/10 select-none"
+      >
+        ”
+      </span>
+
+      {/* Header */}
+      <div className="relative flex items-start justify-between gap-4">
+        <div>
+          <p className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-accent mb-2">
+            Versículos selecionados
+          </p>
+          <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground leading-tight">
+            {result.label}
+          </h2>
+          <p className="text-xs text-muted-foreground mt-1">
+            {result.items.length} {result.items.length === 1 ? "versículo" : "versículos"} ·{" "}
+            {ARC_TRANSLATION}
+          </p>
+        </div>
+        <button
+          onClick={onClose}
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-[#D4A24C]/40 hover:text-[#D4A24C] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          aria-label="Fechar resultados"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="mt-6 h-px w-10 bg-gradient-to-r from-[#D4A24C]/70 to-transparent" aria-hidden="true" />
+
+      {/* Lista de versículos */}
+      {result.items.length === 0 ? (
+        <p className="text-center text-muted-foreground py-12">
+          Nenhum versículo disponível para este tema ainda.
+        </p>
+      ) : (
+        <div className="relative mt-6 space-y-3">
+          {result.items.map((item, idx) => {
+            const key = `${item.bookId}-${item.chapter}-${item.verse}`;
+            const isFav = favorites.includes(key);
+            return (
+              <div
+                key={key}
+                className="group rounded-xl border border-border bg-background/40 p-4 sm:p-5 transition-colors duration-200 hover:border-[#D4A24C]/35"
+              >
+                <div className="flex items-center justify-between gap-3 mb-2.5">
+                  <button
+                    onClick={() => onOpenVerse(item.bookId, item.chapter)}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/25 px-3 py-1 text-[11px] font-semibold tracking-wide text-[#D4A24C] transition-colors hover:bg-[#D4A24C]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    aria-label={`Abrir ${item.ref} no capítulo completo`}
+                  >
+                    {item.ref}
+                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => copy(idx, item.text, item.ref)}
+                      className="text-[11px] text-muted-foreground transition-colors hover:text-foreground focus:outline-none focus-visible:underline"
+                      aria-label={`Copiar ${item.ref}`}
+                    >
+                      {copiedIdx === idx ? "Copiado!" : "Copiar"}
+                    </button>
+                    <button
+                      onClick={() => onToggleFavorite(key)}
+                      aria-pressed={isFav}
+                      className={`grid h-8 w-8 place-items-center rounded-full transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                        isFav
+                          ? "text-[#D4A24C]"
+                          : "text-muted-foreground hover:text-[#D4A24C]"
+                      }`}
+                      aria-label={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+                    >
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill={isFav ? "currentColor" : "none"}
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <p className={`bible-verse-text ${fontSizeClass}`}>{item.text}</p>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </article>
+  );
+}
+
+/* ════════════════════════════════════════════════════
+   BibleWelcome — painel inicial (nenhum capítulo aberto)
+   Mostra instruções, estatísticas, atalhos e última leitura
+   ════════════════════════════════════════════════════ */
+
+function BibleWelcome({
+  lastRead,
+  favoritesCount,
+  onPickBook,
+  onContinue,
+}: {
+  lastRead: { book: BibleBook; chapter: number } | null;
+  favoritesCount: number;
+  onPickBook: (book: BibleBook) => void;
+  onContinue: (book: BibleBook, chapter: number) => void;
+}) {
+  return (
+    <section
+      className="relative bg-card border border-border rounded-2xl px-6 py-10 sm:px-12 sm:py-14 overflow-hidden"
+      aria-label="Comece a ler"
+    >
+      {/* Ornamentos de citação */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute left-4 top-3 font-display text-6xl leading-none text-accent/10 select-none"
+      >
+        “
+      </span>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute right-4 bottom-3 font-display text-6xl leading-none text-accent/10 select-none"
+      >
+        ”
+      </span>
+
+      <div className="relative mx-auto max-w-xl text-center">
+        <p className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-accent mb-3">
+          Comece por aqui
+        </p>
+        <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground leading-tight">
+          Escolha um livro para começar a ler
+        </h2>
+        <p className="text-muted-foreground text-sm sm:text-base mt-3 leading-relaxed text-pretty">
+          Use o painel ao lado para navegar por livro e capítulo — ou toque em
+          “Navegar” no celular. Você também pode explorar as coleções temáticas
+          e os sentimentos acima.
+        </p>
+
+        {/* Estatísticas */}
+        <div className="mt-8 flex items-center justify-center gap-6 sm:gap-8">
+          <div>
+            <p className="font-display text-2xl text-accent">{BIBLE_BOOKS.length}</p>
+            <p className="text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mt-1">
+              livros
+            </p>
+          </div>
+          <div className="h-8 w-px bg-border" aria-hidden="true" />
+          <div>
+            <p className="font-display text-2xl text-accent">
+              {TOTAL_CHAPTERS.toLocaleString("pt-BR")}
+            </p>
+            <p className="text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mt-1">
+              capítulos
+            </p>
+          </div>
+          <div className="h-8 w-px bg-border" aria-hidden="true" />
+          <div>
+            <p className="font-display text-2xl text-accent">{ARC_TRANSLATION}</p>
+            <p className="text-[10.5px] uppercase tracking-[0.18em] text-muted-foreground mt-1">
+              tradução
+            </p>
+          </div>
+        </div>
+
+        {/* Continuar leitura */}
+        {lastRead && (
+          <button
+            onClick={() => onContinue(lastRead.book, lastRead.chapter)}
+            className="mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-accent text-accent-foreground px-5 py-2.5 text-sm font-medium transition-colors hover:bg-accent/85 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+            Continuar leitura — {lastRead.book.pt} {lastRead.chapter}
+          </button>
+        )}
+
+        {/* Livros populares */}
+        <div className="mt-7">
+          <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-muted-foreground mb-3">
+            Populares
+          </p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {QUICK_BOOKS.map((book) => (
+              <button
+                key={book.id}
+                onClick={() => onPickBook(book)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3.5 py-1.5 text-xs font-medium text-foreground transition-colors hover:border-accent/50 hover:text-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                {book.pt}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Favoritos */}
+        {favoritesCount > 0 && (
+          <p className="mt-7">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              {favoritesCount}{" "}
+              {favoritesCount === 1
+                ? "versículo favoritado"
+                : "versículos favoritados"}
+            </span>
+          </p>
+        )}
+      </div>
+    </section>
   );
 }

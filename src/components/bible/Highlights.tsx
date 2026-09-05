@@ -40,8 +40,7 @@ export default function Highlights({ text, query }: HighlightsProps) {
         seg.match ? (
           <mark
             key={i}
-            className="bg-accent/40 text-foreground rounded px-0.5"
-            style={{ boxShadow: "inset 0 -2px 0 #C8B888" }}
+            className="bg-accent/25 text-foreground rounded-sm px-0.5 [box-shadow:inset_0_-2px_0_var(--color-accent)]"
           >
             {seg.text}
           </mark>

@@ -3,9 +3,20 @@
  * Inclui: hero verse, cards expansíveis, reflexão, oração e ações.
  */
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Subtema, CollectionStyle } from "../../data/bibleCollections";
 import { generateShareImage, shareImage } from "./ShareImage";
+
+const FAV_KEY = "iegv_bible_collection_favs";
+
+function readFavs(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
 
 interface SubtemaViewProps {
   subtema: Subtema;
@@ -14,6 +25,8 @@ interface SubtemaViewProps {
   collectionCurator: string;
   style: CollectionStyle;
   onNavigateToBook?: (book: number, chapter: number, verse: number) => void;
+  /** Notifica o pai quando o usuário leu o subtema (após tempo mínimo de leitura). */
+  onRead?: (id: string) => void;
 }
 
 const styleAccents: Record<CollectionStyle, {
@@ -65,9 +78,9 @@ export default function SubtemaView({
   collectionCurator,
   style,
   onNavigateToBook,
+  onRead,
 }: SubtemaViewProps) {
   const [expandedCard, setExpandedCard] = useState<number | null>(null);
-  const [favorited, setFavorited] = useState(false);
   const [copied, setCopied] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
@@ -75,21 +88,29 @@ export default function SubtemaView({
 
   const c = styleAccents[style];
 
-  // Favoritos por subtema (localStorage)
-  const FAV_KEY = "iegv_bible_collection_favs";
-  const favIds = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
-  const isFav = favIds.includes(subtema.id);
-  if (isFav !== favorited) {
-    // sincroniza estado inicial (silencioso, evita loop)
-  }
+  // Marca o subtema como lido após 5s de leitura (tempo mínimo pra ler hero + reflexão)
+  useEffect(() => {
+    if (!onRead) return;
+    const t = setTimeout(() => onRead(subtema.id), 5000);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subtema.id]);
+
+  // Favoritos: sincroniza com localStorage toda vez que o subtema muda
+  const [favorited, setFavorited] = useState<boolean>(false);
+  useEffect(() => {
+    setFavorited(readFavs().includes(subtema.id));
+  }, [subtema.id]);
+
+  const isFav = favorited;
 
   const toggleFavorite = () => {
-    const ids = JSON.parse(localStorage.getItem(FAV_KEY) || "[]");
+    const ids = readFavs();
     const next = ids.includes(subtema.id)
       ? ids.filter((x: string) => x !== subtema.id)
       : [...ids, subtema.id];
     localStorage.setItem(FAV_KEY, JSON.stringify(next));
-    setFavorited(!isFav);
+    setFavorited(!ids.includes(subtema.id));
   };
 
   const copyAll = async () => {
@@ -270,53 +291,47 @@ export default function SubtemaView({
 
       {/* Ações */}
       <section
-        className="sticky bottom-4 z-10 flex flex-wrap items-center justify-center gap-2 p-3 rounded-2xl bg-card/80 border border-border backdrop-blur-md shadow-lg"
+        className="sticky bottom-4 z-10 flex flex-wrap items-center justify-center gap-2 p-2 rounded-2xl bg-card/80 border border-border backdrop-blur-md shadow-lg shadow-black/20"
         aria-label="Ações do subtema"
       >
         <button
           onClick={handleShare}
           disabled={sharing}
-          className="inline-flex items-center gap-1.5 rounded-full bg-accent/15 border border-accent/30 px-4 py-2 text-xs font-semibold text-accent hover:bg-accent/25 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 px-4 text-[12px] font-semibold tracking-[0.02em] text-[#D4A24C] shadow-sm shadow-black/20 transition-all duration-200 hover:border-[#D4A24C]/60 hover:from-[#D4A24C]/25 hover:to-[#C4933C]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50 disabled:pointer-events-none"
           aria-label="Compartilhar imagem do subtema"
         >
           {sharing ? (
             <>
-              <span className="inline-block w-3 h-3 border-2 border-accent border-t-transparent rounded-full animate-spin" aria-hidden="true" />
+              <span
+                className="inline-block w-3 h-3 border-2 border-[#D4A24C] border-t-transparent rounded-full animate-spin"
+                aria-hidden="true"
+              />
               Gerando...
             </>
           ) : shareFeedback ? (
             <>✓ {shareFeedback}</>
           ) : (
-            <>
-              <span aria-hidden="true">🔗</span> Compartilhar
-            </>
+            <>Compartilhar</>
           )}
         </button>
         <button
           onClick={toggleFavorite}
-          className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-xs font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+          className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-full border px-4 text-[12px] font-semibold tracking-[0.02em] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
             isFav
-              ? "bg-accent border-accent text-accent-foreground"
-              : "bg-card border-border text-foreground hover:border-accent/40"
+              ? "border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 text-[#D4A24C] shadow-sm shadow-black/20"
+              : "border-border bg-card text-foreground hover:border-[#D4A24C]/40 hover:text-[#D4A24C]"
           }`}
           aria-label={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
           aria-pressed={isFav}
         >
-          <span aria-hidden="true">★</span>
           {isFav ? "Favoritado" : "Favoritar"}
         </button>
         <button
           onClick={copyAll}
-          className="inline-flex items-center gap-1.5 rounded-full bg-card border border-border px-4 py-2 text-xs font-semibold text-foreground hover:border-accent/40 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="inline-flex h-9 items-center justify-center rounded-full border border-border bg-card px-4 text-[12px] font-semibold tracking-[0.02em] text-foreground transition-all duration-200 hover:border-[#D4A24C]/40 hover:text-[#D4A24C] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           aria-label="Copiar todo o conteúdo do subtema"
         >
-          {copied ? (
-            <>✓ Copiado!</>
-          ) : (
-            <>
-              <span aria-hidden="true">📋</span> Copiar tudo
-            </>
-          )}
+          {copied ? <>✓ Copiado!</> : <>Copiar tudo</>}
         </button>
       </section>
     </article>

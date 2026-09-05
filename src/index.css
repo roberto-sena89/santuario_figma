@@ -189,13 +189,22 @@ body {
   top: 0;
 }
 
-/* Bible reader prose */
+/* Bible reader prose — Cormorant para leitura longa */
 .bible-verse-text {
-  font-family: var(--font-display);
+  font-family: var(--font-bible);
   font-size: clamp(1.05rem, 2.5vw, 1.25rem);
   line-height: 1.9;
   letter-spacing: 0.01em;
   font-feature-settings: "liga" 1, "calt" 1;
+}
+
+/* Esconde scrollbar mantendo scroll (chips horizontais) */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* Text wrap balance em headings */

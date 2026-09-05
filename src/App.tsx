@@ -33,6 +33,19 @@ function hashToPage(): Page {
   if (h === "escala") return "admin";
   // Sub-rota #/ministerios/<id> → página ministerios
   if (h.startsWith("ministerios/")) return "ministerios";
+  // Bíblia: aceita tanto #/biblia quanto #/collection:* e #/<slug>/<subtema>
+  if (
+    h === "biblia" ||
+    h.startsWith("collection:") ||
+    h.startsWith("testament:") ||
+    h.startsWith("mulher") ||
+    h.startsWith("homem") ||
+    h.startsWith("jovens") ||
+    h.startsWith("familia") ||
+    h.startsWith("consolo")
+  ) {
+    return "biblia";
+  }
   return (ALL_PAGES as string[]).includes(h) ? (h as Page) : "home";
 }
 
