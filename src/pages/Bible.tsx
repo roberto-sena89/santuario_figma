@@ -1,18 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { BIBLE_BOOKS, AT_BOOKS, NT_BOOKS, type BibleBook } from "../data/bibleBooks";
+import { loadArcBible, getChapterVerses, ARC_TRANSLATION, ARC_FULL_NAME, type ArcBible } from "../data/arcCompleta";
 
 interface BibleVerse {
-  book_name: string;
-  chapter: number;
   verse: number;
   text: string;
-}
-
-interface BibleChapterData {
-  reference: string;
-  verses: BibleVerse[];
-  translation_id: string;
-  error?: string;
 }
 
 const STORAGE_KEY_FAVORITES = "iegv_bible_favorites";
@@ -33,6 +25,9 @@ export default function Bible() {
   const [verses, setVerses] = useState<BibleVerse[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [bible, setBible] = useState<ArcBible | null>(null);
+  const [bibleLoading, setBibleLoading] = useState(true);
+  const [bibleError, setBibleError] = useState<string | null>(null);
   const [testament, setTestament] = useState<"AT" | "NT">("AT");
   const [fontSize, setFontSize] = useState<FontSize>(() => {
     return (localStorage.getItem(STORAGE_KEY_FONT) as FontSize) || "base";
@@ -48,25 +43,58 @@ export default function Bible() {
 
   const books = testament === "AT" ? AT_BOOKS : NT_BOOKS;
 
-  const fetchChapter = useCallback(async (book: BibleBook, chapter: number) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const url = `https://bible-api.com/${book.en}+${chapter}?translation=almeida`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Não foi possível carregar o capítulo.");
-      const data: BibleChapterData = await res.json();
-      if (data.error) throw new Error(data.error);
-      setVerses(data.verses || []);
-    } catch (err) {
-      setError(
-        "Não foi possível carregar o capítulo. Verifique sua conexão e tente novamente."
-      );
-      setVerses([]);
-    } finally {
-      setLoading(false);
-    }
+  // Carrega a Bíblia ARC completa uma única vez (offline-first)
+  useEffect(() => {
+    let cancelled = false;
+    setBibleLoading(true);
+    setBibleError(null);
+    loadArcBible()
+      .then((data) => {
+        if (!cancelled) {
+          setBible(data);
+          setBibleLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) {
+          setBibleError(
+            err instanceof Error
+              ? `Não foi possível carregar a Bíblia (${err.message}).`
+              : "Não foi possível carregar a Bíblia."
+          );
+          setBibleLoading(false);
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
+  const fetchChapter = useCallback(
+    (book: BibleBook, chapter: number) => {
+      if (!bible) return;
+      setLoading(true);
+      setError(null);
+      try {
+        const chapterVerses = getChapterVerses(bible, book.id, chapter);
+        setVerses(
+          chapterVerses.map((text, idx) => ({ verse: idx + 1, text }))
+        );
+      } catch (err) {
+        setError("Não foi possível carregar o capítulo.");
+        setVerses([]);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [bible]
+  );
+
+  useEffect(() => {
+    if (bible) {
+      fetchChapter(selectedBook, selectedChapter);
+    }
+  }, [selectedBook, selectedChapter, fetchChapter, bible]);
 
   useEffect(() => {
     fetchChapter(selectedBook, selectedChapter);
@@ -122,7 +150,7 @@ export default function Bible() {
   };
 
   const copyVerse = async (verse: BibleVerse) => {
-    const text = `"${verse.text.trim()}" — ${selectedBook.pt} ${verse.chapter}:${verse.verse}`;
+    const text = `"${verse.text.trim()}" — ${selectedBook.pt} ${selectedChapter}:${verse.verse}`;
     try {
       await navigator.clipboard.writeText(text);
       setCopied(verse.verse);
@@ -315,7 +343,7 @@ export default function Bible() {
               <article className="bg-card border border-border rounded-2xl p-6 sm:p-10">
                 <div className={`bible-verse-text space-y-1 ${fontSizeClass[fontSize]}`}>
                   {verses.map((verse) => {
-                    const key = `${selectedBook.id}-${verse.chapter}-${verse.verse}`;
+                    const key = `${selectedBook.id}-${selectedChapter}-${verse.verse}`;
                     const isFav = favorites.includes(key);
                     return (
                       <div
