@@ -45,6 +45,7 @@ export default function Bible() {
   const [bibleError, setBibleError] = useState<string | null>(null);
 
   // Estado de visualização
+  const [initialSubtemaId, setInitialSubtemaId] = useState<string | null>(null);
   const [activeCollection, setActiveCollection] = useState<string>("complete");
   const [testament, setTestament] = useState<"AT" | "NT">("AT");
   const [selectedBook, setSelectedBook] = useState<BibleBook>(BIBLE_BOOKS[18]); // Jó
@@ -115,6 +116,14 @@ export default function Bible() {
     const initial = decodeBibleHash(window.location.hash);
     if (initial.collectionId) {
       setActiveCollection(initial.collectionId);
+      // Tenta resolver o subtema pelo slug
+      if (initial.subtemaSlug) {
+        const col = COLLECTIONS_BY_ID[initial.collectionId];
+        const sub = col?.subtemas.find(
+          (s) => s.id === initial.subtemaSlug
+        );
+        if (sub) setInitialSubtemaId(sub.id);
+      }
     } else {
       if (initial.testament) setTestament(initial.testament);
       if (initial.bookId) {
@@ -747,11 +756,8 @@ export default function Bible() {
         {/* Modo: Coleção Temática */}
         {!bibleError && isCollection && collectionData && (
           <CollectionView
-            title={collectionData.label}
-            subtitle={collectionData.description}
-            intro={collectionData.intro}
-            curator={collectionData.curator}
-            verses={collectionData.verses}
+            collection={collectionData}
+            initialSubtemaId={initialSubtemaId}
             onCopy={async (text: string) => {
               try {
                 await navigator.clipboard.writeText(text);
@@ -761,7 +767,6 @@ export default function Bible() {
                 /* ignore */
               }
             }}
-            copyFeedback={copyText === collectionData.label ? 0 : null}
             onNavigateToBook={navigateToVerse}
           />
         )}

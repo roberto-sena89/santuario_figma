@@ -91,6 +91,8 @@ export interface BibleHashState {
   testament: "AT" | "NT" | null;
   bookId: number | null;
   chapter: number | null;
+  /** Slug do subtema (ex: "fe-e-coragem") quando o formato é #/mulher/fe-e-coragem. */
+  subtemaSlug: string | null;
 }
 
 export function decodeBibleHash(hash: string): BibleHashState {
@@ -100,10 +102,13 @@ export function decodeBibleHash(hash: string): BibleHashState {
     testament: null,
     bookId: null,
     chapter: null,
+    subtemaSlug: null,
   };
   if (!clean) return empty;
 
   const result: BibleHashState = { ...empty };
+
+  // Formato #/collection:<id>  (legado)
   for (const part of clean.split("/")) {
     const [key, value] = part.split(":");
     switch (key) {
@@ -121,6 +126,26 @@ export function decodeBibleHash(hash: string): BibleHashState {
         const cn = parseInt(value, 10);
         if (!isNaN(cn)) result.chapter = cn;
         break;
+    }
+  }
+
+  // Formato #/<slug>/<subtema>  (novo, mais limpo)
+  if (!result.collectionId) {
+    const slugMatch = clean.match(/^([^/]+)\/([^/]+)/);
+    if (slugMatch) {
+      const slug = slugMatch[1];
+      const sub = slugMatch[2];
+      // Só interpretar como coleção se o slug bater em um slug conhecido
+      if (["mulher", "homem", "jovens", "familia", "consolo-e-esperanca"].includes(slug)) {
+        result.collectionId = slug;
+        result.subtemaSlug = sub;
+      }
+    } else {
+      // Apenas slug da coleção (sem subtema): #/mulher
+      const slugOnly = clean.split("/")[0];
+      if (["mulher", "homem", "jovens", "familia", "consolo-e-esperanca"].includes(slugOnly)) {
+        result.collectionId = slugOnly;
+      }
     }
   }
   return result;
