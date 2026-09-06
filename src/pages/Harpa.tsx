@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import PageTitle from "../components/ui/PageTitle";
 import type { HarpaHino } from "../data/harpaCompleta";
 
 type SearchFn = (query: string) => HarpaHino[];
@@ -38,15 +37,20 @@ export default function Harpa() {
   if (!loaded) {
     return (
       <main id="main-content" className="min-h-screen bg-background pt-16">
+        {/* Header hero com imagem de fundo - /fotos/harpa/1.jpg */}
+        <section className="relative overflow-hidden">
+          <img src="/fotos/harpa/1.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
+          <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+            <div className="mb-0 max-w-2xl text-left">
+              <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">Hinario</p>
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">Harpa Crista</h1>
+              <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed"><span>Hinos classicos do hinario cristao.</span></p>
+            </div>
+          </div>
+        </section>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <PageTitle
-            eyebrow="Hinario"
-            eyebrowIcon="🎵"
-            title="Harpa Crista"
-            subtitle="Hinos classicos do hinario cristao."
-            subtitleIcon="📖"
-            align="left"
-          />
           <div className="flex flex-col items-center justify-center py-24 text-muted-foreground">
             <svg className="h-8 w-8 animate-spin mb-4" viewBox="0 0 24 24" stroke="currentColor">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
@@ -61,16 +65,20 @@ export default function Harpa() {
 
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
+      {/* Header hero com imagem de fundo - /fotos/harpa/1.jpg */}
+      <section className="relative overflow-hidden">
+        <img src="/fotos/harpa/1.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" aria-hidden="true" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
+        <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+          <div className="mb-0 max-w-2xl text-left">
+            <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">Hinario</p>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">Harpa Crista</h1>
+            <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed"><span>Hinos classicos do hinario cristao. Busque por numero ou titulo.</span></p>
+          </div>
+        </div>
+      </section>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <PageTitle
-          eyebrow="Hinario"
-          eyebrowIcon="🎵"
-          title="Harpa Crista"
-          subtitle="Hinos classicos do hinario cristao. Busque por numero ou titulo."
-          subtitleIcon="📖"
-          align="left"
-        />
 
         {/* Search */}
         <div className="relative mb-4">
