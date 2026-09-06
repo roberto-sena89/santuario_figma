@@ -355,26 +355,38 @@ export default function Footer({ onNavigate }: FooterProps) {
             BLOCO 3 — Versículo editorial + bottom bar
             ════════════════════════════════════════════════════ */}
         <div className="mt-20">
-          <figure className="relative w-full overflow-hidden rounded-2xl border border-[#D4A24C]/20 bg-gradient-to-br from-[#D4A24C]/10 via-graphite-soft/40 to-[#D4A24C]/5 px-8 py-10 sm:px-12 sm:py-12 text-center shadow-sm shadow-[#D4A24C]/5 backdrop-blur-sm">
-            {/* Ornamento superior */}
-            <div className="mb-5 flex items-center justify-center gap-3">
-              <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#D4A24C]/50" aria-hidden="true" />
-              <span className="font-serif text-[14px] text-[#D4A24C]/70 leading-none" aria-hidden="true">✦</span>
-              <span className="block h-px w-10 bg-gradient-to-l from-transparent to-[#D4A24C]/50" aria-hidden="true" />
+          <figure className="relative w-full overflow-hidden rounded-2xl border border-[#D4A24C]/20 text-center shadow-sm shadow-[#D4A24C]/5">
+            {/* Imagem de fundo - public/fotos/rodape/1.jpg */}
+            <img
+              src="/fotos/rodape/1.jpg"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              loading="lazy"
+              aria-hidden="true"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/65 to-black/75" aria-hidden="true" />
+            <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.25), transparent 70%)" }} />
+            <div className="relative z-10 px-8 py-10 sm:px-12 sm:py-12">
+              {/* Ornamento superior */}
+              <div className="mb-5 flex items-center justify-center gap-3">
+                <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#D4A24C]/50" aria-hidden="true" />
+                <span className="font-serif text-[14px] text-[#D4A24C]/80 leading-none" aria-hidden="true">✦</span>
+                <span className="block h-px w-10 bg-gradient-to-l from-transparent to-[#D4A24C]/50" aria-hidden="true" />
+              </div>
+              {/* Aspas decorativas grandes */}
+              <span className="pointer-events-none absolute left-4 top-4 font-serif text-[64px] leading-none text-[#D4A24C]/20 select-none" aria-hidden="true">“</span>
+              <span className="pointer-events-none absolute right-4 bottom-2 font-serif text-[64px] leading-none text-[#D4A24C]/20 select-none" aria-hidden="true">”</span>
+              <blockquote className="font-bible text-[19px] sm:text-[21px] italic leading-[1.6] text-white/90 max-w-xl mx-auto text-balance [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
+                Porque dele, e por ele, e para ele são todas as coisas.
+              </blockquote>
+              <figcaption className="mt-5 inline-flex items-center gap-2">
+                <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
+                <cite className="not-italic text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
+                  Romanos 11:36
+                </cite>
+                <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
+              </figcaption>
             </div>
-            {/* Aspas decorativas grandes */}
-            <span className="pointer-events-none absolute left-4 top-4 font-serif text-[64px] leading-none text-[#D4A24C]/15 select-none" aria-hidden="true">“</span>
-            <span className="pointer-events-none absolute right-4 bottom-2 font-serif text-[64px] leading-none text-[#D4A24C]/15 select-none" aria-hidden="true">”</span>
-            <blockquote className="font-bible text-[19px] sm:text-[21px] italic leading-[1.6] text-graphite-fg/85 max-w-xl mx-auto text-balance">
-              Porque dele, e por ele, e para ele são todas as coisas.
-            </blockquote>
-            <figcaption className="mt-5 inline-flex items-center gap-2">
-              <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
-              <cite className="not-italic text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E]/85 leading-none">
-                Romanos 11:36
-              </cite>
-              <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
-            </figcaption>
           </figure>
         </div>
 
