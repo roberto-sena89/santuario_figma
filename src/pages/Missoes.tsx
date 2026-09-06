@@ -16,7 +16,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
         className="relative overflow-hidden"
         aria-label="Missões"
         style={{
-          backgroundImage: "url('/fotos/minsterios/missões/3.jpg')",
+          backgroundImage: "url('/fotos/ministerios/missões/3.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
         }}
@@ -66,7 +66,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
               {/* Descrição sobre foto — iguala a altura da coluna "Equipe" ao lado */}
               <div className="relative overflow-hidden rounded-2xl border border-border/60 lg:h-[540px] lg:min-h-[480px]">
                 <img
-                  src="/fotos/minsterios/missões/4.jpg"
+                  src="/fotos/ministerios/missões/4.jpg"
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover object-center"
                   loading="lazy"
@@ -394,7 +394,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
       <section
         className="relative py-12 sm:py-14 overflow-hidden bg-muted/40"
         style={{
-          backgroundImage: "url('/fotos/minsterios/missões/2.jpg')",
+          backgroundImage: "url('/fotos/ministerios/missões/2.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center 30%",
         }}

@@ -9,12 +9,12 @@ interface MinisterioDetalheProps {
 
 /** Fundo fotográfico do hero — só ministérios com foto dedicada. */
 const HERO_BACKGROUNDS: Record<string, string> = {
-  louvor: "/fotos/minsterios/louvor/1.jpg",
-  jovens: "/fotos/minsterios/jovens/1.jpg",
-  criancas: "/fotos/minsterios/crianças/1.jpg",
-  intercessao: "/fotos/minsterios/intercessão/1.jpg",
-  casais: "/fotos/minsterios/familia/1.jpg",
-  evangelismo: "/fotos/minsterios/missões/2.jpg",
+  louvor: "/fotos/ministerios/louvor/1.jpg",
+  jovens: "/fotos/ministerios/jovens/1.jpg",
+  criancas: "/fotos/ministerios/crianças/1.jpg",
+  intercessao: "/fotos/ministerios/intercessão/1.jpg",
+  casais: "/fotos/ministerios/familia/1.jpg",
+  evangelismo: "/fotos/ministerios/missões/2.jpg",
 };
 
 export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheProps) {
