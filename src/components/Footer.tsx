@@ -365,8 +365,8 @@ export default function Footer({ onNavigate }: FooterProps) {
               aria-hidden="true"
             />
             <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/65 to-black/75" aria-hidden="true" />
-            <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.25), transparent 70%)" }} />
-            <div className="relative z-10 px-8 py-10 sm:px-12 sm:py-12">
+            <div className="absolute inset-0 opacity-25 scale-110" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.32), transparent 75%)" }} />
+            <div className="relative z-10 px-8 py-16 sm:px-12 sm:py-20 lg:py-24">
               {/* Ornamento superior */}
               <div className="mb-5 flex items-center justify-center gap-3">
                 <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#D4A24C]/50" aria-hidden="true" />
