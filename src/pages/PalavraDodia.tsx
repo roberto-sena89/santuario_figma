@@ -60,7 +60,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
         aria-label="Versículo do dia"
       >
         <img
-          src="/fotos/palavra do dia/2.jpg"
+          src="/fotos/palavra-do-dia/2.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="eager"

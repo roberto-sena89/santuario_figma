@@ -147,5 +147,8 @@
 
 # Override: force these specific files to NOT use LFS
 # (Vercel doesn't have LFS support, so we need these as regular files)
-/public/fotos/minsterios/louvor.jpg !filter !diff !merge -text
-/public/fotos/minsterios/missões/*.jpg !filter !diff !merge -text
+# Fix: public/ deve ser sempre arquivo normal — evita pointer LFS no deploy
+/public/** !filter !diff !merge -text
+public/** !filter !diff !merge -text
+/public/fotos/ministerios/** !filter !diff !merge -text
+/public/fotos/palavra-do-dia/** !filter !diff !merge -text
