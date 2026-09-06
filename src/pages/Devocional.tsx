@@ -51,7 +51,7 @@ export default function Devocional() {
                 "{current.verse}"
               </p>
               <cite className="not-italic text-accent font-medium text-sm">
-                {current.venueRef}
+                {current.verseRef}
               </cite>
             </blockquote>
           </article>
