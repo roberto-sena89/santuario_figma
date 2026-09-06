@@ -287,8 +287,7 @@ export default function Home({ onNavigate }: HomeProps) {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
                   <div>
-                    <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
-                      <span aria-hidden="true">🗓️</span>
+                    <p className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
                       Em Breve
                     </p>
                     <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
