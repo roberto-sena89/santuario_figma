@@ -4,6 +4,9 @@ export interface Ministry {
   icon: string;
   description: string;
   leader: string;
+  /** Equipe de liderança/obreiros — o primeiro item é o líder (cor do ministério).
+   * Os demais são renderizados como "Obreiro" (âmbar). */
+  equipe?: { nome: string; papel: string; bio: string }[];
   contact: string;
   meetingDay: string;
   meetingTime: string;
@@ -25,6 +28,12 @@ export const MINISTERIOS: Ministry[] = [
     description:
       "Responsável pela adoração corporativa nos cultos. Cantores, músicos e técnicos de som trabalham juntos para criar uma atmosfera de adoração genuína.",
     leader: "Ev. Renato Costa",
+    equipe: [
+      { nome: "Ev. Renato Costa", papel: "Líder do Ministério de Louvor", bio: "Pastor e músico, conduz a equipe de adoração com zelo pela presença de Deus." },
+      { nome: "Raquel Andrade", papel: "Coordenação vocal", bio: "Responsável pelos vocais e harmonias nos ensaios e cultos." },
+      { nome: "Marcos Vinícius", papel: "Som e iluminação", bio: "Opera mesa de som e iluminação dos cultos." },
+      { nome: "Lívia Santana", papel: "Produção dos cultos", bio: "Organiza agendas, escalas e recepção da equipe." },
+    ],
     contact: "louvor@igrejagracaeverdade.com.br",
     meetingDay: "Sábado",
     meetingTime: "14:00",
@@ -61,6 +70,12 @@ export const MINISTERIOS: Ministry[] = [
     description:
       "Um espaço para jovens de 15 a 30 anos crescerem na fé, construírem amizades saudáveis e descobrirem seu propósito em Deus.",
     leader: "Pr. Felipe Andrade",
+    equipe: [
+      { nome: "Pr. Felipe Andrade", papel: "Líder do Ministério de Jovens", bio: "Pastor com visão para a juventude, discipula e mobiliza a próxima geração." },
+      { nome: "Thiago Mendes", papel: "Coordenador de células", bio: "Lidera os grupos de discipulado jovem." },
+      { nome: "Carolina Lima", papel: "Comunicação", bio: "Cuida das redes sociais e da comunicação do ministério." },
+      { nome: "Daniel Rocha", papel: "Eventos", bio: "Coordena encontros, acampamentos e ações sociais." },
+    ],
     contact: "jovens@igrejagracaeverdade.com.br",
     meetingDay: "Sexta-feira",
     meetingTime: "19:30",
@@ -97,6 +112,12 @@ export const MINISTERIOS: Ministry[] = [
     description:
       "Ensino bíblico lúdico e criativo para crianças de 4 a 12 anos. Teatro, música, artesanato e histórias bíblicas de forma divertida e significativa.",
     leader: "Dna. Patrícia Souza",
+    equipe: [
+      { nome: "Dna. Patrícia Souza", papel: "Líder do Ministério Infantil", bio: "Educadora cristã apaixonada por ensinar crianças no caminho de Deus." },
+      { nome: "Ana Paula Reis", papel: "Coordenadora do berçário", bio: "Cuida dos bebês e da estrutura das salas." },
+      { nome: "Fernanda Lima", papel: "Escola bíblica", bio: "Prepara os ensinos adaptados por faixa etária." },
+      { nome: "Bruno Castro", papel: "Logística e recreação", bio: "Organiza espaço físico e as atividades das crianças." },
+    ],
     contact: "infantil@igrejagracaeverdade.com.br",
     meetingDay: "Sábado",
     meetingTime: "15:00",
@@ -133,6 +154,12 @@ export const MINISTERIOS: Ministry[] = [
     description:
       "O coração que bate pela igreja. Nossos intercessores se dedicam à oração regular pela comunidade, pelo país e pelas nações.",
     leader: "Dna. Maria Helena",
+    equipe: [
+      { nome: "Dna. Maria Helena", papel: "Líder do Ministério de Intercessão", bio: "Mulher de oração que conduz a equipe em intercessão constante." },
+      { nome: "Irmã Luzia", papel: "Vigílias", bio: "Organiza as vigílias e noites de oração." },
+      { nome: "João Pedro", papel: "Mural de pedidos", bio: "Recebe e distribui os pedidos de oração." },
+      { nome: "Rita Fonseca", papel: "Intercessão por eventos", bio: "Cobre os cultos e programações em oração." },
+    ],
     contact: "oracao@igrejagracaeverdade.com.br",
     meetingDay: "Quinta-feira",
     meetingTime: "19:30",
@@ -164,11 +191,17 @@ export const MINISTERIOS: Ministry[] = [
   },
   {
     id: "casais",
-    name: "Ministério de Casais",
+    name: "Ministério da Família",
     icon: "♥",
     description:
       "Suporte, ensinamento e comunhão para casais em todas as etapas do casamento. Seminários, aconselhamento e encontros regulares.",
     leader: "Pr. João e Pra. Tânia Silva",
+    equipe: [
+      { nome: "Pr. João e Pra. Tânia Silva", papel: "Líderes do Ministério da Família", bio: "Casal pastoral que pastoreia famílias e fortalece casamentos." },
+      { nome: "Moisés e Sara Andrade", papel: "Mentoria de casais", bio: "Discipulam casais recém-casados." },
+      { nome: "André e Paula Costa", papel: "Encontros", bio: "Organizam os encontros e seminários mensais." },
+      { nome: "Carlos e Míriam", papel: "Acolhimento", bio: "Recebem novos casais com carinho." },
+    ],
     contact: "casais@igrejagracaeverdade.com.br",
     meetingDay: "Primeira sexta do mês",
     meetingTime: "19:30",
@@ -205,6 +238,12 @@ export const MINISTERIOS: Ministry[] = [
     description:
       "Ação social e assistência às famílias em necessidade. Distribuição de alimentos, roupas e apoio às comunidades vulneráveis.",
     leader: "Diac. Carlos Roberto",
+    equipe: [
+      { nome: "Diac. Carlos Roberto", papel: "Líder da Diaconia Social", bio: "Diácono que coordena a assistência às famílias em necessidade." },
+      { nome: "Irmã Helena", papel: "Distribuição de alimentos", bio: "Organiza cestas básicas e o cadastro das famílias." },
+      { nome: "Marcos Paulo", papel: "Mutirões", bio: "Coordena arrecadações e entregas." },
+      { nome: "Sueli Ferreira", papel: "Campanhas", bio: "Mobiliza a igreja nas campanhas de doação." },
+    ],
     contact: "social@igrejagracaeverdade.com.br",
     meetingDay: "Sábado",
     meetingTime: "08:00",
@@ -241,6 +280,12 @@ export const MINISTERIOS: Ministry[] = [
     description:
       "Saídas regulares de evangelismo nas praças, hospitais e presídios. Treinamento em evangelismo pessoal e alcance de novos convertidos.",
     leader: "Ev. Marcos Oliveira",
+    equipe: [
+      { nome: "Ev. Marcos Oliveira", papel: "Líder do Ministério de Missões", bio: "Chamado para a obra missionária, lidera as frentes de alcance e o envio de missionários." },
+      { nome: "Diácono Roberto Lima", papel: "Obreiro — Logística missionária", bio: "Coordena viagens, suprimentos e apoio logístico das equipes." },
+      { nome: "Irmã Marta Souza", papel: "Obreira — Intercessão missionária", bio: "Lidera a corrente de oração pelos missionários e campos." },
+      { nome: "Irmão Samuel Rocha", papel: "Obreiro — Treinamento", bio: "Ministra treinamentos de evangelismo e discipulado para as equipes." },
+    ],
     contact: "evangelismo@igrejagracaeverdade.com.br",
     meetingDay: "Último sábado do mês",
     meetingTime: "09:00",

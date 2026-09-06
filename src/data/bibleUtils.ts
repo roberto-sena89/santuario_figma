@@ -91,6 +91,7 @@ export interface BibleHashState {
   testament: "AT" | "NT" | null;
   bookId: number | null;
   chapter: number | null;
+  verse: number | null;
   /** Slug do subtema (ex: "fe-e-coragem") quando o formato é #/mulher/fe-e-coragem. */
   subtemaSlug: string | null;
 }
@@ -102,6 +103,7 @@ export function decodeBibleHash(hash: string): BibleHashState {
     testament: null,
     bookId: null,
     chapter: null,
+    verse: null,
     subtemaSlug: null,
   };
   if (!clean) return empty;
@@ -125,6 +127,10 @@ export function decodeBibleHash(hash: string): BibleHashState {
       case "chapter":
         const cn = parseInt(value, 10);
         if (!isNaN(cn)) result.chapter = cn;
+        break;
+      case "verse":
+        const vn = parseInt(value, 10);
+        if (!isNaN(vn)) result.verse = vn;
         break;
     }
   }

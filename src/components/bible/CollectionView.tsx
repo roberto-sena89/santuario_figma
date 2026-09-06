@@ -181,9 +181,15 @@ function CollectionWithSubtemas({
           <p className="text-muted-foreground text-sm sm:text-base mt-2 max-w-2xl leading-relaxed text-pretty">
             {collection.subtitulo}
           </p>
-          <p className="mt-4 text-[11.5px] leading-snug text-muted-foreground">
-            Curadoria — {collection.curator}
-          </p>
+          <div className="mt-5 flex items-center gap-2.5">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
+              Curadoria
+            </span>
+            <span aria-hidden="true" className="h-3 w-px bg-border" />
+            <span className="text-[12px] leading-snug text-foreground/70">
+              {collection.curator}
+            </span>
+          </div>
 
           {/* Barra de progresso de leitura */}
           {progress.total > 0 && (
@@ -277,9 +283,15 @@ function CollectionSimpleList({
         <p className="text-foreground/80 mt-4 leading-relaxed max-w-2xl text-pretty">
           {collection.intro}
         </p>
-        <p className="mt-4 text-[11.5px] leading-snug text-muted-foreground">
-          Curadoria — {collection.curator}
-        </p>
+        <div className="mt-5 flex items-center gap-2.5">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/70">
+            Curadoria
+          </span>
+          <span aria-hidden="true" className="h-3 w-px bg-border" />
+          <span className="text-[12px] leading-snug text-foreground/70">
+            {collection.curator}
+          </span>
+        </div>
       </header>
 
       <div className="space-y-8">

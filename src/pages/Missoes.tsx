@@ -42,12 +42,12 @@ export default function Missoes({ onNavigate }: MissoesProps) {
         </div>
       </section>
 
-      {/* Sobre */}
+      {/* Sobre + Liderança lado a lado */}
       <section className="py-16 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-10">
+            {/* Sobre */}
             <div className="lg:col-span-2">
-              {/* Cabeçalho da seção */}
               <div className="mb-6">
                 <div className="mb-3 flex items-center gap-3">
                   <span
@@ -62,203 +62,103 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                   Sobre o ministério
                 </h2>
               </div>
-              <p className="text-muted-foreground text-base leading-relaxed max-w-3xl">
-                {m.descricao}
-              </p>
-            </div>
 
-            {/* Sidebar informações */}
-            <div>
-              <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-md shadow-lg shadow-black/10">
-                {/* Header com gradiente no tom do ministério */}
-                <div
-                  className="relative px-6 py-5 border-b border-border/60"
-                  style={{ background: `linear-gradient(135deg, ${m.cor}22, transparent 65%)` }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl text-xl ring-1 ring-black/5 shadow-sm"
-                      style={{ backgroundColor: `${m.cor}25`, color: m.cor }}
-                      aria-hidden="true"
-                    >
-                      {m.icone}
-                    </span>
-                    <div>
-                      <h3 className="font-display font-semibold text-foreground text-lg leading-tight">
-                        Informações
-                      </h3>
-                      <p className="text-xs text-muted-foreground">
-                        Como acompanhar o ministério
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="px-6 py-5 space-y-4">
-                  <div className="flex items-center gap-4">
-                    <span
-                      className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl text-base shadow-sm ring-1 ring-black/5"
-                      style={{ backgroundColor: `${m.cor}18`, color: m.cor }}
-                      aria-hidden="true"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/70">
-                        Reunião
-                      </p>
-                      <p className="text-foreground text-[15px] font-medium leading-snug mt-0.5">
-                        {m.reuniao}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div
-                    className="h-px"
-                    style={{ background: `linear-gradient(to right, ${m.cor}33, transparent)` }}
-                    aria-hidden="true"
-                  />
-
-                  <div className="flex items-start gap-4">
-                    <span
-                      className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl text-base shadow-sm ring-1 ring-black/5 mt-0.5"
-                      style={{ backgroundColor: `${m.cor}18`, color: m.cor }}
-                      aria-hidden="true"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/70">
-                        Contato
-                      </p>
-                      <a href={`mailto:${m.contato}`} className="text-[#D4A24C] hover:underline text-[15px] font-medium break-all inline-block mt-0.5">
-                        {m.contato}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div
-                    className="h-px"
-                    style={{ background: `linear-gradient(to right, ${m.cor}33, transparent)` }}
-                    aria-hidden="true"
-                  />
-
-                  <div className="flex items-start gap-4">
-                    <span
-                      className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl text-base shadow-sm ring-1 ring-black/5 mt-0.5"
-                      style={{ backgroundColor: `${m.cor}18`, color: m.cor }}
-                      aria-hidden="true"
-                    >
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/70">
-                        Liderança
-                      </p>
-                      <p className="text-foreground text-[15px] font-medium leading-snug mt-0.5">
-                        {m.liderMissao.nome}
-                      </p>
-                      <p className="text-muted-foreground text-xs mt-0.5">
-                        {m.liderMissao.papel}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Liderança e Obreiros */}
-      <section className="py-16 bg-muted/40" aria-label="Liderança e obreiros">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div className="mb-3 flex items-center justify-center gap-3">
-              <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-              <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
-                Equipe
-              </span>
-              <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-            </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
-              Liderança e obreiros
-            </h2>
-            <p className="text-muted-foreground mt-3 max-w-xl mx-auto text-base">
-              Pessoas chamadas para conduzir, treinar e sustentar a obra missionária.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {/* Líder */}
-            <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-              {/* Glow sutil no hover */}
-              <div
-                className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{ background: "linear-gradient(to right, #047857, #04785700)" }}
-                aria-hidden="true"
-              />
-              <div className="p-6">
-                {/* Indicador de cor (sem emoji) */}
-                <div className="mb-3 flex items-center gap-2">
-                  <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#047857" }} aria-hidden="true" />
-                  <span className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#047857" }}>
-                    Ministério de Missões
-                  </span>
-                </div>
-                <h3 className="font-display font-semibold text-foreground text-base leading-tight">
-                  {m.liderMissao.nome}
-                </h3>
-                <div
-                  className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
-                  style={{ backgroundColor: "#04785715", color: "#047857", borderColor: "#04785730" }}
-                >
-                  {m.liderMissao.papel}
-                </div>
-                <p className="text-muted-foreground text-sm leading-relaxed mt-3">
-                  {m.liderMissao.bio}
-                </p>
-              </div>
-            </div>
-
-            {/* Obreiros */}
-            {m.obreiros.map((ob) => (
-              <div key={ob.id} className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-                {/* Glow sutil no hover */}
-                <div
-                  className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: "linear-gradient(to right, #D4A24C, #D4A24C00)" }}
+              {/* Descrição sobre foto — iguala a altura da coluna "Equipe" ao lado */}
+              <div className="relative overflow-hidden rounded-2xl border border-border/60 lg:h-[540px] lg:min-h-[480px]">
+                <img
+                  src="/fotos/minsterios/missões/4.jpg"
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                  loading="lazy"
                   aria-hidden="true"
                 />
-                <div className="p-6">
-                  {/* Indicador de cor (sem emoji) */}
-                  <div className="mb-3 flex items-center gap-2">
-                    <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#D4A24C" }} aria-hidden="true" />
-                    <span className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#B8860B" }}>
-                      Obreiro
-                    </span>
-                  </div>
-                  <h3 className="font-display font-semibold text-foreground text-base leading-tight">
-                    {ob.nome}
-                  </h3>
-                  <div
-                    className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
-                    style={{ backgroundColor: "#D4A24C15", color: "#B8860B", borderColor: "#D4A24C30" }}
-                  >
-                    {ob.papel}
-                  </div>
-                  <p className="text-muted-foreground text-sm leading-relaxed mt-3">
-                    {ob.bio}
+                <div
+                  className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 to-black/55"
+                  aria-hidden="true"
+                />
+                <div className="relative z-10 flex h-full flex-col justify-start p-6 sm:p-8">
+                  <p className="max-w-prose text-white font-normal text-base leading-[1.8] text-pretty [text-shadow:0_2px_14px_rgba(0,0,0,0.9)]">
+                    {m.descricao}
                   </p>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Liderança e Obreiros (sidebar direita) */}
+            <div>
+              <div className="mb-3 flex items-center gap-3">
+                <span
+                  className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60"
+                  aria-hidden="true"
+                />
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+                  Equipe
+                </span>
+                <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+              </div>
+
+              <div className="grid gap-4">
+                {/* Líder */}
+                <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                  <div
+                    className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    style={{ background: "linear-gradient(to right, #047857, #04785700)" }}
+                    aria-hidden="true"
+                  />
+                  <div className="p-5">
+                    <div className="mb-2.5 flex items-center gap-2">
+                      <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#047857" }} aria-hidden="true" />
+                      <span className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#047857" }}>
+                        Ministério de Missões
+                      </span>
+                    </div>
+                    <h3 className="font-display font-semibold text-foreground text-[15px] leading-tight">
+                      {m.liderMissao.nome}
+                    </h3>
+                    <div
+                      className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
+                      style={{ backgroundColor: "#04785715", color: "#047857", borderColor: "#04785730" }}
+                    >
+                      {m.liderMissao.papel}
+                    </div>
+                    <p className="text-muted-foreground text-[13px] leading-relaxed mt-2.5">
+                      {m.liderMissao.bio}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Obreiros */}
+                {m.obreiros.map((ob) => (
+                  <div key={ob.id} className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                    <div
+                      className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      style={{ background: "linear-gradient(to right, #D4A24C, #D4A24C00)" }}
+                      aria-hidden="true"
+                    />
+                    <div className="p-5">
+                      <div className="mb-2.5 flex items-center gap-2">
+                        <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#D4A24C" }} aria-hidden="true" />
+                        <span className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#B8860B" }}>
+                          Obreiro
+                        </span>
+                      </div>
+                      <h3 className="font-display font-semibold text-foreground text-[15px] leading-tight">
+                        {ob.nome}
+                      </h3>
+                      <div
+                        className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
+                        style={{ backgroundColor: "#D4A24C15", color: "#B8860B", borderColor: "#D4A24C30" }}
+                      >
+                        {ob.papel}
+                      </div>
+                      <p className="text-muted-foreground text-[13px] leading-relaxed mt-2.5">
+                        {ob.bio}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -492,7 +392,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
 
       {/* CTA — Apoie a obra missionária */}
       <section
-        className="relative py-20 overflow-hidden bg-muted/40"
+        className="relative py-12 sm:py-14 overflow-hidden bg-muted/40"
         style={{
           backgroundImage: "url('/fotos/minsterios/missões/2.jpg')",
           backgroundSize: "cover",
@@ -501,45 +401,45 @@ export default function Missoes({ onNavigate }: MissoesProps) {
       >
         {/* Overlay suave para legibilidade */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-graphite/50 via-graphite/35 to-graphite/50"
+          className="absolute inset-0 bg-gradient-to-b from-graphite/70 via-graphite/60 to-graphite/70"
           aria-hidden="true"
         />
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           {/* Ornamento superior */}
-          <div className="mb-6 flex items-center justify-center gap-3">
+          <div className="mb-4 flex items-center justify-center gap-3">
             <span className="block h-px w-12 bg-gradient-to-r from-transparent to-[#D4A24C]/70" aria-hidden="true" />
             <span className="font-serif text-[16px] text-[#E8B35E] drop-shadow-sm" aria-hidden="true">✦</span>
             <span className="block h-px w-12 bg-gradient-to-l from-transparent to-[#D4A24C]/70" aria-hidden="true" />
           </div>
 
-          <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-[1.15] mb-5 tracking-tight drop-shadow-md">
+          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-white leading-[1.15] mb-4 tracking-tight drop-shadow-md">
             Quer apoiar a obra missionária?
           </h2>
 
-          <p className="text-white/85 text-base sm:text-lg leading-relaxed max-w-xl mx-auto mb-8 drop-shadow-sm">
+          <p className="text-white/90 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-6 drop-shadow-sm text-pretty">
             Sua contribuição ajuda a sustentar missionários, viagens e eventos missionários. Cada gesto faz diferença no campo.
           </p>
 
-          {/* Versículo bíblico */}
-          <figure className="mx-auto mb-12 max-w-xl">
-            <blockquote className="font-bible text-[22px] sm:text-[26px] lg:text-[28px] italic leading-[1.45] text-white drop-shadow-md text-balance font-medium">
-              <span className="text-[#E8B35E]/90 not-italic font-serif" aria-hidden="true">“</span>
+          {/* Versículo bíblico — faixa com card de apoio */}
+          <figure className="mx-auto mb-8 max-w-xl rounded-2xl border border-white/10 bg-black/25 px-5 py-5 backdrop-blur-[2px]">
+            <blockquote className="font-bible text-xl sm:text-2xl italic leading-[1.5] text-white drop-shadow-md text-balance font-medium">
+              <span className="text-[#E8B35E] not-italic font-serif" aria-hidden="true">“</span>
               <span className="px-0.5">Ide por todo o mundo, pregai o evangelho a toda criatura.</span>
-              <span className="text-[#E8B35E]/90 not-italic font-serif" aria-hidden="true">”</span>
+              <span className="text-[#E8B35E] not-italic font-serif" aria-hidden="true">”</span>
             </blockquote>
-            <figcaption className="mt-5 inline-flex items-center gap-2.5">
-              <span className="block h-px w-6 bg-[#D4A24C]/70" aria-hidden="true" />
+            <figcaption className="mt-4 flex items-center justify-center gap-3">
+              <span className="block h-px w-8 bg-[#D4A24C]/70" aria-hidden="true" />
               <cite className="not-italic text-[11px] font-bold uppercase tracking-[0.3em] text-[#E8B35E] leading-none drop-shadow-sm">
                 Marcos 16:15
               </cite>
-              <span className="block h-px w-6 bg-[#D4A24C]/70" aria-hidden="true" />
+              <span className="block h-px w-8 bg-[#D4A24C]/70" aria-hidden="true" />
             </figcaption>
           </figure>
 
           <div className="flex justify-center">
             <button
               onClick={() => onNavigate("contribuicoes")}
-              className="group inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-[#D4A24C]/30 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0"
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-7 py-3 rounded-full shadow-lg shadow-[#D4A24C]/30 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0"
             >
               Apoie a obra
               <svg

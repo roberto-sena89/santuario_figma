@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Component, type ReactNode } from "react";
 import Navigation, { type Page } from "./components/Navigation";
 import Footer from "./components/Footer";
 import PrayerButton from "./components/PrayerButton";
 import SupportButton from "./components/SupportButton";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Home from "./pages/Home";
 import Bible from "./pages/Bible";
 import PalavraDodia from "./pages/PalavraDodia";
@@ -117,37 +118,44 @@ export default function App() {
   const showFooter = !NO_FOOTER_PAGES.includes(currentPage);
 
   const renderPage = () => {
-    switch (currentPage) {
-      case "home":
-        return <Home onNavigate={navigate} />;
-      case "biblia":
-        return <Bible />;
-      case "palavra-do-dia":
-        return <PalavraDodia onNavigate={navigate} />;
-      case "devocional":
-        return <Devocional />;
-      case "playbacks":
-        return <Playbacks />;
-      case "harpa":
-        return <Harpa />;
-      case "cultos":
-        return <Cultos />;
-      case "ministerios":
-              if (activeMinistry) return <MinisterioDetalhe id={activeMinistry} onNavigate={navigate} />;
+    return (
+      <ErrorBoundary>
+        {(() => {
+          switch (currentPage) {
+            case "home":
+              return <Home onNavigate={navigate} />;
+            case "biblia":
+              return <Bible />;
+            case "palavra-do-dia":
+              return <PalavraDodia onNavigate={navigate} />;
+            case "devocional":
+              return <Devocional />;
+            case "playbacks":
+              return <Playbacks />;
+            case "harpa":
+              return <Harpa />;
+            case "cultos":
+              return <Cultos />;
+            case "ministerios":
+              if (activeMinistry)
+                return <MinisterioDetalhe id={activeMinistry} onNavigate={navigate} />;
               return <Ministerios onNavigate={navigate} />;
-      case "quem-somos":
-        return <QuemSomos />;
-      case "contribuicoes":
-        return <Contribuicoes />;
-      case "contato":
-        return <Contato />;
-      case "admin":
-        return <AdminScale />;
-      case "missoes":
-        return <Missoes onNavigate={navigate} />;
-      default:
-        return <Home onNavigate={navigate} />;
-    }
+            case "quem-somos":
+              return <QuemSomos />;
+            case "contribuicoes":
+              return <Contribuicoes />;
+            case "contato":
+              return <Contato />;
+            case "admin":
+              return <AdminScale />;
+            case "missoes":
+              return <Missoes onNavigate={navigate} />;
+            default:
+              return <Home onNavigate={navigate} />;
+          }
+        })()}
+      </ErrorBoundary>
+    );
   };
 
   return (

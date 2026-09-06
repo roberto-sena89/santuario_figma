@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { DAILY_VERSES, getDailyVerse } from "../data/verses";
+import {
+  getPalavraDoDia,
+  getVersiculosDoTema,
+} from "../data/palavraDoDia";
 import type { Page } from "../components/Navigation";
 
 interface Props {
@@ -7,11 +10,12 @@ interface Props {
 }
 
 export default function PalavraDodia({ onNavigate }: Props) {
-  const todayVerse = getDailyVerse();
+  const todayVerse = getPalavraDoDia();
+  const related = getVersiculosDoTema(todayVerse.theme, 4, todayVerse.ref);
   const [copied, setCopied] = useState(false);
 
   const share = async () => {
-    const text = `"${todayVerse.text}" — ${todayVerse.reference}`;
+    const text = `"${todayVerse.text}" — ${todayVerse.ref}`;
     if (navigator.share) {
       try {
         await navigator.share({ title: "Palavra do Dia", text });
@@ -32,7 +36,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
   const copyVerse = async () => {
     try {
       await navigator.clipboard.writeText(
-        `"${todayVerse.text}" — ${todayVerse.reference}`
+        `"${todayVerse.text}" — ${todayVerse.ref}`
       );
       setCopied(true);
       setTimeout(() => setCopied(false), 2500);
@@ -51,38 +55,51 @@ export default function PalavraDodia({ onNavigate }: Props) {
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
       {/* Hero card */}
-      <section className="bg-primary py-20" aria-label="Versículo do dia">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <p className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-accent/40 px-4 py-1.5 text-accent text-xs font-semibold uppercase tracking-[0.18em] mb-3 backdrop-blur-sm">
-                                <span aria-hidden="true">📖</span>
-                                Palavra do Dia
-                              </p>
-          <time
-            className="text-primary-foreground/50 text-sm capitalize"
-            dateTime={new Date().toISOString().split("T")[0]}
-          >
-            {dateStr}
-          </time>
+      <section
+        className="relative py-12 sm:py-14 overflow-hidden"
+        aria-label="Versículo do dia"
+      >
+        <img
+          src="/fotos/palavra%20do%20dia/2.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80"
+          aria-hidden="true"
+        />
+        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
+          <p className="inline-flex items-center justify-center rounded-full border border-[#D4A24C]/25 bg-gradient-to-r from-[#D4A24C]/15 to-[#C4933C]/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
+            Palavra do Dia
+          </p>
+          <div className="mt-1 flex items-center justify-center gap-3">
+            <span aria-hidden="true" className="h-px w-8 bg-white/20" />
+            <time
+              className="text-[12px] font-medium uppercase tracking-[0.18em] text-white/70"
+              dateTime={new Date().toISOString().split("T")[0]}
+            >
+              {dateStr}
+            </time>
+            <span aria-hidden="true" className="h-px w-8 bg-white/20" />
+          </div>
 
-          <blockquote className="mt-8 mb-6">
-            <p className="font-display text-3xl sm:text-4xl lg:text-5xl font-light text-primary-foreground leading-relaxed italic">
+          <blockquote className="mt-5 mb-4">
+            <p className="font-display text-xl sm:text-2xl lg:text-3xl font-normal text-white leading-relaxed italic [text-shadow:0_2px_14px_rgba(0,0,0,0.85)]">
               "{todayVerse.text}"
             </p>
           </blockquote>
 
-          <cite className="not-italic text-accent font-semibold text-lg">
-            {todayVerse.reference}
+          <cite className="not-italic block text-white font-semibold text-base tracking-[0.06em] [text-shadow:0_1px_8px_rgba(0,0,0,0.85)]">
+            {todayVerse.ref}
           </cite>
 
-          <div className="inline-block bg-accent/20 border border-accent/30 text-accent text-xs font-medium px-3 py-1 rounded-full mt-3 ml-3">
-            {todayVerse.theme}
-          </div>
-
           {/* Actions */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-10">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
             <button
               onClick={copyVerse}
-              className="flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-white font-semibold px-6 py-3 rounded-lg text-sm transition-colors"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[#D4A24C]/25 bg-gradient-to-r from-[#D4A24C]/15 to-[#C4933C]/10 px-5 text-sm font-semibold text-[#D4A24C] shadow-md shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:border-[#D4A24C]/45 hover:from-[#D4A24C]/25 hover:to-[#C4933C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
             >
               {copied ? (
                 <>
@@ -102,54 +119,46 @@ export default function PalavraDodia({ onNavigate }: Props) {
             </button>
             <button
               onClick={share}
-              className="flex items-center justify-center gap-2 border border-primary-foreground/20 hover:border-primary-foreground/40 text-primary-foreground font-medium px-6 py-3 rounded-lg text-sm transition-colors"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:bg-white/15 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
               Compartilhar
             </button>
-            <button
-              onClick={() => onNavigate("biblia")}
-              className="flex items-center justify-center gap-2 border border-primary-foreground/20 hover:border-primary-foreground/40 text-primary-foreground font-medium px-6 py-3 rounded-lg text-sm transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              Ver no contexto bíblico
-            </button>
           </div>
         </div>
       </section>
 
-      {/* Other verses */}
-      <section className="py-16 bg-background" aria-label="Mais versículos">
+      {/* Versículos relacionados — mesmo tema do dia */}
+      <section className="py-16 bg-background" aria-label="Versículos relacionados">
         <div className="max-w-4xl mx-auto px-4">
+          <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent mb-2">
+            Mesmo tema
+          </p>
           <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground mb-2">
-            Versículos para reflexão
+            Mais sobre {todayVerse.theme.toLowerCase()}
           </h2>
           <p className="text-muted-foreground text-sm mb-10">
-            Um acervo de versículos que renovam a fé e fortalecem o coração.
+            Continue medindo o coração pela Palavra — outros versículos que falam sobre o tema de hoje.
           </p>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {DAILY_VERSES.filter((v) => v.reference !== todayVerse.reference)
-              .slice(0, 8)
-              .map((verse, i) => (
-                <blockquote
-                  key={i}
-                  className="bg-card border border-border rounded-xl p-6 hover:shadow-md hover:border-accent/30 transition-all"
-                >
-                  <div className="inline-block bg-accent/10 text-accent text-xs font-medium px-2.5 py-0.5 rounded-full mb-3">
-                    {verse.theme}
-                  </div>
-                  <p className="font-display text-foreground text-base italic leading-relaxed mb-4">
-                    "{verse.text}"
-                  </p>
-                  <cite className="not-italic text-muted-foreground text-sm font-medium">
-                    — {verse.reference}
-                  </cite>
-                </blockquote>
-              ))}
+          <div className="grid sm:grid-cols-2 gap-4">
+            {related.map((verse, i) => (
+              <article
+                key={`${verse.ref}-${i}`}
+                className="group rounded-xl border border-border bg-background/40 p-5 transition-colors duration-200 hover:border-[#D4A24C]/35"
+              >
+                <p className="bible-verse-text mb-3">{verse.text}</p>
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[11px] font-semibold tracking-wide text-[#D4A24C]">
+                    {verse.ref}
+                  </span>
+                  <span className="text-[10.5px] font-semibold text-[#D4A24C]/70">
+                    #{verse.theme}
+                  </span>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </section>

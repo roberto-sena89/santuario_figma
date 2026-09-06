@@ -47,6 +47,7 @@ export default function MusicasTab({
   carregando = false,
   onBuscaChange = null,
   chunksInfo = null,
+  onCarregarTodos = null,
 }) {
   // Dados para o cabeçalho
   const totalMusicas = lista.length;
@@ -91,6 +92,14 @@ export default function MusicasTab({
       track(EVENTOS.busca, { termo: buscaDebounced });
     }
   }, [buscaDebounced, onBuscaChange]);
+
+  // Lista completa de artistas: ao abrir filtros ou buscar artista, baixa
+  // todos os chunks restantes em background (senão a lista fica parcial).
+  useEffect(() => {
+    if ((sidebarAberta || artistaBusca.trim()) && onCarregarTodos) {
+      onCarregarTodos();
+    }
+  }, [sidebarAberta, artistaBusca, onCarregarTodos]);
 
   const filtradas = useMemo(() => {
     const q = buscaDebounced.trim().toLowerCase();

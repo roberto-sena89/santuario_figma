@@ -165,6 +165,39 @@ export function usePlaybacks() {
     setAdicionados((prev) => prev.filter((p) => p.id !== id));
   }, []);
 
+  // Carrega TODOS os chunks restantes em background (para listas completas:
+  // artistas, tons, contagens). Guarda com ref para não repetir downloads.
+  const carregandoTodosRef = useRef(false);
+  const carregarTodos = useCallback(async () => {
+    if (carregandoTodosRef.current || !manifestRef.current) return;
+    const chaves = Object.keys(manifestRef.current.chunks || {});
+    const faltantes = chaves.filter((k) => !idsRef.current.has(`__chunk_${k}`));
+    if (faltantes.length === 0) return;
+    carregandoTodosRef.current = true;
+    for (const k of faltantes) {
+      if (idsRef.current.has(`__chunk_${k}`)) continue;
+      try {
+        const url = `/playbacks/${encodeURIComponent(k)}.json`;
+        const r = await fetch(url);
+        if (!r.ok) continue;
+        const arr = await r.json();
+        const novos = arr.filter((p) => !idsRef.current.has(p.id));
+        for (const p of novos) idsRef.current.add(p.id);
+        idsRef.current.add(`__chunk_${k}`);
+        if (novos.length) {
+          listaRef.current = [...listaRef.current, ...novos];
+          setPlaybacks(listaRef.current);
+          saveCachedChunks(listaRef.current, chaves.length);
+        }
+        setChunksCarregados((c) => c + 1);
+      } catch {
+        // chunk isolado falhou — segue para os demais
+      }
+      await new Promise((res) => setTimeout(res, 25));
+    }
+    carregandoTodosRef.current = false;
+  }, []);
+
   const listaCompleta = useMemo(() => [...adicionados, ...playbacks], [adicionados, playbacks]);
   const idsAdicionados = useMemo(() => new Set(adicionados.map((p) => p.id)), [adicionados]);
 
@@ -178,6 +211,7 @@ export function usePlaybacks() {
     chunksCarregados,
     totalChunks,
     ensureChunksForQuery,
+    carregarTodos,
     handleAdicionar,
     handleRemover,
   };

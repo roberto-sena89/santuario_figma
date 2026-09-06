@@ -1,4 +1,4 @@
-import { getDailyVerse } from "../data/verses";
+import { getPalavraDoDia } from "../data/palavraDoDia";
 import { UPCOMING_EVENTS, formatDate } from "../data/schedule";
 import { MINISTERIOS } from "../data/ministerios";
 import { CHURCH } from "../data/church";
@@ -15,7 +15,7 @@ interface HomeProps {
 }
 
 export default function Home({ onNavigate }: HomeProps) {
-  const verse = getDailyVerse();
+  const verse = getPalavraDoDia();
   // Destaques: troca Infantil por Missões no grid da Home
   const featuredMinistries = MINISTERIOS.filter(
     (m) => m.id !== "criancas" && m.id !== "evangelismo"
@@ -125,7 +125,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </section>
 
       {/* Palavra do Dia */}
-            <section className="py-20 relative overflow-hidden" aria-label="Palavra do Dia">
+            <section className="py-12 sm:py-14 relative overflow-hidden" aria-label="Palavra do Dia">
                           <img
                             src="/fotos/homepage/7.jfif"
                             alt=""
@@ -135,19 +135,22 @@ export default function Home({ onNavigate }: HomeProps) {
                           />
                           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
                           <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-                      <span className="mb-5 inline-flex items-center justify-center rounded-full border border-accent/30 bg-gradient-to-r from-accent/15 via-white/10 to-accent/15 px-4 py-1.5 text-accent text-xs font-semibold uppercase tracking-[0.18em] backdrop-blur-md shadow-sm shadow-black/20 [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
+                      <h2 className="font-display text-3xl sm:text-4xl font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
                         Palavra do Dia
-                      </span>
-                      <span className="text-5xl sm:text-6xl leading-none text-accent/80 block mb-2 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]" aria-hidden="true">❝</span>
-                                            <div className="mx-auto max-w-3xl rounded-2xl bg-graphite/25 px-5 py-4 sm:px-8 sm:py-6 backdrop-blur-sm mb-6">
-                                                                                        <blockquote className="font-bible text-3xl sm:text-4xl lg:text-5xl font-medium text-white leading-snug sm:leading-tight [text-shadow:0_2px_18px_rgba(0,0,0,0.65)]">
+                      </h2>
+                      <p className="mt-2 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.18em] text-accent [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
+                        Tema de Hoje — {verse.theme}
+                      </p>
+                      <span className="mt-3 text-4xl sm:text-5xl leading-none text-accent/80 block mb-1 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]" aria-hidden="true">❝</span>
+                                            <div className="mx-auto max-w-3xl rounded-2xl bg-graphite/25 px-5 py-3.5 sm:px-8 sm:py-5 backdrop-blur-sm mb-5">
+                                                                                        <blockquote className="font-bible text-2xl sm:text-3xl lg:text-4xl font-medium text-white leading-[1.45] text-balance [text-shadow:0_2px_18px_rgba(0,0,0,0.65)]">
                                                                                           {verse.text}
                                                                                         </blockquote>
-                                                                                        <cite className="not-italic block mt-3 font-bible text-white/80 font-medium text-base [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
-                                              — {verse.reference}
+                                                                                        <cite className="not-italic block mt-2 font-bible text-white/80 font-medium text-sm sm:text-base [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
+                                              — {verse.ref}
                                             </cite>
                                             </div>
-                      <div className="mt-8">
+                      <div className="mt-6">
                         <button
                           onClick={() => navigate("palavra-do-dia")}
                           className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/35 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"

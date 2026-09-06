@@ -7,6 +7,16 @@ interface MinisterioDetalheProps {
   onNavigate: (page: Page) => void;
 }
 
+/** Fundo fotográfico do hero — só ministérios com foto dedicada. */
+const HERO_BACKGROUNDS: Record<string, string> = {
+  louvor: "/fotos/minsterios/louvor/1.jpg",
+  jovens: "/fotos/minsterios/jovens/1.jpg",
+  criancas: "/fotos/minsterios/crianças/1.jpg",
+  intercessao: "/fotos/minsterios/intercessão/1.jpg",
+  casais: "/fotos/minsterios/familia/1.jpg",
+  evangelismo: "/fotos/minsterios/missões/2.jpg",
+};
+
 export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheProps) {
   const m: Ministry | undefined = MINISTERIOS.find((x) => x.id === id);
 
@@ -34,7 +44,26 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
       {/* Hero */}
-      <section className="relative overflow-hidden" aria-label={m.name}>
+      <section
+        className="relative overflow-hidden"
+        aria-label={m.name}
+        style={
+          HERO_BACKGROUNDS[m.id]
+            ? {
+                backgroundImage: `url('${HERO_BACKGROUNDS[m.id]}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }
+            : undefined
+        }
+      >
+        {/* Overlay escuro para legibilidade sobre a foto */}
+        {HERO_BACKGROUNDS[m.id] && (
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80"
+            aria-hidden="true"
+          />
+        )}
         <div
           className="absolute inset-0 opacity-25"
           style={{ background: `radial-gradient(ellipse at top, ${m.color}55, transparent 70%)` }}
@@ -43,93 +72,62 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/40 to-transparent" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          <button
-            onClick={() => onNavigate("ministerios")}
-            className="group mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <svg className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Voltar aos ministérios
-          </button>
-
-          <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-6">
-            <div
-              className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl flex items-center justify-center text-4xl sm:text-5xl ring-1 ring-black/5 shadow-lg flex-shrink-0"
-              style={{
-                backgroundColor: `${m.color}20`,
-                color: m.color,
-                boxShadow: `0 8px 24px -8px ${m.color}66`,
-              }}
-              aria-hidden="true"
-            >
-              {m.icon}
-            </div>
+          <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-center">
+            {/* Esquerda — identidade do ministério */}
             <div>
-              <div className="mb-3 flex items-center gap-3">
-                <span
-                  className="block h-px w-8 bg-gradient-to-r from-transparent"
-                  style={{ backgroundImage: `linear-gradient(to right, transparent, ${m.color}99)` }}
-                  aria-hidden="true"
-                />
-                <span
-                  className="text-[10.5px] font-semibold uppercase tracking-[0.28em] leading-none"
-                  style={{ color: m.color }}
-                >
-                  Comunidade
-                </span>
+              <div>
+                  <span
+                    className="block h-px w-8 bg-gradient-to-r from-transparent"
+                    style={{ backgroundImage: `linear-gradient(to right, transparent, ${m.color})` }}
+                    aria-hidden="true"
+                  />
+                  <span
+                    className="text-[10.5px] font-semibold uppercase tracking-[0.28em] leading-none"
+                    style={{ color: "#ffffff" }}
+                  >
+                    Comunidade
+                  </span>
+                </div>
+                <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-3 [text-shadow:0_2px_16px_rgba(0,0,0,0.85)]">
+                  {m.name}
+                </h1>
+                <p className="text-white/90 text-base sm:text-lg leading-relaxed max-w-xl [text-shadow:0_1px_8px_rgba(0,0,0,0.7)]">
+                  {m.resumo ?? m.description}
+                </p>
               </div>
-              <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-normal text-foreground leading-tight mb-3">
-                {m.name}
-              </h1>
-              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-2xl">
-                {m.resumo ?? m.description}
-              </p>
-            </div>
+
+            {/* Direita — versículo do ministério */}
+            {m.versiculo && (
+              <div className="flex justify-end">
+                <figure className="w-full max-w-md rounded-2xl border border-[#D4A24C]/30 bg-black/40 px-6 py-7 sm:px-8 sm:py-8 backdrop-blur-md shadow-lg shadow-black/20">
+                  <span
+                    className="block font-serif text-4xl leading-none text-[#D4A24C] mb-3 drop-shadow-sm"
+                    aria-hidden="true"
+                  >
+                    ❝
+                  </span>
+                  <blockquote className="font-bible text-lg sm:text-xl font-medium text-white leading-[1.7] text-pretty [text-shadow:0_1px_3px_rgba(0,0,0,0.55)]">
+                    {m.versiculo.texto}
+                  </blockquote>
+                  <span
+                    className="mt-5 block h-px w-12 bg-gradient-to-r from-[#D4A24C]/70 to-transparent"
+                    aria-hidden="true"
+                  />
+                  <cite className="not-italic block mt-3 text-[#E8B35E] font-semibold text-sm uppercase tracking-[0.18em] [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
+                    {m.versiculo.referencia}
+                  </cite>
+                </figure>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* Versículo */}
-      {m.versiculo && (
-        <section
-          className="relative py-12 bg-muted/40 overflow-hidden"
-          style={
-            m.id === "louvor"
-              ? {
-                  backgroundImage: `url('/fotos/minsterios/${m.id}.jpg')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }
-              : undefined
-          }
-        >
-          {/* Overlay suave para legibilidade quando há imagem de fundo */}
-          {m.id === "louvor" && (
-            <div
-              className="absolute inset-0 bg-gradient-to-b from-graphite/20 via-graphite/10 to-graphite/20"
-              aria-hidden="true"
-            />
-          )}
-          <div className="relative max-w-4xl mx-auto px-4 text-center">
-            <div className="bg-card/80 border border-border/60 rounded-2xl p-8 backdrop-blur-sm shadow-sm">
-              <span className="text-5xl leading-none text-[#D4A24C]/60 block mb-3" aria-hidden="true">❝</span>
-              <blockquote className="font-bible text-2xl sm:text-3xl font-medium text-foreground leading-snug">
-                {m.versiculo.texto}
-              </blockquote>
-              <cite className="not-italic block mt-4 text-[#D4A24C] font-medium text-base">
-                — {m.versiculo.referencia}
-              </cite>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Sobre + Informações */}
+      {/* Sobre */}
       <section className="py-16 bg-background">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-10">
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2 min-w-0">
               {/* Cabeçalho da seção */}
               <div className="flex items-center gap-3 mb-5">
                 <span
@@ -285,108 +283,68 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
               )}
             </div>
 
-            {/* Sidebar informações */}
-            <div className="space-y-6">
-              <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-md shadow-lg shadow-black/10">
-                {/* Header com gradiente no tom do ministério */}
-                <div
-                  className="relative px-6 py-5 border-b border-border/60"
-                  style={{ background: `linear-gradient(135deg, ${m.color}22, transparent 65%)` }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl text-xl ring-1 ring-black/5 shadow-sm"
-                      style={{ backgroundColor: `${m.color}25`, color: m.color }}
-                      aria-hidden="true"
-                    >
-                      {m.icon}
-                    </span>
-                    <div>
-                      <h3 className="font-display font-semibold text-foreground text-lg leading-tight">
-                        Informações
-                      </h3>
-                      <p className="text-xs text-muted-foreground">
-                        Como encontrar o ministério
-                      </p>
-                    </div>
-                  </div>
+            {/* Sidebar Equipe */}
+            {m.equipe && m.equipe.length > 0 && (
+              <div>
+                <div className="mb-3 flex items-center gap-3">
+                  <span
+                    className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60"
+                    aria-hidden="true"
+                  />
+                  <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+                    Equipe
+                  </span>
+                  <span
+                    className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60"
+                    aria-hidden="true"
+                  />
                 </div>
 
-                <div className="px-6 py-5 space-y-4">
-                                  <div className="flex items-center gap-4">
-                                    <span
-                                      className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl text-base shadow-sm ring-1 ring-black/5"
-                                      style={{ backgroundColor: `${m.color}18`, color: m.color }}
-                                      aria-hidden="true"
-                                    >
-                                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                      </svg>
-                                    </span>
-                                    <div className="min-w-0 flex-1">
-                                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/70">
-                                        Líder
-                                      </p>
-                                      <p className="text-foreground text-[15px] font-medium leading-snug mt-0.5">
-                                        {m.leader}
-                                      </p>
-                                    </div>
-                                  </div>
-
-                                  <div
-                                    className="h-px"
-                                    style={{ background: `linear-gradient(to right, ${m.color}33, transparent)` }}
-                                    aria-hidden="true"
-                                  />
-
-                                  <div className="flex items-center gap-4">
-                                    <span
-                                      className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl text-base shadow-sm ring-1 ring-black/5"
-                                      style={{ backgroundColor: `${m.color}18`, color: m.color }}
-                                      aria-hidden="true"
-                                    >
-                                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                      </svg>
-                                    </span>
-                                    <div className="min-w-0 flex-1">
-                                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/70">
-                                        Reunião
-                                      </p>
-                                      <p className="text-foreground text-[15px] font-medium leading-snug mt-0.5">
-                                        {m.meetingDay} às {m.meetingTime}
-                                      </p>
-                                    </div>
-                                  </div>
-
-                                  <div
-                                    className="h-px"
-                                    style={{ background: `linear-gradient(to right, ${m.color}33, transparent)` }}
-                                    aria-hidden="true"
-                                  />
-
-                                  <div className="flex items-start gap-4">
-                                    <span
-                                      className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl text-base shadow-sm ring-1 ring-black/5 mt-0.5"
-                                      style={{ backgroundColor: `${m.color}18`, color: m.color }}
-                                      aria-hidden="true"
-                                    >
-                                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                      </svg>
-                                    </span>
-                                    <div className="min-w-0 flex-1">
-                                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground/70">
-                                        Contato
-                                      </p>
-                                      <a href={`mailto:${m.contact}`} className="text-[#D4A24C] hover:underline text-[15px] font-medium break-all inline-block mt-0.5">
-                                        {m.contact}
-                                      </a>
-                                      </div>
-                                      </div>
-                                      </div>
+                <div className="grid gap-4">
+                  {m.equipe.map((p, i) => {
+                    const isLeader = i === 0;
+                    const color = isLeader ? m.color : "#D4A24C";
+                    const labelColor = isLeader ? m.color : "#B8860B";
+                    const tag = isLeader ? m.name : "Obreiro";
+                    return (
+                      <div
+                        key={i}
+                        className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                      >
+                        <div
+                          className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                          style={{ background: `linear-gradient(to right, ${color}, ${color}00)` }}
+                          aria-hidden="true"
+                        />
+                        <div className="p-5">
+                          <div className="mb-2.5 flex items-center gap-2">
+                            <div className="h-1 w-1 rounded-full" style={{ backgroundColor: color }} aria-hidden="true" />
+                            <span
+                              className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none"
+                              style={{ color: labelColor }}
+                            >
+                              {tag}
+                            </span>
+                          </div>
+                          <h3 className="font-display font-semibold text-foreground text-[15px] leading-tight">
+                            {p.nome}
+                          </h3>
+                          <div
+                            className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
+                            style={{ backgroundColor: `${color}15`, color: labelColor, borderColor: `${color}30` }}
+                          >
+                            {p.papel}
+                          </div>
+                          <p className="text-muted-foreground text-[13px] leading-relaxed mt-2.5">
+                            {p.bio}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
