@@ -25,7 +25,6 @@ import Highlights from "../components/bible/Highlights";
 import ReaderBar from "../components/bible/ReaderBar";
 import AudioPlayer from "../components/bible/AudioPlayer";
 import VerseActions from "../components/bible/VerseActions";
-import PageTitle from "../components/ui/PageTitle";
 
 interface BibleVerse {
   verse: number;
@@ -599,14 +598,32 @@ export default function Bible() {
     <main id="main-content" className="min-h-screen bg-background pt-4 relative">
       {/* Progress bar */}
       <div className="fixed inset-x-0 top-0 h-1 bg-accent" style={{ width: `${scrollProgress * 100}%` }}></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header — padrão PageTitle do site */}
-        <PageTitle
-          eyebrow="Leitura e Devoção"
-          title="Bíblia"
-          titleAccent="Sagrada"
-          subtitle={`Tradução ${ARC_FULL_NAME} (${ARC_TRANSLATION}) — navegue por livro e capítulo ou explore coleções temáticas curadas para o seu momento.`}
+      {/* Header hero com imagem de fundo - /fotos/biblia-sagrada/1.jpg */}
+      <section className="relative overflow-hidden">
+        <img
+          src="/fotos/biblia-sagrada/1.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager"
+          aria-hidden="true"
         />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
+        <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
+          <div className="mb-0 mx-auto max-w-3xl text-center">
+            <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+              Leitura e Devoção
+            </p>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">
+              Bíblia <span className="text-[#E8B35E] italic font-medium">Sagrada</span>
+            </h1>
+            <p className="mt-4 text-sm sm:text-base text-white/90 mx-auto max-w-xl leading-relaxed [text-shadow:0_1px_8px_rgba(0,0,0,0.6)]">
+              Tradução {ARC_FULL_NAME} ({ARC_TRANSLATION}) — navegue por livro e capítulo ou explore coleções temáticas curadas para o seu momento.
+            </p>
+          </div>
+        </div>
+      </section>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         {/* Nível 1: Coleções Temáticas */}
         <div className="mb-8">
