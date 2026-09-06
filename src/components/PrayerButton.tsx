@@ -41,69 +41,29 @@ export default function PrayerButton() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative inline-flex items-center gap-3 rounded-full bg-[#D4A24C] pl-3 pr-5 py-3 text-gray-900 shadow-lg shadow-[#D4A24C]/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#D4A24C]/45 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group relative inline-flex flex-col items-center justify-center rounded-2xl border border-[#D4A24C]/20 bg-white px-6 py-4 text-center shadow-lg shadow-black/10 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A24C]/30 hover:shadow-xl hover:shadow-black/15 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       aria-label="Pedir oração pelo WhatsApp - equipe de intercessão"
     >
-      {/* Halo de pulso (nao-interativo) */}
-      <span
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-full bg-[#D4A24C]/45 animate-ping"
-        style={{ animationDuration: "3s" }}
-      />
-
-      {/* Icone em container com glow suave no hover */}
-      <span
-        aria-hidden="true"
-        className="relative grid h-10 w-10 flex-shrink-0 place-items-center rounded-full bg-white/25 shadow-inner transition-transform duration-300 group-hover:scale-110"
-      >
-        {/* Glow decorativo atras do icone (visivel no hover) */}
-        <span
-          aria-hidden="true"
-          className="absolute inset-0 rounded-full bg-white/0 transition-colors duration-300 group-hover:bg-white/15"
-        />
-
-        {/* Emoji de maos em oracao 🙏 (escape Unicode pra evitar
-            problemas de encoding do arquivo). Universalmente
-            reconhecido: "pedido de oracao" em qualquer cultura. */}
-        <span
-          aria-hidden="true"
-          className="relative text-2xl leading-none drop-shadow-sm transition-transform duration-300 group-hover:scale-110"
-          style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif" }}
-        >
-          {"\u{1F64F}"}
+      {/* Texto centralizado — sem ícone, alinhamento impecável */}
+      <span className="flex flex-col items-center gap-1 leading-none">
+        <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#B8860B]/60">
+          Com amor e fé
+        </span>
+        <span className="font-serif text-[15px] font-semibold tracking-tight text-gray-900">
+          Peça uma oração
+        </span>
+        <span className="mt-1 text-[11px] font-medium leading-relaxed text-gray-500">
+          Sigilo pastoral · Tiago 5:14
         </span>
       </span>
 
-      {/* Hierarquia textual: eyebrow pastoral + headline caloroso */}
-      <span className="relative flex flex-col items-start leading-tight">
-        <span className="text-[9.5px] font-bold uppercase tracking-[0.22em] text-gray-700/65">
-          Fale Conosco
-        </span>
-        <span className="font-serif text-[15.5px] font-semibold tracking-tight">
-          Peça Uma Oração
-        </span>
-      </span>
-
-      {/* Seta que aparece no hover (feedback direcional) */}
-      <svg
-        aria-hidden="true"
-        className="relative h-3.5 w-3.5 flex-shrink-0 opacity-0 -ml-1 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0 text-gray-900"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-      </svg>
-
-      {/* Tooltip pastoral (aparece no hover, desktop) */}
+      {/* Tooltip pastoral — desktop */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 mr-3 hidden whitespace-nowrap rounded-lg bg-gray-800 px-3 py-2 text-[11.5px] font-medium text-gray-100 opacity-0 shadow-xl ring-1 ring-gray-700 transition-all duration-300 group-hover:opacity-100 lg:block"
+        className="pointer-events-none absolute right-full top-1/2 -translate-y-1/2 mr-3 hidden whitespace-nowrap rounded-xl border border-border bg-white px-3.5 py-2.5 text-left opacity-0 shadow-xl transition-all duration-300 group-hover:opacity-100 lg:block"
       >
-        <span className="block font-semibold tracking-wide">Sigilo pastoral</span>
-        <span className="block text-[10.5px] text-gray-400">
-          Equipe de intercessão - Tiago 5:14
-        </span>
+        <span className="block text-[11px] font-semibold tracking-wide text-gray-900">Equipe de intercessão</span>
+        <span className="block text-[11px] leading-relaxed text-gray-500">Oração com sigilo e acolhimento</span>
       </span>
     </a>
   );
