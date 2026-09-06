@@ -356,9 +356,9 @@ export default function Footer({ onNavigate }: FooterProps) {
             ════════════════════════════════════════════════════ */}
         <div className="mt-20">
           <figure className="relative w-full overflow-hidden rounded-2xl border border-[#D4A24C]/20 text-center shadow-sm shadow-[#D4A24C]/5">
-            {/* Imagem de fundo - public/fotos/rodape/2.jpg */}
+            {/* Imagem de fundo - public/fotos/rodape/3.jpg */}
             <img
-              src="/fotos/rodape/2.jpg"
+              src="/fotos/rodape/3.jpg"
               alt=""
               className="absolute inset-0 w-full h-full object-cover object-center"
               loading="lazy"
