@@ -22,10 +22,10 @@ export default function Cultos() {
 
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
-      {/* Header hero com imagem de fundo - /fotos/rodape/1.jpg */}
+      {/* Header hero com imagem de fundo - /fotos/agenda/1.jpg */}
       <section className="relative overflow-hidden">
         <img
-          src="/fotos/rodape/1.jpg"
+          src="/fotos/agenda/1.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="eager"
