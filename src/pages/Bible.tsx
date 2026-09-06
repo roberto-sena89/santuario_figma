@@ -989,8 +989,8 @@ export default function Bible() {
                                 await copyVerse(verse);
                                 showToast(`Versículo ${verse.verse} copiado ✓`);
                               }}
-                              onShowNote={(k) => setEditingNote(k)}
-                              hasNote={!!notes[k]}
+                              onShowNote={(key) => setEditingNote(key)}
+                              hasNote={!!notes[key]}
                               onShare={() => showToast("Link copiado ✓")}
                               isHighlighted={isPlaying}
                             />
