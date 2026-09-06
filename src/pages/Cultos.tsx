@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import PageTitle from "../components/ui/PageTitle";
-import { getEscala, formatSemana, isoWeek, mondayOfWeek, PAPEIS_POR_DIA, papelParaLista, EMOJI_DIA, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
+import { getEscala, formatSemana, isoWeek, mondayOfWeek, PAPEIS_POR_DIA, papelParaLista, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
 
 export default function Cultos() {
   const [semanaAtual, setSemanaAtual] = useState(() => isoWeek(new Date()));
@@ -23,16 +22,32 @@ export default function Cultos() {
 
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
+      {/* Header hero com imagem de fundo - /fotos/rodape/1.jpg */}
+      <section className="relative overflow-hidden">
+        <img
+          src="/fotos/rodape/1.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
+        <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+          <div className="mb-0 max-w-2xl text-left">
+            <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+              Programacao
+            </p>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">
+              Agenda Semanal
+            </h1>
+            <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed">
+              <span>Nossa programacao semanal e os proximos eventos especiais. Venha fazer parte desta comunidade!</span>
+            </p>
+          </div>
+        </div>
+      </section>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-                <PageTitle
-                  eyebrow="Programacao"
-                  eyebrowIcon="📅"
-                  title="Agenda Semanal"
-                  subtitle="Nossa programacao semanal e os proximos eventos especiais. Venha fazer parte desta comunidade!"
-                  subtitleIcon="🕐"
-                  align="left"
-                />
 
         {/* Escala da semana atual */}
         <section aria-label="Escala da semana" className="mb-12">
