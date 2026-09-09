@@ -64,7 +64,6 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Ministério de Jovens", page: "ministerios", icon: <UsersIcon />, desc: "Jovens de 15 a 30 anos", hash: "#/ministerios/jovens" },
       { label: "Ministério Infantil", page: "ministerios", icon: <HeartIcon />, desc: "Ensino bíblico para crianças", hash: "#/ministerios/criancas" },
       { label: "Ministério de Intercessão", page: "ministerios", icon: <SparklesIcon />, desc: "Oração pela comunidade", hash: "#/ministerios/intercessao" },
-      { label: "Mural de Oração", page: "oracoes", icon: <HeartIcon />, desc: "Pedidos e testemunhos da comunidade" },
       { label: "Ministério da Família", page: "ministerios", icon: <HeartIcon />, desc: "Apoio e comunhão para casais", hash: "#/ministerios/casais" },
       { label: "Diaconia Social", page: "ministerios", icon: <UsersIcon />, desc: "Ação social e assistência", hash: "#/ministerios/diaconia" },
       { label: "Ministério de Missões", page: "missoes", icon: <GlobeIcon />, desc: "Conheça a obra missionária" },
