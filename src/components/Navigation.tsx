@@ -46,11 +46,11 @@ const NAV_ITEMS: NavItem[] = [
     submenuLabel: "Estudo e devoção",
     submenu: [
       { label: "Bíblia Sagrada", page: "biblia", icon: <BookIcon />, desc: "Leia, estude e marque versículos" },
+      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "Versículo, reflexão e amém do dia" },
       { label: "Palavra do Dia", page: "palavra-do-dia", icon: <SparklesIcon />, desc: "Um versículo para cada dia" },
       { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexões para seu momento com Deus" },
       { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Teste seu conhecimento toda semana" },
       { label: "Plano de Leitura", page: "plano", icon: <BookIcon />, desc: "A Bíblia em 365 dias" },
-      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "Versículo, reflexão e amém do dia" },
     ],
   },
   { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
