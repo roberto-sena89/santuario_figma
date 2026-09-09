@@ -17,7 +17,8 @@ export type Page =
   | "missoes"
   | "quiz"
   | "plano"
-  | "oracoes";
+  | "oracoes"
+  | "momento";
 
 interface NavProps {
   currentPage: Page;
@@ -49,6 +50,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexões para seu momento com Deus" },
       { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Teste seu conhecimento toda semana" },
       { label: "Plano de Leitura", page: "plano", icon: <BookIcon />, desc: "A Bíblia em 365 dias" },
+      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "Versículo, reflexão e amém do dia" },
     ],
   },
   { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
