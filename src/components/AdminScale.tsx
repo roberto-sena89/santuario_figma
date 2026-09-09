@@ -189,13 +189,15 @@ function CultosManager({ onCultosChange }: { onCultosChange: () => void }) {
     onCultosChange();
     // sync cultos para repo (DIAS_ESCALA) — fixa em todos os navegadores após deploy
     try {
-      const senha = sessionStorage.getItem("santuario_admin_senha") || "santuario2026";
+      const senha = sessionStorage.getItem("santuario_admin_senha") || "";
       fetch("/api/admin-sync", {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-admin-senha": senha },
         body: JSON.stringify({ senha, cultos: lista }),
-      }).then((r)=>r.json().catch(()=>({}))).then((d)=>{
-        if (d?.commit) console.log("cultos publicados:", d.message);
+      }).then(async (r) => {
+        const d = await r.json().catch(()=>({}));
+        if (r.status === 401) alert("Senha admin inválida — confira a senha (ADMIN_SENHA da Vercel) e entre de novo no painel.");
+        else if (d?.commit) console.log("cultos publicados:", d.message);
         else if (d?.error) console.warn("sync cultos:", d.error);
       }).catch((e)=>console.warn("sync cultos erro", e));
     } catch {}
@@ -484,14 +486,15 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
     setTimeout(() => setSalvo(false), 2500);
     // sync para todos os navegadores via GitHub -> Vercel (escalas.json)
     try {
-      const senha = sessionStorage.getItem("santuario_admin_senha") || "santuario2026";
+      const senha = sessionStorage.getItem("santuario_admin_senha") || "";
       const res = await fetch("/api/admin-sync", {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-admin-senha": senha },
         body: JSON.stringify({ senha, escala: payload }),
       });
       const data = await res.json().catch(()=>({}));
-      if (!res.ok) console.warn("sync escala falhou:", data.error);
+      if (res.status === 401) alert("Senha admin inválida — confira a senha (ADMIN_SENHA da Vercel) e entre de novo no painel.");
+      else if (!res.ok) console.warn("sync escala falhou:", data.error);
       else console.log("escala publicada:", data.message);
     } catch (e) { console.warn("sync escala erro", e); }
   };
@@ -883,7 +886,7 @@ function EscalaEditor({ onSair }: { onSair: () => void }) {
             <p className="mb-3 text-xs leading-relaxed text-foreground/55">Envia <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">PESSOAS_PADRAO</code> direto para <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">src/data/escala.ts</code> no GitHub — Vercel faz deploy automático em ~30s. Precisa de <code className="rounded bg-muted px-1.5 py-0.5 text-[11px]">GH_TOKEN</code> configurado na Vercel.</p>
             <div className="flex flex-wrap gap-2">
               <button type="button" onClick={async () => {
-                const senha = prompt("Confirme a senha do painel (santuario2026):", "") || "";
+                const senha = prompt("Confirme a senha do painel:", "") || "";
                 if (!senha) return;
                 const btn = document.getElementById("btn-publicar-pessoas") as HTMLButtonElement | null;
                 if (btn) { btn.textContent = "⏳ Publicando..."; btn.setAttribute("disabled","true"); }

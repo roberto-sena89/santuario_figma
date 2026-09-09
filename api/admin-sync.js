@@ -1,6 +1,6 @@
 // POST /api/admin-sync -> commit PESSOAS_PADRAO (e cultos/escalas) no GitHub -> Vercel auto-deploy
 // body: { senha, pessoas?: string[], cultos?: {key,dia,horario,titulo}[], escala?: EscalaSemana, escalas?: Record<string,EscalaSemana> }
-// env: GH_TOKEN (fine-grained PAT Contents:write), ADMIN_SENHA opcional (default santuario2026)
+// env: GH_TOKEN (fine-grained PAT Contents:write), ADMIN_SENHA (obrigatória — sem default)
 
 export default async function handler(req, res) {
   // CORS simples
@@ -11,7 +11,8 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   const GH_TOKEN = process.env.GH_TOKEN;
-  const ADMIN_SENHA = process.env.ADMIN_SENHA || "santuario2026";
+  const ADMIN_SENHA = process.env.ADMIN_SENHA;
+  if (!ADMIN_SENHA) return res.status(500).json({ error: "ADMIN_SENHA não configurada na Vercel (Settings → Environment Variables)" });
   if (!GH_TOKEN) return res.status(500).json({ error: "GH_TOKEN não configurado na Vercel (Settings → Environment Variables)" });
 
   let body = req.body;

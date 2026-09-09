@@ -290,9 +290,9 @@ export function formatSemana(semana: string): string {
 
 const STORAGE_KEY = "santuario_escala";
 const CULTOS_KEY = "santuario_cultos_def";
-const SENHA_KEY = "santuario_escala_senha";
 
-export const SENHA_PADRAO = "santuario2026"; // senha fixa do painel admin — também usada em /api/admin-sync via env ADMIN_SENHA
+// A senha real mora SÓ na Vercel (env ADMIN_SENHA) e é validada pelo
+// servidor em /api/admin-sync (401 se inválida). Nada de segredo no bundle.
 
 /** Carrega cultos cadastrados (ou padrão). Ordena por dia da semana + horário. */
 export function carregarCultos(): Omit<EscalaDia, "papeis">[] {
@@ -446,7 +446,8 @@ export function getEscala(semana: string): EscalaSemana {
   return merged;
 }
 
-/** Verifica se a senha está correta. */
+/** Portão da UI: aceita qualquer senha não-vazia. A autoridade é o servidor
+ *  (/api/admin-sync responde 401 se a senha não confere com ADMIN_SENHA). */
 export function verificarSenha(senha: string): boolean {
-  return senha === SENHA_PADRAO;
+  return senha.trim().length > 0;
 }
