@@ -171,6 +171,53 @@ export const QUIZES: QuizSemana[] = [
       },
     ],
   },
+  {
+    id: "mulheres-biblia",
+    tema: "Mulheres da Bíblia",
+    descricao: "Fé e coragem em histórias que mudaram Israel.",
+    perguntas: [
+      {
+        pergunta: "Que rainha arriscou a vida entrando sem ser chamada para salvar os judeus?",
+        alternativas: ["Rute", "Ester", "Débora", "Abigail"],
+        correta: 1,
+        ref: "Ester 4:16",
+        explica: "“Se perecer, pereci” — coragem que nasceu de jejum e propósito.",
+      },
+      {
+        pergunta: "Quem disse: “O teu povo será o meu povo, e o teu Deus será o meu Deus”?",
+        alternativas: ["Noemi", "Rute", "Orfa", "Sara"],
+        correta: 1,
+        ref: "Rute 1:16",
+        explica: "A lealdade de Rute a Noemi a colocou na linhagem do rei Davi.",
+      },
+      {
+        pergunta: "Qual mulher foi juíza e profetisa em Israel?",
+        alternativas: ["Miriã", "Débora", "Hulda", "Ana"],
+        correta: 1,
+        ref: "Juízes 4:4",
+        explica: "Débora julgava debaixo das palmeiras e liderou a vitória sobre Sísera.",
+      },
+      {
+        pergunta: "Que mãe orou com amargura no templo e dedicou o filho a Deus?",
+        alternativas: ["Isabel", "Ana", "Rebeca", "Joquebede"],
+        correta: 1,
+        ref: "1 Samuel 1:20",
+        explica: "Da oração de Ana nasceu Samuel, o profeta que ungiu reis.",
+      },
+      {
+        pergunta: "O que Maria respondeu ao anjo na anunciação?",
+        alternativas: [
+          "“Como será isso?”",
+          "“Eis aqui a serva do Senhor”",
+          "“Bem-aventurada sou”",
+          "“Faça-se em mim um sinal”",
+        ],
+        correta: 1,
+        ref: "Lucas 1:38",
+        explica: "Obediência imediata — o “sim” que carregou o Salvador.",
+      },
+    ],
+  },
 ];
 
 /** Escolhe o quiz da semana ISO (rotação determinística). */
