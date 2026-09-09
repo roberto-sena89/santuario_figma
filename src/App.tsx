@@ -9,6 +9,7 @@ import Bible from "./pages/Bible";
 import PalavraDodia from "./pages/PalavraDodia";
 import Devocional from "./pages/Devocional";
 import Quiz from "./pages/Quiz";
+import PlanoLeitura from "./pages/PlanoLeitura";
 import Playbacks from "./pages/Playbacks";
 import Harpa from "./pages/Harpa";
 import Cultos from "./pages/Cultos";
@@ -25,7 +26,7 @@ import { MINISTERIOS } from "./data/ministerios";
 const NO_FOOTER_PAGES: Page[] = ["playbacks", "admin"];
 
 const ALL_PAGES: Page[] = [
-  "home", "biblia", "palavra-do-dia", "devocional", "quiz", "playbacks",
+  "home", "biblia", "palavra-do-dia", "devocional", "quiz", "plano", "playbacks",
   "harpa", "cultos", "ministerios", "quem-somos", "contribuicoes",
   "contato", "admin", "missoes",
 ];
@@ -73,6 +74,7 @@ export default function App() {
       "palavra-do-dia": `Palavra do Dia — ${CHURCH.shortName}`,
       devocional: `Devocional Diário — ${CHURCH.shortName}`,
       quiz: `Quiz Bíblico — ${CHURCH.shortName}`,
+      plano: `Plano de Leitura — ${CHURCH.shortName}`,
       playbacks: `Playbacks & Louvores — ${CHURCH.shortName}`,
       harpa: `Harpa Cristã — ${CHURCH.shortName}`,
       cultos: `Cultos e Agenda — ${CHURCH.shortName}`,
@@ -134,6 +136,8 @@ export default function App() {
               return <Devocional />;
             case "quiz":
               return <Quiz />;
+            case "plano":
+              return <PlanoLeitura />;
             case "playbacks":
               return <Playbacks />;
             case "harpa":
