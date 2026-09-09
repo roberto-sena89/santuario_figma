@@ -301,7 +301,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Contato + agenda */}
           <div className="lg:col-span-6">
-            <FooterTitle>Contato & Agenda</FooterTitle>
+            <FooterTitle>Contato &amp; Agenda</FooterTitle>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
               <div className="space-y-3.5 text-[13.5px] leading-[1.6]">
