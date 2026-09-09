@@ -10,6 +10,7 @@ import PalavraDodia from "./pages/PalavraDodia";
 import Devocional from "./pages/Devocional";
 import Quiz from "./pages/Quiz";
 import PlanoLeitura from "./pages/PlanoLeitura";
+import Oracoes from "./pages/Oracoes";
 import Playbacks from "./pages/Playbacks";
 import Harpa from "./pages/Harpa";
 import Cultos from "./pages/Cultos";
@@ -28,7 +29,7 @@ const NO_FOOTER_PAGES: Page[] = ["playbacks", "admin"];
 const ALL_PAGES: Page[] = [
   "home", "biblia", "palavra-do-dia", "devocional", "quiz", "plano", "playbacks",
   "harpa", "cultos", "ministerios", "quem-somos", "contribuicoes",
-  "contato", "admin", "missoes",
+  "contato", "admin", "missoes", "oracoes",
 ];
 
 function hashToPage(): Page {
@@ -84,6 +85,7 @@ export default function App() {
       contato: `Contato — ${CHURCH.shortName}`,
       admin: `Escala — ${CHURCH.shortName}`,
       missoes: `Missões — ${CHURCH.shortName}`,
+      oracoes: `Mural de Oração — ${CHURCH.shortName}`,
     };
     document.title = activeMinistry
       ? `${MINISTERIOS.find((x) => x.id === activeMinistry)?.name ?? "Ministério"} — ${CHURCH.shortName}`
@@ -158,6 +160,8 @@ export default function App() {
               return <AdminScale />;
             case "missoes":
               return <Missoes onNavigate={navigate} />;
+            case "oracoes":
+              return <Oracoes />;
             default:
               return <Home onNavigate={navigate} />;
           }
