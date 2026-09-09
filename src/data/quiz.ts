@@ -2,6 +2,11 @@
  * QUIZ BÍBLICO SEMANAL — banco de quizzes por tema.
  * Cada semana ISO o site exibe um quiz (rotação automática).
  * Para adicionar uma semana nova, acrescente um item a QUIZES.
+ *
+ * Semanas 5–8: perguntas adaptadas de bible.json do projeto quiz-jeiel
+ * (https://github.com/Jeiel0rbit/quiz-jeiel) — Copyright (c) 2024
+ * Jeiel Lima Miranda, licença MIT. Referências normalizadas e campo
+ * "explica" adicionado na adaptação.
  */
 
 export interface QuizPergunta {
@@ -215,6 +220,189 @@ export const QUIZES: QuizSemana[] = [
         correta: 1,
         ref: "Lucas 1:38",
         explica: "Obediência imediata — o “sim” que carregou o Salvador.",
+      },
+    ],
+  },
+  {
+    id: "reis-profetas",
+    tema: "Reis e Profetas",
+    descricao: "Coroas, batalhas e vozes que confrontaram reis.",
+    perguntas: [
+      {
+        pergunta: "Quem foi o primeiro rei de Israel?",
+        alternativas: ["Saul", "Davi", "Salomão", "Josué"],
+        correta: 0,
+        ref: "1 Samuel 10:1",
+        explica: "Samuel ungiu Saul — o povo pediu rei “como as outras nações”.",
+      },
+      {
+        pergunta: "Com qual arma Davi derrotou o gigante Golias?",
+        alternativas: ["Lança", "Espada", "Funda e pedra", "Arco e flecha"],
+        correta: 2,
+        ref: "1 Samuel 17:49-50",
+        explica: "Uma pedra lisa e a certeza de que “a batalha é do Senhor”.",
+      },
+      {
+        pergunta: "Quem foi o pai de Davi?",
+        alternativas: ["Obede", "Jessé", "Boaz", "Saul"],
+        correta: 1,
+        ref: "1 Samuel 16:1",
+        explica: "O caçula esquecido no pasto — Deus vê o coração, não a aparência.",
+      },
+      {
+        pergunta: "Qual profeta desafiou os profetas de Baal no Monte Carmelo?",
+        alternativas: ["Eliseu", "Isaías", "Jeremias", "Elias"],
+        correta: 3,
+        ref: "1 Reis 18:20-40",
+        explica: "Fogo do céu diante de 450 profetas — “Só o Senhor é Deus”.",
+      },
+      {
+        pergunta: "Quem sucedeu Elias como profeta?",
+        alternativas: ["Eliseu", "Natã", "Isaías", "Ageu"],
+        correta: 0,
+        ref: "2 Reis 2:9-15",
+        explica: "Eliseu pediu porção dobrada do espírito de Elias — e recebeu.",
+      },
+    ],
+  },
+  {
+    id: "juizes-livramentos",
+    tema: "Juízes e Livramentos",
+    descricao: "Os libertadores que Deus levantou para Israel.",
+    perguntas: [
+      {
+        pergunta: "Quem conduziu Israel à Terra Prometida após a morte de Moisés?",
+        alternativas: ["Calebe", "Arão", "Josué", "Samuel"],
+        correta: 2,
+        ref: "Josué 1:1-2",
+        explica: "“Seja forte e corajoso” — a ordem se repete três vezes no capítulo.",
+      },
+      {
+        pergunta: "Qual sinal Deus deu a Gideão com um velo de lã?",
+        alternativas: [
+          "Chuva por três dias",
+          "Velo molhado e seco",
+          "O mar se abrindo",
+          "Fogo na sarça",
+        ],
+        correta: 1,
+        ref: "Juízes 6:36-40",
+        explica: "Deus atendeu o teste duas vezes — e Gideão venceu com 300 homens.",
+      },
+      {
+        pergunta: "Qual juiz fez o voto imprudente sobre a primeira coisa que saísse de casa?",
+        alternativas: ["Débora", "Jefté", "Sansão", "Gideão"],
+        correta: 1,
+        ref: "Juízes 11:30-31",
+        explica: "Palavras têm peso: votos precipitados custam caro.",
+      },
+      {
+        pergunta: "Qual era o segredo da força de Sansão?",
+        alternativas: [
+          "Orar três vezes ao dia",
+          "Nunca cortar o cabelo",
+          "Comer pão especial",
+          "Beber apenas água",
+        ],
+        correta: 1,
+        ref: "Juízes 16:17",
+        explica: "O cabelo guardava o voto de nazireu — a força vinha da consagração.",
+      },
+      {
+        pergunta: "Quem foi lançado na cova dos leões por orar a Deus?",
+        alternativas: ["Moisés", "Elias", "Daniel", "José"],
+        correta: 2,
+        ref: "Daniel 6:16-23",
+        explica: "Daniel orava três vezes ao dia de janela aberta — e Deus fechou bocas.",
+      },
+    ],
+  },
+  {
+    id: "sinais-juizo",
+    tema: "Sinais e Juízo",
+    descricao: "Pragas, fornalhas e visões do poder de Deus.",
+    perguntas: [
+      {
+        pergunta: "Qual rei lançou Sadraque, Mesaque e Abede-Nego na fornalha?",
+        alternativas: ["Ciro", "Nabucodonosor", "Dario", "Artaxerxes"],
+        correta: 1,
+        ref: "Daniel 3:19-20",
+        explica: "A fornalha aquecida sete vezes mais — e um quarto homem no fogo.",
+      },
+      {
+        pergunta: "Qual profeta viu ossos secos se tornarem um grande exército?",
+        alternativas: ["Daniel", "Ezequiel", "Jeremias", "Isaías"],
+        correta: 1,
+        ref: "Ezequiel 37:1-14",
+        explica: "“Acaso podem reviver?” — o Espírito sopra onde há morte.",
+      },
+      {
+        pergunta: "Qual foi a primeira praga sobre o Egito?",
+        alternativas: ["Rãs", "Piolhos", "Água em sangue", "Moscas"],
+        correta: 2,
+        ref: "Êxodo 7:19-21",
+        explica: "O Nilo, deus do Egito, virou sangue — Deus julga os ídolos.",
+      },
+      {
+        pergunta: "Qual mandamento proíbe fazer ídolos para adoração?",
+        alternativas: ["O primeiro", "O segundo", "O quarto", "O sétimo"],
+        correta: 1,
+        ref: "Êxodo 20:4-6",
+        explica: "O primeiro trata de quem adorar; o segundo, de como adorar.",
+      },
+      {
+        pergunta: "Quantos dias Jonas passou no ventre do grande peixe?",
+        alternativas: ["1 dia", "2 dias", "3 dias", "4 dias"],
+        correta: 2,
+        ref: "Jonas 1:17",
+        explica: "Três dias de escuridão antes da segunda chance em Nínive.",
+      },
+    ],
+  },
+  {
+    id: "chamados-comecos",
+    tema: "Chamados e Começos",
+    descricao: "Quando Deus chama pelo nome e tudo muda.",
+    perguntas: [
+      {
+        pergunta: "De qual cidade Deus chamou Abrão?",
+        alternativas: ["Babilônia", "Egito", "Ur dos Caldeus", "Jerusalém"],
+        correta: 2,
+        ref: "Gênesis 12:1",
+        explica: "“Sai da tua terra” — a fé começa com um passo sem mapa.",
+      },
+      {
+        pergunta: "Que novo nome Jacó recebeu após lutar a noite inteira?",
+        alternativas: ["Israel", "Esaú", "Abraão", "Isaque"],
+        correta: 0,
+        ref: "Gênesis 32:28",
+        explica: "De “enganador” a “príncipe com Deus” — Deus renomeia destinos.",
+      },
+      {
+        pergunta: "Qual discípulo era coletor de impostos antes de seguir Jesus?",
+        alternativas: ["João", "Pedro", "André", "Mateus"],
+        correta: 3,
+        ref: "Mateus 9:9",
+        explica: "Jesus chamou um traidor da pátria — e ele virou evangelista.",
+      },
+      {
+        pergunta: "Em qual estrada Saulo encontrou Jesus e se converteu?",
+        alternativas: ["Jericó", "Antioquia", "Emaús", "Damasco"],
+        correta: 3,
+        ref: "Atos 9:1-3",
+        explica: "O perseguidor virou apóstolo — ninguém está longe demais.",
+      },
+      {
+        pergunta: "No Sermão da Montanha, quem “verá a Deus”?",
+        alternativas: [
+          "Os misericordiosos",
+          "Os puros de coração",
+          "Os que choram",
+          "Os pacificadores",
+        ],
+        correta: 1,
+        ref: "Mateus 5:8",
+        explica: "Pureza de coração não é perfeição — é um coração sem máscara.",
       },
     ],
   },
