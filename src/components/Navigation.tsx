@@ -14,7 +14,8 @@ export type Page =
   | "contribuicoes"
   | "contato"
   | "admin"
-  | "missoes";
+  | "missoes"
+  | "quiz";
 
 interface NavProps {
   currentPage: Page;
@@ -44,6 +45,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: "Bíblia Sagrada", page: "biblia", icon: <BookIcon />, desc: "Leia, estude e marque versículos" },
       { label: "Palavra do Dia", page: "palavra-do-dia", icon: <SparklesIcon />, desc: "Um versículo para cada dia" },
       { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexões para seu momento com Deus" },
+      { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Teste seu conhecimento toda semana" },
     ],
   },
   { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
