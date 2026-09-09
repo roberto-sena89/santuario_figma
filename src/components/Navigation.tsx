@@ -391,6 +391,33 @@ export default function Navigation({
                 );
               })}
 
+              {/* Botão Mural de Oração — mesmo formato do Apoie a Obra */}
+              <button
+                onClick={() => navigate("oracoes")}
+                aria-current={currentPage === "oracoes" ? "page" : undefined}
+                className={`group inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
+                  currentPage === "oracoes"
+                    ? "bg-[#C4933C] text-gray-900 shadow-[#D4A24C]/40"
+                    : "bg-[#D4A24C] text-gray-900 shadow-[#D4A24C]/30 hover:shadow-[#D4A24C]/45"
+                }`}
+              >
+                {"\u{1F64F} Mural de Oração"}
+                <svg
+                  className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+
               {/* Botão Apoie a Obra — navega direto para Contribuições */}
               <button
                 onClick={() => navigate("contribuicoes")}
