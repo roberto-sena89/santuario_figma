@@ -422,7 +422,7 @@ export default function Navigation({
               <button
                 onClick={() => navigate("contribuicoes")}
                 aria-current={isMoreActive ? "page" : undefined}
-                className={`group inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-[13px] font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
+                className={`group inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
                   isMoreActive
                     ? "bg-[#C4933C] text-gray-900 shadow-[#D4A24C]/40"
                     : "bg-[#D4A24C] text-gray-900 shadow-[#D4A24C]/30 hover:shadow-[#D4A24C]/45"
@@ -430,7 +430,7 @@ export default function Navigation({
               >
                 🕊️ Apoie a Obra
                 <svg
-                  className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5"
+                  className="h-2.5 w-2.5 transition-transform duration-300 group-hover:translate-x-0.5"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
