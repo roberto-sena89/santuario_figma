@@ -33,7 +33,7 @@ export default function Home({ onNavigate }: HomeProps) {
     <main id="main-content">
       {/* Hero */}
       <section
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-[68vh] flex items-center justify-center overflow-hidden"
         aria-label="Boas-vindas"
       >
         <div className="absolute inset-0 bg-sand-900">
@@ -48,7 +48,7 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="absolute inset-0 bg-gradient-to-b from-sand-900/60 via-sand-900/30 to-sand-900/80" />
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div className="relative z-10 text-center px-4 py-16 max-w-4xl mx-auto">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-light text-white leading-tight mb-6">
             Um lugar para você<br />
             <span className="italic text-accent">encontrar a Deus</span>
