@@ -61,7 +61,7 @@ export const MINISTERIOS: Ministry[] = [
       "Compromisso com ensaios e escalas",
       "Disponibilidade nos horários dos cultos",
     ],
-    galeria: ["/fotos/ministerios/louvor/1.jpg", "/fotos/ministerios/louvor/2.jpg", "/fotos/ministerios/louvor/3.jpg"],
+    galeria: ["/fotos/ministerios/louvor/1.jpg"],
   },
   {
     id: "jovens",
@@ -103,7 +103,7 @@ export const MINISTERIOS: Ministry[] = [
       "Participar dos encontros semanais",
       "Coração aberto para servir",
     ],
-    galeria: ["/fotos/ministerios/jovens/1.jpg", "/fotos/ministerios/jovens/2.jpg"],
+    galeria: ["/fotos/ministerios/jovens/1.jpg"],
   },
   {
     id: "criancas",
@@ -145,7 +145,7 @@ export const MINISTERIOS: Ministry[] = [
       "Participação nos treinamentos",
       "Curso de berçário/crianças (orientação)",
     ],
-    galeria: ["/fotos/ministerios/infantil/1.jpg", "/fotos/ministerios/infantil/2.jpg"],
+    galeria: ["/fotos/ministerios/crianças/1.jpg"],
   },
   {
     id: "intercessao",
@@ -187,7 +187,7 @@ export const MINISTERIOS: Ministry[] = [
       "Frequência às reuniões de quinta",
       "Coração intercessor",
     ],
-    galeria: ["/fotos/ministerios/intercessao/1.jpg", "/fotos/ministerios/intercessao/2.jpg"],
+    galeria: ["/fotos/ministerios/intercessão/1.jpg"],
   },
   {
     id: "casais",
@@ -229,7 +229,7 @@ export const MINISTERIOS: Ministry[] = [
       "Participação nos encontros mensais",
       "Abertura para aconselhamento",
     ],
-    galeria: ["/fotos/ministerios/casais/1.jpg", "/fotos/ministerios/casais/2.jpg"],
+    galeria: ["/fotos/ministerios/familia/1.jpg"],
   },
   {
     id: "diaconia",
@@ -271,7 +271,7 @@ export const MINISTERIOS: Ministry[] = [
       "Participação nas campanhas",
       "Compromisso e organização",
     ],
-    galeria: ["/fotos/ministerios/diaconia/1.jpg", "/fotos/ministerios/diaconia/2.jpg"],
+    galeria: [],
   },
   {
     id: "evangelismo",

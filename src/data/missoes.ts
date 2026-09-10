@@ -70,10 +70,10 @@ export const MISSOES = {
     },
   ] as ConferenciaMissional[],
   galeria: [
-    "/fotos/missoes/1.jpg",
-    "/fotos/missoes/2.jpg",
-    "/fotos/missoes/3.jpg",
-    "/fotos/missoes/4.jpg",
+    "/fotos/ministerios/missões/1.jpg",
+    "/fotos/ministerios/missões/2.jpg",
+    "/fotos/ministerios/missões/3.jpg",
+    "/fotos/ministerios/missões/4.jpg",
   ],
   videos: [
     { titulo: "Como nasce um chamado missionário", id: "" },
