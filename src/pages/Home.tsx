@@ -55,24 +55,9 @@ export default function Home({ onNavigate }: HomeProps) {
             <span className="italic text-accent">encontrar a Deus</span>
           </h1>
 
-          <p className="text-white/70 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-white/70 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
             {CHURCH.description}
           </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                      <button
-                        onClick={() => navigate("cultos")}
-                        className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/45 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
-                      >
-                        Ver horários dos cultos
-                      </button>
-                      <button
-                        onClick={() => navigate("quem-somos")}
-                        className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/10 px-6 py-2.5 text-white font-medium backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/15 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
-                      >
-                        Novo por aqui?
-                      </button>
-                    </div>
         </div>
       </section>
 
