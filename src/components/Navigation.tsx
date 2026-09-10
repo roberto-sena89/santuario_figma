@@ -46,9 +46,9 @@ const NAV_ITEMS: NavItem[] = [
     submenuLabel: "Estudo e devoção",
     submenu: [
       { label: "Bíblia Sagrada", page: "biblia", icon: <BookIcon />, desc: "Leia, estude e marque versículos" },
-      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "Versículo, reflexão e amém do dia" },
-      { label: "Plano de Leitura", page: "plano", icon: <BookIcon />, desc: "A Bíblia em 365 dias" },
-      { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Teste seu conhecimento toda semana" },
+      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "O ritual diário: versículo + reflexão em 5 minutos" },
+      { label: "Plano de Leitura", page: "plano", icon: <BookIcon />, desc: "Leia a Bíblia inteira em 365 dias" },
+      { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Perguntas e respostas para testar a fé" },
       { label: "Palavra do Dia", page: "palavra-do-dia", icon: <SparklesIcon />, desc: "Um versículo para cada dia" },
       { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexões para seu momento com Deus" },
     ],
@@ -94,6 +94,7 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 const MORE_ITEMS: NavItem[] = [
+  { label: "Mural de Oração", page: "oracoes", icon: <HeartIcon />, group: "more" },
   { label: "Contribuições", page: "contribuicoes", icon: <HeartIcon />, group: "more" },
 ];
 
@@ -168,7 +169,8 @@ export default function Navigation({
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const isMoreActive = MORE_ITEMS.some((i) => i.page === currentPage);
+  // Apoie acende só em Contribuições (MORE_ITEMS também alimenta o drawer mobile)
+  const isMoreActive = currentPage === "contribuicoes";
 
   return (
     <>
