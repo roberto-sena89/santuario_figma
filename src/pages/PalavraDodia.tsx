@@ -3,6 +3,10 @@ import {
   getPalavraDoDia,
   getVersiculosDoTema,
 } from "../data/palavraDoDia";
+import { getDevotionalByDate } from "../data/devotionals";
+import { getLeituraDoDia, diaDoAno } from "../data/planoLeitura";
+import { getQuizDaSemana } from "../data/quiz";
+import { isoWeek } from "../data/escala";
 import type { Page } from "../components/Navigation";
 
 interface Props {
@@ -12,6 +16,10 @@ interface Props {
 export default function PalavraDodia({ onNavigate }: Props) {
   const todayVerse = getPalavraDoDia();
   const related = getVersiculosDoTema(todayVerse.theme, 4, todayVerse.ref);
+  const hoje = new Date();
+  const devocionalHoje = getDevotionalByDate(hoje);
+  const leituraHoje = getLeituraDoDia(hoje);
+  const quizSemana = getQuizDaSemana(isoWeek(hoje));
   const [copied, setCopied] = useState(false);
 
   const share = async () => {
@@ -125,6 +133,68 @@ export default function PalavraDodia({ onNavigate }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
               </svg>
               Compartilhar
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Continue o seu dia — pontes para o resto do site */}
+      <section className="py-14 bg-background border-y border-border/40" aria-label="Continue o seu dia">
+        <div className="max-w-4xl mx-auto px-4">
+          <p className="text-[10.5px] font-semibold uppercase tracking-[0.22em] text-accent mb-2">
+            Não pare por aqui
+          </p>
+          <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground mb-2">
+            Continue o seu dia
+          </h2>
+          <p className="text-muted-foreground text-sm mb-8">
+            A Palavra rende mais quando vira prática — três caminhos a partir deste versículo.
+          </p>
+          <div className="grid sm:grid-cols-3 gap-4">
+            <button
+              onClick={() => onNavigate("devocional")}
+              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-[#D4A24C]/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+            >
+              <p className="text-2xl mb-2" aria-hidden="true">📖</p>
+              <p className="font-semibold text-foreground text-sm mb-1">
+                Devocional de hoje
+              </p>
+              <p className="text-muted-foreground text-[13px] leading-relaxed mb-3 line-clamp-2">
+                {devocionalHoje.title} · {devocionalHoje.theme}
+              </p>
+              <span className="text-xs font-bold text-[#D4A24C]">
+                Refletir →
+              </span>
+            </button>
+            <button
+              onClick={() => onNavigate("plano")}
+              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-[#D4A24C]/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+            >
+              <p className="text-2xl mb-2" aria-hidden="true">📚</p>
+              <p className="font-semibold text-foreground text-sm mb-1">
+                Leitura de hoje — dia {diaDoAno(hoje)}
+              </p>
+              <p className="text-muted-foreground text-[13px] leading-relaxed mb-3 line-clamp-2">
+                {leituraHoje.resumo}
+              </p>
+              <span className="text-xs font-bold text-[#D4A24C]">
+                Ler na Bíblia →
+              </span>
+            </button>
+            <button
+              onClick={() => onNavigate("quiz")}
+              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-[#D4A24C]/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+            >
+              <p className="text-2xl mb-2" aria-hidden="true">❓</p>
+              <p className="font-semibold text-foreground text-sm mb-1">
+                Quiz da semana
+              </p>
+              <p className="text-muted-foreground text-[13px] leading-relaxed mb-3 line-clamp-2">
+                {quizSemana.tema} — 5 perguntas
+              </p>
+              <span className="text-xs font-bold text-[#D4A24C]">
+                Testar a fé →
+              </span>
             </button>
           </div>
         </div>
