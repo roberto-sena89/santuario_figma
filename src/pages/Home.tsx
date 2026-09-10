@@ -17,11 +17,6 @@ interface HomeProps {
 export default function Home({ onNavigate }: HomeProps) {
   const verse = getPalavraDoDia();
   const devocional = getDevotionalByDate(new Date());
-  const devocionalResumo = devocional.body.split("\n\n")[0] ?? "";
-  const devocionalTrecho =
-    devocionalResumo.length > 160
-      ? `${devocionalResumo.slice(0, 160).trim()}…`
-      : devocionalResumo;
   // Destaques: troca Infantil por Missões no grid da Home
   const featuredMinistries = MINISTERIOS.filter(
     (m) => m.id !== "criancas" && m.id !== "evangelismo"
@@ -184,9 +179,6 @@ export default function Home({ onNavigate }: HomeProps) {
                                                                                         <cite className="not-italic block mt-2 font-bible text-white/80 font-medium text-sm sm:text-base [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
                                               — {devocional.verseRef}
                                             </cite>
-                                              <p className="mt-3 text-white/70 text-sm leading-relaxed [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
-                                                {devocionalTrecho}
-                                              </p>
                                             </div>
                       <div className="mt-auto">
                         <button
