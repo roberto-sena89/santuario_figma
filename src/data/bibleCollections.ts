@@ -846,17 +846,15 @@ export function useCollectionProgress(
 
   // Salva no localStorage sempre que muda
   useEffect(() => {
-    // Mescla com outros IDs de outras coleções
+    // Mescla com outros IDs de outras coleções criando um novo Set
+    // via spread — nunca muta o Set lido do localStorage
     const all = readReadSubtemas();
-    subtemas.forEach((s) => all.add(s.id));
+    const merged = new Set<string>([...all, ...subtemas.map((s) => s.id)]);
     // Remove os antigos que não estão em nenhuma coleção
-    const validIds = new Set<string>();
-    for (const id of all) {
-      if (subtemas.some((s) => s.id === id)) {
-        validIds.add(id);
-      }
-    }
-    writeReadSubtemas(validIds);
+    const newSet = new Set<string>(
+      Array.from(merged).filter((id) => subtemas.some((s) => s.id === id))
+    );
+    writeReadSubtemas(newSet);
   }, [readIds, subtemas]);
 
   const total = subtemas.length;

@@ -12,8 +12,8 @@ import { IGREJA } from '../config';
  */
 
 // Filtra ruído de AdBlock no console (apenas ERR_BLOCKED_BY_CLIENT)
-if (typeof window !== 'undefined' && !window.__analyticsBlockFilter) {
-  window.__analyticsBlockFilter = true;
+if (typeof window !== 'undefined' && !(window as any).__analyticsBlockFilter) {
+  (window as any).__analyticsBlockFilter = true;
   window.addEventListener(
     'error',
     (e) => {
@@ -46,7 +46,7 @@ if (typeof window !== 'undefined' && !window.__analyticsBlockFilter) {
  * Uso: safeLoadScript('https://connect.facebook.net/en_US/fbevents.js')
  * Retorna false se bloqueado, sem throw.
  */
-export function safeLoadScript(src, { id, async = true } = {}) {
+export function safeLoadScript(src: string, { id, async = true }: { id?: string; async?: boolean } = {}): boolean {
   try {
     if (typeof document === 'undefined') return false;
     if (id && document.getElementById(id)) return true;
@@ -66,25 +66,25 @@ export function safeLoadScript(src, { id, async = true } = {}) {
     }
     return true;
   } catch (err) {
-    console.warn('[analytics] safeLoadScript bloqueado:', err?.message);
+    console.warn('[analytics] safeLoadScript bloqueado:', err);
     return false;
   }
 }
 
-export function track(evento, params = {}) {
+export function track(evento: string, params: Record<string, any> = {}): void {
   try {
     const id = IGREJA.analytics?.ga4;
     if (!id) return;
 
     // GTM / gtag já carregado na página
-    if (typeof window !== 'undefined' && window.dataLayer) {
-      window.dataLayer.push({ event: evento, ...params });
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({ event: evento, ...params });
     }
     // Facebook Pixel (se um dia configurado como IGREJA.analytics.pixelId)
-    const pixelId = IGREJA.analytics?.pixelId;
-    if (pixelId && typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    const pixelId = (IGREJA as any).analytics?.pixelId;
+    if (pixelId && typeof window !== 'undefined' && typeof (window as any).fbq === 'function') {
       try {
-        window.fbq('trackCustom', evento, params);
+        (window as any).fbq('trackCustom', evento, params);
       } catch {
         // fbq bloqueado — ignora
       }

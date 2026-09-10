@@ -20,7 +20,7 @@ function loadCacheMeta() {
   }
 }
 
-function saveCacheMeta(chunkKeys, total) {
+function saveCacheMeta(chunkKeys: string[], total: number): void {
   if (typeof window === 'undefined') return;
   try {
     sessionStorage.setItem(CACHE_KEY, JSON.stringify({ v: 4, ts: Date.now(), chunks: chunkKeys, total }));
@@ -30,8 +30,8 @@ function saveCacheMeta(chunkKeys, total) {
 }
 
 export function usePlaybacks() {
-  const [playbacks, setPlaybacks] = useState([]);
-  const [adicionados, setAdicionados] = useState(() => {
+  const [playbacks, setPlaybacks] = useState<any[]>([]);
+  const [adicionados, setAdicionados] = useState<any[]>(() => {
     try {
       return JSON.parse(localStorage.getItem('igreja:adicionados') || '[]');
     } catch {
@@ -39,13 +39,13 @@ export function usePlaybacks() {
     }
   });
   const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState(null);
+  const [erro, setErro] = useState<string | null>(null);
   const [chunksCarregados, setChunksCarregados] = useState(0);
-  const [totalChunks, setTotalChunks] = useState(null);
+  const [totalChunks, setTotalChunks] = useState<number | null>(null);
 
-  const idsRef = useRef(new Set());
-  const listaRef = useRef([]);
-  const manifestRef = useRef(null);
+  const idsRef = useRef(new Set<string>());
+  const listaRef = useRef<any[]>([]);
+  const manifestRef = useRef<any>(null);
 
   useEffect(() => {
     try {
@@ -53,7 +53,7 @@ export function usePlaybacks() {
     } catch {}
   }, [adicionados]);
 
-  const ensureChunksForQuery = useCallback((q) => {
+  const ensureChunksForQuery = useCallback((q: string) => {
     if (!q || !manifestRef.current) return;
     const norm = normalizar(q).trim().toUpperCase();
     const ch = norm[0] || '';
@@ -63,7 +63,7 @@ export function usePlaybacks() {
         .then((r) => (r.ok ? r.json() : []))
         .then((arr) => {
           if (!arr.length) return;
-          const novos = arr.filter((p) => !idsRef.current.has(p.id));
+          const novos = arr.filter((p: any) => !idsRef.current.has(p.id));
           if (!novos.length) {
             idsRef.current.add(`__chunk_${key}`);
             return;
@@ -99,8 +99,8 @@ export function usePlaybacks() {
         const conhecidos = chaves.filter((k) => vistos.has(`__chunk_${k}`));
         const novos = chaves.filter((k) => !vistos.has(`__chunk_${k}`));
 
-        const absorver = (k, arr) => {
-          const itens = arr.filter((p) => !idsRef.current.has(p.id));
+        const absorver = (k: string, arr: any[]) => {
+          const itens = arr.filter((p: any) => !idsRef.current.has(p.id));
           for (const p of itens) idsRef.current.add(p.id);
           idsRef.current.add(`__chunk_${k}`);
           if (itens.length) {
@@ -139,7 +139,7 @@ export function usePlaybacks() {
             if (!r.ok) throw new Error(`chunk ${k} falhou ${r.status}`);
             const arr = await r.json();
             if (cancel) return;
-            const novos = arr.filter((p) => !idsRef.current.has(p.id));
+            const novos = arr.filter((p: any) => !idsRef.current.has(p.id));
             for (const p of novos) idsRef.current.add(p.id);
             idsRef.current.add(`__chunk_${k}`);
             if (novos.length) {
@@ -149,7 +149,7 @@ export function usePlaybacks() {
             }
             carregados++;
             setChunksCarregados(carregados);
-          } catch (e) {
+          } catch (e: any) {
             console.warn(`[playbacks] chunk ${k} erro:`, e.message);
             carregados++;
             setChunksCarregados(carregados);
@@ -158,7 +158,7 @@ export function usePlaybacks() {
           if (!cancel) await new Promise((res) => setTimeout(res, 25));
         }
         if (!cancel) setCarregando(false);
-      } catch (e) {
+      } catch (e: any) {
         if (!cancel) {
           setErro(e.message || 'Falha ao carregar manifest');
           setCarregando(false);
@@ -171,11 +171,11 @@ export function usePlaybacks() {
     };
   }, []);
 
-  const handleAdicionar = useCallback((novo) => {
+  const handleAdicionar = useCallback((novo: any) => {
     setAdicionados((prev) => [novo, ...prev]);
   }, []);
 
-  const handleRemover = useCallback((id) => {
+  const handleRemover = useCallback((id: string) => {
     setAdicionados((prev) => prev.filter((p) => p.id !== id));
   }, []);
 
@@ -195,7 +195,7 @@ export function usePlaybacks() {
         const r = await fetch(url);
         if (!r.ok) continue;
         const arr = await r.json();
-        const novos = arr.filter((p) => !idsRef.current.has(p.id));
+        const novos = arr.filter((p: any) => !idsRef.current.has(p.id));
         for (const p of novos) idsRef.current.add(p.id);
         idsRef.current.add(`__chunk_${k}`);
         if (novos.length) {
@@ -213,7 +213,7 @@ export function usePlaybacks() {
   }, []);
 
   const listaCompleta = useMemo(() => [...adicionados, ...playbacks], [adicionados, playbacks]);
-  const idsAdicionados = useMemo(() => new Set(adicionados.map((p) => p.id)), [adicionados]);
+  const idsAdicionados = useMemo(() => new Set(adicionados.map((p: any) => p.id)), [adicionados]);
 
   return {
     playbacks,

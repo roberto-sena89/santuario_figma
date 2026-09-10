@@ -3,16 +3,22 @@ import { ExternalLink, Music, Pause, Play, Volume2, VolumeX, X } from 'lucide-re
 import { useFocusTrap } from '../../hooks/useFocusTrap';
 import { formatDescricao } from '../../utils/format';
 
+interface PlayerModalProps {
+  video: { id: string; titulo?: string; artista?: string } | null;
+  onClose: () => void;
+}
+
 // Carrega a YouTube IFrame API uma única vez
-let ytApiPromise = null;
-function loadYoutubeApi() {
-  if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
+let ytApiPromise: Promise<any> | null = null;
+function loadYoutubeApi(): Promise<any> {
+  const w = window as any;
+  if (w.YT && w.YT.Player) return Promise.resolve(w.YT);
   if (ytApiPromise) return ytApiPromise;
   ytApiPromise = new Promise((resolve) => {
-    const prev = window.onYouTubeIframeAPIReady;
-    window.onYouTubeIframeAPIReady = () => {
-      prev && prev();
-      resolve(window.YT);
+    const prev = w.onYouTubeIframeAPIReady;
+    w.onYouTubeIframeAPIReady = () => {
+      if (prev) prev();
+      resolve(w.YT);
     };
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
@@ -27,10 +33,10 @@ function loadYoutubeApi() {
  * via YouTube IFrame API — os botões nativos do YouTube ficam no iframe
  * e não podem ser reposicionados (cross-origin).
  */
-export default function PlayerModal({ video, onClose }) {
-  const containerRef = useFocusTrap(true);
-  const playerRef = useRef(null);
-  const wrapperRef = useRef(null);
+export default function PlayerModal({ video, onClose }: PlayerModalProps) {
+  const containerRef = useFocusTrap<HTMLDivElement>(true);
+  const playerRef = useRef<any>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [tocando, setTocando] = useState(true);
   const [mudo, setMudo] = useState(false);
   const [volume, setVolume] = useState(100);
@@ -38,7 +44,7 @@ export default function PlayerModal({ video, onClose }) {
 
   useEffect(() => {
     if (!video) return;
-    const handler = (e) => e.key === 'Escape' && onClose();
+    const handler = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', handler);
     document.body.style.overflow = 'hidden';
     return () => {
@@ -62,11 +68,11 @@ export default function PlayerModal({ video, onClose }) {
           controls: 1,
         },
         events: {
-          onReady: (e) => {
+          onReady: (e: any) => {
             setPronto(true);
             e.target.setVolume(100);
           },
-          onStateChange: (e) => setTocando(e.data === YT.PlayerState.PLAYING),
+          onStateChange: (e: any) => setTocando(e.data === YT.PlayerState.PLAYING),
         },
       });
     });
@@ -104,7 +110,7 @@ export default function PlayerModal({ video, onClose }) {
   }, [mudo, pronto]);
 
   const mudarVolume = useCallback(
-    (v) => {
+    (v: number) => {
       if (!playerRef.current || !pronto) return;
       const val = Math.max(0, Math.min(100, v));
       setVolume(val);

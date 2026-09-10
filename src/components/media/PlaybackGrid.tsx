@@ -15,16 +15,43 @@ import {
   Trash2,
   Filter,
 } from 'lucide-react';
-import { CATEGORIAS, thumb } from '../../data/playbacks.js';
-import { SkeletonCard } from '../ui/Skeleton.jsx';
-import { IGREJA } from '../../config.js';
+import { CATEGORIAS, thumb } from '../../data/playbacks';
+import { SkeletonCard } from '../ui/Skeleton';
+import { IGREJA } from '../../config';
 import { formatDescricao, normalizar } from '../../utils/format';
 import { track, EVENTOS } from '../../utils/analytics';
 import PlaybacksHero from './PlaybacksHero';
 import FilterSidebar from './FilterSidebar';
 
+export interface PlaybackItem {
+  id: string;
+  titulo: string;
+  artista: string;
+  categoria?: string;
+  tom?: string;
+  [key: string]: unknown;
+}
+
+interface ChunksInfo {
+  carregados: number;
+  total: number;
+}
+
+interface PlaybackGridProps {
+  lista: PlaybackItem[];
+  favoritas: string[];
+  toggleFav: (id: string) => void;
+  idsAdicionados: Set<string>;
+  onRemoverAdicionado: (id: string) => void;
+  onAbrirPlayer: (m: PlaybackItem) => void;
+  carregando?: boolean;
+  onBuscaChange?: ((q: string) => void) | null;
+  chunksInfo?: ChunksInfo | null;
+  onCarregarTodos?: (() => void) | null;
+}
+
 // Ícones profissionais por categoria (substituem os emojis)
-const ICONES_CATEGORIA = {
+const ICONES_CATEGORIA: Record<string, typeof Sparkles> = {
   Todas: Sparkles,
   Adoração: Heart,
   'Louvor/Celebração': Music2,
@@ -48,7 +75,7 @@ export default function MusicasTab({
   onBuscaChange = null,
   chunksInfo = null,
   onCarregarTodos = null,
-}) {
+}: PlaybackGridProps) {
   // Dados para o cabeçalho
   const totalMusicas = lista.length;
   const artistasUnicos = new Set(lista.map((m) => m.artista)).size;
@@ -127,7 +154,7 @@ export default function MusicasTab({
     const copia = [...listaFiltrada];
     // Harpa Cristã ativa: sempre em ordem numérica crescente dos hinos
     if (soHarpa) {
-      const numHino = (m) => {
+      const numHino = (m: PlaybackItem) => {
         const match = m.titulo.match(/hino\s*#?\s*(\d+)/i);
         return match ? parseInt(match[1], 10) : 9999;
       };
@@ -167,7 +194,7 @@ export default function MusicasTab({
 
   // Destaque: primeiro item com artista conhecido (evita "Desconhecido" no herói)
   const destaque = useMemo(() => {
-    const conhecido = (m) => {
+    const conhecido = (m: PlaybackItem) => {
       const a = String(m?.artista || '').trim().toLowerCase();
       return a !== '' && a !== 'desconhecido' && a !== 'artista desconhecido';
     };
@@ -176,7 +203,7 @@ export default function MusicasTab({
 
   // Tons disponíveis agrupados (maiores, menores, deslocamentos, vozes)
   const tomsDisponiveis = useMemo(() => {
-    const ordem = {
+    const ordem: Record<string, number> = {
       C: 0,
       'C#': 1,
       Db: 2,
@@ -193,8 +220,8 @@ export default function MusicasTab({
       Bb: 13,
       B: 14,
     };
-    const grupos = { maiores: [], menores: [], desloc: [], outros: [] };
-    const vistos = new Set();
+    const grupos = { maiores: [] as string[], menores: [] as string[], desloc: [] as string[], outros: [] as string[] };
+    const vistos = new Set<string>();
     for (const m of lista) {
       if (!m.tom || vistos.has(m.tom)) continue;
       vistos.add(m.tom);
@@ -204,14 +231,14 @@ export default function MusicasTab({
       else if (/^\d+(\.\d+)? (abaixo|acima)$/.test(t)) grupos.desloc.push(t);
       else grupos.outros.push(t);
     }
-    const porNota = (a, b) => {
+    const porNota = (a: string, b: string) => {
       const na = a.match(/^Tom ([A-G](#|b)?)m?$/);
       const nb = b.match(/^Tom ([A-G](#|b)?)m?$/);
       if (!na || !nb) return a.localeCompare(b);
       return (ordem[na[1]] ?? 99) - (ordem[nb[1]] ?? 99);
     };
-    const porDesloc = (a, b) => {
-      const dir = (s) => (s.includes('abaixo') ? 0 : 1);
+    const porDesloc = (a: string, b: string) => {
+      const dir = (s: string) => (s.includes('abaixo') ? 0 : 1);
       return dir(a) - dir(b) || (parseFloat(a) || 0) - (parseFloat(b) || 0);
     };
     return {
@@ -243,7 +270,7 @@ export default function MusicasTab({
     const permitidosComArtigo = new Set(['Os Levitas']);
     const padraoFake =
       /(lançado|network|backing|karaoke|bluetooth|speakers|cante comigo|playback)/i;
-    const temNumeroSuspeito = (nome) => {
+    const temNumeroSuspeito = (nome: string) => {
       if (!/\d/.test(nome)) return false;
       const excecoes = new Set([
         'Adoradores 5',
@@ -255,7 +282,7 @@ export default function MusicasTab({
       if (excecoes.has(nome)) return false;
       return true;
     };
-    const set = new Set();
+    const set = new Set<string>();
     for (const m of lista) {
       const nome = (m.artista || '').trim();
       if (!nome || ignorados.has(nome)) continue;
@@ -273,7 +300,7 @@ export default function MusicasTab({
 
   // Contagem de músicas por artista
   const contagemPorArtista = useMemo(() => {
-    const map = new Map();
+    const map = new Map<string, number>();
     for (const m of lista) {
       const nome = (m.artista || '').trim();
       if (!nome) continue;
@@ -292,11 +319,11 @@ export default function MusicasTab({
   };
 
   // Analytics: abertura de player e favoritas
-  const abrirPlayer = (m) => {
+  const abrirPlayer = (m: PlaybackItem) => {
     track(EVENTOS.abrirPlayer, { titulo: m.titulo, artista: m.artista });
     onAbrirPlayer(m);
   };
-  const alternarFavorita = (id) => {
+  const alternarFavorita = (id: string) => {
     track(favoritas.includes(id) ? EVENTOS.desfavoritar : EVENTOS.favoritar);
     toggleFav(id);
   };
@@ -313,7 +340,7 @@ export default function MusicasTab({
     setPagina(1);
   }, [buscaDebounced, categoria, soFavoritas, tom, artistaSel, soHarpa, ordenacao, itensPorPagina]);
 
-  const irParaPagina = (p) => {
+  const irParaPagina = (p: number) => {
     setPagina(Math.min(Math.max(1, p), totalPaginas));
     document.getElementById('catalogo')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
@@ -336,7 +363,7 @@ export default function MusicasTab({
     const total = totalPaginas;
     const atual = paginaSegura;
     if (total <= 6) return Array.from({ length: total }, (_, i) => i + 1);
-    const lista = new Set([1, total, atual]);
+    const lista = new Set<number>([1, total, atual]);
     for (let i = atual - 1; i <= atual + 1; i++) {
       if (i >= 1 && i <= total) lista.add(i);
     }
@@ -345,7 +372,7 @@ export default function MusicasTab({
 
   // Contagem por categoria (após aplicar Harpa Cristã para refletir a lista visível)
   const totalPorCategoria = useMemo(() => {
-    const map = { Todas: lista.length };
+    const map: Record<string, number> = { Todas: lista.length };
     for (const c of CATEGORIAS) map[c] = 0;
     for (const m of lista) {
       const isHarpa = /harpa\s*crist/.test(normalizar(`${m.titulo} ${m.artista || ''}`));
@@ -357,7 +384,7 @@ export default function MusicasTab({
 
   // Contagem por tom (após aplicar Harpa Cristã)
   const totalPorTom = useMemo(() => {
-    const map = {};
+    const map: Record<string, number> = {};
     for (const m of lista) {
       const isHarpa = /harpa\s*crist/.test(normalizar(`${m.titulo} ${m.artista || ''}`));
       if (isHarpa !== soHarpa) continue;
@@ -682,7 +709,7 @@ export default function MusicasTab({
 }
 
 // Helper: ícone pequeno da categoria dentro da pill do card
-function IconeCategoria({ categoria }) {
-  const Icon = ICONES_CATEGORIA[categoria] || FolderOpen;
+function IconeCategoria({ categoria }: { categoria?: string }) {
+  const Icon = (categoria && ICONES_CATEGORIA[categoria]) || FolderOpen;
   return <Icon className="h-3 w-3" aria-hidden="true" />;
 }

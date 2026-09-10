@@ -1,7 +1,21 @@
 import { useState, useRef } from 'react';
 import { Music, Search, BookOpen, Heart, Play, Volume2 } from 'lucide-react';
-import { CATEGORIAS } from '../../data/playbacks.js';
+import { CATEGORIAS } from '../../data/playbacks';
 import { formatDescricao } from '../../utils/format';
+
+interface PlaybacksHeroProps {
+  totalMusicas: number;
+  totalArtistas: number;
+  harpaCount: number;
+  totalCategorias: number;
+  busca: string;
+  setBusca: (value: string) => void;
+  buscaDebounced: string;
+  categoria: string | null | undefined;
+  setCategoria: (value: string) => void;
+  onAbrirPlayerDestaque: (destaque: any) => void;
+  destaque: any;
+}
 
 export default function PlaybacksHero({
   totalMusicas,
@@ -15,7 +29,7 @@ export default function PlaybacksHero({
   setCategoria,
   onAbrirPlayerDestaque,
   destaque,
-}) {
+}: PlaybacksHeroProps) {
   const [mounted] = useState(true);
   const [focusedSearch, setFocusedSearch] = useState(false);
   const ref = useRef(null);
@@ -150,7 +164,7 @@ export default function PlaybacksHero({
                   Versículo
                 </p>
                 <p className="font-bible text-sm italic text-text leading-snug">
-                  &quot;Cantai ao Senhor um cântico novo&quot;
+                  "Cantai ao Senhor um cântico novo"
                 </p>
                 <p className="text-[10px] text-text2 mt-0.5">Salmos 96:1</p>
               </div>

@@ -1,5 +1,5 @@
 // Helpers — dados ficam em /public/playbacks/*.json (chunks A-Z + manifest)
-export const CATEGORIAS = [
+export const CATEGORIAS: string[] = [
   'Adoração',
   'Louvor/Celebração',
   'Oração/Clamor',
@@ -11,12 +11,12 @@ export const CATEGORIAS = [
   'Geral',
 ];
 
-export const thumb = (id, size = 'mqdefault') => `https://i.ytimg.com/vi/${id}/${size}.jpg`;
+export const thumb = (id: string, size: string = 'mqdefault'): string => `https://i.ytimg.com/vi/${id}/${size}.jpg`;
 
 // Para compatibilidade: re-exporta vazio; App.jsx agora faz fetch via chunks.
-export const PLAYBACKS = [];
+export const PLAYBACKS: any[] = [];
 
-export async function fetchPlaybacks() {
+export async function fetchPlaybacks(): Promise<any[]> {
   const m = await fetch('/playbacks/manifest.json').then((r) => {
     if (!r.ok) throw new Error('manifest missing');
     return r.json();

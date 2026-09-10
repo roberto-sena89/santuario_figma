@@ -26,7 +26,7 @@ export interface HarpaHymn {
  */
 export const HARPA_YOUTUBE = {
   playlistUrl: "https://www.youtube.com/watch?v=QXX-O1U2ufY&list=PLzWjmBOf3rY3hAXmvMI1-W52a23u-3U4o" as string | null,
-  playlistId: "https://www.youtube.com/watch?v=Gyswv5Mat2A&list=PLzWjmBOf3rY3hAXmvMI1-W52a23u-3U4o&index=2" as string | null,
+  playlistId: "PLzWjmBOf3rY3hAXmvMI1-W52a23u-3U4o" as string | null,
   channelUrl: "https://www.youtube.com/@PontocomPalavra" as string | null,
   channelName: "Ponto com a Palavra" as string | null,
 };

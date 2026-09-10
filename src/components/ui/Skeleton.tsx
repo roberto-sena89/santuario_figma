@@ -16,7 +16,7 @@ export function SkeletonCard() {
   );
 }
 
-export function SkeletonText({ lines = 2, className = '' }) {
+export function SkeletonText({ lines = 2, className = '' }: { lines?: number; className?: string }) {
   return (
     <div className={`space-y-2 ${className}`}>
       {Array.from({ length: lines }).map((_, i) => (

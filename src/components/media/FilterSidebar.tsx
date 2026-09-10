@@ -19,11 +19,43 @@ import {
   Tag,
   X,
 } from 'lucide-react';
-import { CATEGORIAS } from '../../data/playbacks.js';
+import { CATEGORIAS } from '../../data/playbacks';
 import { normalizar } from '../../utils/format';
 
+interface FilterSidebarProps {
+  categoria: string;
+  setCategoria: React.Dispatch<React.SetStateAction<string>>;
+  tom: string;
+  setTom: React.Dispatch<React.SetStateAction<string>>;
+  artistaSel: string;
+  setArtistaSel: React.Dispatch<React.SetStateAction<string>>;
+  artistaBusca: string;
+  setArtistaBusca: React.Dispatch<React.SetStateAction<string>>;
+  soFavoritas: boolean;
+  setSoFavoritas: React.Dispatch<React.SetStateAction<boolean>>;
+  soHarpa: boolean;
+  setSoHarpa: React.Dispatch<React.SetStateAction<boolean>>;
+  ordenacao: string;
+  setOrdenacao: React.Dispatch<React.SetStateAction<string>>;
+  totalPorCategoria: Record<string, number>;
+  totalPorTom: Record<string, number>;
+  artistasDisponiveis: string[];
+  tomsDisponiveis: {
+    maiores: string[];
+    menores: string[];
+    desloc: string[];
+    outros: string[];
+  };
+  contagemPorArtista: Map<string, number>;
+  temFiltros: boolean;
+  limparFiltros: () => void;
+  open?: boolean;
+  onClose?: (() => void) | null;
+  favoritasCount?: number;
+}
+
 // Ícones profissionais por categoria (mesmo padrão do PlaybackGrid)
-const ICONES_CATEGORIA = {
+const ICONES_CATEGORIA: Record<string, typeof Sparkles> = {
   Todas: Sparkles,
   Adoração: Heart,
   'Louvor/Celebração': Music2,
@@ -50,7 +82,6 @@ const ICONES_CATEGORIA = {
  *   - Persistência visual (sticky no desktop)
  */
 export default function FilterSidebar({
-  // Filtros
   categoria,
   setCategoria,
   tom,
@@ -65,21 +96,17 @@ export default function FilterSidebar({
   setSoHarpa,
   ordenacao,
   setOrdenacao,
-  // Contagens
   totalPorCategoria,
   totalPorTom,
-  // Listas
   artistasDisponiveis,
   tomsDisponiveis,
   contagemPorArtista,
-  // Ações
   temFiltros,
   limparFiltros,
-  // Visibilidade (mobile)
   open = false,
   onClose = null,
   favoritasCount = 0,
-}) {
+}: FilterSidebarProps) {
   // Accordion: controla quais seções estão abertas (padrão: todas abertas)
   const [secoesAbertas, setSecoesAbertas] = useState({
     categorias: true,
@@ -88,14 +115,14 @@ export default function FilterSidebar({
     ordenacao: true,
   });
 
-  const toggleSecao = (secao) => {
+  const toggleSecao = (secao: keyof typeof secoesAbertas) => {
     setSecoesAbertas((prev) => ({ ...prev, [secao]: !prev[secao] }));
   };
 
   // Fechar drawer no mobile ao pressionar ESC
   useEffect(() => {
     if (!open) return;
-    const handleEsc = (e) => {
+    const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose?.();
     };
     window.addEventListener('keydown', handleEsc);
@@ -115,7 +142,7 @@ export default function FilterSidebar({
       {open && (
         <div
           className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
-          onClick={onClose}
+          onClick={() => onClose?.()}
           aria-hidden="true"
         />
       )}
@@ -198,9 +225,7 @@ export default function FilterSidebar({
                   {favoritasCount > 0 && (
                     <span
                       className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums ${
-                        soFavoritas
-                          ? 'bg-[#D4A24C]/25 text-[#E8B35E]'
-                          : 'bg-surface text-muted'
+                        soFavoritas ? 'bg-[#D4A24C]/25 text-[#E8B35E]' : 'bg-surface text-muted'
                       }`}
                     >
                       {favoritasCount}
@@ -304,7 +329,7 @@ export default function FilterSidebar({
             contador={categoria !== 'Todas' ? 1 : 0}
           >
             <div className="space-y-0.5 max-h-64 overflow-y-auto pr-1">
-              {['Todas', ...CATEGORIAS].map((c) => {
+              {['Todas', ...CATEGORIAS].map((c: string) => {
                 const Icon = ICONES_CATEGORIA[c] || Archive;
                 const count = totalPorCategoria?.[c] ?? 0;
                 const ativa = categoria === c;
@@ -493,7 +518,21 @@ export default function FilterSidebar({
 /**
  * Subcomponente: cabeçalho de seção com accordion
  */
-function SecaoAccordion({ titulo, icone: Icone, aberta, onToggle, contador, children }) {
+function SecaoAccordion({
+  titulo,
+  icone: Icone,
+  aberta,
+  onToggle,
+  contador,
+  children,
+}: {
+  titulo: string;
+  icone: React.ComponentType<any> | null;
+  aberta: boolean;
+  onToggle: () => void;
+  contador: number;
+  children: React.ReactNode;
+}) {
   return (
     <div
       className={`overflow-hidden rounded-2xl border backdrop-blur-sm transition-colors duration-200 ${
@@ -537,7 +576,19 @@ function SecaoAccordion({ titulo, icone: Icone, aberta, onToggle, contador, chil
 /**
  * Subcomponente: grupo de tons (maiores, menores, etc.)
  */
-function GrupoTom({ label, tons, tom, setTom, count = {} }) {
+function GrupoTom({
+  label,
+  tons,
+  tom,
+  setTom,
+  count = {},
+}: {
+  label: string;
+  tons: string[];
+  tom: string;
+  setTom: React.Dispatch<React.SetStateAction<string>>;
+  count?: Record<string, number>;
+}) {
   return (
     <div>
       <p className="px-1.5 pb-1 pt-1 text-[10px] font-bold uppercase tracking-wider text-muted">
