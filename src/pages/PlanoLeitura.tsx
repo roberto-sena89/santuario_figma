@@ -86,14 +86,30 @@ export default function PlanoLeitura() {
 
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
-      <section className="py-12 sm:py-16">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Hero com imagem de fundo - /fotos/plano-de-leitura/1.jpg */}
+      <section className="relative overflow-hidden">
+        <img
+          src="/fotos/plano-de-leitura/1.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          loading="eager"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background"
+          aria-hidden="true"
+        />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 py-12 sm:py-16">
           <PageTitle
             eyebrow="Plano de leitura"
             title="Bíblia em"
             titleAccent="365 dias"
             subtitle="Gênesis a Apocalipse, ~3 capítulos por dia. Marque cada dia e construa tua sequência."
           />
+        </div>
+      </section>
+      <section className="pb-12 sm:pb-16">
+        <div className="max-w-4xl mx-auto px-4">
 
           {/* Barra de progresso */}
           <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 mb-6">
