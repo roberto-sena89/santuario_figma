@@ -103,26 +103,45 @@ export default function Footer({ onNavigate }: FooterProps) {
 
   return (
     <footer
-      className="relative bg-graphite text-graphite-fg overflow-hidden"
+      className="relative text-graphite-fg overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(180deg, #0B100F 0%, #0F1414 38%, #131918 100%)",
+      }}
       role="contentinfo"
     >
       {/* Camadas decorativas — profundidade sem ruído */}
       <div
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/40 to-transparent"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/50 to-transparent"
         aria-hidden="true"
       />
       <div
-        className="absolute -top-40 left-1/2 -translate-x-1/2 h-80 w-[600px] rounded-full bg-[#D4A24C]/8 blur-3xl pointer-events-none"
+        className="absolute -top-48 left-1/2 -translate-x-1/2 h-96 w-[700px] rounded-full bg-[#D4A24C]/[0.07] blur-3xl pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        className="absolute -bottom-52 -left-32 h-96 w-96 rounded-full bg-[#D4A24C]/[0.05] blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute -bottom-52 -right-32 h-96 w-96 rounded-full bg-[#D4A24C]/[0.04] blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
-          backgroundSize: "32px 32px",
+          backgroundSize: "30px 30px",
         }}
         aria-hidden="true"
       />
+      <span
+        aria-hidden="true"
+        className="pointer-events-none select-none absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap font-display text-[19vw] leading-none text-white/[0.018]"
+      >
+        Santuário
+      </span>
+
 
       <div className="relative mx-auto max-w-7xl px-4 pt-20 pb-8 sm:px-6 lg:px-8">
         {/* ════════════════════════════════════════════════════
