@@ -122,7 +122,7 @@ export default function Harpa() {
             <p>Nenhum hino encontrado para esta busca.</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 items-start">
             {pageSlice.map((hymn) => (
               <HymnCard
                 key={hymn.number}
@@ -253,7 +253,11 @@ function HymnCard({
   onOuvir: (v: PlaybackMatch) => void;
 }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10">
+    <article
+      className={`group overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10 ${
+        open ? "sm:col-span-2 xl:col-span-3" : ""
+      }`}
+    >
       <button
         onClick={onToggle}
         className="w-full text-left px-6 py-4 flex items-center justify-between gap-4 hover:bg-muted/30 transition-colors"
