@@ -283,8 +283,32 @@ export default function Home({ onNavigate }: HomeProps) {
       </section>
 
       {/* Próximos Eventos */}
-            <section className="py-20 bg-background" aria-label="Próximos eventos">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section
+              className="relative overflow-hidden py-20"
+              style={{
+                background:
+                  "linear-gradient(180deg, #0F1414 0%, #121715 50%, #0F1414 100%)",
+              }}
+              aria-label="Próximos eventos"
+            >
+              {/* fio superior + brilho lateral + pontos sutis */}
+              <div
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/40 to-transparent"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute -top-32 right-[-10%] h-80 w-80 rounded-full bg-[#D4A24C]/[0.06] blur-3xl pointer-events-none"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                  backgroundImage: `radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)`,
+                  backgroundSize: "28px 28px",
+                }}
+                aria-hidden="true"
+              />
+              <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
                   <div>
                     <p className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
@@ -308,7 +332,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   {nextEvents.map((event) => (
                     <article
                       key={event.id}
-                      className="group bg-gradient-to-b from-gray-800 to-gray-900 border border-gray-700 rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-black/30 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
+                      className="group bg-gradient-to-b from-[#151A19] to-[#0F1414] border border-[#2A302D] rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-black/30 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
                                     >
                                       {event.highlight && (
                                         <div className="bg-gradient-to-r from-[#D4A24C] to-[#C4933C] px-4 py-1.5">
