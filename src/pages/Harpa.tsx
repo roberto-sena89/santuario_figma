@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { HarpaHino } from "../data/harpaCompleta";
+import PlayerModal from "../components/media/PlayerModal.jsx";
+import {
+  buscarPlaybacksDoHino,
+  type PlaybackMatch,
+} from "../data/harpaPlayback";
 
 type SearchFn = (query: string) => HarpaHino[];
 
@@ -9,6 +14,7 @@ export default function Harpa() {
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 24;
   const [loaded, setLoaded] = useState(false);
+  const [playerVideo, setPlayerVideo] = useState<PlaybackMatch | null>(null);
   const searchRef = useRef<SearchFn | null>(null);
   const hinosRef = useRef<HarpaHino[]>([]);
 
@@ -74,7 +80,7 @@ export default function Harpa() {
           <div className="mb-0 max-w-2xl text-left">
             <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">Hinario</p>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">Harpa Crista</h1>
-            <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed"><span>Hinos classicos do hinario cristao. Busque por numero ou titulo.</span></p>
+            <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed"><span>Hinos classicos do hinario cristao. Busque por numero ou titulo. Hinos com {"\u{1F3B5}"} têm playback para cantar junto.</span></p>
           </div>
         </div>
       </section>
@@ -123,6 +129,7 @@ export default function Harpa() {
                 hymn={hymn}
                 open={expanded === hymn.number}
                 onToggle={() => setExpanded(expanded === hymn.number ? null : hymn.number)}
+                onOuvir={setPlayerVideo}
               />
             ))}
           </div>
@@ -173,7 +180,64 @@ export default function Harpa() {
           </div>
         )}
       </div>
+      <PlayerModal video={playerVideo} onClose={() => setPlayerVideo(null)} />
     </main>
+  );
+}
+
+function CanteJunto({
+  titulo,
+  onAbrir,
+}: {
+  titulo: string;
+  onAbrir: (v: PlaybackMatch) => void;
+}) {
+  const [estado, setEstado] = useState<"loading" | "vazio" | "ok">("loading");
+  const [matches, setMatches] = useState<PlaybackMatch[]>([]);
+
+  useEffect(() => {
+    let vivo = true;
+    setEstado("loading");
+    buscarPlaybacksDoHino(titulo).then((m) => {
+      if (!vivo) return;
+      setMatches(m);
+      setEstado(m.length ? "ok" : "vazio");
+    });
+    return () => {
+      vivo = false;
+    };
+  }, [titulo]);
+
+  if (estado === "loading") {
+    return (
+      <p className="text-xs text-muted-foreground" role="status">
+        Procurando playback...
+      </p>
+    );
+  }
+  if (estado === "vazio") return null;
+  return (
+    <div className="rounded-xl border border-[#D4A24C]/25 bg-[#D4A24C]/5 p-4">
+      <p className="text-xs font-semibold text-[#B8860B] dark:text-[#E8B35E] uppercase tracking-wide mb-2">
+        {"\u{1F3B5} Cante junto"}
+      </p>
+      <div className="flex flex-col gap-2">
+        {matches.map((m) => (
+          <button
+            key={m.id}
+            onClick={() => onAbrir(m)}
+            className="inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/30 bg-background px-4 py-2 text-left text-sm font-semibold text-foreground transition-all hover:border-[#D4A24C]/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+          >
+            <svg className="h-4 w-4 flex-shrink-0 text-[#D4A24C]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <span className="min-w-0 truncate">
+              Ouvir playback{m.artista ? ` — ${m.artista}` : ""}
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -181,10 +245,12 @@ function HymnCard({
   hymn,
   open,
   onToggle,
+  onOuvir,
 }: {
   hymn: HarpaHino;
   open: boolean;
   onToggle: () => void;
+  onOuvir: (v: PlaybackMatch) => void;
 }) {
   return (
     <article className="group overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10">
@@ -244,6 +310,7 @@ function HymnCard({
                 </p>
               </div>
             )}
+            <CanteJunto titulo={hymn.title} onAbrir={onOuvir} />
           </div>
         </div>
       )}
