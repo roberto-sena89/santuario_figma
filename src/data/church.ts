@@ -7,10 +7,10 @@ export const CHURCH = {
   address: {
     street: "Rua das Flores, 123",
     neighborhood: "Centro",
-    city: "São Paulo",
-    state: "SP",
+    city: "Saboeiro",
+    state: "CE",
     cep: "01000-000",
-    full: "Rua das Flores, 123 — Centro, São Paulo/SP",
+    full: "Rua das Flores, 123 — Centro, Saboeiro/CE",
     mapsUrl: "https://www.openstreetmap.org",
   },
   phone: "(11) 9 9999-9999",
