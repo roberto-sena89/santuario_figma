@@ -1,5 +1,6 @@
 import { getPalavraDoDia } from "../data/palavraDoDia";
 import { getDevotionalByDate } from "../data/devotionals";
+import { getProximoCulto } from "../data/schedule";
 import { UPCOMING_EVENTS, formatDate } from "../data/schedule";
 import { MINISTERIOS } from "../data/ministerios";
 import { CHURCH } from "../data/church";
@@ -16,6 +17,7 @@ interface HomeProps {
 
 export default function Home({ onNavigate }: HomeProps) {
   const verse = getPalavraDoDia();
+  const proximoCulto = getProximoCulto();
   const devocional = getDevotionalByDate(new Date());
   // Destaques: troca Infantil por Missões no grid da Home
   const featuredMinistries = MINISTERIOS.filter(
@@ -58,6 +60,31 @@ export default function Home({ onNavigate }: HomeProps) {
           <p className="text-white/70 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
             {CHURCH.description}
           </p>
+        </div>
+      </section>
+
+      {/* Próximo culto — atalho de 1 clique para a agenda */}
+      <section aria-label="Próximo culto" className="bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <button
+            onClick={() => navigate("cultos")}
+            className="group w-full -mt-7 relative z-10 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 rounded-2xl border border-[#D4A24C]/30 bg-card px-5 py-4 text-left shadow-lg shadow-black/20 transition-all hover:border-[#D4A24C]/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+          >
+            <span className="relative flex h-2.5 w-2.5 flex-shrink-0" aria-hidden="true">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4A24C]/60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#D4A24C]" />
+            </span>
+            <span className="text-sm text-foreground">
+              <strong className="font-bold">Próximo culto {proximoCulto.dataLabel}:</strong>{" "}
+              {proximoCulto.title} · {proximoCulto.day} {proximoCulto.time} · {proximoCulto.location}
+            </span>
+            <span className="sm:ml-auto inline-flex items-center gap-1 text-sm font-bold text-[#D4A24C] flex-shrink-0">
+              Ver agenda
+              <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </button>
         </div>
       </section>
 

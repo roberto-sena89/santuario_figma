@@ -1,27 +1,28 @@
-import { useState, useEffect, Component, type ReactNode } from "react";
+import { useState, useEffect, Suspense, lazy, Component, type ReactNode } from "react";
 import Navigation, { type Page } from "./components/Navigation";
 import Footer from "./components/Footer";
 import PrayerButton from "./components/PrayerButton";
 import SupportButton from "./components/SupportButton";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Home from "./pages/Home";
-import Bible from "./pages/Bible";
-import PalavraDodia from "./pages/PalavraDodia";
-import Devocional from "./pages/Devocional";
-import Quiz from "./pages/Quiz";
-import PlanoLeitura from "./pages/PlanoLeitura";
-import Oracoes from "./pages/Oracoes";
-import Momento from "./pages/Momento";
-import Playbacks from "./pages/Playbacks";
-import Harpa from "./pages/Harpa";
-import Cultos from "./pages/Cultos";
-import Ministerios from "./pages/Ministerios";
-import QuemSomos from "./pages/QuemSomos";
-import Contribuicoes from "./pages/Contribuicoes";
-import Contato from "./pages/Contato";
-import Missoes from "./pages/Missoes";
-import MinisterioDetalhe from "./pages/MinisterioDetalhe";
-import AdminScale from "./components/AdminScale";
+// Páginas pesadas em lazy chunks — a inicial carrega leve (4G fraco)
+const Bible = lazy(() => import("./pages/Bible"));
+const PalavraDodia = lazy(() => import("./pages/PalavraDodia"));
+const Devocional = lazy(() => import("./pages/Devocional"));
+const Quiz = lazy(() => import("./pages/Quiz"));
+const PlanoLeitura = lazy(() => import("./pages/PlanoLeitura"));
+const Oracoes = lazy(() => import("./pages/Oracoes"));
+const Momento = lazy(() => import("./pages/Momento"));
+const Playbacks = lazy(() => import("./pages/Playbacks"));
+const Harpa = lazy(() => import("./pages/Harpa"));
+const Cultos = lazy(() => import("./pages/Cultos"));
+const Ministerios = lazy(() => import("./pages/Ministerios"));
+const QuemSomos = lazy(() => import("./pages/QuemSomos"));
+const Contribuicoes = lazy(() => import("./pages/Contribuicoes"));
+const Contato = lazy(() => import("./pages/Contato"));
+const Missoes = lazy(() => import("./pages/Missoes"));
+const MinisterioDetalhe = lazy(() => import("./pages/MinisterioDetalhe"));
+const AdminScale = lazy(() => import("./components/AdminScale"));
 import { CHURCH } from "./data/church";
 import { MINISTERIOS } from "./data/ministerios";
 
@@ -128,6 +129,19 @@ export default function App() {
   const renderPage = () => {
     return (
       <ErrorBoundary>
+        <Suspense
+          fallback={
+            <main
+              id="main-content"
+              className="min-h-screen bg-background pt-16 grid place-items-center"
+              aria-label="Carregando página"
+            >
+              <p className="text-sm text-muted-foreground animate-pulse">
+                Carregando...
+              </p>
+            </main>
+          }
+        >
         {(() => {
           switch (currentPage) {
             case "home":
@@ -170,6 +184,7 @@ export default function App() {
               return <Home onNavigate={navigate} />;
           }
         })()}
+        </Suspense>
       </ErrorBoundary>
     );
   };

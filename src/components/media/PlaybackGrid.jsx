@@ -165,6 +165,15 @@ export default function MusicasTab({
     lista,
   ]);
 
+  // Destaque: primeiro item com artista conhecido (evita "Desconhecido" no herói)
+  const destaque = useMemo(() => {
+    const conhecido = (m) => {
+      const a = String(m?.artista || '').trim().toLowerCase();
+      return a !== '' && a !== 'desconhecido' && a !== 'artista desconhecido';
+    };
+    return filtradas.find(conhecido) || filtradas[0] || null;
+  }, [filtradas]);
+
   // Tons disponíveis agrupados (maiores, menores, deslocamentos, vozes)
   const tomsDisponiveis = useMemo(() => {
     const ordem = {
@@ -371,7 +380,7 @@ export default function MusicasTab({
         categoria={categoria}
         setCategoria={setCategoria}
         onAbrirPlayerDestaque={onAbrirPlayer}
-        destaque={filtradas[0]} // Primeiro item filtrado como destaque
+        destaque={destaque} // Primeiro com artista conhecido (nunca "Desconhecido")
       />
 
       {/* Layout principal: Sidebar de Filtros + Grid de Playbacks */}

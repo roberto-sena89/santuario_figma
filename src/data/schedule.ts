@@ -195,3 +195,43 @@ export function formatDate(dateStr: string): string {
     year: "numeric",
   });
 }
+
+const DIA_PARA_NUM: Record<string, number> = {
+  "Domingo": 0,
+  "Segunda-feira": 1,
+  "Terça-feira": 2,
+  "Quarta-feira": 3,
+  "Quinta-feira": 4,
+  "Sexta-feira": 5,
+  "Sábado": 6,
+};
+
+export interface ProximoCulto extends ServiceSchedule {
+  emDias: number; // 0 = hoje
+  dataLabel: string; // "hoje", "amanhã" ou "Dom, 14"
+}
+
+/** Próximo culto da grade semanal a partir de agora. */
+export function getProximoCulto(now: Date = new Date()): ProximoCulto {
+  const agoraMin = now.getHours() * 60 + now.getMinutes();
+  let melhor: { s: ServiceSchedule; emDias: number } | null = null;
+
+  for (const s of WEEKLY_SCHEDULE) {
+    const alvo = DIA_PARA_NUM[s.day] ?? 0;
+    let emDias = (alvo - now.getDay() + 7) % 7;
+    const [h, m] = s.time.split(":").map(Number);
+    if (emDias === 0 && h * 60 + m <= agoraMin) emDias = 7;
+    if (!melhor || emDias < melhor.emDias) melhor = { s, emDias };
+  }
+
+  const sel = melhor ?? { s: WEEKLY_SCHEDULE[0], emDias: 0 };
+  const data = new Date(now);
+  data.setDate(now.getDate() + sel.emDias);
+  const dataLabel =
+    sel.emDias === 0
+      ? "hoje"
+      : sel.emDias === 1
+        ? "amanhã"
+        : data.toLocaleDateString("pt-BR", { weekday: "short", day: "numeric" });
+  return { ...sel.s, emDias: sel.emDias, dataLabel };
+}
