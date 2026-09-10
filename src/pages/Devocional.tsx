@@ -221,55 +221,8 @@ export default function Devocional() {
               </article>
             </div>
 
-            {/* Sidebar - Papel de Parede + Ações como no original */}
+            {/* Sidebar - Ações como no original */}
             <aside className="space-y-6">
-              {/* Papel de Parede do Dia */}
-              <div className="rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm overflow-hidden">
-                <div className="px-5 py-4 border-b border-border/60">
-                  <h3 className="font-display text-sm font-semibold text-foreground flex items-center gap-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#D4A24C]" />
-                    Papel de Parede do Dia
-                  </h3>
-                  <p className="text-xs text-muted-foreground mt-1">Download</p>
-                </div>
-                <div className="p-4">
-                  <a href={wallpaper} target="_blank" rel="noopener noreferrer" className="block group">
-                    <div className="aspect-[4/3] rounded-xl overflow-hidden bg-muted border border-border/40">
-                      <img
-                        src={wallpaper}
-                        alt="Papel de parede do dia"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
-                    </div>
-                  </a>
-                  <div className="mt-4 grid grid-cols-2 gap-2">
-                    <a
-                      href={wallpaper}
-                      download
-                      className="inline-flex items-center justify-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-3 py-2 text-xs font-semibold text-[#9C7A2E] hover:bg-[#D4A24C]/20 transition-colors text-center leading-tight"
-                    >
-                      1600×1200
-                    </a>
-                    <a
-                      href={wallpaper}
-                      download
-                      className="inline-flex items-center justify-center rounded-full border border-border bg-muted/50 px-3 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors text-center leading-tight"
-                    >
-                      1920×1200 wide
-                    </a>
-                  </div>
-                  <div className="mt-3 flex gap-2">
-                    <a href={wallpaper} target="_blank" rel="noopener noreferrer" className="flex-1">
-                      <img src={wallpaper} alt="mini" className="w-full h-16 object-cover rounded-lg border border-border/40 opacity-80 hover:opacity-100 transition-opacity" loading="lazy" />
-                    </a>
-                    <a href={wallpaper} target="_blank" rel="noopener noreferrer" className="flex-1">
-                      <img src={wallpaper} alt="mini wide" className="w-full h-16 object-cover rounded-lg border border-border/40 opacity-80 hover:opacity-100 transition-opacity" loading="lazy" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
               {/* Compartilhar / Salvar */}
               <div className="rounded-2xl border border-border/60 bg-card/50 p-5">
                 <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground mb-3">Compartilhar</h3>
