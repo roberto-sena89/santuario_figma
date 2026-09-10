@@ -72,6 +72,8 @@ export default function PalavraDodia({ onNavigate }: Props) {
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="eager"
+          width={1000}
+          height={571}
           aria-hidden="true"
         />
         <div

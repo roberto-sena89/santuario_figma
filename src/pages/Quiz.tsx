@@ -90,6 +90,8 @@ export default function Quiz() {
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="eager"
+          width={736}
+          height={552}
           aria-hidden="true"
         />
         <div

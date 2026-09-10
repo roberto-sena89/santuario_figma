@@ -93,6 +93,8 @@ export default function PlanoLeitura() {
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="eager"
+          width={736}
+          height={414}
           aria-hidden="true"
         />
         <div

@@ -45,7 +45,7 @@ export default function Harpa() {
       <main id="main-content" className="min-h-screen bg-background pt-16">
         {/* Header hero com imagem de fundo - /fotos/harpa/1.jpg */}
         <section className="relative overflow-hidden">
-          <img src="/fotos/harpa/1.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" aria-hidden="true" />
+          <img src="/fotos/harpa/1.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" width={1100} height={1680} aria-hidden="true" />
           <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
           <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
           <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">

@@ -1,35 +1,36 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { normalizar } from '../utils/format';
 
-const CACHE_KEY = 'santuario:playbacks-cache-v3';
+const CACHE_KEY = 'santuario:playbacks-cache-v4';
 
-function loadCachedChunks() {
+// Cache leve: guarda SÓ o índice (chunks já vistos + total), nunca a lista.
+// A lista (1,6 MB) era parseada do sessionStorage a cada carregamento,
+// bloqueando a thread principal e arriscando estourar a cota de 5 MB.
+// Os chunks voltam rápido do HTTP cache do navegador na revisita.
+function loadCacheMeta() {
   if (typeof window === 'undefined') return null;
   try {
     const raw = sessionStorage.getItem(CACHE_KEY);
     if (!raw) return null;
     const data = JSON.parse(raw);
-    if (data?.v !== 3) return null;
+    if (data?.v !== 4 || !Array.isArray(data?.chunks)) return null;
     return data;
   } catch {
     return null;
   }
 }
 
-function saveCachedChunks(playbacks, total) {
+function saveCacheMeta(chunkKeys, total) {
   if (typeof window === 'undefined') return;
   try {
-    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ v: 3, ts: Date.now(), playbacks, total }));
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ v: 4, ts: Date.now(), chunks: chunkKeys, total }));
   } catch {
-    // quota exceeded — ignora
+    // quota exceeded — ignora (a lista segue em memória)
   }
 }
 
 export function usePlaybacks() {
-  const [playbacks, setPlaybacks] = useState(() => {
-    const cached = loadCachedChunks();
-    return cached?.playbacks || [];
-  });
+  const [playbacks, setPlaybacks] = useState([]);
   const [adicionados, setAdicionados] = useState(() => {
     try {
       return JSON.parse(localStorage.getItem('igreja:adicionados') || '[]');
@@ -37,26 +38,14 @@ export function usePlaybacks() {
       return [];
     }
   });
-  const [carregando, setCarregando] = useState(() => !loadCachedChunks());
+  const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
   const [chunksCarregados, setChunksCarregados] = useState(0);
-  const [totalChunks, setTotalChunks] = useState(() => {
-    const cached = loadCachedChunks();
-    return cached?.total || null;
-  });
+  const [totalChunks, setTotalChunks] = useState(null);
 
   const idsRef = useRef(new Set());
   const listaRef = useRef([]);
   const manifestRef = useRef(null);
-
-  // Inicializa refs com cache
-  useEffect(() => {
-    const cached = loadCachedChunks();
-    if (cached) {
-      idsRef.current = new Set(cached.playbacks.map((p) => p.id));
-      listaRef.current = [...cached.playbacks];
-    }
-  }, []);
 
   useEffect(() => {
     try {
@@ -84,7 +73,7 @@ export function usePlaybacks() {
           listaRef.current = [...listaRef.current, ...novos];
           setPlaybacks(listaRef.current);
           setChunksCarregados((c) => c + 1);
-          if (manifestRef.current) saveCachedChunks(listaRef.current, Object.keys(manifestRef.current.chunks).length);
+          if (manifestRef.current) saveCacheMeta([...idsRef.current], Object.keys(manifestRef.current.chunks).length);
         })
         .catch(() => {});
     }
@@ -103,16 +92,41 @@ export function usePlaybacks() {
         setTotalChunks(chaves.length);
         if (chaves.length === 0) throw new Error('manifest vazio');
 
-        // Se cache já tem tudo, não refaz fetch
-        const cached = loadCachedChunks();
-        if (cached && cached.playbacks.length >= manifest.total) {
-          setChunksCarregados(chaves.length);
-          setCarregando(false);
-          return;
-        }
+        // Revisita: chunks já vistos vêm em paralelo do HTTP cache;
+        // chunks novos seguem sequenciais para não saturar a rede
+        const meta = loadCacheMeta();
+        const vistos = new Set(meta?.chunks || []);
+        const conhecidos = chaves.filter((k) => vistos.has(`__chunk_${k}`));
+        const novos = chaves.filter((k) => !vistos.has(`__chunk_${k}`));
+
+        const absorver = (k, arr) => {
+          const itens = arr.filter((p) => !idsRef.current.has(p.id));
+          for (const p of itens) idsRef.current.add(p.id);
+          idsRef.current.add(`__chunk_${k}`);
+          if (itens.length) {
+            listaRef.current = [...listaRef.current, ...itens];
+            setPlaybacks(listaRef.current);
+          }
+        };
 
         let carregados = 0;
-        for (const k of chaves) {
+        await Promise.all(
+          conhecidos.map(async (k) => {
+            if (cancel) return;
+            if (idsRef.current.has(`__chunk_${k}`)) return;
+            try {
+              const r = await fetch(`/playbacks/${encodeURIComponent(k)}.json`);
+              if (!r.ok) return;
+              absorver(k, await r.json());
+            } catch {}
+          })
+        );
+        if (cancel) return;
+        carregados = conhecidos.length;
+        setChunksCarregados(carregados);
+        if (conhecidos.length) saveCacheMeta([...idsRef.current], chaves.length);
+
+        for (const k of novos) {
           if (cancel) return;
           if (idsRef.current.has(`__chunk_${k}`)) {
             carregados++;
@@ -131,7 +145,7 @@ export function usePlaybacks() {
             if (novos.length) {
               listaRef.current = [...listaRef.current, ...novos];
               setPlaybacks(listaRef.current);
-              saveCachedChunks(listaRef.current, chaves.length);
+              saveCacheMeta([...idsRef.current], chaves.length);
             }
             carregados++;
             setChunksCarregados(carregados);
@@ -187,7 +201,7 @@ export function usePlaybacks() {
         if (novos.length) {
           listaRef.current = [...listaRef.current, ...novos];
           setPlaybacks(listaRef.current);
-          saveCachedChunks(listaRef.current, chaves.length);
+          saveCacheMeta([...idsRef.current], chaves.length);
         }
         setChunksCarregados((c) => c + 1);
       } catch {

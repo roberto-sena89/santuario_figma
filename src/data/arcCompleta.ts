@@ -1,45 +1,50 @@
 /**
  * Bíblia completa ARC (Almeida Revista e Corrigida) — offline.
  *
- * O JSON fica em `public/ARC.json` (4 MB) e é baixado lazily na primeira
- * vez que o usuário abre a página Bíblia. Depois fica em memória (cache
- * do módulo) para navegações subsequentes sem novo fetch.
+ * O texto fica fatiado por livro em `public/arc/<id>.json` (1..66) e cada
+ * livro é baixado lazily quando exibido pela primeira vez. Depois fica em
+ * memória (cache do módulo) para navegações subsequentes sem novo fetch.
+ * Gerado a partir do JSON completo — para regenerar, fatie o array de
+ * 66 livros `[{abbrev, name, chapters}]` em um arquivo por índice.
  *
- * Estrutura do JSON: array com 66 livros:
- *   [{ abbrev: "Gn", chapters: [[v1, v2, ...], [v1, ...], ...] }, ...]
+ * Formato por livro: { abbrev: "Gn", chapters: [[v1, v2, ...], ...] }
  */
 
 import { BIBLE_BOOKS } from "./bibleBooks";
 
 export interface ArcBook {
   abbrev: string;
+  name?: string;
   chapters: string[][];
 }
 
 export type ArcBible = ArcBook[];
 
-let cache: ArcBible | null = null;
-let inflight: Promise<ArcBible> | null = null;
+const bookCache = new Map<number, ArcBook>();
+const bookInflight = new Map<number, Promise<ArcBook>>();
 
-/** Carrega a Bíblia ARC uma única vez (memoizado em cache do módulo). */
-export async function loadArcBible(): Promise<ArcBible> {
-  if (cache) return cache;
-  if (inflight) return inflight;
-  inflight = fetch("/ARC.json")
+/** Carrega um livro ARC sob demanda (memoizado em cache do módulo). */
+export async function loadArcBook(bookId: number): Promise<ArcBook> {
+  const hit = bookCache.get(bookId);
+  if (hit) return hit;
+  const ongoing = bookInflight.get(bookId);
+  if (ongoing) return ongoing;
+  const p = fetch(`/arc/${bookId}.json`)
     .then((res) => {
-      if (!res.ok) throw new Error(`Falha ao carregar ARC.json (HTTP ${res.status})`);
-      return res.json() as Promise<ArcBible>;
+      if (!res.ok) throw new Error(`Falha ao carregar livro ${bookId} (HTTP ${res.status})`);
+      return res.json() as Promise<ArcBook>;
     })
     .then((data) => {
-      cache = data;
-      inflight = null;
+      bookCache.set(bookId, data);
+      bookInflight.delete(bookId);
       return data;
     })
     .catch((err) => {
-      inflight = null;
+      bookInflight.delete(bookId);
       throw err;
     });
-  return inflight;
+  bookInflight.set(bookId, p);
+  return p;
 }
 
 /**

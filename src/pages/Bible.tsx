@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { BIBLE_BOOKS, AT_BOOKS, NT_BOOKS, type BibleBook } from "../data/bibleBooks";
-import { loadArcBible, getChapterVerses, ARC_TRANSLATION, ARC_FULL_NAME, type ArcBible } from "../data/arcCompleta";
+import { loadArcBook, getChapterVerses, ARC_TRANSLATION, ARC_FULL_NAME, type ArcBible, type ArcBook } from "../data/arcCompleta";
 import {
   CURATED_COLLECTIONS,
   THEME_MAP,
@@ -262,33 +262,47 @@ export default function Bible() {
   }, [audio.currentIndex]);
 
   // ============================================================
-  // Carregamento da Bíblia (uma vez, lazy, offline-first)
+  // Carregamento da Bíblia por livro (lazy: só o que é exibido é baixado)
+  // O estado `bible` é um array esparso indexado por bookId - 1.
   // ============================================================
+  const ensureBooks = useCallback(async (bookIds: number[]): Promise<ArcBible> => {
+    const books = await Promise.all(bookIds.map((id) => loadArcBook(id)));
+    let merged: ArcBible = [];
+    setBible((prev) => {
+      const next = prev ? [...prev] : [];
+      bookIds.forEach((id, i) => {
+        next[id - 1] = books[i];
+      });
+      merged = next;
+      return next;
+    });
+    return merged;
+  }, []);
+
+  // Pré-carrega os livros de uma coleção curada ao abri-la
+  // (coleções com subtemas usam texto curado e não precisam da bible)
   useEffect(() => {
+    if (activeCollection === "complete") return;
+    const col = COLLECTIONS_BY_ID[activeCollection] as
+      | { subtemas: unknown[]; verses?: { book: number }[] }
+      | undefined;
+    if (!col || col.subtemas.length > 0) return;
+    const ids = [...new Set((col.verses ?? []).map((v) => v.book))];
+    if (ids.length === 0) return;
     let cancelled = false;
     setBibleLoading(true);
     setBibleError(null);
-    loadArcBible()
-      .then((data) => {
-        if (!cancelled) {
-          setBible(data);
-          setBibleLoading(false);
-        }
+    ensureBooks(ids)
+      .catch(() => {
+        if (!cancelled) setBibleError("Não foi possível carregar os textos da coleção.");
       })
-      .catch((err) => {
-        if (!cancelled) {
-          setBibleError(
-            err instanceof Error
-              ? `Não foi possível carregar a Bíblia (${err.message}).`
-              : "Não foi possível carregar a Bíblia."
-          );
-          setBibleLoading(false);
-        }
+      .finally(() => {
+        if (!cancelled) setBibleLoading(false);
       });
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [activeCollection, ensureBooks]);
 
   // ============================================================
   // Hash routing — sincroniza URL ↔ estado (back/forward + share)
@@ -388,8 +402,7 @@ export default function Bible() {
   // Carregamento de capítulo (com cache em memória)
   // ============================================================
   const fetchChapter = useCallback(
-    (book: BibleBook, chapter: number) => {
-      if (!bible) return;
+    async (book: BibleBook, chapter: number) => {
       const key = `${book.id}-${chapter}`;
       const cached = chapterCache[key];
       if (cached) {
@@ -397,9 +410,11 @@ export default function Bible() {
         return;
       }
       setLoading(true);
+      setBibleLoading(true);
       setError(null);
       try {
-        const chapterVerses = getChapterVerses(bible, book.id, chapter);
+        const merged = await ensureBooks([book.id]);
+        const chapterVerses = getChapterVerses(merged, book.id, chapter);
         const mapped = chapterVerses.map((text, idx) => ({
           verse: idx + 1,
           text,
@@ -417,19 +432,21 @@ export default function Bible() {
         } catch {}
       } catch (err) {
         setError("Não foi possível carregar o capítulo.");
+        setBibleError("Não foi possível carregar o capítulo.");
         setVerses([]);
       } finally {
         setLoading(false);
+        setBibleLoading(false);
       }
     },
-    [bible, chapterCache]
+    [chapterCache, ensureBooks]
   );
 
   useEffect(() => {
-    if (bible && activeCollection === "complete" && selectedBook) {
+    if (activeCollection === "complete" && selectedBook) {
       fetchChapter(selectedBook, selectedChapter);
     }
-  }, [bible, activeCollection, selectedBook, selectedChapter, fetchChapter]);
+  }, [activeCollection, selectedBook, selectedChapter, fetchChapter]);
 
   // Lê a última leitura do histórico (para "Continuar leitura" no painel inicial)
   useEffect(() => {
@@ -638,30 +655,36 @@ export default function Bible() {
           <div className="mb-8">
             <ThemeChips
               onSelect={(verses, label) => {
-                if (!bible) {
-                  // Bíblia ainda carregando: cai na primeira referência
-                  if (verses.length > 0) {
+                if (verses.length === 0) return;
+                // Garante os livros citados antes de extrair os textos
+                const ids = [...new Set(verses.map((v) => v.book))];
+                ensureBooks(ids)
+                  .then((merged) => {
+                    const items: ThemeResultItem[] = [];
+                    for (const cv of verses) {
+                      const book = BIBLE_BOOKS[cv.book - 1];
+                      if (!book) continue;
+                      const texts = getChapterVerses(merged, cv.book, cv.chapter);
+                      const text = texts[cv.verse - 1];
+                      if (!text) continue;
+                      items.push({
+                        bookId: cv.book,
+                        chapter: cv.chapter,
+                        verse: cv.verse,
+                        ref: `${book.pt} ${cv.chapter}:${cv.verse}`,
+                        text: text.trim(),
+                      });
+                    }
+                    if (items.length > 0) {
+                      setThemeResult({ label, items });
+                    } else {
+                      navigateToVerse(verses[0].book, verses[0].chapter, verses[0].verse);
+                    }
+                  })
+                  .catch(() => {
+                    // Falhou: cai na primeira referência
                     navigateToVerse(verses[0].book, verses[0].chapter, verses[0].verse);
-                  }
-                  return;
-                }
-                // Extrai o texto real de cada versículo curado
-                const items: ThemeResultItem[] = [];
-                for (const cv of verses) {
-                  const book = BIBLE_BOOKS[cv.book - 1];
-                  if (!book) continue;
-                  const texts = getChapterVerses(bible, cv.book, cv.chapter);
-                  const text = texts[cv.verse - 1];
-                  if (!text) continue;
-                  items.push({
-                    bookId: cv.book,
-                    chapter: cv.chapter,
-                    verse: cv.verse,
-                    ref: `${book.pt} ${cv.chapter}:${cv.verse}`,
-                    text: text.trim(),
                   });
-                }
-                setThemeResult({ label, items });
               }}
             />
           </div>
