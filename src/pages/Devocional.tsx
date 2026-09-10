@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import { getDevotionalByDate, getAllDevotionals, getDevotionalsByMonth } from "../data/devotionals";
 
 const WALLPAPERS = [
-  "/fotos/devocional/1.png",
-  "/fotos/devocional/2.png",
+  "/fotos/devocional/1.jpg",
+  "/fotos/devocional/2.jpg",
 ];
 
 function formatLongDate(d: Date) {

@@ -134,7 +134,7 @@ export default function Momento() {
                   className="block h-1.5 rounded-full bg-[#D4A24C]/70 mb-1.5"
                   aria-hidden="true"
                 />
-                <span className="text-[10.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
                   {i + 1}. {p}
                 </span>
               </li>
@@ -143,7 +143,7 @@ export default function Momento() {
 
           {/* 1 — Versículo */}
           <section aria-label="Versículo do dia" className="mb-8 text-center">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-3">
               1 · Medite
             </p>
             <blockquote>
@@ -175,7 +175,7 @@ export default function Momento() {
             aria-label="Reflexão do dia"
             className="rounded-2xl border border-border bg-card p-5 sm:p-7 mb-6"
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
               2 · Reflita — {ritual.devocional.title}
             </p>
             {ritual.devocional.body.split("\n\n").map((par, i) => (
@@ -187,7 +187,7 @@ export default function Momento() {
               </p>
             ))}
             <div className="mt-5 rounded-xl border border-[#D4A24C]/25 bg-[#D4A24C]/5 p-4">
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#D4A24C] mb-1.5">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#D4A24C] mb-1.5">
                 Oração
               </p>
               <p className="font-display italic text-[15px] text-foreground/90 leading-relaxed">
@@ -201,7 +201,7 @@ export default function Momento() {
             aria-label="Pergunta de aplicação"
             className="rounded-2xl border border-[#D4A24C]/30 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-5 sm:p-6 mb-6"
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
               3 · Aplique
             </p>
             <p className="font-display text-xl text-foreground leading-relaxed">
@@ -217,7 +217,7 @@ export default function Momento() {
             aria-label="Amém do dia"
             className="rounded-2xl border border-border bg-card p-5 sm:p-6 mb-6 text-center"
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
               4 · Sele o momento
             </p>
             <button
@@ -242,7 +242,7 @@ export default function Momento() {
             aria-label="Compartilhar imagem"
             className="rounded-2xl border border-border bg-card p-5 sm:p-6 text-center"
           >
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
               5 · Espalhe
             </p>
             <p className="text-sm text-muted-foreground mb-4">

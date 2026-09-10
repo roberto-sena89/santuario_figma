@@ -271,7 +271,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                     placeholder="seu@email.com"
                     aria-label="Endereço de e-mail para newsletter"
                     disabled={subscribed}
-                    className="w-full rounded-full border border-graphite-fg/15 bg-graphite/40 px-5 py-3 text-[13.5px] text-graphite-fg placeholder:text-graphite-fg/40 outline-none transition-all duration-200 focus:border-accent/60 focus:bg-graphite/60 focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
+                    className="w-full rounded-full border border-graphite-fg/15 bg-graphite/40 px-5 py-3 text-base text-graphite-fg placeholder:text-graphite-fg/40 outline-none transition-all duration-200 focus:border-accent/60 focus:bg-graphite/60 focus:ring-2 focus:ring-accent/20 disabled:opacity-50"
                   />
                 </label>
                 <button

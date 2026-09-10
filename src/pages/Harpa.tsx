@@ -157,7 +157,7 @@ export default function Harpa() {
                   <button
                     key={p}
                     onClick={() => setPage(p)}
-                    className={`h-9 w-9 rounded-full text-sm font-semibold transition-all duration-200 ${
+                    className={`h-11 w-11 rounded-full text-sm font-semibold transition-all duration-200 ${
                       p === page
                         ? "bg-[#D4A24C] text-gray-900 border-2 border-[#E8B35E]/70 shadow-lg shadow-[#D4A24C]/30 scale-105"
                         : "border border-[#D4A24C]/30 bg-[#D4A24C]/5 text-[#B8860B] hover:bg-[#D4A24C]/15 hover:-translate-y-0.5 dark:text-[#E8B35E]"

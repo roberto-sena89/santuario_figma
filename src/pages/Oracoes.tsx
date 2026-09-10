@@ -140,12 +140,12 @@ export default function Oracoes() {
                 onChange={(e) => setNome(e.target.value)}
                 placeholder="Teu nome (opcional)"
                 maxLength={40}
-                className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
               />
               <select
                 value={categoria}
                 onChange={(e) => setCategoria(e.target.value)}
-                className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
                 aria-label="Categoria do pedido"
               >
                 {CATEGORIAS.map((c) => (
@@ -162,7 +162,7 @@ export default function Oracoes() {
               rows={3}
               maxLength={500}
               required
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
             />
             {erroForm && (
               <p className="mt-2 text-sm text-red-400">{erroForm}</p>
@@ -243,7 +243,7 @@ export default function Oracoes() {
 
                     {p.testemunho && (
                       <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-3.5 mb-3">
-                        <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-emerald-400 mb-1">
+                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-400 mb-1">
                           ✨ Testemunho — Deus respondeu
                         </p>
                         <p className="text-sm text-foreground">{p.testemunho.texto}</p>
@@ -254,7 +254,7 @@ export default function Oracoes() {
                       <button
                         onClick={() => orar(p.id)}
                         disabled={votado}
-                        className={`inline-flex h-9 items-center gap-1.5 rounded-full border px-4 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
+                        className={`inline-flex h-11 items-center gap-1.5 rounded-full border px-4 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
                           votado
                             ? "border-[#D4A24C]/50 bg-[#D4A24C]/15 text-[#D4A24C]"
                             : "border-border text-foreground hover:border-[#D4A24C]/50"
@@ -285,7 +285,7 @@ export default function Oracoes() {
                           placeholder="Conta como Deus respondeu..."
                           rows={2}
                           maxLength={500}
-                          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
                         />
                         <div className="flex gap-2 mt-2">
                           <button

@@ -109,7 +109,7 @@ export default function Contato() {
                     value={form.name}
                     onChange={(e) => update("name", e.target.value)}
                     placeholder="Seu nome completo"
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
+                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-base text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
                   />
                 </div>
                 <div>
@@ -124,7 +124,7 @@ export default function Contato() {
                     value={form.email}
                     onChange={(e) => update("email", e.target.value)}
                     placeholder="seu@email.com"
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
+                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-base text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
                   />
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function Contato() {
                     value={form.phone}
                     onChange={(e) => update("phone", e.target.value)}
                     placeholder="(11) 9 9999-9999"
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
+                    className="w-full px-4 py-2.5 bg-background border border-border rounded-xl text-base text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
                   />
                 </div>
                 <div>
@@ -152,7 +152,7 @@ export default function Contato() {
                     id="subject"
                     value={form.subject}
                     onChange={(e) => update("subject", e.target.value)}
-                    className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-sm text-foreground focus:border-accent focus:outline-none transition-colors"
+                    className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-base text-foreground focus:border-accent focus:outline-none transition-colors"
                     aria-label="Selecionar assunto"
                   >
                     <option value="">Selecionar...</option>

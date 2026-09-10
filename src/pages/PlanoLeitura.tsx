@@ -165,7 +165,7 @@ export default function PlanoLeitura() {
 
           {/* Leitura de hoje */}
           <div className="rounded-2xl border border-[#D4A24C]/30 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-5 sm:p-6 mb-10">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-1">
               Leitura de hoje — dia {hojeDia} de 365
             </p>
             <div className="flex flex-wrap gap-2 my-3">
@@ -221,7 +221,7 @@ export default function PlanoLeitura() {
                       title={`Dia ${d.dia}: ${d.resumo}`}
                       aria-label={`Dia ${d.dia} (${d.resumo})${lido ? ", lido" : ""}`}
                       aria-pressed={lido}
-                      className={`w-9 h-9 rounded-lg border text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
+                      className={`w-10 h-10 rounded-lg border text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
                         lido
                           ? "border-[#D4A24C]/60 bg-[#D4A24C]/20 text-[#D4A24C]"
                           : ehHoje
