@@ -126,7 +126,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </section>
 
       {/* Palavra do Dia */}
-            <section className="py-12 sm:py-14 relative overflow-hidden" aria-label="Palavra do Dia">
+            <section className="py-8 sm:py-10 relative overflow-hidden" aria-label="Palavra do Dia">
                           <img
                             src="/fotos/homepage/7.jfif"
                             alt=""
