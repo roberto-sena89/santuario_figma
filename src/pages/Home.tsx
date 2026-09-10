@@ -7,8 +7,7 @@ import EscalaSemanaCard from "../components/EscalaSemanaCard";
 
 const HERO_IMAGE = "/fotos/homepage/1.jfif";
 
-const BIBLE_IMAGE =
-  "https://images.unsplash.com/photo-1497621122273-f5cfb6065c56?w=800&h=600&fit=crop&auto=format";
+const BIBLE_IMAGE = "/fotos/homepage/10.jpg";
 
 interface HomeProps {
   onNavigate: (page: Page) => void;
