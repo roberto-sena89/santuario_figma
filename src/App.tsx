@@ -25,7 +25,7 @@ import AdminScale from "./components/AdminScale";
 import { CHURCH } from "./data/church";
 import { MINISTERIOS } from "./data/ministerios";
 
-const NO_FOOTER_PAGES: Page[] = ["playbacks", "admin"];
+const NO_FOOTER_PAGES: Page[] = ["admin"];
 
 const ALL_PAGES: Page[] = [
   "home", "biblia", "palavra-do-dia", "devocional", "quiz", "plano", "playbacks",
