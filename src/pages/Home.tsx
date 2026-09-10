@@ -1,4 +1,5 @@
 import { getPalavraDoDia } from "../data/palavraDoDia";
+import { getDevotionalByDate } from "../data/devotionals";
 import { UPCOMING_EVENTS, formatDate } from "../data/schedule";
 import { MINISTERIOS } from "../data/ministerios";
 import { CHURCH } from "../data/church";
@@ -15,6 +16,12 @@ interface HomeProps {
 
 export default function Home({ onNavigate }: HomeProps) {
   const verse = getPalavraDoDia();
+  const devocional = getDevotionalByDate(new Date());
+  const devocionalResumo = devocional.body.split("\n\n")[0] ?? "";
+  const devocionalTrecho =
+    devocionalResumo.length > 160
+      ? `${devocionalResumo.slice(0, 160).trim()}…`
+      : devocionalResumo;
   // Destaques: troca Infantil por Missões no grid da Home
   const featuredMinistries = MINISTERIOS.filter(
     (m) => m.id !== "criancas" && m.id !== "evangelismo"
@@ -133,7 +140,10 @@ export default function Home({ onNavigate }: HomeProps) {
                             aria-hidden="true"
                           />
                           <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/55" />
-                          <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+                          <div className="relative z-10 max-w-6xl mx-auto px-4">
+                      <div className="grid gap-5 lg:grid-cols-2 items-stretch">
+                        {/* Palavra do Dia */}
+                        <div className="text-center flex flex-col">
                       <h2 className="font-display text-3xl sm:text-4xl font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
                         Palavra do Dia
                       </h2>
@@ -141,21 +151,52 @@ export default function Home({ onNavigate }: HomeProps) {
                         Tema de Hoje — {verse.theme}
                       </p>
                       <span className="mt-3 text-4xl sm:text-5xl leading-none text-accent/80 block mb-1 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]" aria-hidden="true">❝</span>
-                                            <div className="mx-auto max-w-3xl rounded-2xl bg-graphite/25 px-5 py-3.5 sm:px-8 sm:py-5 backdrop-blur-sm mb-5">
-                                                                                        <blockquote className="font-bible text-2xl sm:text-3xl lg:text-4xl font-medium text-white leading-[1.45] text-balance [text-shadow:0_2px_18px_rgba(0,0,0,0.65)]">
+                                            <div className="mx-auto w-full max-w-xl rounded-2xl bg-graphite/25 px-5 py-3.5 sm:px-8 sm:py-5 backdrop-blur-sm mb-5 flex-1">
+                                                                                        <blockquote className="font-bible text-xl sm:text-2xl font-medium text-white leading-[1.45] text-balance [text-shadow:0_2px_18px_rgba(0,0,0,0.65)]">
                                                                                           {verse.text}
                                                                                         </blockquote>
                                                                                         <cite className="not-italic block mt-2 font-bible text-white/80 font-medium text-sm sm:text-base [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
                                               — {verse.ref}
                                             </cite>
                                             </div>
-                      <div className="mt-6">
+                      <div className="mt-auto">
                         <button
                           onClick={() => navigate("palavra-do-dia")}
                           className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/35 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
                         >
                           Ler a Palavra do Dia completa
                         </button>
+                      </div>
+                        </div>
+                        {/* Devocional Diário */}
+                        <div className="text-center flex flex-col">
+                      <h2 className="font-display text-3xl sm:text-4xl font-normal text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
+                        Devocional Diário
+                      </h2>
+                      <p className="mt-2 text-[11px] sm:text-xs font-semibold uppercase tracking-[0.18em] text-accent [text-shadow:0_1px_4px_rgba(0,0,0,0.5)]">
+                        {devocional.title}
+                      </p>
+                      <span className="mt-3 text-4xl sm:text-5xl leading-none text-accent/80 block mb-1 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]" aria-hidden="true">✦</span>
+                                            <div className="mx-auto w-full max-w-xl rounded-2xl bg-graphite/25 px-5 py-3.5 sm:px-8 sm:py-5 backdrop-blur-sm mb-5 flex-1">
+                                                                                        <blockquote className="font-bible text-xl sm:text-2xl font-medium text-white leading-[1.45] text-balance [text-shadow:0_2px_18px_rgba(0,0,0,0.65)]">
+                                                                                          "{devocional.verse}"
+                                                                                        </blockquote>
+                                                                                        <cite className="not-italic block mt-2 font-bible text-white/80 font-medium text-sm sm:text-base [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
+                                              — {devocional.verseRef}
+                                            </cite>
+                                              <p className="mt-3 text-white/70 text-sm leading-relaxed [text-shadow:0_1px_6px_rgba(0,0,0,0.5)]">
+                                                {devocionalTrecho}
+                                              </p>
+                                            </div>
+                      <div className="mt-auto">
+                        <button
+                          onClick={() => navigate("devocional")}
+                          className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/10 text-white font-medium text-sm sm:text-base px-7 py-2.5 backdrop-blur-sm transition-all duration-300 hover:border-white/70 hover:bg-white/15 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                        >
+                          Ler o Devocional completo
+                        </button>
+                      </div>
+                        </div>
                       </div>
         </div>
       </section>
