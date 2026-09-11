@@ -274,6 +274,13 @@ export default function Quiz() {
                   >
                     Jogar de novo
                   </button>
+                  {/* LINK INTERNO — Quiz → Plano de Leitura (engajamento vira hábito) */}
+                  <a
+                    href="#/plano"
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-[#D4A24C] px-6 text-sm font-bold text-[#1A1409] transition-all hover:bg-[#C4933C] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                  >
+                    📖 Aprofundar no Plano de Leitura →
+                  </a>
                 </div>
               </div>
 
