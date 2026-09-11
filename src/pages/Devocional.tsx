@@ -1,5 +1,7 @@
 import { useState, useMemo } from "react";
 import { getDevotionalByDate, getAllDevotionals, getDevotionalsByMonth } from "../data/devotionals";
+import { BIBLE_BOOKS } from "../data/bibleBooks";
+import { encodeBibleHash } from "../data/bibleUtils";
 
 const WALLPAPERS = [
   "/fotos/devocional/1.jpg",
@@ -19,6 +21,26 @@ function addDays(d: Date, n: number) {
   const x = new Date(d);
   x.setDate(x.getDate() + n);
   return x;
+}
+
+const norm = (s: string) =>
+  s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+
+/**
+ * Converte "João 3:16" / "1 Tessalonicenses 5:18" / "Lamentações 3:22-23"
+ * no deep-link da Bíblia (#/testament:NT/book:43/chapter:3).
+ * Cai para "#/biblia" se a referência não for reconhecida.
+ */
+function verseRefToBibleHash(ref: string): string {
+  const m = ref.match(/^(.+?)\s+(\d+)(?::.*)?$/);
+  if (!m) return "#/biblia";
+  const bookName = norm(m[1]);
+  const chapter = parseInt(m[2], 10);
+  const book = BIBLE_BOOKS.find(
+    (b) => norm(b.pt) === bookName || norm(b.abbr) === bookName
+  );
+  if (!book || isNaN(chapter)) return "#/biblia";
+  return encodeBibleHash(null, book.testament, book.id, chapter);
 }
 
 export default function Devocional() {
@@ -94,6 +116,13 @@ export default function Devocional() {
             {devotional.verseRef}
           </cite>
           <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">#{devotional.theme}</p>
+          {/* LINK INTERNO 1 — Devocional → Bíblia (abre o capítulo da referência) */}
+          <a
+            href={verseRefToBibleHash(devotional.verseRef)}
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/15 px-4 py-1.5 text-xs font-bold text-[#E8B35E] backdrop-blur-sm transition-colors hover:bg-[#D4A24C]/30 hover:text-white"
+          >
+            📖 Ler {devotional.verseRef} na Bíblia →
+          </a>
 
           {/* Navegação de dias - como devocionaldiario Anterior/Próximo */}
           <div className="flex items-center justify-center gap-2 mt-6">
