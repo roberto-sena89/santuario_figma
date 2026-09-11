@@ -18,7 +18,7 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
   };
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
                 <PageTitle
@@ -33,13 +33,10 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
         {/* Ministry grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
           {MINISTERIOS.map((m) => (
-            <article key={m.id} id={`ministry-card-${m.id}`} className="scroll-mt-24">
-              <button
-                              onClick={() => handleCardClick(m)}
-                              className="group w-full text-left bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5"
-                            >
+            <article key={m.id} id={`ministry-card-${m.id}`} className="scroll-mt-24" aria-labelledby={`ministry-${m.id}-nome`}>
+              <div className="flex h-full flex-col rounded-2xl border border-border bg-card/80 p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-110"
+                  className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ring-1 ring-black/5"
                   style={{
                     backgroundColor: `${m.color}18`,
                     color: m.color,
@@ -49,32 +46,33 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
                 >
                   {m.icon}
                 </div>
-                <h2 className="font-display font-semibold text-foreground text-lg mb-2">
+                <h2 id={`ministry-${m.id}-nome`} className="font-display font-semibold text-foreground text-lg mb-2">
                   {m.name}
                 </h2>
-                <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                   {m.description}
                 </p>
-                <div
-                                  className="mt-4 flex items-center gap-2 text-sm font-medium transition-colors duration-200 group-hover:translate-x-0.5"
-                                  style={{ color: m.color }}
-                                >
-                                  Conhecer ministério
-                                  <svg
-                                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    aria-hidden="true"
-                                  >
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                  </svg>
-                                </div>
-                              </button>
-                            </article>
-                          ))}
-                        </div>
-                      </div>
-                    </main>
-                  );
-                }
+                <button
+                  onClick={() => handleCardClick(m)}
+                  aria-label={`Conhecer o ministério de ${m.name}`}
+                  className="mt-auto inline-flex items-center gap-2 self-start rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-5 py-2.5 text-sm font-semibold text-[#E8B35E] transition-all duration-200 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                >
+                  Conhecer ministério
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </main>
+  );
+}
