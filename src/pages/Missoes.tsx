@@ -336,7 +336,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                     e.currentTarget.parentElement!.classList.add("flex", "items-center", "justify-center");
-                    e.currentTarget.parentElement!.innerHTML = `<span class="text-4xl text-muted-foreground/50">📷</span>`;
+                    e.currentTarget.parentElement!.innerHTML = `<span class="text-4xl text-muted-foreground/50">✦</span>`;
                   }}
                 />
               </div>
