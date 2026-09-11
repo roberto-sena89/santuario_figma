@@ -75,6 +75,8 @@ export default function PalavraDodia({ onNavigate }: Props) {
           <p className="inline-flex items-center justify-center rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-gold mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
             Palavra do Dia
           </p>
+          {/* h1 acessível/SEO — visual preservado (badge acima já é o título visível) */}
+          <h1 className="sr-only">Palavra do Dia — {todayVerse.ref}</h1>
           <div className="mt-1 flex items-center justify-center gap-3">
             <span aria-hidden="true" className="h-px w-8 bg-white/20" />
             <time
