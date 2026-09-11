@@ -194,6 +194,30 @@ export default function QuemSomos() {
             ))}
           </div>
         </section>
+
+        {/* LINK INTERNO — Primeira visita: Quem Somos → Cultos → Contato */}
+        <section aria-label="Primeira visita" className="mt-16 rounded-2xl border border-[#D4A24C]/25 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-6 sm:p-8 text-center">
+          <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground mb-2">
+            Primeira vez por aqui?
+          </h2>
+          <p className="text-sm text-muted-foreground mb-6 max-w-xl mx-auto">
+            Agora que você nos conheceu, venha nos visitar. Veja os horários dos cultos e o endereço — será uma alegria te receber.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="#/cultos"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-[#D4A24C] px-8 text-sm font-bold text-[#1A1409] transition-all hover:bg-[#C4933C] hover:-translate-y-0.5"
+            >
+              Ver horários dos cultos →
+            </a>
+            <a
+              href="#/contato"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-8 text-sm font-semibold text-[#9C7A2E] transition-colors hover:bg-[#D4A24C]/20"
+            >
+              Falar conosco
+            </a>
+          </div>
+        </section>
       </div>
     </main>
   );

@@ -38,21 +38,29 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: "Início", page: "home", icon: <HomeIcon />, group: "core" },
   {
-    label: "Palavra",
+    label: "Bíblia",
     page: "biblia",
     icon: <BookIcon />,
     group: "core",
-    submenuLabel: "Estudo e devoção",
+    submenuLabel: "Estudo da Palavra",
     submenu: [
       { label: "Bíblia Sagrada", page: "biblia", icon: <BookIcon />, desc: "Leia, estude e marque versículos" },
-      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "O ritual diário: versículo + reflexão em 5 minutos" },
-      { label: "Plano de Leitura", page: "plano", icon: <BookIcon />, desc: "Leia a Bíblia inteira em 365 dias" },
-      { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Perguntas e respostas para testar a fé" },
-      { label: "Palavra do Dia", page: "palavra-do-dia", icon: <SparklesIcon />, desc: "Um versículo para cada dia" },
-      { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexões para seu momento com Deus" },
+      { label: "Plano de Leitura", page: "plano", icon: <BookIcon />, desc: "A Bíblia inteira em 365 dias" },
+      { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Teste o que você aprendeu" },
     ],
   },
-  { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
+  {
+    label: "Devocional",
+    page: "devocional",
+    icon: <HeartIcon />,
+    group: "core",
+    submenuLabel: "Devocionais — do rápido ao profundo",
+    submenu: [
+      { label: "Palavra do Dia", page: "palavra-do-dia", icon: <SparklesIcon />, desc: "Um versículo para hoje" },
+      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "Versículo + reflexão em 5 minutos" },
+      { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexão completa + oração" },
+    ],
+  },
   {
     label: "Louvor",
     page: "playbacks",
@@ -72,6 +80,7 @@ const NAV_ITEMS: NavItem[] = [
     submenuLabel: "Conheça a igreja",
     submenu: [
       { label: "Quem Somos", page: "quem-somos", icon: <UsersIcon />, desc: "Nossa história, missão e liderança" },
+      { label: "Cultos e Agenda", page: "cultos", icon: <CalendarIcon />, desc: "Horários, escala e eventos" },
       { label: "Ministérios", page: "ministerios", icon: <SparklesIcon />, desc: "Conheça nossos departamentos e grupos", hash: "#/ministerios" },
       { label: "Missões", page: "missoes", icon: <GlobeIcon />, desc: "Conheça a obra missionária" },
       { label: "Contato", page: "contato", icon: <MailIcon />, desc: "Fale conosco, endereço e WhatsApp" },

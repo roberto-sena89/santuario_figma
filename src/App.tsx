@@ -34,6 +34,15 @@ const ALL_PAGES: Page[] = [
   "contato", "admin", "missoes", "oracoes", "momento",
 ];
 
+/**
+ * CONVENÇÃO DE URLs (hash routing):
+ * - Páginas: `#/<pagina>` (ex.: `#/devocional`, `#/cultos`)
+ * - Sub-rotas: `#/<pagina>/<id>` (ex.: `#/ministerios/louvor`)
+ * - Exceções deliberadas: `#/escala` (admin — evita expor "admin"),
+ *   Bíblia (`#/collection:...`, `#/testament:.../book:.../chapter:...`,
+ *   `#/<coleção>/<subtema>`) e redirect legado `#/admin` → `#/escala`.
+ * - Não criar novos formatos de hash: reutilizar os acima.
+ */
 function hashToPage(): Page {
   const h = window.location.hash.replace(/^#\/?/, "").toLowerCase().split("?")[0];
   if (h === "escala") return "admin";

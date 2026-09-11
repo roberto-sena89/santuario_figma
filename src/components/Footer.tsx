@@ -9,17 +9,18 @@ interface FooterProps {
 const NAV_PRIMARY: [string, Page][] = [
   ["Início", "home"],
   ["Bíblia Sagrada", "biblia"],
-  ["Momento com Deus", "momento"],
   ["Plano de Leitura", "plano"],
   ["Quiz Bíblico", "quiz"],
   ["Palavra do Dia", "palavra-do-dia"],
-  ["Devocional", "devocional"],
+  ["Momento com Deus", "momento"],
+  ["Devocional Diário", "devocional"],
   ["Cultos e Agenda", "cultos"],
 ];
 
 const NAV_CHURCH: [string, Page][] = [
   ["Quem Somos", "quem-somos"],
   ["Ministérios", "ministerios"],
+  ["Missões", "missoes"],
   ["Mural de Oração", "oracoes"],
   ["Playbacks", "playbacks"],
   ["Harpa Cristã", "harpa"],
