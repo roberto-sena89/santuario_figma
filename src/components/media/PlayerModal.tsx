@@ -66,6 +66,7 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
           rel: 0,
           playsinline: 1,
           controls: 1,
+          title: `Player: ${formatDescricao(video)}`,
         },
         events: {
           onReady: (e: any) => {
@@ -147,14 +148,14 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-3 border-b border-[#D4A24C]/20 bg-gradient-to-r from-[#D4A24C]/10 via-surface2/60 to-surface2/80 px-4 py-3 sm:px-5">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#D4A24C]/15 ring-1 ring-[#D4A24C]/25 text-[#B8860B] dark:text-[#E8B35E]">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#D4A24C]/15 ring-1 ring-[#D4A24C]/25 text-[#E8B35E]">
             <Music className="h-4 w-4" aria-hidden="true" />
           </span>
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-semibold text-text sm:text-base">
               {formatDescricao(video)}
             </p>
-            <p className="truncate text-xs text-[#B8860B]/70 dark:text-[#E8B35E]/70">
+            <p className="truncate text-xs text-[#E8B35E]">
               Player oficial do YouTube — a letra está no vídeo
             </p>
           </div>
@@ -162,9 +163,8 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
             href={`https://www.youtube.com/watch?v=${video.id}`}
             target="_blank"
             rel="noopener noreferrer"
-            title="Abrir no YouTube"
-            aria-label="Abrir no YouTube"
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 text-[#B8860B] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A24C]/60 hover:bg-[#D4A24C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20 dark:text-[#E8B35E]"
+            aria-label={`Abrir ${formatDescricao(video)} no YouTube`}
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 text-[#E8B35E] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A24C]/60 hover:bg-[#D4A24C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20"
           >
             <ExternalLink className="h-4 w-4" aria-hidden="true" />
           </a>
@@ -178,7 +178,7 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
             <button
               onClick={alternarPlay}
               disabled={!pronto}
-              aria-label={tocando ? 'Pausar' : 'Reproduzir'}
+              aria-label={tocando ? `Pausar ${video.titulo ?? 'vídeo'}` : `Reproduzir ${video.titulo ?? 'vídeo'}`}
               className="pointer-events-auto grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#D4A24C] text-gray-900 shadow-lg shadow-[#D4A24C]/30 transition-all duration-200 hover:scale-105 hover:bg-[#E8B35E] disabled:opacity-50"
             >
               {tocando ? (
@@ -209,7 +209,7 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
               value={volumeMostrado}
               disabled={!pronto}
               onChange={(e) => mudarVolume(Number(e.target.value))}
-              aria-label="Volume"
+              aria-label={`Volume de ${video.titulo ?? 'vídeo'}`}
               className="pointer-events-auto h-1.5 w-24 cursor-pointer appearance-none rounded-full bg-white/25 accent-[#D4A24C] sm:w-32"
             />
 

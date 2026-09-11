@@ -97,7 +97,7 @@ export default function Momento() {
   };
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Hero com imagem de fundo - /fotos/momento/1.jpg */}
       <section className="relative overflow-hidden">
         <img
@@ -131,7 +131,7 @@ export default function Momento() {
             aria-label="Passos do momento"
           >
             {PASSOS.map((p, i) => (
-              <li key={p} className="flex-1 text-center">
+              <li key={p} className="flex-1 text-center" aria-current={i === 0 ? "step" : undefined}>
                 <span
                   className="block h-1.5 rounded-full bg-[#D4A24C]/70 mb-1.5"
                   aria-hidden="true"
@@ -144,21 +144,23 @@ export default function Momento() {
           </ol>
 
           {/* 1 — Versículo */}
-          <section aria-label="Versículo do dia" className="mb-8 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-3">
+          <section aria-labelledby="momento-passo-1" className="mb-8 text-center">
+            <h2 id="momento-passo-1" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-3">
               1 · Medite
-            </p>
+            </h2>
             <blockquote>
               <p className="font-display text-2xl sm:text-3xl font-normal text-foreground leading-relaxed italic">
                 "{ritual.palavra.text}"
               </p>
             </blockquote>
-            <cite className="not-italic block mt-3 text-[#D4A24C] font-semibold tracking-[0.06em]">
+            <cite className="not-italic block mt-3 text-[#E8B35E] font-semibold tracking-[0.06em]">
               {ritual.palavra.ref} · #{ritual.palavra.theme}
             </cite>
             <div className="flex gap-2 justify-center mt-4">
               <button
                 onClick={copiarVerso}
+                aria-label={copiado ? "Versículo copiado" : "Copiar versículo"}
+                aria-live="polite"
                 className="h-10 rounded-full border border-border px-5 text-xs font-bold text-foreground transition-all hover:border-[#D4A24C]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
               >
                 {copiado ? "Copiado!" : "Copiar"}
@@ -174,12 +176,12 @@ export default function Momento() {
 
           {/* 2 — Reflexão */}
           <section
-            aria-label="Reflexão do dia"
+            aria-labelledby="momento-passo-2"
             className="rounded-2xl border border-border bg-card p-5 sm:p-7 mb-6"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <h2 id="momento-passo-2" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
               2 · Reflita — {ritual.devocional.title}
-            </p>
+            </h2>
             {ritual.devocional.body.split("\n\n").map((par, i) => (
               <p
                 key={i}
@@ -189,7 +191,7 @@ export default function Momento() {
               </p>
             ))}
             <div className="mt-5 rounded-xl border border-[#D4A24C]/25 bg-[#D4A24C]/5 p-4">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#D4A24C] mb-1.5">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E8B35E] mb-1.5">
                 Oração
               </p>
               <p className="font-display italic text-[15px] text-foreground/90 leading-relaxed">
@@ -200,12 +202,12 @@ export default function Momento() {
 
           {/* 3 — Aplicação */}
           <section
-            aria-label="Pergunta de aplicação"
+            aria-labelledby="momento-passo-3"
             className="rounded-2xl border border-[#D4A24C]/30 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-5 sm:p-6 mb-6"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <h2 id="momento-passo-3" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
               3 · Aplique
-            </p>
+            </h2>
             <p className="font-display text-xl text-foreground leading-relaxed">
               {ritual.pergunta}
             </p>
@@ -216,37 +218,40 @@ export default function Momento() {
 
           {/* 4 — Amém */}
           <section
-            aria-label="Amém do dia"
+            aria-labelledby="momento-passo-4"
             className="rounded-2xl border border-border bg-card p-5 sm:p-6 mb-6 text-center"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <h2 id="momento-passo-4" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
               4 · Sele o momento
-            </p>
+            </h2>
             <button
               onClick={dizerAmemHoje}
               disabled={amem}
+              aria-pressed={amem}
+              aria-label={amem ? "Amém de hoje registrado" : "Dizer amém ao momento de hoje"}
               className={`inline-flex h-12 items-center justify-center rounded-full px-10 text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
                 amem
                   ? "border border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
                   : "bg-[#D4A24C] text-[#1A1409] hover:bg-[#C4933C] hover:-translate-y-0.5"
               }`}
             >
-              {amem ? "🙏 Amém de hoje registrado" : "🙏 Amém"}
+              <span aria-hidden="true">{amem ? "🙏 Amém de hoje registrado" : "🙏 Amém"}</span>
+              <span className="sr-only">{amem ? "Amém de hoje registrado" : "Amém"}</span>
             </button>
-            <p className="text-sm text-muted-foreground mt-3">
-              🔥 {streak} {streak === 1 ? "dia seguido" : "dias seguidos"} ·{" "}
+            <p role="status" className="text-sm text-muted-foreground mt-3">
+              <span aria-hidden="true">🔥 </span>{streak} {streak === 1 ? "dia seguido" : "dias seguidos"} ·{" "}
               {total} {total === 1 ? "momento" : "momentos"} no total
             </p>
           </section>
 
           {/* 5 — Compartilhar imagem */}
           <section
-            aria-label="Compartilhar imagem"
+            aria-labelledby="momento-passo-5"
             className="rounded-2xl border border-border bg-card p-5 sm:p-6 text-center"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-2">
+            <h2 id="momento-passo-5" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
               5 · Espalhe
-            </p>
+            </h2>
             <p className="text-sm text-muted-foreground mb-4">
               Gera uma imagem 1080×1920 do momento de hoje para Status, Stories
               ou WhatsApp.
@@ -254,12 +259,13 @@ export default function Momento() {
             <button
               onClick={compartilharImagem}
               disabled={gerando}
-              className="inline-flex h-11 items-center justify-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-8 text-sm font-bold text-[#D4A24C] transition-all hover:bg-[#D4A24C]/20 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+              aria-busy={gerando}
+              className="inline-flex h-11 items-center justify-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-8 text-sm font-bold text-[#E8B35E] transition-all hover:bg-[#D4A24C]/20 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
             >
               {gerando ? "Gerando imagem..." : "Gerar imagem do dia"}
             </button>
             {imgMsg && (
-              <p className="text-sm text-[#D4A24C] font-semibold mt-3">{imgMsg}</p>
+              <p role="status" className="text-sm text-[#E8B35E] font-semibold mt-3">{imgMsg}</p>
             )}
           </section>
         </div>

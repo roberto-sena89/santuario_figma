@@ -135,37 +135,56 @@ export default function Oracoes() {
               Pedir oração
             </h2>
             <div className="grid sm:grid-cols-2 gap-3 mb-3">
-              <input
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                placeholder="Teu nome (opcional)"
-                maxLength={40}
-                className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
-              />
-              <select
-                value={categoria}
-                onChange={(e) => setCategoria(e.target.value)}
-                className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
-                aria-label="Categoria do pedido"
-              >
-                {CATEGORIAS.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
-                  </option>
-                ))}
-              </select>
+              <div>
+                <label htmlFor="oracao-nome" className="block text-sm font-medium text-foreground mb-1.5">
+                  Nome
+                </label>
+                <input
+                  id="oracao-nome"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                  placeholder="Teu nome (opcional)"
+                  maxLength={40}
+                  autoComplete="name"
+                  className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                />
+              </div>
+              <div>
+                <label htmlFor="oracao-categoria" className="block text-sm font-medium text-foreground mb-1.5">
+                  Categoria
+                </label>
+                <select
+                  id="oracao-categoria"
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                  className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                >
+                  {CATEGORIAS.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <textarea
-              value={texto}
-              onChange={(e) => setTexto(e.target.value)}
-              placeholder="Escreva teu pedido de oração..."
-              rows={3}
-              maxLength={500}
-              required
-              className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
-            />
+            <div>
+              <label htmlFor="oracao-texto" className="block text-sm font-medium text-foreground mb-1.5">
+                Pedido de oração <span className="text-red-500" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="oracao-texto"
+                value={texto}
+                onChange={(e) => setTexto(e.target.value)}
+                placeholder="Escreva teu pedido de oração..."
+                rows={3}
+                maxLength={500}
+                required
+                aria-describedby="oracao-erro"
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+              />
+            </div>
             {erroForm && (
-              <p className="mt-2 text-sm text-red-400">{erroForm}</p>
+              <p id="oracao-erro" role="alert" className="mt-2 text-sm text-red-400">{erroForm}</p>
             )}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-4">
               <button
@@ -187,7 +206,7 @@ export default function Oracoes() {
           </form>
 
           {/* Filtros */}
-          <div className="flex gap-2 mb-5" role="tablist" aria-label="Filtrar mural">
+          <div className="flex gap-2 mb-5" role="group" aria-label="Filtrar mural">
             {(
               [
                 ["todos", "Todos"],
@@ -197,8 +216,7 @@ export default function Oracoes() {
             ).map(([f, label]) => (
               <button
                 key={f}
-                role="tab"
-                aria-selected={filtro === f}
+                aria-pressed={filtro === f}
                 onClick={() => setFiltro(f)}
                 className={`h-9 rounded-full border px-4 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
                   filtro === f
@@ -225,10 +243,11 @@ export default function Oracoes() {
                 return (
                   <article
                     key={p.id}
+                    aria-labelledby={`pedido-${p.id}-nome`}
                     className="rounded-2xl border border-border bg-card p-5"
                   >
                     <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                      <span className="font-bold text-foreground">{p.nome}</span>
+                      <span id={`pedido-${p.id}-nome`} className="font-bold text-foreground">{p.nome}</span>
                       <span aria-hidden="true">·</span>
                       <span>{tempoRelativo(p.criadoEm)}</span>
                       <span
@@ -270,22 +289,28 @@ export default function Oracoes() {
                             setTestAberto(p.id);
                             setTestTexto("");
                           }}
+                          aria-label={`Contar testemunho do pedido de ${p.nome}`}
                           className="text-xs font-semibold text-muted-foreground hover:text-[#D4A24C] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 rounded"
                         >
-                          Deus respondeu? Conta aqui →
+                          <span aria-hidden="true">Deus respondeu? Conta aqui →</span>
+                          <span className="sr-only">Deus respondeu? Conta aqui</span>
                         </button>
                       )}
                     </div>
 
                     {testAberto === p.id && (
                       <div className="mt-3">
+                        <label htmlFor={`testemunho-${p.id}`} className="block text-xs font-semibold text-foreground mb-1.5">
+                          Teu testemunho
+                        </label>
                         <textarea
+                          id={`testemunho-${p.id}`}
                           value={testTexto}
                           onChange={(e) => setTestTexto(e.target.value)}
                           placeholder="Conta como Deus respondeu..."
                           rows={2}
                           maxLength={500}
-                          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
                         />
                         <div className="flex gap-2 mt-2">
                           <button
@@ -315,9 +340,11 @@ export default function Oracoes() {
                 setCarregando(true);
                 recarregar().finally(() => setCarregando(false));
               }}
+              aria-label="Atualizar mural de oração"
               className="text-xs font-semibold text-muted-foreground hover:text-[#D4A24C] hover:underline"
             >
-              Atualizar mural ↻
+              <span aria-hidden="true">Atualizar mural ↻</span>
+              <span className="sr-only">Atualizar mural</span>
             </button>
           </div>
         </div>

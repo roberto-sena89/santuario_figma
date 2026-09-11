@@ -325,8 +325,10 @@ function ordenarCultos(cultos: Omit<EscalaDia, "papeis">[]) {
 }
 
 /** Papeis padrão para um culto (fallback se não houver em PAPEIS_POR_DIA). */
-export function papeisParaCulto(cultoKey: string) {
-  const base = [
+export type PapelCulto = { key: string; label: string; multi?: boolean };
+
+export function papeisParaCulto(cultoKey: string): readonly PapelCulto[] {
+  const base: readonly PapelCulto[] = [
     { key: "dirigente", label: "Dirigente" },
     { key: "pregador", label: "Pregador da Palavra" },
     { key: "louvor_geral", label: "Louvor" },
@@ -334,8 +336,9 @@ export function papeisParaCulto(cultoKey: string) {
     { key: "porteiro", label: "Porteiro" },
     { key: "auxiliar", label: "Auxiliar", multi: true },
     { key: "regente", label: "Regente de Louvor" },
-  ] as const;
-  return (PAPEIS_POR_DIA[cultoKey] as typeof base | undefined) ?? [...base];
+  ];
+  const especifico = PAPEIS_POR_DIA[cultoKey] as readonly PapelCulto[] | undefined;
+  return especifico ?? base;
 }
 
 export function escalaVazia(semana: string): EscalaSemana {

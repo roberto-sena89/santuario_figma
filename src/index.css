@@ -164,29 +164,37 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-muted-foreground); }
 
-/* Focus ring */
+/* Focus ring — 3:1 mínimo, 2px, sempre visível */
 :focus-visible {
-  outline: 2px solid var(--color-ring);
+  outline: 3px solid #E8B35E;
   outline-offset: 2px;
 }
 
-/* Skip link */
+/* Skip link — visível em foco, alto contraste */
 .skip-link {
   position: absolute;
-  top: -40px;
-  left: 0;
-  background: var(--color-primary);
-  color: var(--color-primary-foreground);
-  padding: 8px 16px;
+  top: -60px;
+  left: 8px;
+  background: #0F1414;
+  color: #E8B35E;
+  padding: 10px 18px;
   text-decoration: none;
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
   z-index: 9999;
-  border-radius: 0 0 4px 0;
+  border-radius: 0 0 8px 8px;
+  border: 2px solid #E8B35E;
   transition: top 0.2s var(--ease-out);
 }
-.skip-link:focus {
+.skip-link:focus-visible {
   top: 0;
+  outline: 3px solid #E8B35E;
+  outline-offset: 2px;
+}
+
+/* Texto sobre foto — mínimo AA */
+.text-shadow-legivel {
+  text-shadow: 0 2px 14px rgba(0,0,0,0.75);
 }
 
 /* Bible reader prose — Cormorant para leitura longa */

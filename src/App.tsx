@@ -55,6 +55,21 @@ function hashToPage(): Page {
   return (ALL_PAGES as string[]).includes(h) ? (h as Page) : "home";
 }
 
+function prefersReducedMotion(): boolean {
+  return typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+}
+
+function smoothScrollTop() {
+  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+}
+
+function focusMain() {
+  requestAnimationFrame(() => {
+    smoothScrollTop();
+    document.getElementById("main-content")?.focus({ preventScroll: true });
+  });
+}
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>(hashToPage);
   const [activeMinistry, setActiveMinistry] = useState<string | null>(null);
@@ -122,7 +137,13 @@ export default function App() {
     const hash = page === "admin" ? "escala" : page;
     const h = page === "home" ? "" : `#/${hash}`;
     if (window.location.hash !== h) window.location.hash = h;
+    else focusMain();
   };
+
+  // Move foco ao main em troca rota SPA + respeita reduced-motion
+  useEffect(() => {
+    focusMain();
+  }, [currentPage, activeMinistry]);
 
   const showFooter = !NO_FOOTER_PAGES.includes(currentPage);
 
@@ -133,6 +154,7 @@ export default function App() {
           fallback={
             <main
               id="main-content"
+              tabIndex={-1}
               className="min-h-screen bg-background pt-16 grid place-items-center"
               aria-label="Carregando página"
             >

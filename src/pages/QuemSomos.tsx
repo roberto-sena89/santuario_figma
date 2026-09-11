@@ -38,13 +38,13 @@ export default function QuemSomos() {
   ];
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Hero */}
-      <section className="relative h-72 sm:h-96 overflow-hidden" aria-label="Foto da igreja">
-        <div className="absolute inset-0">
+      <section className="relative h-72 sm:h-96 overflow-hidden">
+        <div className="absolute inset-0" aria-hidden="true">
                   <img
                     src={STAINED_IMAGE}
-                    alt="Vitral colorido de uma igreja com luz solar"
+                    alt=""
                     className="w-full h-full object-cover opacity-70 saturate-[0.5]"
                     loading="lazy"
                     width={1200}
@@ -53,7 +53,7 @@ export default function QuemSomos() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 </div>
         <div className="relative h-full flex flex-col items-center justify-end pb-12 text-center px-4">
-                  <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em]">
+                  <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#E8B35E] text-xs font-semibold uppercase tracking-[0.18em]">
                     Nossa História
                   </p>
                   <h1 className="font-display text-3xl sm:text-5xl font-bold text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)]">
@@ -64,13 +64,13 @@ export default function QuemSomos() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Story */}
-        <section className="grid lg:grid-cols-2 gap-12 items-start mb-20" aria-label="Nossa história">
+        <section className="grid lg:grid-cols-2 gap-12 items-start mb-20" aria-labelledby="quem-historia">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20">
+              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20" aria-hidden="true">
                 📖
               </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground">
+              <h2 id="quem-historia" className="font-display text-2xl sm:text-3xl font-light text-foreground">
                 Uma história de fé e crescimento
               </h2>
             </div>
@@ -88,32 +88,32 @@ export default function QuemSomos() {
           </div>
           <div className="space-y-5">
             <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
-              <div className="text-4xl font-display font-bold text-[#B8860B] dark:text-[#E8B35E] mb-2">
+              <div className="text-4xl font-display font-bold text-[#E8B35E] mb-2" aria-hidden="true">
                 {new Date().getFullYear() - CHURCH.founded}+
               </div>
-              <div className="font-semibold text-foreground">Anos de ministério</div>
+              <div className="font-semibold text-foreground"><span className="sr-only">{new Date().getFullYear() - CHURCH.founded} </span>Anos de ministério</div>
               <div className="text-muted-foreground text-sm">Desde {CHURCH.founded}</div>
             </div>
             <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
-              <div className="text-4xl font-display font-bold text-[#B8860B] dark:text-[#E8B35E] mb-2">
+              <div className="text-4xl font-display font-bold text-[#E8B35E] mb-2" aria-hidden="true">
                 {CHURCH.members}+
               </div>
-              <div className="font-semibold text-foreground">Membros ativos</div>
+              <div className="font-semibold text-foreground"><span className="sr-only">{CHURCH.members} </span>Membros ativos</div>
               <div className="text-muted-foreground text-sm">E crescendo a cada dia</div>
             </div>
             <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
-              <div className="text-4xl font-display font-bold text-[#B8860B] dark:text-[#E8B35E] mb-2">7</div>
-              <div className="font-semibold text-foreground">Ministérios ativos</div>
+              <div className="text-4xl font-display font-bold text-[#E8B35E] mb-2" aria-hidden="true">7</div>
+              <div className="font-semibold text-foreground"><span className="sr-only">7 </span>Ministérios ativos</div>
               <div className="text-muted-foreground text-sm">Servindo a cidade</div>
             </div>
           </div>
         </section>
 
         {/* Mission Vision Values */}
-        <section className="mb-20" aria-label="Missão, visão e valores">
+        <section className="mb-20" aria-labelledby="quem-mvv">
                   <div className="flex items-center mb-8 bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl px-4 py-3">
                     <div>
-                      <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground mb-1">
+                      <h2 id="quem-mvv" className="font-display text-2xl sm:text-3xl font-light text-foreground mb-1">
                         Missão, Visão e Valores
                       </h2>
                       <p className="text-sm text-muted-foreground leading-relaxed">
@@ -153,24 +153,25 @@ export default function QuemSomos() {
                   </div>
 
                   {/* Values grid */}
+                  <h3 className="sr-only">Valores</h3>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {VALUES.map((v, i) => (
                       <div key={i} className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-5 transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/8 hover:-translate-y-0.5">
-                        <h3 className="font-display font-semibold text-foreground text-sm mb-2 uppercase tracking-[0.04em]">
+                        <h4 className="font-display font-semibold text-foreground text-sm mb-2 uppercase tracking-[0.04em]">
                           {v.title}
-                        </h3>
-                        <div className="w-6 h-0.5 bg-accent/30 mb-3 rounded-full" />
-                        <p className="text-muted-foreground text-xs leading-relaxed">{v.text}</p>
+                        </h4>
+                        <div className="w-6 h-0.5 bg-accent/30 mb-3 rounded-full" aria-hidden="true" />
+                        <p className="text-muted-foreground text-sm leading-relaxed">{v.text}</p>
                       </div>
                     ))}
                   </div>
                 </section>
 
         {/* Leadership */}
-        <section aria-label="Liderança">
+        <section aria-labelledby="quem-lideranca">
           <div className="flex items-center mb-8 bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl px-4 py-3">
             <div>
-              <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground mb-1">
+              <h2 id="quem-lideranca" className="font-display text-2xl sm:text-3xl font-light text-foreground mb-1">
                 Nossa Liderança
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed">

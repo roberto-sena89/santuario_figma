@@ -107,6 +107,7 @@ export default function Footer({ onNavigate }: FooterProps) {
 
   return (
     <footer
+      aria-label="Rodapé"
       className="relative text-graphite-fg overflow-hidden"
       style={{
         background:
@@ -171,9 +172,9 @@ export default function Footer({ onNavigate }: FooterProps) {
                 </svg>
               </div>
               <div>
-                <div className="text-[10px] uppercase tracking-[0.24em] text-graphite-fg/45 leading-none font-semibold">
+                <p className="text-xs uppercase tracking-[0.24em] text-graphite-fg/70 leading-none font-semibold">
                   {CHURCH.name.split(CHURCH.shortName)[0].trim()}
-                </div>
+                </p>
                 <div className="mt-1.5 flex items-baseline gap-1.5">
                   <span className="font-display text-xl font-semibold leading-none tracking-tight text-graphite-fg">
                     {CHURCH.shortName}
@@ -186,7 +187,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 </div>
                 <div className="mt-2 flex items-center gap-2">
                   <span className="h-1 w-1 rounded-full bg-[#D4A24C]" aria-hidden="true" />
-                  <span className="text-[10px] uppercase tracking-[0.22em] text-[#E8B35E]/70 font-medium">
+                  <span className="text-xs uppercase tracking-[0.22em] text-[#E8B35E] font-medium">
                     {CHURCH.slogan}
                   </span>
                 </div>
@@ -415,13 +416,13 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         {/* Bottom bar */}
         <div className="mt-14 flex flex-col items-center gap-4 border-t border-graphite-fg/10 pt-7 text-center sm:flex-row sm:justify-between sm:text-left">
-          <p className="text-[11.5px] text-graphite-fg/55">
+          <p className="text-[11.5px] text-graphite-fg/70">
             © {year}{" "}
-            <span className="text-graphite-fg/75 font-medium">{CHURCH.name}</span>
+            <span className="text-graphite-fg font-medium">{CHURCH.name}</span>
             . Todos os direitos reservados.
           </p>
-          <p className="text-[11px] text-graphite-fg/45">
-            CNPJ {CHURCH.pix.cnpj} · Feito com ❤︎ em {CHURCH.address.city}
+          <p className="text-xs text-graphite-fg/70">
+            CNPJ {CHURCH.pix.cnpj} · Feito com <span aria-hidden="true">❤︎</span><span className="sr-only">amor</span> em {CHURCH.address.city}
           </p>
         </div>
       </div>
@@ -436,9 +437,9 @@ export default function Footer({ onNavigate }: FooterProps) {
 function FooterTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-6">
-      <h3 className="text-[10.5px] font-bold uppercase tracking-[0.22em] text-graphite-fg/55">
+      <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-graphite-fg/80">
         {children}
-      </h3>
+      </h2>
       <div className="mt-3 h-px w-10 bg-gradient-to-r from-[#D4A24C]/70 to-transparent" />
     </div>
   );

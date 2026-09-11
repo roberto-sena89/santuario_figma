@@ -10,11 +10,10 @@ export default function Missoes({ onNavigate }: MissoesProps) {
   const m = MISSOES;
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Hero */}
       <section
         className="relative overflow-hidden"
-        aria-label="Missões"
         style={{
           backgroundImage: "url('/fotos/ministerios/missões/3.jpg')",
           backgroundSize: "cover",
@@ -54,7 +53,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                     className="block h-px w-10 bg-gradient-to-r from-transparent to-[#047857]/70"
                     aria-hidden="true"
                   />
-                  <span className="text-[10.5px] font-bold uppercase tracking-[0.28em] text-[#047857] leading-none">
+                  <span className="text-xs font-bold uppercase tracking-[0.28em] text-[#6EE7B7] leading-none">
                     Nossa missão e propósito
                   </span>
                 </div>
@@ -108,7 +107,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                   <div className="p-5">
                     <div className="mb-2.5 flex items-center gap-2">
                       <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#047857" }} aria-hidden="true" />
-                      <span className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#047857" }}>
+                      <span className="text-xs font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#6EE7B7" }}>
                         Ministério de Missões
                       </span>
                     </div>
@@ -116,8 +115,8 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                       {m.liderMissao.nome}
                     </h3>
                     <div
-                      className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
-                      style={{ backgroundColor: "#04785715", color: "#047857", borderColor: "#04785730" }}
+                      className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1"
+                      style={{ backgroundColor: "#04785725", color: "#6EE7B7", borderColor: "#04785750" }}
                     >
                       {m.liderMissao.papel}
                     </div>
@@ -138,7 +137,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                     <div className="p-5">
                       <div className="mb-2.5 flex items-center gap-2">
                         <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#D4A24C" }} aria-hidden="true" />
-                        <span className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#B8860B" }}>
+                        <span className="text-xs font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#E8B35E" }}>
                           Obreiro
                         </span>
                       </div>
@@ -146,8 +145,8 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                         {ob.nome}
                       </h3>
                       <div
-                        className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
-                        style={{ backgroundColor: "#D4A24C15", color: "#B8860B", borderColor: "#D4A24C30" }}
+                        className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1"
+                        style={{ backgroundColor: "#D4A24C25", color: "#E8B35E", borderColor: "#D4A24C50" }}
                       >
                         {ob.papel}
                       </div>
@@ -164,17 +163,17 @@ export default function Missoes({ onNavigate }: MissoesProps) {
       </section>
 
       {/* Missionários */}
-      <section className="py-16 bg-background" aria-label="Missionários">
+      <section className="py-16 bg-background" aria-labelledby="missoes-campo">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="mb-3 flex items-center justify-center gap-3">
               <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-              <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none">
                 Campo
               </span>
               <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
+            <h2 id="missoes-campo" className="font-display text-2xl sm:text-3xl font-normal text-foreground">
               Missionários apoiados
             </h2>
             <p className="text-muted-foreground mt-3 max-w-xl mx-auto text-base">
@@ -204,8 +203,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                     <div className="mb-3 flex items-center gap-2">
                       <div className="h-1 w-1 rounded-full" style={{ backgroundColor: c.bg }} aria-hidden="true" />
                       <span
-                        className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none"
-                        style={{ color: c.bg }}
+                        className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-[#E8B35E]"
                       >
                         Missionário
                       </span>
@@ -214,8 +212,8 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                       {mis.nome}
                     </h3>
                     <div
-                      className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium ring-1"
-                      style={{ backgroundColor: `${c.bg}15`, color: c.bg, borderColor: `${c.bg}30` }}
+                      className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1"
+                      style={{ backgroundColor: `${c.bg}25`, color: "#E8B35E", borderColor: `${c.bg}50` }}
                     >
                       {mis.papel}
                     </div>
@@ -231,17 +229,17 @@ export default function Missoes({ onNavigate }: MissoesProps) {
       </section>
 
       {/* Conferências */}
-      <section className="py-16 bg-muted/40" aria-label="Conferências missionárias">
+      <section className="py-16 bg-muted/40" aria-labelledby="missoes-eventos">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="mb-3 flex items-center justify-center gap-3">
               <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-              <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none">
                 Eventos
               </span>
               <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
+            <h2 id="missoes-eventos" className="font-display text-2xl sm:text-3xl font-normal text-foreground">
               Conferências missionárias
             </h2>
             <p className="text-muted-foreground mt-3 max-w-xl mx-auto text-base">
@@ -277,14 +275,13 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                         aria-hidden="true"
                       />
                       <span
-                        className="text-[9.5px] font-semibold uppercase tracking-[0.22em] leading-none"
-                        style={{ color: conf.destaque ? "#D4A24C" : "#047857" }}
+                        className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-[#E8B35E]"
                       >
                         {conf.destaque ? "Conferência" : "Evento"}
                       </span>
                     </div>
                     {conf.destaque && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/15 text-[#D4A24C] text-[10px] font-bold uppercase tracking-wide px-3 py-1 ring-1 ring-[#D4A24C]/25">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/15 text-[#E8B35E] text-xs font-bold uppercase tracking-wide px-3 py-1 ring-1 ring-[#D4A24C]/25">
                         Destaque
                       </span>
                     )}
@@ -321,17 +318,17 @@ export default function Missoes({ onNavigate }: MissoesProps) {
       </section>
 
       {/* Galeria / Vídeos */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background" aria-labelledby="missoes-midia">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="mb-3 flex items-center justify-center gap-3">
               <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-              <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none">
                 Mídia
               </span>
               <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
+            <h2 id="missoes-midia" className="font-display text-2xl sm:text-3xl font-normal text-foreground">
               Fotos e vídeos
             </h2>
             <p className="text-muted-foreground mt-3 max-w-xl mx-auto text-base">
@@ -439,6 +436,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
           <div className="flex justify-center">
             <button
               onClick={() => onNavigate("contribuicoes")}
+              aria-label="Apoie a obra missionária"
               className="group inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-7 py-3 rounded-full shadow-lg shadow-[#D4A24C]/30 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0"
             >
               Apoie a obra

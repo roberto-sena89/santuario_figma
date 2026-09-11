@@ -21,6 +21,7 @@ export default function Quiz() {
 
   const [fase, setFase] = useState<Fase>("intro");
   const [idx, setIdx] = useState(0);
+  const [focoAlt, setFocoAlt] = useState(0);
   const [escolhas, setEscolhas] = useState<(number | null)[]>(
     () => Array(quiz.perguntas.length).fill(null)
   );
@@ -36,12 +37,28 @@ export default function Quiz() {
 
   const responder = (alt: number) => {
     if (respondida) return;
+    setFocoAlt(alt);
     setEscolhas((prev) => prev.map((v, i) => (i === idx ? alt : v)));
+  };
+
+  // Navegação por setas no grupo de alternativas (padrão ARIA radio group)
+  const navegarAlternativa = (e: React.KeyboardEvent, atualAlt: number) => {
+    const n = atual.alternativas.length;
+    let nova = atualAlt;
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") nova = (atualAlt + 1) % n;
+    else if (e.key === "ArrowUp" || e.key === "ArrowLeft") nova = (atualAlt - 1 + n) % n;
+    else return;
+    e.preventDefault();
+    setFocoAlt(nova);
+    if (!respondida) {
+      setEscolhas((prev) => prev.map((v, i) => (i === idx ? nova : v)));
+    }
   };
 
   const proxima = () => {
     if (idx + 1 < quiz.perguntas.length) {
       setIdx(idx + 1);
+      setFocoAlt(0);
     } else {
       const total = acertos;
       if (total > lerRecorde(quiz.id)) {
@@ -82,7 +99,7 @@ export default function Quiz() {
   };
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Hero com imagem de fundo - /fotos/quiz/1.jpg */}
       <section className="relative overflow-hidden">
         <img
@@ -163,7 +180,11 @@ export default function Quiz() {
                 {atual.pergunta}
               </h2>
 
-              <div className="grid gap-3">
+              <div
+                role="radiogroup"
+                aria-label={`Alternativas da pergunta ${idx + 1}`}
+                className="grid gap-3"
+              >
                 {atual.alternativas.map((alt, i) => {
                   const escolhida = escolhas[idx] === i;
                   const certa = i === atual.correta;
@@ -177,11 +198,15 @@ export default function Quiz() {
                   return (
                     <button
                       key={i}
+                      role="radio"
+                      aria-checked={escolhida}
+                      tabIndex={focoAlt === i ? 0 : -1}
                       onClick={() => responder(i)}
+                      onKeyDown={(e) => navegarAlternativa(e, i)}
                       disabled={respondida}
                       className={`rounded-xl border p-4 text-left text-sm text-foreground transition-all ${cls} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70`}
                     >
-                      <span className="mr-2 font-bold text-[#D4A24C]">
+                      <span className="mr-2 font-bold text-[#E8B35E]">
                         {["A", "B", "C", "D"][i]}.
                       </span>
                       {alt}
@@ -198,10 +223,15 @@ export default function Quiz() {
 
               {respondida && (
                 <div className="mt-4 rounded-xl border border-[#D4A24C]/25 bg-[#D4A24C]/5 p-4">
-                  <p className="text-sm text-foreground">
-                    <strong className="text-[#D4A24C]">{atual.ref}</strong>
+                  <p role="status" className="text-sm text-foreground">
+                    <strong className="text-[#E8B35E]">{atual.ref}</strong>
                     {" — "}
                     {atual.explica}
+                  </p>
+                  <p className="sr-only">
+                    {escolhas[idx] === atual.correta
+                      ? `Você acertou. ${atual.explica}`
+                      : `Você errou. Resposta correta: ${atual.alternativas[atual.correta]}. ${atual.explica}`}
                   </p>
                   <button
                     onClick={proxima}

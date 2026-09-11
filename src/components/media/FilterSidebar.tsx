@@ -119,14 +119,18 @@ export default function FilterSidebar({
     setSecoesAbertas((prev) => ({ ...prev, [secao]: !prev[secao] }));
   };
 
-  // Fechar drawer no mobile ao pressionar ESC
+  // Fechar drawer no mobile ao pressionar ESC + trava scroll fundo
   useEffect(() => {
     if (!open) return;
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose?.();
     };
     window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', handleEsc);
+      document.body.style.overflow = '';
+    };
   }, [open, onClose]);
 
   // Artistas filtrados pela busca (reutiliza lógica de normalização)

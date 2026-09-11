@@ -30,6 +30,15 @@ export default function PageTitle({
   subtitle,
   subtitleIcon,
   align = 'center',
+}: {
+  eyebrow?: string;
+  eyebrowIcon?: string;
+  title: string;
+  titleAccent?: string;
+  titleSuffix?: string;
+  subtitle?: string;
+  subtitleIcon?: string;
+  align?: 'center' | 'left';
 }) {
   return (
     <div
@@ -39,7 +48,7 @@ export default function PageTitle({
     >
       {/* Badge eyebrow — amber pill */}
       {eyebrow && (
-        <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+        <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#E8B35E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
           {eyebrow}
         </p>
       )}
@@ -48,7 +57,7 @@ export default function PageTitle({
       <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-foreground tracking-tight leading-tight">
         {title}{' '}
         {titleAccent && (
-          <span className="text-[#9C7A2E] italic font-medium">{titleAccent}</span>
+          <span className="text-[#E8B35E] italic font-medium">{titleAccent}</span>
         )}
         {titleSuffix && <> {titleSuffix}</>}
       </h1>

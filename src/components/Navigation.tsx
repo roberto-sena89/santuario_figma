@@ -56,6 +56,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
   {
     label: "Ministérios",
+    page: "ministerios",
     icon: <UsersIcon />,
     group: "core",
     submenuLabel: "Conheça os ministérios",
@@ -166,7 +167,8 @@ export default function Navigation({
     setMenuOpen(false);
     setOpenSubmenu(null);
     setMobileOpenSubmenu(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
   };
 
   // Apoie acende só em Contribuições (MORE_ITEMS também alimenta o drawer mobile)
@@ -272,13 +274,24 @@ export default function Navigation({
                           if (item.navigateParent) navigate(item.page);
                           setOpenSubmenu(isOpen ? null : item.page);
                         }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Escape") {
+                            e.stopPropagation();
+                            setOpenSubmenu(null);
+                          }
+                          if (e.key === "ArrowDown" && !isOpen) {
+                            e.preventDefault();
+                            setOpenSubmenu(item.page);
+                          }
+                        }}
                         className={`group relative flex items-center gap-1 px-3.5 py-2 rounded-md text-[13.5px] font-medium transition-colors duration-200 ${
                           subActive || isOpen
                             ? "text-accent"
                             : "text-foreground/75 hover:text-foreground"
                         }`}
                         aria-expanded={isOpen}
-                        aria-haspopup="true"
+                        aria-haspopup="menu"
+                        aria-controls={`submenu-${item.page}`}
                       >
                         {item.label}
                         <svg
@@ -310,6 +323,7 @@ export default function Navigation({
 
                       {isOpen && (
                         <div
+                          id={`submenu-${item.page}`}
                           className="absolute left-0 top-full mt-2 w-72 origin-top-left rounded-2xl border border-border bg-card/95 backdrop-blur-xl shadow-xl shadow-black/10 py-2 z-50"
                           role="menu"
                         >

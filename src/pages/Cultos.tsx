@@ -21,7 +21,7 @@ export default function Cultos() {
   }, []);
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Header hero com imagem de fundo - /fotos/agenda/1.jpg */}
       <section className="relative overflow-hidden">
         <img
@@ -50,13 +50,13 @@ export default function Cultos() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         {/* Escala da semana atual */}
-        <section aria-label="Escala da semana" className="mb-12">
+        <section aria-labelledby="escala-titulo" className="mb-12">
           <div className="flex items-center gap-3 mb-6">
-            <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20">
+            <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20" aria-hidden="true">
               📋
             </span>
             <div>
-              <h2 className="font-display text-2xl font-semibold text-foreground">
+              <h2 id="escala-titulo" className="font-display text-2xl font-semibold text-foreground">
                 Escala da Semana
               </h2>
               <p className="text-sm text-muted-foreground">
@@ -143,7 +143,7 @@ export default function Cultos() {
                                                                                 {nomes.map((nome) => (
                                                                                   <span
                                                                                     key={nome}
-                                                                                    className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-3 py-1 text-xs font-medium text-[#B8860B] ring-1 ring-[#D4A24C]/25 dark:text-[#E8B35E]"
+                                                                                    className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-3 py-1 text-xs font-medium text-[#E8B35E] ring-1 ring-[#D4A24C]/25"
                                                                                   >
                                                                                     <span
                                                                                       className="h-1.5 w-1.5 rounded-full bg-[#D4A24C]"
@@ -158,7 +158,7 @@ export default function Cultos() {
                                                                       })}
                       </ul>
                     ) : (
-                      <p className="text-xs italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#B8860B] dark:text-[#E8B35E]">#/escala</span></p>
+                      <p className="text-xs italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#E8B35E]">#/escala</span></p>
                     )}
                   </div>
                       );

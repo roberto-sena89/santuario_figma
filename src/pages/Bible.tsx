@@ -100,7 +100,7 @@ export default function Bible() {
   >({});
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const verseContainerRef = useRef<HTMLElement>(null);
+  const verseContainerRef = useRef<HTMLDivElement>(null);
   // Última leitura (do histórico) para o painel inicial
   const [lastRead, setLastRead] = useState<{ book: BibleBook; chapter: number } | null>(null);
   // Resultado de tema selecionado (chips "Por sentimento")
@@ -123,7 +123,7 @@ export default function Bible() {
   const [popoverPosition, setPopoverPosition] = useState({ x: 0, y: 0 });
   const [selectedVersesRange, setSelectedVersesRange] = useState<{ start: number; end: number } | null>(null);
 
-  const handleSelect = (e: UIEvent) => {
+  const handleSelect = (e: React.MouseEvent | React.TouchEvent) => {
     const selection = window.getSelection();
     if (!selection || selection.isCollapsed) {
       setShowSelectionPopover(false);

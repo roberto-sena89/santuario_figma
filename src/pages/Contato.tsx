@@ -27,17 +27,17 @@ export default function Contato() {
 
   if (state === "success") {
     return (
-      <main id="main-content" className="min-h-screen bg-background pt-16 flex items-center justify-center px-4">
+      <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16 flex items-center justify-center px-4">
         <div className="text-center max-w-md">
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6 dark:bg-green-900/30">
             <svg className="w-10 h-10 text-green-600 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="font-display text-2xl font-semibold text-foreground mb-3">
+          <h2 tabIndex={-1} className="font-display text-2xl font-semibold text-foreground mb-3">
             Mensagem enviada!
           </h2>
-          <p className="text-muted-foreground text-base leading-relaxed mb-6">
+          <p role="status" className="text-muted-foreground text-base leading-relaxed mb-6">
             Obrigado por entrar em contato, {form.name.split(" ")[0]}! Respondemos em até 2 dias úteis.
             {form.prayer && " Seu pedido de oração foi recebido com amor e será levado ao Senhor."}
           </p>
@@ -56,7 +56,7 @@ export default function Contato() {
   }
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Header hero com imagem de fundo - /fotos/fale-conosco/1.jpg */}
       <section className="relative overflow-hidden">
         <img
@@ -88,7 +88,7 @@ export default function Contato() {
           {/* Form */}
           <div className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
-              <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-[#D4A24C]/15 text-lg shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20">
+              <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-[#D4A24C]/15 text-lg shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20" aria-hidden="true">
                 ✉️
               </span>
               <h2 className="font-display text-xl font-semibold text-foreground">
@@ -153,7 +153,6 @@ export default function Contato() {
                     value={form.subject}
                     onChange={(e) => update("subject", e.target.value)}
                     className="w-full px-4 py-2.5 bg-background border border-border rounded-lg text-base text-foreground focus:border-accent focus:outline-none transition-colors"
-                    aria-label="Selecionar assunto"
                   >
                     <option value="">Selecionar...</option>
                     <option value="visita">Quero visitar a igreja</option>
@@ -200,7 +199,7 @@ export default function Contato() {
               </label>
 
               {state === "error" && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4 text-sm text-red-700 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
+                <div role="alert" className="bg-red-50 border border-red-200 rounded-lg p-3 mb-4 text-sm text-red-700 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400">
                   Erro ao enviar mensagem. Por favor, tente novamente.
                 </div>
               )}

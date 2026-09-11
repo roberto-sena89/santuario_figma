@@ -55,7 +55,7 @@ export default function Devocional() {
   const monthNames = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Hero - replica estrutura Palavra do Dia mas com wallpaper do devocional */}
       <section className="relative py-12 sm:py-14 overflow-hidden" aria-label="Devocional do dia">
         <img
@@ -133,7 +133,7 @@ export default function Devocional() {
                 <div className="px-6 sm:px-8 py-6 border-b border-border/60 bg-gradient-to-r from-[#D4A24C]/[0.07] to-transparent">
                   <div className="flex items-center gap-2">
                     <span className="h-1 w-6 rounded-full bg-[#D4A24C]" aria-hidden="true" />
-                    <h2 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#9C7A2E]">Pensamento</h2>
+                    <h2 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E8B35E]">Pensamento</h2>
                   </div>
                 </div>
                 <div className="px-6 sm:px-8 py-6 sm:py-7">

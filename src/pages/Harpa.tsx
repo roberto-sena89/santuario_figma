@@ -70,7 +70,7 @@ export default function Harpa() {
   }
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Header hero com imagem de fundo - /fotos/harpa/1.jpg */}
       <section className="relative overflow-hidden">
         <img src="/fotos/harpa/1.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" aria-hidden="true" />
@@ -88,8 +88,11 @@ export default function Harpa() {
 
         {/* Search */}
         <div className="relative mb-4">
+          <label htmlFor="harpa-busca" className="block text-sm font-medium text-foreground mb-1.5">
+            Buscar hino
+          </label>
           <svg
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground"
+            className="absolute left-3 top-[42px] w-4 h-4 text-muted-foreground"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -98,17 +101,17 @@ export default function Harpa() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
           <input
+            id="harpa-busca"
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar por número ou título do hino..."
             className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
-            aria-label="Buscar hino"
           />
         </div>
 
         {/* Results count */}
-        <p className="text-muted-foreground text-sm mb-5">
+        <p role="status" className="text-muted-foreground text-sm mb-5">
           Exibindo {Math.min((page - 1) * PAGE_SIZE + 1, hymns.length)}–{Math.min(page * PAGE_SIZE, hymns.length)} de {hymns.length}{" "}
           {hymns.length === 1 ? "hino" : "hinos"} · Página {page} de {totalPages}
         </p>
@@ -137,14 +140,15 @@ export default function Harpa() {
 
         {/* Pagination */}
         {totalPages > 1 && (
-          <div className="mt-8 flex items-center justify-center gap-2">
+          <nav aria-label="Paginação dos hinos" className="mt-8 flex items-center justify-center gap-2">
 
             <button
               onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
-              className="inline-flex items-center gap-1 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-4 py-1.5 text-sm font-semibold text-[#B8860B] dark:text-[#E8B35E] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              aria-label="Página anterior"
+              className="inline-flex items-center gap-1 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-4 py-1.5 text-sm font-semibold text-[#E8B35E] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
               Anterior
             </button>
 
@@ -157,10 +161,12 @@ export default function Harpa() {
                   <button
                     key={p}
                     onClick={() => setPage(p)}
+                    aria-label={`Página ${p}`}
+                    aria-current={p === page ? "page" : undefined}
                     className={`h-11 w-11 rounded-full text-sm font-semibold transition-all duration-200 ${
                       p === page
                         ? "bg-[#D4A24C] text-gray-900 border-2 border-[#E8B35E]/70 shadow-lg shadow-[#D4A24C]/30 scale-105"
-                        : "border border-[#D4A24C]/30 bg-[#D4A24C]/5 text-[#B8860B] hover:bg-[#D4A24C]/15 hover:-translate-y-0.5 dark:text-[#E8B35E]"
+                        : "border border-[#D4A24C]/30 bg-[#D4A24C]/5 text-[#E8B35E] hover:bg-[#D4A24C]/15 hover:-translate-y-0.5"
                     }`}
                   >
                     {p}
@@ -172,12 +178,13 @@ export default function Harpa() {
             <button
               onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
-              className="inline-flex items-center gap-1 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-4 py-1.5 text-sm font-semibold text-[#B8860B] dark:text-[#E8B35E] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              aria-label="Próxima página"
+              className="inline-flex items-center gap-1 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-4 py-1.5 text-sm font-semibold text-[#E8B35E] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               Próximo
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
             </button>
-          </div>
+          </nav>
         )}
       </div>
       <PlayerModal video={playerVideo} onClose={() => setPlayerVideo(null)} />
@@ -254,30 +261,32 @@ function HymnCard({
 }) {
   return (
     <article
+      aria-labelledby={`hino-${hymn.number}-titulo`}
       className={`group overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10 ${
         open ? "sm:col-span-2 xl:col-span-3" : ""
       }`}
     >
       <button
         onClick={onToggle}
-        className="w-full text-left px-6 py-4 flex items-center justify-between gap-4 hover:bg-muted/30 transition-colors"
         aria-expanded={open}
-        aria-controls={`hymn-${hymn.number}-content`}
+        aria-controls={`hino-${hymn.number}-conteudo`}
+        aria-label={`${hymn.number}. ${hymn.title} — ${open ? "recolher" : "expandir"}`}
+        className="w-full text-left px-6 py-4 flex items-center justify-between gap-4 hover:bg-muted/30 transition-colors"
       >
-        <div className="flex items-center gap-3">
-          <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-[#D4A24C]/10 font-display font-bold text-[#B8860B] dark:text-[#E8B35E] ring-1 ring-[#D4A24C]/20 transition-transform duration-300 group-hover:scale-110">
+        <span className="flex items-center gap-3">
+          <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-[#D4A24C]/10 font-display font-bold text-[#E8B35E] ring-1 ring-[#D4A24C]/20 transition-transform duration-300 group-hover:scale-110" aria-hidden="true">
             {hymn.number}
           </span>
-          <div className="min-w-0">
-            <h3 className="font-display font-semibold text-foreground text-base leading-snug transition-colors duration-200 group-hover:text-[#B8860B] dark:group-hover:text-[#E8B35E]">
-              {hymn.title}
-            </h3>
-            <p className="text-xs text-muted-foreground mt-0.5">
+          <span className="min-w-0">
+            <span id={`hino-${hymn.number}-titulo`} className="block font-display font-semibold text-foreground text-base leading-snug transition-colors duration-200 group-hover:text-[#E8B35E]">
+              {hymn.number}. {hymn.title}
+            </span>
+            <span className="block text-xs text-muted-foreground mt-0.5">
               {hymn.verses.length} {hymn.verses.length === 1 ? "estrofe" : "estrofes"}
               {hymn.chorus && " · com refrão"}
-            </p>
-          </div>
-        </div>
+            </span>
+          </span>
+        </span>
         <svg
           className={`h-4 w-4 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${
             open ? "rotate-180 text-[#D4A24C]" : ""
@@ -292,7 +301,8 @@ function HymnCard({
       </button>
 
       {open && (
-        <div id={`hymn-${hymn.number}-content`} className="px-6 pb-6 border-t border-border/60 pt-6">
+        <div id={`hino-${hymn.number}-conteudo`} role="region" aria-labelledby={`hino-${hymn.number}-titulo`} className="px-6 pb-6 border-t border-border/60 pt-6">
+          <h3 id={`hino-${hymn.number}-letra`} className="sr-only">Letra do hino {hymn.number}</h3>
           <div className="space-y-6">
             {hymn.verses.map((verse, i) => (
               <div key={i}>

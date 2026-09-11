@@ -85,7 +85,7 @@ export default function PlanoLeitura() {
   };
 
   return (
-    <main id="main-content" className="min-h-screen bg-background pt-16">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Hero com imagem de fundo - /fotos/plano-de-leitura/1.jpg */}
       <section className="relative overflow-hidden">
         <img
@@ -119,7 +119,7 @@ export default function PlanoLeitura() {
               <span className="text-muted-foreground">
                 <strong className="text-foreground">{lidos.size}</strong> de 365 dias
               </span>
-              <span className="font-bold text-[#D4A24C]">{pct}%</span>
+              <span className="font-bold text-[#E8B35E]">{pct}%</span>
             </div>
             <div
               className="h-2.5 rounded-full bg-border overflow-hidden"
@@ -127,6 +127,7 @@ export default function PlanoLeitura() {
               aria-valuenow={pct}
               aria-valuemin={0}
               aria-valuemax={100}
+              aria-label={`Progresso do plano de leitura: ${lidos.size} de 365 dias, ${pct}% concluído`}
             >
               <div
                 className="h-full rounded-full bg-gradient-to-r from-[#D4A24C] to-[#C4933C] transition-all"
@@ -137,28 +138,32 @@ export default function PlanoLeitura() {
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${
                   streak > 0
-                    ? "border-[#D4A24C]/40 bg-[#D4A24C]/10 text-[#D4A24C]"
+                    ? "border-[#D4A24C]/40 bg-[#D4A24C]/10 text-[#E8B35E]"
                     : "border-border text-muted-foreground"
                 }`}
               >
-                🔥 {streak} {streak === 1 ? "dia seguido" : "dias seguidos"}
+                <span aria-hidden="true">🔥 </span>
+                <span className="sr-only">Sequência atual: </span>
+                {streak} {streak === 1 ? "dia seguido" : "dias seguidos"}
               </span>
               {selos.map((s) => (
                 <span
                   key={s.dias}
-                  title={s.ok ? s.nome : `${s.nome} (${s.dias} dias)`}
-                  className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs ${
+                  className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold ${
                     s.ok
-                      ? "border-[#D4A24C]/40 bg-[#D4A24C]/10"
-                      : "border-border opacity-40 grayscale"
+                      ? "border-[#D4A24C]/40 bg-[#D4A24C]/10 text-[#E8B35E]"
+                      : "border-border opacity-40 grayscale text-muted-foreground"
                   }`}
                 >
                   <span aria-hidden="true">{s.emoji}</span>
+                  <span className="sr-only">{s.nome}{s.ok ? ", conquistado" : `, falta ${s.dias} dias`}</span>
                 </span>
               ))}
               <button
                 onClick={compartilhar}
-                className="ml-auto text-xs font-semibold text-[#D4A24C] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 rounded"
+                aria-live="polite"
+                aria-label={copiado ? "Progresso copiado" : "Compartilhar progresso do plano de leitura"}
+                className="ml-auto text-xs font-semibold text-[#E8B35E] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 rounded"
               >
                 {copiado ? "Copiado!" : "Compartilhar progresso"}
               </button>
@@ -167,20 +172,18 @@ export default function PlanoLeitura() {
 
           {/* Leitura de hoje */}
           <div className="rounded-2xl border border-[#D4A24C]/30 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-5 sm:p-6 mb-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-1">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-1">
               Leitura de hoje — dia {hojeDia} de 365
             </p>
             <div className="flex flex-wrap gap-2 my-3">
-              {leituraHoje.caps.map((c, i) => (
+              {leituraHoje.caps.map((c) => (
                 <a
                   key={`${c.bookId}-${c.chapter}`}
                   href={encodeBibleHash(null, c.testament, c.bookId, c.chapter)}
+                  aria-label={`Ler ${c.abbr} ${c.chapter} na Bíblia`}
                   className="rounded-full border border-[#D4A24C]/30 bg-background px-3.5 py-1.5 text-sm font-semibold text-foreground transition-all hover:border-[#D4A24C]/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
                 >
                   {c.abbr} {c.chapter}
-                  {i === 0 && (
-                    <span className="sr-only">(abre na Bíblia)</span>
-                  )}
                 </a>
               ))}
             </div>
@@ -189,13 +192,16 @@ export default function PlanoLeitura() {
             </p>
             <button
               onClick={marcarHoje}
+              aria-pressed={hojeLido}
+              aria-live="polite"
               className={`inline-flex h-11 items-center justify-center rounded-full px-8 text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
                 hojeLido
                   ? "border border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
                   : "bg-[#D4A24C] text-[#1A1409] hover:bg-[#C4933C]"
               }`}
             >
-              {hojeLido ? "✓ Dia concluído (desfazer)" : "Marquei como lida"}
+              <span aria-hidden="true">{hojeLido ? "✓ Dia concluído (desfazer)" : "Marquei como lida"}</span>
+              <span className="sr-only">{hojeLido ? "Dia concluído, desfazer" : "Marquei como lida"}</span>
             </button>
           </div>
 
@@ -209,10 +215,10 @@ export default function PlanoLeitura() {
           </p>
           {meses.map((g) => (
             <div key={g.mes} className="mb-5">
-              <h3 className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2">
+              <h3 id={`plano-mes-${g.mes}`} className="text-xs font-bold uppercase tracking-[0.18em] text-muted-foreground mb-2">
                 {g.mes}
               </h3>
-              <div className="flex flex-wrap gap-1.5">
+              <div role="group" aria-labelledby={`plano-mes-${g.mes}`} className="flex flex-wrap gap-1.5">
                 {g.dias.map((d, i) => {
                   const lido = lidos.has(d.dia);
                   const ehHoje = d.dia === hojeDia;
@@ -220,12 +226,11 @@ export default function PlanoLeitura() {
                     <button
                       key={d.dia}
                       onClick={() => alternar(d.dia)}
-                      title={`Dia ${d.dia}: ${d.resumo}`}
-                      aria-label={`Dia ${d.dia} (${d.resumo})${lido ? ", lido" : ""}`}
+                      aria-label={`Dia ${d.dia} de 365 (${d.resumo})${lido ? ", lido" : ""}${ehHoje ? ", hoje" : ""}`}
                       aria-pressed={lido}
                       className={`w-10 h-10 rounded-lg border text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
                         lido
-                          ? "border-[#D4A24C]/60 bg-[#D4A24C]/20 text-[#D4A24C]"
+                          ? "border-[#D4A24C]/60 bg-[#D4A24C]/20 text-[#E8B35E]"
                           : ehHoje
                             ? "border-[#D4A24C] bg-background text-foreground ring-1 ring-[#D4A24C]/50"
                             : "border-border bg-card text-muted-foreground hover:border-[#D4A24C]/40"
