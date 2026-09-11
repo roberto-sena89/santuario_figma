@@ -8,7 +8,7 @@ import type { Page } from "../components/Navigation";
 import EscalaSemanaCard from "../components/EscalaSemanaCard";
 import { Star, BookOpen, Sun, CalendarDays, Music } from "lucide-react";
 
-const HERO_IMAGE = "/fotos/homepage/1.jfif";
+const HERO_IMAGE = "/fotos/homepage/1.jpg";
 
 const BIBLE_IMAGE = "/fotos/homepage/10.jpg";
 
@@ -153,7 +153,7 @@ export default function Home({ onNavigate }: HomeProps) {
       {/* Palavra do Dia */}
             <section className="py-8 sm:py-10 relative overflow-hidden" aria-label="Palavra do Dia">
                           <img
-                            src="/fotos/homepage/7.jfif"
+                            src="/fotos/homepage/7.jpg"
                             alt=""
                             className="absolute inset-0 w-full h-full object-cover object-center opacity-85"
                             loading="lazy"
@@ -260,7 +260,7 @@ export default function Home({ onNavigate }: HomeProps) {
       {/* Novo por aqui — abaixo da Bíblia Sagrada */}
       <section className="relative overflow-hidden" aria-label="Novo por aqui">
         <img
-          src="/fotos/homepage/9.jfif"
+          src="/fotos/homepage/9.jpg"
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-center"
           loading="lazy"

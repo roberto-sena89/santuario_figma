@@ -33,7 +33,7 @@ export const IGREJA = {
   // Fotos reais da igreja (coloque os arquivos em public/fotos/ e referencie aqui).
   // Deixe vazio ('') para usar o placeholder decorativo.
   fotos: {
-    hero: '/fotos/homepage/hero-homepage.jfif', // ex.: '/fotos/hero.jpg' (fundo do topo, ideal 1600x900)
+    hero: '/fotos/homepage/hero-homepage.jpg', // ex.: '/fotos/hero.jpg' (fundo do topo, ideal 1600x900)
     sobre: '', // ex.: '/fotos/sobre.jpg' (seção Sobre, ideal 4:3)
   },
   // Formulário de contato (Formspree, gratuito): crie em https://formspree.io

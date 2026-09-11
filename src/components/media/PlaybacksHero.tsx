@@ -44,7 +44,7 @@ export default function PlaybacksHero({
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/fotos/playbacks/play.jfif?v=2')",
+          backgroundImage: "url('/fotos/playbacks/play.jpg?v=2')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           opacity: 0.7,
