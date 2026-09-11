@@ -39,6 +39,15 @@ export default function Oracoes() {
       .finally(() => setCarregando(false));
   }, []);
 
+  // Ponte Devocional → Mural: pré-preenche o pedido com a oração do dia
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem("santuario:oracao_texto");
+      if (v && v.trim()) setTexto(v.trim());
+      localStorage.removeItem("santuario:oracao_texto");
+    } catch {}
+  }, []);
+
   const recarregar = async () => {
     const p = await listarPedidos().catch(() => null);
     if (p) {

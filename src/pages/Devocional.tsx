@@ -190,7 +190,7 @@ export default function Devocional() {
                   <p className="text-[15px] sm:text-[16px] leading-[1.85] text-foreground/90 italic">
                     {devotional.prayer}
                   </p>
-                  <div className="mt-6 flex gap-3">
+                  <div className="mt-6 flex flex-wrap gap-3">
                     <button
                       onClick={() => copy(devotional.prayer, "prayer")}
                       className="inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-4 py-2 text-xs font-semibold text-[#9C7A2E] hover:bg-[#D4A24C]/20 transition-colors"
@@ -198,6 +198,16 @@ export default function Devocional() {
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                       {copied === "prayer" ? "Copiada!" : "Copiar oração"}
                     </button>
+                    {/* LINK INTERNO 2 — Devocional → Mural de Oração (pré-preenche o pedido) */}
+                    <a
+                      href="#/oracoes"
+                      onClick={() => {
+                        try { localStorage.setItem("santuario:oracao_texto", devotional.prayer); } catch {}
+                      }}
+                      className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C] px-4 py-2 text-xs font-bold text-gray-900 shadow-md shadow-[#D4A24C]/25 transition-colors hover:bg-[#C4933C]"
+                    >
+                      🙏 Compartilhar no Mural de Oração →
+                    </a>
                   </div>
                 </div>
               </article>
