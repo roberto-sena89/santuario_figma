@@ -48,7 +48,7 @@ export default function PageTitle({
     >
       {/* Badge eyebrow — amber pill */}
       {eyebrow && (
-        <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#E8B35E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+        <p className="inline-flex items-center rounded-full bg-gold/15 border border-gold/30 px-4 py-1.5 text-gold-light text-xs font-semibold uppercase tracking-[0.18em] mb-4">
           {eyebrow}
         </p>
       )}
@@ -57,7 +57,7 @@ export default function PageTitle({
       <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-foreground tracking-tight leading-tight">
         {title}{' '}
         {titleAccent && (
-          <span className="text-[#E8B35E] italic font-medium">{titleAccent}</span>
+          <span className="text-gold-light italic font-medium">{titleAccent}</span>
         )}
         {titleSuffix && <> {titleSuffix}</>}
       </h1>
@@ -65,7 +65,7 @@ export default function PageTitle({
       {/* Subtitulo */}
       {subtitle && subtitleIcon ? (
         <p
-          className={`mt-6 inline-flex items-start gap-3 rounded-2xl border border-[#D4A24C]/20 px-4 py-3 text-sm sm:text-base text-muted-foreground ${
+          className={`mt-6 inline-flex items-start gap-3 rounded-2xl border border-gold/20 px-4 py-3 text-sm sm:text-base text-muted-foreground ${
             align === 'center' ? 'mx-auto max-w-xl' : 'max-w-xl'
           } leading-relaxed`}
         >
@@ -83,3 +83,4 @@ export default function PageTitle({
     </div>
   );
 }
+

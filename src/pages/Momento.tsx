@@ -133,7 +133,7 @@ export default function Momento() {
             {PASSOS.map((p, i) => (
               <li key={p} className="flex-1 text-center" aria-current={i === 0 ? "step" : undefined}>
                 <span
-                  className="block h-1.5 rounded-full bg-[#D4A24C]/70 mb-1.5"
+                  className="block h-1.5 rounded-full bg-gold/70 mb-1.5"
                   aria-hidden="true"
                 />
                 <span className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
@@ -145,7 +145,7 @@ export default function Momento() {
 
           {/* 1 — Versículo */}
           <section aria-labelledby="momento-passo-1" className="mb-8 text-center">
-            <h2 id="momento-passo-1" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-3">
+            <h2 id="momento-passo-1" className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light mb-3">
               1 · Medite
             </h2>
             <blockquote>
@@ -153,7 +153,7 @@ export default function Momento() {
                 "{ritual.palavra.text}"
               </p>
             </blockquote>
-            <cite className="not-italic block mt-3 text-[#E8B35E] font-semibold tracking-[0.06em]">
+            <cite className="not-italic block mt-3 text-gold-light font-semibold tracking-[0.06em]">
               {ritual.palavra.ref} · #{ritual.palavra.theme}
             </cite>
             <div className="flex gap-2 justify-center mt-4">
@@ -161,13 +161,13 @@ export default function Momento() {
                 onClick={copiarVerso}
                 aria-label={copiado ? "Versículo copiado" : "Copiar versículo"}
                 aria-live="polite"
-                className="h-10 rounded-full border border-border px-5 text-xs font-bold text-foreground transition-all hover:border-[#D4A24C]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                className="h-10 rounded-full border border-border px-5 text-xs font-bold text-foreground transition-all hover:border-gold/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
               >
                 {copiado ? "Copiado!" : "Copiar"}
               </button>
               <button
                 onClick={compartilharTexto}
-                className="h-10 rounded-full border border-border px-5 text-xs font-bold text-foreground transition-all hover:border-[#D4A24C]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                className="h-10 rounded-full border border-border px-5 text-xs font-bold text-foreground transition-all hover:border-gold/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
               >
                 Enviar texto
               </button>
@@ -179,7 +179,7 @@ export default function Momento() {
             aria-labelledby="momento-passo-2"
             className="rounded-2xl border border-border bg-card p-5 sm:p-7 mb-6"
           >
-            <h2 id="momento-passo-2" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
+            <h2 id="momento-passo-2" className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light mb-2">
               2 · Reflita — {ritual.devocional.title}
             </h2>
             {ritual.devocional.body.split("\n\n").map((par, i) => (
@@ -190,8 +190,8 @@ export default function Momento() {
                 {par}
               </p>
             ))}
-            <div className="mt-5 rounded-xl border border-[#D4A24C]/25 bg-[#D4A24C]/5 p-4">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#E8B35E] mb-1.5">
+            <div className="mt-5 rounded-xl border border-gold/25 bg-gold/5 p-4">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-light mb-1.5">
                 Oração
               </p>
               <p className="font-display italic text-[15px] text-foreground/90 leading-relaxed">
@@ -203,9 +203,9 @@ export default function Momento() {
           {/* 3 — Aplicação */}
           <section
             aria-labelledby="momento-passo-3"
-            className="rounded-2xl border border-[#D4A24C]/30 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-5 sm:p-6 mb-6"
+            className="rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/[0.08] to-transparent p-5 sm:p-6 mb-6"
           >
-            <h2 id="momento-passo-3" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
+            <h2 id="momento-passo-3" className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light mb-2">
               3 · Aplique
             </h2>
             <p className="font-display text-xl text-foreground leading-relaxed">
@@ -221,7 +221,7 @@ export default function Momento() {
             aria-labelledby="momento-passo-4"
             className="rounded-2xl border border-border bg-card p-5 sm:p-6 mb-6 text-center"
           >
-            <h2 id="momento-passo-4" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
+            <h2 id="momento-passo-4" className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light mb-2">
               4 · Sele o momento
             </h2>
             <button
@@ -229,10 +229,10 @@ export default function Momento() {
               disabled={amem}
               aria-pressed={amem}
               aria-label={amem ? "Amém de hoje registrado" : "Dizer amém ao momento de hoje"}
-              className={`inline-flex h-12 items-center justify-center rounded-full px-10 text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
+              className={`inline-flex h-12 items-center justify-center rounded-full px-10 text-sm font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 ${
                 amem
                   ? "border border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                  : "bg-[#D4A24C] text-[#1A1409] hover:bg-[#C4933C] hover:-translate-y-0.5"
+                  : "bg-gold text-gold-ink hover:bg-gold-hover hover:-translate-y-0.5"
               }`}
             >
               <span aria-hidden="true">{amem ? "🙏 Amém de hoje registrado" : "🙏 Amém"}</span>
@@ -249,7 +249,7 @@ export default function Momento() {
             aria-labelledby="momento-passo-5"
             className="rounded-2xl border border-border bg-card p-5 sm:p-6 text-center"
           >
-            <h2 id="momento-passo-5" className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-2">
+            <h2 id="momento-passo-5" className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light mb-2">
               5 · Espalhe
             </h2>
             <p className="text-sm text-muted-foreground mb-4">
@@ -260,12 +260,12 @@ export default function Momento() {
               onClick={compartilharImagem}
               disabled={gerando}
               aria-busy={gerando}
-              className="inline-flex h-11 items-center justify-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-8 text-sm font-bold text-[#E8B35E] transition-all hover:bg-[#D4A24C]/20 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-gold/30 bg-gold/10 px-8 text-sm font-bold text-gold-light transition-all hover:bg-gold/20 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
               {gerando ? "Gerando imagem..." : "Gerar imagem do dia"}
             </button>
             {imgMsg && (
-              <p role="status" className="text-sm text-[#E8B35E] font-semibold mt-3">{imgMsg}</p>
+              <p role="status" className="text-sm text-gold-light font-semibold mt-3">{imgMsg}</p>
             )}
           </section>
         </div>
@@ -273,3 +273,4 @@ export default function Momento() {
     </main>
   );
 }
+

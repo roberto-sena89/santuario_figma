@@ -119,7 +119,7 @@ export default function PlanoLeitura() {
               <span className="text-muted-foreground">
                 <strong className="text-foreground">{lidos.size}</strong> de 365 dias
               </span>
-              <span className="font-bold text-[#E8B35E]">{pct}%</span>
+              <span className="font-bold text-gold-light">{pct}%</span>
             </div>
             <div
               className="h-2.5 rounded-full bg-border overflow-hidden"
@@ -130,7 +130,7 @@ export default function PlanoLeitura() {
               aria-label={`Progresso do plano de leitura: ${lidos.size} de 365 dias, ${pct}% concluído`}
             >
               <div
-                className="h-full rounded-full bg-gradient-to-r from-[#D4A24C] to-[#C4933C] transition-all"
+                className="h-full rounded-full bg-gradient-to-r from-gold to-gold-hover transition-all"
                 style={{ width: `${pct}%` }}
               />
             </div>
@@ -138,7 +138,7 @@ export default function PlanoLeitura() {
               <span
                 className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-bold ${
                   streak > 0
-                    ? "border-[#D4A24C]/40 bg-[#D4A24C]/10 text-[#E8B35E]"
+                    ? "border-gold/40 bg-gold/10 text-gold-light"
                     : "border-border text-muted-foreground"
                 }`}
               >
@@ -151,7 +151,7 @@ export default function PlanoLeitura() {
                   key={s.dias}
                   className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold ${
                     s.ok
-                      ? "border-[#D4A24C]/40 bg-[#D4A24C]/10 text-[#E8B35E]"
+                      ? "border-gold/40 bg-gold/10 text-gold-light"
                       : "border-border opacity-40 grayscale text-muted-foreground"
                   }`}
                 >
@@ -163,7 +163,7 @@ export default function PlanoLeitura() {
                 onClick={compartilhar}
                 aria-live="polite"
                 aria-label={copiado ? "Progresso copiado" : "Compartilhar progresso do plano de leitura"}
-                className="ml-auto text-xs font-semibold text-[#E8B35E] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 rounded"
+                className="ml-auto text-xs font-semibold text-gold-light hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 rounded"
               >
                 {copiado ? "Copiado!" : "Compartilhar progresso"}
               </button>
@@ -171,8 +171,8 @@ export default function PlanoLeitura() {
           </div>
 
           {/* Leitura de hoje */}
-          <div className="rounded-2xl border border-[#D4A24C]/30 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-5 sm:p-6 mb-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#E8B35E] mb-1">
+          <div className="rounded-2xl border border-gold/30 bg-gradient-to-br from-gold/[0.08] to-transparent p-5 sm:p-6 mb-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light mb-1">
               Leitura de hoje — dia {hojeDia} de 365
             </p>
             <div className="flex flex-wrap gap-2 my-3">
@@ -181,7 +181,7 @@ export default function PlanoLeitura() {
                   key={`${c.bookId}-${c.chapter}`}
                   href={encodeBibleHash(null, c.testament, c.bookId, c.chapter)}
                   aria-label={`Ler ${c.abbr} ${c.chapter} na Bíblia`}
-                  className="rounded-full border border-[#D4A24C]/30 bg-background px-3.5 py-1.5 text-sm font-semibold text-foreground transition-all hover:border-[#D4A24C]/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                  className="rounded-full border border-gold/30 bg-background px-3.5 py-1.5 text-sm font-semibold text-foreground transition-all hover:border-gold/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                 >
                   {c.abbr} {c.chapter}
                 </a>
@@ -194,10 +194,10 @@ export default function PlanoLeitura() {
               onClick={marcarHoje}
               aria-pressed={hojeLido}
               aria-live="polite"
-              className={`inline-flex h-11 items-center justify-center rounded-full px-8 text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
+              className={`inline-flex h-11 items-center justify-center rounded-full px-8 text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 ${
                 hojeLido
                   ? "border border-emerald-500/50 bg-emerald-500/10 text-emerald-400"
-                  : "bg-[#D4A24C] text-[#1A1409] hover:bg-[#C4933C]"
+                  : "bg-gold text-gold-ink hover:bg-gold-hover"
               }`}
             >
               <span aria-hidden="true">{hojeLido ? "✓ Dia concluído (desfazer)" : "Marquei como lida"}</span>
@@ -228,12 +228,12 @@ export default function PlanoLeitura() {
                       onClick={() => alternar(d.dia)}
                       aria-label={`Dia ${d.dia} de 365 (${d.resumo})${lido ? ", lido" : ""}${ehHoje ? ", hoje" : ""}`}
                       aria-pressed={lido}
-                      className={`w-10 h-10 rounded-lg border text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
+                      className={`w-10 h-10 rounded-lg border text-xs font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 ${
                         lido
-                          ? "border-[#D4A24C]/60 bg-[#D4A24C]/20 text-[#E8B35E]"
+                          ? "border-gold/60 bg-gold/20 text-gold-light"
                           : ehHoje
-                            ? "border-[#D4A24C] bg-background text-foreground ring-1 ring-[#D4A24C]/50"
-                            : "border-border bg-card text-muted-foreground hover:border-[#D4A24C]/40"
+                            ? "border-gold bg-background text-foreground ring-1 ring-gold/50"
+                            : "border-border bg-card text-muted-foreground hover:border-gold/40"
                       }`}
                     >
                       {i + 1}
@@ -248,3 +248,4 @@ export default function PlanoLeitura() {
     </main>
   );
 }
+

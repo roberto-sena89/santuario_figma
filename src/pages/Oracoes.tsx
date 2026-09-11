@@ -155,7 +155,7 @@ export default function Oracoes() {
                   placeholder="Teu nome (opcional)"
                   maxLength={40}
                   autoComplete="name"
-                  className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                  className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                 />
               </div>
               <div>
@@ -166,7 +166,7 @@ export default function Oracoes() {
                   id="oracao-categoria"
                   value={categoria}
                   onChange={(e) => setCategoria(e.target.value)}
-                  className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                  className="h-12 rounded-xl border border-border bg-background px-4 text-base text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                 >
                   {CATEGORIAS.map((c) => (
                     <option key={c} value={c}>
@@ -189,7 +189,7 @@ export default function Oracoes() {
                 maxLength={500}
                 required
                 aria-describedby="oracao-erro"
-                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
               />
             </div>
             {erroForm && (
@@ -199,7 +199,7 @@ export default function Oracoes() {
               <button
                 type="submit"
                 disabled={enviando || texto.trim().length < 10}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-[#D4A24C] px-8 text-sm font-bold text-[#1A1409] transition-all hover:bg-[#C4933C] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                className="inline-flex h-11 items-center justify-center rounded-full bg-gold px-8 text-sm font-bold text-gold-ink transition-all hover:bg-gold-hover disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
               >
                 {enviando ? "Publicando..." : "Publicar pedido"}
               </button>
@@ -207,7 +207,7 @@ export default function Oracoes() {
                 href={`https://wa.me/${CHURCH.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-muted-foreground hover:text-[#D4A24C] hover:underline"
+                className="text-xs text-muted-foreground hover:text-gold hover:underline"
               >
                 Prefere sigilo total? Fala direto no WhatsApp →
               </a>
@@ -227,10 +227,10 @@ export default function Oracoes() {
                 key={f}
                 aria-pressed={filtro === f}
                 onClick={() => setFiltro(f)}
-                className={`h-9 rounded-full border px-4 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
+                className={`h-9 rounded-full border px-4 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 ${
                   filtro === f
-                    ? "border-[#D4A24C]/60 bg-[#D4A24C]/15 text-[#D4A24C]"
-                    : "border-border text-muted-foreground hover:border-[#D4A24C]/40"
+                    ? "border-gold/60 bg-gold/15 text-gold"
+                    : "border-border text-muted-foreground hover:border-gold/40"
                 }`}
               >
                 {label}
@@ -260,7 +260,7 @@ export default function Oracoes() {
                       <span aria-hidden="true">·</span>
                       <span>{tempoRelativo(p.criadoEm)}</span>
                       <span
-                        className="ml-auto rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-2.5 py-0.5 font-semibold text-[#D4A24C]"
+                        className="ml-auto rounded-full border border-gold/30 bg-gold/10 px-2.5 py-0.5 font-semibold text-gold"
                       >
                         {p.categoria}
                       </span>
@@ -282,10 +282,10 @@ export default function Oracoes() {
                       <button
                         onClick={() => orar(p.id)}
                         disabled={votado}
-                        className={`inline-flex h-11 items-center gap-1.5 rounded-full border px-4 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 ${
+                        className={`inline-flex h-11 items-center gap-1.5 rounded-full border px-4 text-xs font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 ${
                           votado
-                            ? "border-[#D4A24C]/50 bg-[#D4A24C]/15 text-[#D4A24C]"
-                            : "border-border text-foreground hover:border-[#D4A24C]/50"
+                            ? "border-gold/50 bg-gold/15 text-gold"
+                            : "border-border text-foreground hover:border-gold/50"
                         }`}
                         aria-label={`Orar por este pedido (${p.oracoes} orações)`}
                       >
@@ -299,7 +299,7 @@ export default function Oracoes() {
                             setTestTexto("");
                           }}
                           aria-label={`Contar testemunho do pedido de ${p.nome}`}
-                          className="text-xs font-semibold text-muted-foreground hover:text-[#D4A24C] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 rounded"
+                          className="text-xs font-semibold text-muted-foreground hover:text-gold hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 rounded"
                         >
                           <span aria-hidden="true">Deus respondeu? Conta aqui →</span>
                           <span className="sr-only">Deus respondeu? Conta aqui</span>
@@ -319,12 +319,12 @@ export default function Oracoes() {
                           placeholder="Conta como Deus respondeu..."
                           rows={2}
                           maxLength={500}
-                          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                          className="w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                         />
                         <div className="flex gap-2 mt-2">
                           <button
                             onClick={() => enviarTestemunho(p.id)}
-                            className="inline-flex h-9 items-center rounded-full bg-[#D4A24C] px-5 text-xs font-bold text-[#1A1409] hover:bg-[#C4933C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                            className="inline-flex h-9 items-center rounded-full bg-gold px-5 text-xs font-bold text-gold-ink hover:bg-gold-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                           >
                             Publicar testemunho
                           </button>
@@ -350,7 +350,7 @@ export default function Oracoes() {
                 recarregar().finally(() => setCarregando(false));
               }}
               aria-label="Atualizar mural de oração"
-              className="text-xs font-semibold text-muted-foreground hover:text-[#D4A24C] hover:underline"
+              className="text-xs font-semibold text-muted-foreground hover:text-gold hover:underline"
             >
               <span aria-hidden="true">Atualizar mural ↻</span>
               <span className="sr-only">Atualizar mural</span>
@@ -361,3 +361,4 @@ export default function Oracoes() {
     </main>
   );
 }
+

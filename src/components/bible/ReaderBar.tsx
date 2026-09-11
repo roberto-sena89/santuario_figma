@@ -24,9 +24,9 @@ interface ReaderBarProps {
 }
 
 const themes: { id: ReaderTheme; label: string; bg: string }[] = [
-  { id: "claro", label: "Claro", bg: "bg-[#FDF8F3]" },
-  { id: "sepia", label: "Sépia", bg: "bg-[#F4EBD9]" },
-  { id: "escuro", label: "Escuro", bg: "bg-[#1A1410]" },
+  { id: "claro", label: "Claro", bg: "bg-reader-paper" },
+  { id: "sepia", label: "Sépia", bg: "bg-reader-sepia" },
+  { id: "escuro", label: "Escuro", bg: "bg-reader-dark" },
 ];
 
 export default function ReaderBar({ prefs, update, onReset, onCollapse }: ReaderBarProps) {
@@ -320,3 +320,4 @@ function VerseNumberPicker({
     </div>
   );
 }
+

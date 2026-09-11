@@ -165,12 +165,12 @@ export default function FilterSidebar({
         {/* Cabeçalho do sidebar */}
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-surface/95 px-5 py-4 backdrop-blur-md">
           <div className="flex items-center gap-2.5">
-            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-[#D4A24C]/25 to-[#D4A24C]/5 text-[#E8B35E] ring-1 ring-[#D4A24C]/30 shadow-[0_0_14px_rgba(212,162,76,0.18)]">
+            <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-gold/25 to-gold/5 text-gold-light ring-1 ring-gold/30 shadow-[0_0_14px_rgba(212,162,76,0.18)]">
               <Filter className="h-4 w-4" aria-hidden="true" />
             </div>
             <h2 className="text-sm font-bold uppercase tracking-wider text-text">Filtros</h2>
             {temFiltros && (
-              <span className="ml-1 grid h-5 min-w-5 place-items-center rounded-full bg-gradient-to-br from-[#D4A24C] to-[#C4933C] px-1.5 text-[10px] font-bold text-gray-800 shadow-[0_0_10px_rgba(212,162,76,0.35)]">
+              <span className="ml-1 grid h-5 min-w-5 place-items-center rounded-full bg-gradient-to-br from-gold to-gold-hover px-1.5 text-[10px] font-bold text-gray-800 shadow-[0_0_10px_rgba(212,162,76,0.35)]">
                 {
                   [
                     categoria !== 'Todas' && 1,
@@ -207,17 +207,17 @@ export default function FilterSidebar({
 
         <div className="space-y-4 p-4">
           {/* === Switches rápidos (Favoritas + Harpa) === */}
-          <div className="rounded-2xl border border-[#D4A24C]/15 bg-gradient-to-b from-surface2/70 to-surface2/40 p-3 backdrop-blur-sm">
+          <div className="rounded-2xl border border-gold/15 bg-gradient-to-b from-surface2/70 to-surface2/40 p-3 backdrop-blur-sm">
             <p className="mb-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-muted">
-              <span className="h-1 w-1 rounded-full bg-[#D4A24C]" />
+              <span className="h-1 w-1 rounded-full bg-gold" />
               Atalhos
             </p>
             <div className="space-y-1.5">
               <label
                 className={`flex cursor-pointer items-center justify-between rounded-xl border px-3 py-2.5 text-sm transition-all duration-200 ${
                   soFavoritas
-                    ? 'border-[#D4A24C]/50 bg-gradient-to-r from-[#D4A24C]/20 to-[#D4A24C]/5 text-[#E8B35E] shadow-[0_0_14px_rgba(212,162,76,0.12)]'
-                    : 'border-border/40 bg-surface/50 text-text2 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:bg-surface2/70 hover:text-text'
+                    ? 'border-gold/50 bg-gradient-to-r from-gold/20 to-gold/5 text-gold-light shadow-[0_0_14px_rgba(212,162,76,0.12)]'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:-translate-y-0.5 hover:border-gold/40 hover:bg-surface2/70 hover:text-text'
                 }`}
               >
                 <span className="flex items-center gap-2.5">
@@ -229,7 +229,7 @@ export default function FilterSidebar({
                   {favoritasCount > 0 && (
                     <span
                       className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums ${
-                        soFavoritas ? 'bg-[#D4A24C]/25 text-[#E8B35E]' : 'bg-surface text-muted'
+                        soFavoritas ? 'bg-gold/25 text-gold-light' : 'bg-surface text-muted'
                       }`}
                     >
                       {favoritasCount}
@@ -245,7 +245,7 @@ export default function FilterSidebar({
                 <span
                   className={`relative h-5 w-9 rounded-full transition ${
                     soFavoritas
-                      ? 'bg-gradient-to-r from-[#D4A24C] to-[#C4933C] shadow-[0_0_8px_rgba(212,162,76,0.4)]'
+                      ? 'bg-gradient-to-r from-gold to-gold-hover shadow-[0_0_8px_rgba(212,162,76,0.4)]'
                       : 'bg-border'
                   }`}
                 >
@@ -260,8 +260,8 @@ export default function FilterSidebar({
               <label
                 className={`flex cursor-pointer items-center justify-between rounded-xl border px-3 py-2.5 text-sm transition-all duration-200 ${
                   soHarpa
-                    ? 'border-[#D4A24C]/50 bg-gradient-to-r from-[#D4A24C]/20 to-[#D4A24C]/5 text-[#E8B35E] shadow-[0_0_14px_rgba(212,162,76,0.12)]'
-                    : 'border-border/40 bg-surface/50 text-text2 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:bg-surface2/70 hover:text-text'
+                    ? 'border-gold/50 bg-gradient-to-r from-gold/20 to-gold/5 text-gold-light shadow-[0_0_14px_rgba(212,162,76,0.12)]'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:-translate-y-0.5 hover:border-gold/40 hover:bg-surface2/70 hover:text-text'
                 }`}
               >
                 <span className="flex items-center gap-2.5">
@@ -277,7 +277,7 @@ export default function FilterSidebar({
                 <span
                   className={`relative h-5 w-9 rounded-full transition ${
                     soHarpa
-                      ? 'bg-gradient-to-r from-[#D4A24C] to-[#C4933C] shadow-[0_0_8px_rgba(212,162,76,0.4)]'
+                      ? 'bg-gradient-to-r from-gold to-gold-hover shadow-[0_0_8px_rgba(212,162,76,0.4)]'
                       : 'bg-border'
                   }`}
                 >
@@ -311,13 +311,13 @@ export default function FilterSidebar({
                   aria-pressed={ordenacao === opt.id}
                   className={`flex w-full items-center justify-between rounded-xl px-3 py-2 text-sm transition-all duration-200 ${
                     ordenacao === opt.id
-                      ? 'bg-gradient-to-r from-[#D4A24C]/20 to-[#D4A24C]/5 font-semibold text-[#E8B35E] ring-1 ring-inset ring-[#D4A24C]/30 shadow-[0_0_12px_rgba(212,162,76,0.08)]'
+                      ? 'bg-gradient-to-r from-gold/20 to-gold/5 font-semibold text-gold-light ring-1 ring-inset ring-gold/30 shadow-[0_0_12px_rgba(212,162,76,0.08)]'
                       : 'text-text2 hover:translate-x-0.5 hover:bg-surface2/70 hover:text-text'
                   }`}
                 >
                   <span>{opt.label}</span>
                   {ordenacao === opt.id && (
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#D4A24C] shadow-[0_0_6px_rgba(212,162,76,0.6)]" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_6px_rgba(212,162,76,0.6)]" />
                   )}
                 </button>
               ))}
@@ -344,14 +344,14 @@ export default function FilterSidebar({
                     aria-pressed={ativa}
                     className={`flex w-full items-center justify-between gap-2 rounded-xl px-2.5 py-1.5 text-sm transition-all duration-200 ${
                       ativa
-                        ? 'bg-gradient-to-r from-[#D4A24C]/20 to-[#D4A24C]/5 font-semibold text-[#E8B35E] ring-1 ring-inset ring-[#D4A24C]/30 shadow-[0_0_12px_rgba(212,162,76,0.08)]'
+                        ? 'bg-gradient-to-r from-gold/20 to-gold/5 font-semibold text-gold-light ring-1 ring-inset ring-gold/30 shadow-[0_0_12px_rgba(212,162,76,0.08)]'
                         : 'text-text2 hover:translate-x-0.5 hover:bg-surface2/70 hover:text-text'
                     }`}
                   >
                     <span className="flex min-w-0 items-center gap-2">
                       <Icon
                         className={`h-3.5 w-3.5 shrink-0 transition-colors ${
-                          ativa ? 'text-[#D4A24C]' : ''
+                          ativa ? 'text-gold' : ''
                         }`}
                         aria-hidden="true"
                       />
@@ -360,7 +360,7 @@ export default function FilterSidebar({
                     <span
                       className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
                         ativa
-                          ? 'bg-[#D4A24C]/25 text-[#E8B35E] ring-1 ring-[#D4A24C]/20'
+                          ? 'bg-gold/25 text-gold-light ring-1 ring-gold/20'
                           : 'bg-surface/60 text-muted'
                       }`}
                     >
@@ -385,13 +385,13 @@ export default function FilterSidebar({
               aria-pressed={!tom}
               className={`mb-1 flex w-full items-center justify-between rounded-xl px-2.5 py-1.5 text-sm transition-all duration-200 ${
                 !tom
-                  ? 'bg-gradient-to-r from-[#D4A24C]/20 to-[#D4A24C]/5 font-semibold text-[#E8B35E] ring-1 ring-inset ring-[#D4A24C]/30'
+                  ? 'bg-gradient-to-r from-gold/20 to-gold/5 font-semibold text-gold-light ring-1 ring-inset ring-gold/30'
                   : 'text-text2 hover:translate-x-0.5 hover:bg-surface2/70 hover:text-text'
               }`}
             >
               <span>Todos os tons</span>
               {!tom && (
-                <span className="h-1.5 w-1.5 rounded-full bg-[#D4A24C] shadow-[0_0_6px_rgba(212,162,76,0.6)]" />
+                <span className="h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_6px_rgba(212,162,76,0.6)]" />
               )}
             </button>
             <div className="max-h-48 space-y-2 overflow-y-auto pr-1">
@@ -453,7 +453,7 @@ export default function FilterSidebar({
                 onFocus={() => setArtistaSel('')}
                 placeholder="Buscar artista…"
                 aria-label="Filtrar por artista"
-                className="w-full rounded-lg border border-border/40 bg-surface/70 py-2 pl-8 pr-8 text-sm text-text outline-none transition-all duration-200 placeholder:text-muted focus:border-[#D4A24C] focus:bg-surface focus:ring-2 focus:ring-[#D4A24C]/25 focus:shadow-[0_0_14px_rgba(212,162,76,0.12)]"
+                className="w-full rounded-lg border border-border/40 bg-surface/70 py-2 pl-8 pr-8 text-sm text-text outline-none transition-all duration-200 placeholder:text-muted focus:border-gold focus:bg-surface focus:ring-2 focus:ring-gold/25 focus:shadow-[0_0_14px_rgba(212,162,76,0.12)]"
               />
               {artistaBusca && (
                 <button
@@ -493,7 +493,7 @@ export default function FilterSidebar({
                       aria-pressed={ativo}
                       className={`flex w-full items-center justify-between gap-2 rounded-xl px-2.5 py-1.5 text-sm transition-all duration-200 ${
                         ativo
-                          ? 'bg-gradient-to-r from-[#D4A24C]/20 to-[#D4A24C]/5 font-semibold text-[#E8B35E] ring-1 ring-inset ring-[#D4A24C]/30 shadow-[0_0_12px_rgba(212,162,76,0.08)]'
+                          ? 'bg-gradient-to-r from-gold/20 to-gold/5 font-semibold text-gold-light ring-1 ring-inset ring-gold/30 shadow-[0_0_12px_rgba(212,162,76,0.08)]'
                           : 'text-text2 hover:translate-x-0.5 hover:bg-surface2/70 hover:text-text'
                       }`}
                     >
@@ -501,7 +501,7 @@ export default function FilterSidebar({
                       <span
                         className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${
                           ativo
-                            ? 'bg-[#D4A24C]/25 text-[#E8B35E] ring-1 ring-[#D4A24C]/20'
+                            ? 'bg-gold/25 text-gold-light ring-1 ring-gold/20'
                             : 'bg-surface/60 text-muted'
                         }`}
                       >
@@ -541,33 +541,33 @@ function SecaoAccordion({
     <div
       className={`overflow-hidden rounded-2xl border backdrop-blur-sm transition-colors duration-200 ${
         aberta
-          ? 'border-[#D4A24C]/20 bg-gradient-to-b from-surface2/70 to-surface2/30 shadow-[0_0_0_1px_rgba(212,162,76,0.04)]'
-          : 'border-border/50 bg-surface2/40 hover:border-[#D4A24C]/25'
+          ? 'border-gold/20 bg-gradient-to-b from-surface2/70 to-surface2/30 shadow-[0_0_0_1px_rgba(212,162,76,0.04)]'
+          : 'border-border/50 bg-surface2/40 hover:border-gold/25'
       }`}
     >
       <button
         onClick={onToggle}
         aria-expanded={aberta}
         className={`flex w-full items-center justify-between px-3.5 py-3 text-left transition-colors duration-200 ${
-          aberta ? 'bg-gradient-to-r from-[#D4A24C]/10 to-transparent' : 'hover:bg-surface2/60'
+          aberta ? 'bg-gradient-to-r from-gold/10 to-transparent' : 'hover:bg-surface2/60'
         }`}
       >
         <span className="flex items-center gap-2 text-sm font-bold text-text">
           {Icone && (
             <Icone
-              className="h-4 w-4 text-[#D4A24C] drop-shadow-[0_0_5px_rgba(212,162,76,0.35)]"
+              className="h-4 w-4 text-gold drop-shadow-[0_0_5px_rgba(212,162,76,0.35)]"
               aria-hidden="true"
             />
           )}
           {titulo}
           {contador > 0 && (
-            <span className="rounded-full bg-[#D4A24C]/20 px-1.5 py-0.5 text-[10px] font-bold text-[#E8B35E] ring-1 ring-[#D4A24C]/25">
+            <span className="rounded-full bg-gold/20 px-1.5 py-0.5 text-[10px] font-bold text-gold-light ring-1 ring-gold/25">
               {contador}
             </span>
           )}
         </span>
         {aberta ? (
-          <ChevronUp className="h-4 w-4 text-[#D4A24C]" aria-hidden="true" />
+          <ChevronUp className="h-4 w-4 text-gold" aria-hidden="true" />
         ) : (
           <ChevronDown className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
         )}
@@ -608,10 +608,10 @@ function GrupoTom({
               onClick={() => setTom(ativo ? '' : t)}
               className={`rounded-md border px-2 py-1 text-[11px] font-semibold transition-all duration-200 ${
                 ativo
-                  ? 'border-[#D4A24C] bg-gradient-to-b from-[#D4A24C] to-[#C4933C] text-gray-900 shadow-[0_2px_10px_rgba(212,162,76,0.35)]'
+                  ? 'border-gold bg-gradient-to-b from-gold to-gold-hover text-gray-900 shadow-[0_2px_10px_rgba(212,162,76,0.35)]'
                   : total === 0
                     ? 'cursor-not-allowed border-border/20 bg-surface/30 text-muted/40'
-                    : 'border-border/40 bg-surface/50 text-text2 hover:-translate-y-0.5 hover:border-[#D4A24C]/50 hover:bg-[#D4A24C]/10 hover:text-[#E8B35E]'
+                    : 'border-border/40 bg-surface/50 text-text2 hover:-translate-y-0.5 hover:border-gold/50 hover:bg-gold/10 hover:text-gold-light'
               }`}
               disabled={total === 0 && !ativo}
               aria-pressed={ativo}

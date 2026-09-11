@@ -34,7 +34,7 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
           {MINISTERIOS.map((m) => (
             <article key={m.id} id={`ministry-card-${m.id}`} className="scroll-mt-24" aria-labelledby={`ministry-${m.id}-nome`}>
-              <div className="flex h-full flex-col rounded-2xl border border-border bg-card/80 p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+              <div className="flex h-full flex-col rounded-2xl border border-border bg-card/80 p-6 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ring-1 ring-black/5"
                   style={{
@@ -55,7 +55,7 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
                 <button
                   onClick={() => handleCardClick(m)}
                   aria-label={`Conhecer o ministério de ${m.name}`}
-                  className="mt-auto inline-flex items-center gap-2 self-start rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-5 py-2.5 text-sm font-semibold text-[#E8B35E] transition-all duration-200 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                  className="mt-auto inline-flex items-center gap-2 self-start rounded-full border border-gold/40 bg-gold/10 px-5 py-2.5 text-sm font-semibold text-gold-light transition-all duration-200 hover:bg-gold/20 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                 >
                   Conhecer ministério
                   <svg
@@ -76,3 +76,4 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
     </main>
   );
 }
+

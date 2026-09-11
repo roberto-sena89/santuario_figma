@@ -40,7 +40,7 @@ export default function CollectionsTabs({ active, onChange }: CollectionsTabsPro
               focus-visible:ring-offset-2 focus-visible:ring-offset-background
               ${
                 isActive
-                  ? "border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 text-[#D4A24C] shadow-md shadow-black/20"
+                  ? "border-gold/45 bg-gradient-to-r from-gold/20 to-gold-hover/12 text-gold shadow-md shadow-black/20"
                   : "bg-card/70 text-foreground/80 border-border hover:border-accent/50 hover:text-accent hover:bg-accent/5"
               }
             `}
@@ -49,7 +49,7 @@ export default function CollectionsTabs({ active, onChange }: CollectionsTabsPro
             {isActive && (
               <span
                 aria-hidden="true"
-                className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-[#D4A24C]"
+                className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-gold"
               />
             )}
           </button>
@@ -58,3 +58,4 @@ export default function CollectionsTabs({ active, onChange }: CollectionsTabsPro
     </div>
   );
 }
+

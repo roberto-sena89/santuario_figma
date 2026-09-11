@@ -195,9 +195,9 @@ export default function Navigation({
               aria-label="Voltar para a página inicial"
             >
               <div className="relative">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-[#D4A24C]/15 ring-1 ring-[#D4A24C]/30 shadow-sm shadow-[#D4A24C]/20 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#D4A24C]/25 group-hover:shadow-md group-hover:shadow-[#D4A24C]/40">
+                <div className="grid h-10 w-10 place-items-center rounded-full bg-gold/15 ring-1 ring-gold/30 shadow-sm shadow-gold/20 transition-all duration-300 group-hover:scale-105 group-hover:bg-gold/25 group-hover:shadow-md group-hover:shadow-gold/40">
                   <svg
-                    className="h-5 w-5 text-[#B8860B] dark:text-[#E8B35E]"
+                    className="h-5 w-5 text-gold-deep dark:text-gold-light"
                     viewBox="0 0 32 32"
                     fill="none"
                     aria-hidden="true"
@@ -225,17 +225,17 @@ export default function Navigation({
                   {CHURCH.name.split(CHURCH.shortName)[0].trim()}
                 </div>
                 <div className="mt-1.5 flex items-baseline gap-1.5">
-                  <span className="font-display text-[18px] font-semibold leading-none tracking-tight text-foreground transition-colors duration-200 group-hover:text-[#B8860B] dark:group-hover:text-[#E8B35E]">
+                  <span className="font-display text-[18px] font-semibold leading-none tracking-tight text-foreground transition-colors duration-200 group-hover:text-gold-deep dark:group-hover:text-gold-light">
                     {CHURCH.shortName}
                   </span>
                   {CHURCH.name.split(CHURCH.shortName)[1] && (
-                    <span className="font-display text-[13px] font-normal italic leading-none text-[#B8860B]/80 dark:text-[#E8B35E]/80 transition-colors duration-200">
+                    <span className="font-display text-[13px] font-normal italic leading-none text-gold-deep/80 dark:text-gold-light/80 transition-colors duration-200">
                       {CHURCH.name.split(CHURCH.shortName)[1].trim()}
                     </span>
                   )}
                 </div>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#D4A24C]" aria-hidden="true" />
+                  <span className="h-1 w-1 rounded-full bg-gold" aria-hidden="true" />
                   <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground leading-none font-medium">
                     {CHURCH.slogan}
                   </span>
@@ -392,10 +392,10 @@ export default function Navigation({
               <button
                 onClick={() => navigate("oracoes")}
                 aria-current={currentPage === "oracoes" ? "page" : undefined}
-                className={`group inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
+                className={`group inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
                   currentPage === "oracoes"
-                    ? "bg-[#C4933C] text-gray-900 shadow-[#D4A24C]/40"
-                    : "bg-[#D4A24C] text-gray-900 shadow-[#D4A24C]/30 hover:shadow-[#D4A24C]/45"
+                    ? "bg-gold-hover text-gray-900 shadow-gold/40"
+                    : "bg-gold text-gray-900 shadow-gold/30 hover:shadow-gold/45"
                 }`}
               >
                 {"🙏 Mural de Oração"}
@@ -418,10 +418,10 @@ export default function Navigation({
               <button
                 onClick={() => navigate("contribuicoes")}
                 aria-current={isMoreActive ? "page" : undefined}
-                className={`group inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
+                className={`group inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
                   isMoreActive
-                    ? "bg-[#C4933C] text-gray-900 shadow-[#D4A24C]/40"
-                    : "bg-[#D4A24C] text-gray-900 shadow-[#D4A24C]/30 hover:shadow-[#D4A24C]/45"
+                    ? "bg-gold-hover text-gray-900 shadow-gold/40"
+                    : "bg-gold text-gray-900 shadow-gold/30 hover:shadow-gold/45"
                 }`}
               >
                 🕊️ Apoie a Obra
@@ -748,3 +748,4 @@ function GlobeIcon() {
     </svg>
   );
 }
+

@@ -40,23 +40,23 @@ const styleAccents: Record<CollectionStyle, {
   deco: string;
 }> = {
   mulher: {
-    hero: "bg-gradient-to-br from-[#E8B4B8]/15 via-[#C9A84C]/10 to-transparent",
-    heroBorder: "border-[#E8B4B8]/30",
-    card: "bg-gradient-to-br from-card to-[#E8B4B8]/5",
-    cardBorder: "border-[#E8B4B8]/20",
-    cardHover: "hover:border-[#E8B4B8]/60 hover:shadow-lg hover:shadow-[#E8B4B8]/10",
-    reflexao: "from-[#E8B4B8]/10 to-transparent border-[#E8B4B8]/30",
-    oracao: "from-[#C9A84C]/10 to-transparent border-[#C9A84C]/30",
+    hero: "bg-gradient-to-br from-colecao-mulher/15 via-colecao-ouro/10 to-transparent",
+    heroBorder: "border-colecao-mulher/30",
+    card: "bg-gradient-to-br from-card to-colecao-mulher/5",
+    cardBorder: "border-colecao-mulher/20",
+    cardHover: "hover:border-colecao-mulher/60 hover:shadow-lg hover:shadow-colecao-mulher/10",
+    reflexao: "from-colecao-mulher/10 to-transparent border-colecao-mulher/30",
+    oracao: "from-colecao-ouro/10 to-transparent border-colecao-ouro/30",
     deco: "🌸",
   },
   homem: {
-    hero: "bg-gradient-to-br from-[#2C5F7A]/15 via-[#8B7D3C]/10 to-transparent",
-    heroBorder: "border-[#2C5F7A]/30",
-    card: "bg-gradient-to-br from-card to-[#2C5F7A]/5",
-    cardBorder: "border-[#2C5F7A]/20",
-    cardHover: "hover:border-[#2C5F7A]/60 hover:shadow-lg hover:shadow-[#2C5F7A]/10",
-    reflexao: "from-[#2C5F7A]/10 to-transparent border-[#2C5F7A]/30",
-    oracao: "from-[#8B7D3C]/10 to-transparent border-[#8B7D3C]/30",
+    hero: "bg-gradient-to-br from-colecao-homem-deep/15 via-colecao-oliva/10 to-transparent",
+    heroBorder: "border-colecao-homem-deep/30",
+    card: "bg-gradient-to-br from-card to-colecao-homem-deep/5",
+    cardBorder: "border-colecao-homem-deep/20",
+    cardHover: "hover:border-colecao-homem-deep/60 hover:shadow-lg hover:shadow-colecao-homem-deep/10",
+    reflexao: "from-colecao-homem-deep/10 to-transparent border-colecao-homem-deep/30",
+    oracao: "from-colecao-oliva/10 to-transparent border-colecao-oliva/30",
     deco: "⚔️",
   },
   generico: {
@@ -297,13 +297,13 @@ export default function SubtemaView({
         <button
           onClick={handleShare}
           disabled={sharing}
-          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 px-4 text-[12px] font-semibold tracking-[0.02em] text-[#D4A24C] shadow-sm shadow-black/20 transition-all duration-200 hover:border-[#D4A24C]/60 hover:from-[#D4A24C]/25 hover:to-[#C4933C]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50 disabled:pointer-events-none"
+          className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-gold/45 bg-gradient-to-r from-gold/20 to-gold-hover/12 px-4 text-[12px] font-semibold tracking-[0.02em] text-gold shadow-sm shadow-black/20 transition-all duration-200 hover:border-gold/60 hover:from-gold/25 hover:to-gold-hover/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:opacity-50 disabled:pointer-events-none"
           aria-label="Compartilhar imagem do subtema"
         >
           {sharing ? (
             <>
               <span
-                className="inline-block w-3 h-3 border-2 border-[#D4A24C] border-t-transparent rounded-full animate-spin"
+                className="inline-block w-3 h-3 border-2 border-gold border-t-transparent rounded-full animate-spin"
                 aria-hidden="true"
               />
               Gerando...
@@ -318,8 +318,8 @@ export default function SubtemaView({
           onClick={toggleFavorite}
           className={`inline-flex h-9 items-center justify-center gap-1.5 rounded-full border px-4 text-[12px] font-semibold tracking-[0.02em] transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
             isFav
-              ? "border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 text-[#D4A24C] shadow-sm shadow-black/20"
-              : "border-border bg-card text-foreground hover:border-[#D4A24C]/40 hover:text-[#D4A24C]"
+              ? "border-gold/45 bg-gradient-to-r from-gold/20 to-gold-hover/12 text-gold shadow-sm shadow-black/20"
+              : "border-border bg-card text-foreground hover:border-gold/40 hover:text-gold"
           }`}
           aria-label={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
           aria-pressed={isFav}
@@ -328,7 +328,7 @@ export default function SubtemaView({
         </button>
         <button
           onClick={copyAll}
-          className="inline-flex h-9 items-center justify-center rounded-full border border-border bg-card px-4 text-[12px] font-semibold tracking-[0.02em] text-foreground transition-all duration-200 hover:border-[#D4A24C]/40 hover:text-[#D4A24C] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="inline-flex h-9 items-center justify-center rounded-full border border-border bg-card px-4 text-[12px] font-semibold tracking-[0.02em] text-foreground transition-all duration-200 hover:border-gold/40 hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           aria-label="Copiar todo o conteúdo do subtema"
         >
           {copied ? <>✓ Copiado!</> : <>Copiar tudo</>}
@@ -337,3 +337,4 @@ export default function SubtemaView({
     </article>
   );
 }
+

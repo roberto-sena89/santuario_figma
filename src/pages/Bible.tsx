@@ -632,7 +632,7 @@ export default function Bible() {
               Leitura e Devoção
             </p>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">
-              Bíblia <span className="text-[#E8B35E] italic font-medium">Sagrada</span>
+              Bíblia <span className="text-gold-light italic font-medium">Sagrada</span>
             </h1>
             <p className="mt-4 text-sm sm:text-base text-white/90 mx-auto max-w-xl leading-relaxed [text-shadow:0_1px_8px_rgba(0,0,0,0.6)]">
               Tradução {ARC_FULL_NAME} ({ARC_TRANSLATION}) — navegue por livro e capítulo ou explore coleções temáticas curadas para o seu momento.
@@ -737,8 +737,8 @@ export default function Bible() {
                   onClick={() => handleTestamentChange("AT")}
                   className={`rounded-lg py-2.5 text-sm font-medium border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                     testament === "AT"
-                      ? "border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 text-[#D4A24C] shadow-md shadow-black/20"
-                      : "border-transparent text-muted-foreground hover:text-[#D4A24C] hover:bg-[#D4A24C]/5"
+                      ? "border-gold/45 bg-gradient-to-r from-gold/20 to-gold-hover/12 text-gold shadow-md shadow-black/20"
+                      : "border-transparent text-muted-foreground hover:text-gold hover:bg-gold/5"
                   }`}
                   aria-pressed={testament === "AT"}
                   role="tab"
@@ -751,8 +751,8 @@ export default function Bible() {
                   onClick={() => handleTestamentChange("NT")}
                   className={`rounded-lg py-2.5 text-sm font-medium border transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                     testament === "NT"
-                      ? "border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 text-[#D4A24C] shadow-md shadow-black/20"
-                      : "border-transparent text-muted-foreground hover:text-[#D4A24C] hover:bg-[#D4A24C]/5"
+                      ? "border-gold/45 bg-gradient-to-r from-gold/20 to-gold-hover/12 text-gold shadow-md shadow-black/20"
+                      : "border-transparent text-muted-foreground hover:text-gold hover:bg-gold/5"
                   }`}
                   aria-pressed={testament === "NT"}
                   role="tab"
@@ -784,7 +784,7 @@ export default function Bible() {
                     onChange={(e) => setBookQuery(e.target.value)}
                     placeholder="Buscar livro..."
                     aria-label="Buscar livro"
-                    className="w-full pl-10 pr-3 py-2.5 text-sm rounded-xl border border-border bg-muted/30 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-[#D4A24C]/40 focus:border-[#D4A24C]/40 transition-colors"
+                    className="w-full pl-10 pr-3 py-2.5 text-sm rounded-xl border border-border bg-muted/30 placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-gold/40 focus:border-gold/40 transition-colors"
                   />
                 </div>
                 <BookGrid
@@ -1278,7 +1278,7 @@ function ThemeResultPanel({
         </div>
         <button
           onClick={onClose}
-          className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-[#D4A24C]/40 hover:text-[#D4A24C] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-gold/40 hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           aria-label="Fechar resultados"
         >
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -1287,7 +1287,7 @@ function ThemeResultPanel({
         </button>
       </div>
 
-      <div className="mt-6 h-px w-10 bg-gradient-to-r from-[#D4A24C]/70 to-transparent" aria-hidden="true" />
+      <div className="mt-6 h-px w-10 bg-gradient-to-r from-gold/70 to-transparent" aria-hidden="true" />
 
       {/* Lista de versículos */}
       {result.items.length === 0 ? (
@@ -1302,12 +1302,12 @@ function ThemeResultPanel({
             return (
               <div
                 key={key}
-                className="group rounded-xl border border-border bg-background/40 p-4 sm:p-5 transition-colors duration-200 hover:border-[#D4A24C]/35"
+                className="group rounded-xl border border-border bg-background/40 p-4 sm:p-5 transition-colors duration-200 hover:border-gold/35"
               >
                 <div className="flex items-center justify-between gap-3 mb-2.5">
                   <button
                     onClick={() => onOpenVerse(item.bookId, item.chapter, item.verse)}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/25 px-3 py-1 text-[11px] font-semibold tracking-wide text-[#D4A24C] transition-colors hover:bg-[#D4A24C]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                    className="inline-flex items-center gap-1.5 rounded-full bg-gold/10 border border-gold/25 px-3 py-1 text-[11px] font-semibold tracking-wide text-gold transition-colors hover:bg-gold/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     aria-label={`Abrir ${item.ref} na Bíblia`}
                   >
                     {item.ref}
@@ -1329,8 +1329,8 @@ function ThemeResultPanel({
                       aria-pressed={isFav}
                       className={`grid h-8 w-8 place-items-center rounded-full transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                         isFav
-                          ? "text-[#D4A24C]"
-                          : "text-muted-foreground hover:text-[#D4A24C]"
+                          ? "text-gold"
+                          : "text-muted-foreground hover:text-gold"
                       }`}
                       aria-label={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
                     >
@@ -1435,7 +1435,7 @@ function BibleWelcome({
         {lastRead && (
           <button
             onClick={() => onContinue(lastRead.book, lastRead.chapter)}
-            className="mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-[#D4A24C]/25 bg-gradient-to-r from-[#D4A24C]/15 to-[#C4933C]/10 px-5 py-2.5 text-sm font-semibold text-[#D4A24C] shadow-lg shadow-black/20 transition-all duration-300 hover:bg-[#D4A24C]/25 hover:border-[#D4A24C]/45 hover:shadow-xl hover:shadow-[#D4A24C]/20 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="mt-8 inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 px-5 py-2.5 text-sm font-semibold text-gold shadow-lg shadow-black/20 transition-all duration-300 hover:bg-gold/25 hover:border-gold/45 hover:shadow-xl hover:shadow-gold/20 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -1480,3 +1480,4 @@ function BibleWelcome({
     </section>
   );
 }
+

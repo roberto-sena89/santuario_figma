@@ -41,13 +41,13 @@ export default function PrayerButton() {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative inline-flex items-center gap-3 rounded-full bg-[#D4A24C] pl-3 pr-5 py-3 text-gray-900 shadow-lg shadow-[#D4A24C]/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#D4A24C]/45 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      className="group relative inline-flex items-center gap-3 rounded-full bg-gold pl-3 pr-5 py-3 text-gray-900 shadow-lg shadow-gold/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-gold/45 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       aria-label="Pedir oração pelo WhatsApp - equipe de intercessão, sigilo pastoral"
     >
       {/* Halo de pulso (nao-interativo) */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-full bg-[#D4A24C]/45 animate-ping"
+        className="pointer-events-none absolute inset-0 rounded-full bg-gold/45 animate-ping"
         style={{ animationDuration: "3s" }}
       />
 

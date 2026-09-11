@@ -46,8 +46,8 @@ export default function ChapterGrid({
                 focus-visible:ring-offset-1 focus-visible:ring-offset-background
                 ${
                   isActive
-                    ? "border-[#D4A24C]/45 bg-gradient-to-b from-[#D4A24C]/20 to-[#C4933C]/12 shadow-md shadow-black/20"
-                    : "border-border bg-card text-foreground hover:border-[#D4A24C]/40 hover:bg-muted/60 hover:-translate-y-0.5"
+                    ? "border-gold/45 bg-gradient-to-b from-gold/20 to-gold-hover/12 shadow-md shadow-black/20"
+                    : "border-border bg-card text-foreground hover:border-gold/40 hover:bg-muted/60 hover:-translate-y-0.5"
                 }
               `}
             >
@@ -55,8 +55,8 @@ export default function ChapterGrid({
               <span
                 className={`font-display text-sm font-semibold leading-none transition-colors duration-200 ${
                   isActive
-                    ? "text-[#D4A24C]"
-                    : "text-foreground/90 group-hover:text-[#D4A24C]"
+                    ? "text-gold"
+                    : "text-foreground/90 group-hover:text-gold"
                 }`}
               >
                 {n}
@@ -67,8 +67,8 @@ export default function ChapterGrid({
                 aria-hidden="true"
                 className={`h-0.5 w-3 rounded-full transition-all duration-200 ${
                   isActive
-                    ? "bg-[#D4A24C]"
-                    : "bg-transparent group-hover:bg-[#D4A24C]/40"
+                    ? "bg-gold"
+                    : "bg-transparent group-hover:bg-gold/40"
                 }`}
               />
             </button>
@@ -78,3 +78,4 @@ export default function ChapterGrid({
     </div>
   );
 }
+

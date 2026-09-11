@@ -61,8 +61,8 @@ export default function PlaybacksHero({
       <div className="absolute inset-0 bg-noise pointer-events-none z-0" aria-hidden="true" />
 
       {/* Glows decorativos âmbar */}
-      <div className="absolute -top-20 -right-20 w-80 h-80 bg-[#D4A24C]/10 rounded-full blur-3xl pointer-events-none z-10" />
-      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-[#E8B35E]/6 rounded-full blur-3xl pointer-events-none z-10" />
+      <div className="absolute -top-20 -right-20 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none z-10" />
+      <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gold-light/6 rounded-full blur-3xl pointer-events-none z-10" />
 
       <div className="relative z-20 mx-auto max-w-6xl px-4 pt-12 pb-6 sm:pt-16 sm:pb-8">
         {/* Breadcrumb + título */}
@@ -71,14 +71,14 @@ export default function PlaybacksHero({
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <p className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-4">
+          <p className="inline-flex items-center gap-2 rounded-full bg-gold/15 border border-gold/30 px-4 py-1.5 text-gold-dark text-xs font-semibold uppercase tracking-[0.18em] mb-4">
             <Music className="h-3.5 w-3.5" aria-hidden="true" />
             Musica · Adoracao · Louvor
           </p>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-text tracking-tight leading-tight">
-            Playbacks <span className="text-[#9C7A2E] italic font-medium">com</span> Letra
+            Playbacks <span className="text-gold-dark italic font-medium">com</span> Letra
           </h1>
-          <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-[#D4A24C]/20 px-4 py-3 text-sm sm:text-base text-text2 max-w-xl mx-auto leading-relaxed">
+          <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-gold/20 px-4 py-3 text-sm sm:text-base text-text2 max-w-xl mx-auto leading-relaxed">
             <span>Curadoria de playbacks legendados para sua igreja, ensaio ou momento devocional. A letra aparece na tela — basta tocar.</span>
           </p>
         </div>
@@ -87,13 +87,13 @@ export default function PlaybacksHero({
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Stats: playbacks */}
           <div
-            className={`group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 ${
+            className={`group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '100ms' }}
           >
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#D4A24C]/15 text-[#B8860B] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]">
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-gold/15 text-gold-deep ring-1 ring-gold/20 dark:text-gold-light">
                 <Music className="h-5 w-5" aria-hidden="true" />
               </div>
               <div className="min-w-0">
@@ -109,7 +109,7 @@ export default function PlaybacksHero({
           <button
             onClick={() => destaque && onAbrirPlayerDestaque(destaque)}
             disabled={!destaque}
-            className={`group relative overflow-hidden rounded-2xl bg-[#D4A24C] p-4 text-left shadow-lg shadow-[#D4A24C]/25 transition-all duration-500 hover:-translate-y-0.5 hover:bg-[#C4933C] hover:shadow-[#D4A24C]/40 disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-[#D4A24C] ${
+            className={`group relative overflow-hidden rounded-2xl bg-gold p-4 text-left shadow-lg shadow-gold/25 transition-all duration-500 hover:-translate-y-0.5 hover:bg-gold-hover hover:shadow-gold/40 disabled:opacity-60 disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:bg-gold ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '200ms' }}
@@ -150,17 +150,17 @@ export default function PlaybacksHero({
 
           {/* Versículo */}
           <div
-            className={`group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 ${
+            className={`group relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-500 hover:-translate-y-0.5 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10 ${
               mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
             style={{ transitionDelay: '300ms' }}
           >
             <div className="flex items-start gap-3">
-              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-[#D4A24C]/15 text-[#B8860B] ring-1 ring-[#D4A24C]/20 dark:text-[#E8B35E]">
+              <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gold/15 text-gold-deep ring-1 ring-gold/20 dark:text-gold-light">
                 <BookOpen className="h-5 w-5" aria-hidden="true" />
               </div>
               <div className="min-w-0">
-                <p className="text-[10px] uppercase tracking-wider font-semibold text-[#B8860B] dark:text-[#E8B35E] mb-0.5">
+                <p className="text-[10px] uppercase tracking-wider font-semibold text-gold-deep dark:text-gold-light mb-0.5">
                   Versículo
                 </p>
                 <p className="font-bible text-sm italic text-text leading-snug">
@@ -174,7 +174,7 @@ export default function PlaybacksHero({
 
         {/* Barra de busca + categorias */}
         <div
-          className={`mt-8 relative rounded-2xl border border-[#D4A24C]/20 bg-card/90 backdrop-blur-md p-3 sm:p-4 shadow-lg shadow-black/10 transition-all duration-700 ${
+          className={`mt-8 relative rounded-2xl border border-gold/20 bg-card/90 backdrop-blur-md p-3 sm:p-4 shadow-lg shadow-black/10 transition-all duration-700 ${
             mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: '400ms' }}
@@ -182,7 +182,7 @@ export default function PlaybacksHero({
           <div className="relative">
             <Search
               className={`pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 transition-colors duration-300 ${
-                focusedSearch ? 'text-[#D4A24C]' : 'text-muted-foreground'
+                focusedSearch ? 'text-gold' : 'text-muted-foreground'
               }`}
               aria-hidden="true"
             />
@@ -193,10 +193,10 @@ export default function PlaybacksHero({
               onBlur={() => setFocusedSearch(false)}
               placeholder="Buscar música, artista ou tom…"
               aria-label="Buscar no catálogo de playbacks"
-              className="w-full rounded-xl border border-border bg-surface py-3.5 pl-11 pr-10 text-sm text-text outline-none transition-all duration-300 placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25"
+              className="w-full rounded-xl border border-border bg-surface py-3.5 pl-11 pr-10 text-sm text-text outline-none transition-all duration-300 placeholder:text-muted-foreground focus:border-gold focus:ring-2 focus:ring-gold/25"
             />
             {busca && (
-              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-[#D4A24C] uppercase tracking-wider">
+              <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-gold uppercase tracking-wider">
                 {busca !== buscaDebounced ? '…' : '✓'}
               </span>
             )}
@@ -214,8 +214,8 @@ export default function PlaybacksHero({
                   style={{ animationDelay: `${idx * 30}ms` }}
                   className={`inline-flex items-center justify-center rounded-full px-4 py-2 text-xs font-semibold tracking-tight transition-all duration-300 ease-out ${
                     ativa
-                      ? 'bg-[#D4A24C] text-gray-800 shadow-lg shadow-[#D4A24C]/30 hover:bg-[#C4933C]'
-                      : 'border border-border bg-surface text-text2 hover:-translate-y-0.5 hover:border-[#D4A24C]/40 hover:bg-surface2 hover:text-[#E8B35E]'
+                      ? 'bg-gold text-gray-800 shadow-lg shadow-gold/30 hover:bg-gold-hover'
+                      : 'border border-border bg-surface text-text2 hover:-translate-y-0.5 hover:border-gold/40 hover:bg-surface2 hover:text-gold-light'
                   }`}
                 >
                   {c}
@@ -226,19 +226,19 @@ export default function PlaybacksHero({
 
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 px-1 text-[11px] text-text2">
             <span className="inline-flex items-center gap-1.5">
-              <Heart className="h-3 w-3 text-[#D4A24C]" aria-hidden="true" />
+              <Heart className="h-3 w-3 text-gold" aria-hidden="true" />
               <span>
                 <strong className="text-text">{totalArtistas}</strong> artistas
               </span>
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <BookOpen className="h-3 w-3 text-[#D4A24C]" aria-hidden="true" />
+              <BookOpen className="h-3 w-3 text-gold" aria-hidden="true" />
               <span>
                 <strong className="text-text">{harpaCount}</strong> hinos da Harpa
               </span>
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <Music className="h-3 w-3 text-[#D4A24C]" aria-hidden="true" />
+              <Music className="h-3 w-3 text-gold" aria-hidden="true" />
               <span>
                 <strong className="text-text">{totalCategorias}</strong> categorias
               </span>

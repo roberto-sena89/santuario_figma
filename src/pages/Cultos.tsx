@@ -47,7 +47,7 @@ export default function Cultos() {
             {/* LINK INTERNO — Cultos → Contato (endereço e como chegar) */}
             <a
               href="#/contato"
-              className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/15 px-4 py-1.5 text-xs font-bold text-[#E8B35E] backdrop-blur-sm transition-colors hover:bg-[#D4A24C]/30 hover:text-white"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-bold text-gold-light backdrop-blur-sm transition-colors hover:bg-gold/30 hover:text-white"
             >
               📍 Ver endereço e como chegar →
             </a>
@@ -59,7 +59,7 @@ export default function Cultos() {
         {/* Escala da semana atual */}
         <section aria-labelledby="escala-titulo" className="mb-12">
           <div className="flex items-center gap-3 mb-6">
-            <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20" aria-hidden="true">
+            <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-gold/15 text-xl shadow-sm shadow-gold/20 ring-1 ring-gold/20" aria-hidden="true">
               📋
             </span>
             <div>
@@ -87,9 +87,9 @@ export default function Cultos() {
                 return (
                 <div
                   key={diaLabel}
-                  className="overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:border-[#D4A24C]/30"
+                  className="overflow-hidden rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-gold/10 hover:border-gold/30"
                 >
-                  <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-border/60 bg-gradient-to-r from-[#D4A24C]/10 via-transparent to-transparent">
+                  <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-border/60 bg-gradient-to-r from-gold/10 via-transparent to-transparent">
                                       <div className="min-w-0 flex-1">
                                         <h3 className="font-display text-lg font-semibold leading-tight tracking-tight text-foreground">
                                           {diaLabel}
@@ -108,8 +108,8 @@ export default function Cultos() {
                                             const mm = meses[d.getUTCMonth()];
                                             return (
                                               <div className="flex items-baseline gap-1.5 leading-none">
-                                                <span className="font-display text-2xl font-bold tabular-nums text-[#B8860B] dark:text-[#E8B35E] tracking-tight">{dd}</span>
-                                                <span className="text-[11px] font-bold uppercase tracking-wider text-[#B8860B]/80 dark:text-[#E8B35E]/80">{mm}</span>
+                                                <span className="font-display text-2xl font-bold tabular-nums text-gold-deep dark:text-gold-light tracking-tight">{dd}</span>
+                                                <span className="text-[11px] font-bold uppercase tracking-wider text-gold-deep/80 dark:text-gold-light/80">{mm}</span>
                                               </div>
                                             );
                                           }
@@ -125,7 +125,7 @@ export default function Cultos() {
                       return (
                     <div key={dia.key} className="px-5 py-4">
                       <div className="mb-3 flex items-center gap-2">
-                        <span className="inline-flex items-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-[#B8860B] dark:text-[#E8B35E]">{dia.horario}</span>
+                        <span className="inline-flex items-center rounded-full bg-gold/10 border border-gold/20 px-2.5 py-1 text-xs font-semibold tracking-wide text-gold-deep dark:text-gold-light">{dia.horario}</span>
                         <span className="text-xs font-medium text-foreground/80 truncate">{dia.titulo}</span>
                       </div>
                     {papeis.length === 0 ? (
@@ -150,10 +150,10 @@ export default function Cultos() {
                                                                                 {nomes.map((nome) => (
                                                                                   <span
                                                                                     key={nome}
-                                                                                    className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/10 px-3 py-1 text-xs font-medium text-[#E8B35E] ring-1 ring-[#D4A24C]/25"
+                                                                                    className="inline-flex items-center gap-1 rounded-full bg-gold/10 px-3 py-1 text-xs font-medium text-gold-light ring-1 ring-gold/25"
                                                                                   >
                                                                                     <span
-                                                                                      className="h-1.5 w-1.5 rounded-full bg-[#D4A24C]"
+                                                                                      className="h-1.5 w-1.5 rounded-full bg-gold"
                                                                                       aria-hidden="true"
                                                                                     />
                                                                                     {nome}
@@ -165,7 +165,7 @@ export default function Cultos() {
                                                                       })}
                       </ul>
                     ) : (
-                      <p className="text-xs italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#E8B35E]">#/escala</span></p>
+                      <p className="text-xs italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-gold-light">#/escala</span></p>
                     )}
                   </div>
                       );
@@ -181,3 +181,4 @@ export default function Cultos() {
     </main>
   );
 }
+

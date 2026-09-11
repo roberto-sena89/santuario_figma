@@ -92,7 +92,7 @@ export default function Devocional() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80" aria-hidden="true" />
         <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.35), transparent 70%)" }} />
         <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
-          <p className="inline-flex items-center justify-center rounded-full border border-[#D4A24C]/25 bg-gradient-to-r from-[#D4A24C]/15 to-[#C4933C]/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
+          <p className="inline-flex items-center justify-center rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
             Devocional Diário
           </p>
           <div className="mt-1 flex items-center justify-center gap-3">
@@ -112,14 +112,14 @@ export default function Devocional() {
               &ldquo;{devotional.verse}&rdquo;
             </p>
           </blockquote>
-          <cite className="not-italic block text-[#E8B35E] font-semibold text-sm tracking-[0.06em] [text-shadow:0_1px_8px_rgba(0,0,0,0.85)]">
+          <cite className="not-italic block text-gold-light font-semibold text-sm tracking-[0.06em] [text-shadow:0_1px_8px_rgba(0,0,0,0.85)]">
             {devotional.verseRef}
           </cite>
           <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">#{devotional.theme}</p>
           {/* LINK INTERNO 1 — Devocional → Bíblia (abre o capítulo da referência) */}
           <a
             href={verseRefToBibleHash(devotional.verseRef)}
-            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/15 px-4 py-1.5 text-xs font-bold text-[#E8B35E] backdrop-blur-sm transition-colors hover:bg-[#D4A24C]/30 hover:text-white"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-bold text-gold-light backdrop-blur-sm transition-colors hover:bg-gold/30 hover:text-white"
           >
             📖 Ler {devotional.verseRef} na Bíblia →
           </a>
@@ -135,7 +135,7 @@ export default function Devocional() {
             </button>
             <button
               onClick={() => setBaseDate(new Date())}
-              className="inline-flex h-9 items-center justify-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/15 px-4 text-xs font-semibold text-[#D4A24C] backdrop-blur-sm hover:bg-[#D4A24C]/25 transition-colors"
+              className="inline-flex h-9 items-center justify-center rounded-full border border-gold/30 bg-gold/15 px-4 text-xs font-semibold text-gold backdrop-blur-sm hover:bg-gold/25 transition-colors"
             >
               Hoje
             </button>
@@ -159,10 +159,10 @@ export default function Devocional() {
             <div className="space-y-8 min-w-0">
               {/* Pensamento */}
               <article className="rounded-2xl border border-border/60 bg-card/60 backdrop-blur-sm overflow-hidden">
-                <div className="px-6 sm:px-8 py-6 border-b border-border/60 bg-gradient-to-r from-[#D4A24C]/[0.07] to-transparent">
+                <div className="px-6 sm:px-8 py-6 border-b border-border/60 bg-gradient-to-r from-gold/[0.07] to-transparent">
                   <div className="flex items-center gap-2">
-                    <span className="h-1 w-6 rounded-full bg-[#D4A24C]" aria-hidden="true" />
-                    <h2 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#E8B35E]">Pensamento</h2>
+                    <span className="h-1 w-6 rounded-full bg-gold" aria-hidden="true" />
+                    <h2 className="text-[11px] font-bold uppercase tracking-[0.22em] text-gold-light">Pensamento</h2>
                   </div>
                 </div>
                 <div className="px-6 sm:px-8 py-6 sm:py-7">
@@ -177,13 +177,13 @@ export default function Devocional() {
               </article>
 
               {/* Oração */}
-              <article className="rounded-2xl border border-[#D4A24C]/25 bg-gradient-to-br from-[#D4A24C]/[0.08] via-card/70 to-card/60 backdrop-blur-sm overflow-hidden">
-                <div className="px-6 sm:px-8 py-6 border-b border-[#D4A24C]/20">
+              <article className="rounded-2xl border border-gold/25 bg-gradient-to-br from-gold/[0.08] via-card/70 to-card/60 backdrop-blur-sm overflow-hidden">
+                <div className="px-6 sm:px-8 py-6 border-b border-gold/20">
                   <div className="flex items-center gap-2">
-                    <span className="grid h-7 w-7 place-items-center rounded-full bg-[#D4A24C]/20 text-[#9C7A2E]" aria-hidden="true">
+                    <span className="grid h-7 w-7 place-items-center rounded-full bg-gold/20 text-gold-dark" aria-hidden="true">
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 21c-4-4-8-6.5-8-10a4 4 0 018-2 4 4 0 018 2c0 3.5-4 6-8 10z" /></svg>
                     </span>
-                    <h2 className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#9C7A2E]">Oração</h2>
+                    <h2 className="text-[11px] font-bold uppercase tracking-[0.22em] text-gold-dark">Oração</h2>
                   </div>
                 </div>
                 <div className="px-6 sm:px-8 py-6">
@@ -193,7 +193,7 @@ export default function Devocional() {
                   <div className="mt-6 flex flex-wrap gap-3">
                     <button
                       onClick={() => copy(devotional.prayer, "prayer")}
-                      className="inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-4 py-2 text-xs font-semibold text-[#9C7A2E] hover:bg-[#D4A24C]/20 transition-colors"
+                      className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-xs font-semibold text-gold-dark hover:bg-gold/20 transition-colors"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                       {copied === "prayer" ? "Copiada!" : "Copiar oração"}
@@ -204,7 +204,7 @@ export default function Devocional() {
                       onClick={() => {
                         try { localStorage.setItem("santuario:oracao_texto", devotional.prayer); } catch {}
                       }}
-                      className="inline-flex items-center gap-2 rounded-full bg-[#D4A24C] px-4 py-2 text-xs font-bold text-gray-900 shadow-md shadow-[#D4A24C]/25 transition-colors hover:bg-[#C4933C]"
+                      className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-bold text-gray-900 shadow-md shadow-gold/25 transition-colors hover:bg-gold-hover"
                     >
                       🙏 Compartilhar no Mural de Oração →
                     </a>
@@ -230,9 +230,9 @@ export default function Devocional() {
                         const offset = d.index - (Math.floor((today.getTime() - start.getTime()) / 86400000) % 7);
                         setBaseDate(addDays(today, offset));
                       }}
-                      className="w-full text-left rounded-xl border border-border/50 bg-background/60 px-4 py-3 hover:border-[#D4A24C]/30 hover:bg-[#D4A24C]/5 transition-colors group"
+                      className="w-full text-left rounded-xl border border-border/50 bg-background/60 px-4 py-3 hover:border-gold/30 hover:bg-gold/5 transition-colors group"
                     >
-                      <p className="text-xs font-semibold text-foreground group-hover:text-[#9C7A2E] line-clamp-1">{d.title}</p>
+                      <p className="text-xs font-semibold text-foreground group-hover:text-gold-dark line-clamp-1">{d.title}</p>
                       <p className="text-[11px] text-muted-foreground line-clamp-1">{d.verseRef} • {d.theme}</p>
                     </button>
                   ))}
@@ -248,14 +248,14 @@ export default function Devocional() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-[#9C7A2E] mb-2">Arquivo</p>
+              <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-gold-dark mb-2">Arquivo</p>
               <h2 className="font-display text-2xl sm:text-3xl font-semibold text-foreground">Devocionais</h2>
               <p className="text-sm text-muted-foreground mt-1">Navegue por mês e ano como no devocionaldiario.com.br — {archiveItems.length} devocionais em {monthNames[archiveMonth-1]} de {archiveYear}</p>
             </div>
             <div className="flex items-center gap-2">
-              <button onClick={() => { let m=archiveMonth-1, y=archiveYear; if(m<1){m=12;y--;} setArchiveMonth(m); setArchiveYear(y); setArchivePage(1); }} className="h-9 w-9 grid place-items-center rounded-full border border-border bg-background hover:border-[#D4A24C]/30" aria-label="Mês anterior">‹</button>
-              <span className="min-w-[140px] text-center rounded-full border border-[#D4A24C]/20 bg-[#D4A24C]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#9C7A2E]">{monthNames[archiveMonth-1]} {archiveYear}</span>
-              <button onClick={() => { let m=archiveMonth+1, y=archiveYear; if(m>12){m=1;y++;} setArchiveMonth(m); setArchiveYear(y); setArchivePage(1); }} className="h-9 w-9 grid place-items-center rounded-full border border-border bg-background hover:border-[#D4A24C]/30" aria-label="Próximo mês">›</button>
+              <button onClick={() => { let m=archiveMonth-1, y=archiveYear; if(m<1){m=12;y--;} setArchiveMonth(m); setArchiveYear(y); setArchivePage(1); }} className="h-9 w-9 grid place-items-center rounded-full border border-border bg-background hover:border-gold/30" aria-label="Mês anterior">‹</button>
+              <span className="min-w-[140px] text-center rounded-full border border-gold/20 bg-gold/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-gold-dark">{monthNames[archiveMonth-1]} {archiveYear}</span>
+              <button onClick={() => { let m=archiveMonth+1, y=archiveYear; if(m>12){m=1;y++;} setArchiveMonth(m); setArchiveYear(y); setArchivePage(1); }} className="h-9 w-9 grid place-items-center rounded-full border border-border bg-background hover:border-gold/30" aria-label="Próximo mês">›</button>
             </div>
           </div>
 
@@ -263,12 +263,12 @@ export default function Devocional() {
           <div className="rounded-2xl border border-border/60 bg-card/60 p-4 sm:p-5 mb-8">
             <div className="flex flex-wrap gap-2 mb-4">
               {[2026,2025,2024].map(y => (
-                <button key={y} onClick={() => { setArchiveYear(y); setArchivePage(1); }} className={`rounded-full px-4 py-1.5 text-xs font-bold border transition-colors ${y===archiveYear ? "bg-[#D4A24C] text-gray-900 border-[#D4A24C]" : "bg-background border-border text-muted-foreground hover:border-[#D4A24C]/30"}`}>{y}</button>
+                <button key={y} onClick={() => { setArchiveYear(y); setArchivePage(1); }} className={`rounded-full px-4 py-1.5 text-xs font-bold border transition-colors ${y===archiveYear ? "bg-gold text-gray-900 border-gold" : "bg-background border-border text-muted-foreground hover:border-gold/30"}`}>{y}</button>
               ))}
             </div>
             <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {monthNames.map((m,i) => (
-                <button key={m} onClick={() => { setArchiveMonth(i+1); setArchivePage(1); }} className={`rounded-full px-3 py-2 text-xs font-semibold border transition-colors ${i+1===archiveMonth ? "bg-[#D4A24C]/15 border-[#D4A24C]/30 text-[#9C7A2E]" : "bg-background border-border/60 text-foreground/80 hover:border-[#D4A24C]/20"}`}>› {m} {archiveYear}</button>
+                <button key={m} onClick={() => { setArchiveMonth(i+1); setArchivePage(1); }} className={`rounded-full px-3 py-2 text-xs font-semibold border transition-colors ${i+1===archiveMonth ? "bg-gold/15 border-gold/30 text-gold-dark" : "bg-background border-border/60 text-foreground/80 hover:border-gold/20"}`}>› {m} {archiveYear}</button>
               ))}
             </div>
           </div>
@@ -276,18 +276,18 @@ export default function Devocional() {
           {/* Lista paginada */}
           <div className="space-y-4">
             {paginated.map((item) => (
-              <article key={item.dateObj.toISOString()} className="group rounded-2xl border border-border/60 bg-card/70 p-5 sm:p-6 hover:border-[#D4A24C]/30 hover:shadow-md transition-all">
+              <article key={item.dateObj.toISOString()} className="group rounded-2xl border border-border/60 bg-card/70 p-5 sm:p-6 hover:border-gold/30 hover:shadow-md transition-all">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-muted px-3 py-1 text-[11px] font-semibold text-muted-foreground">
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                     {item.dateObj.toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" })}
                   </span>
-                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#D4A24C]">#{item.theme}</span>
+                  <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-gold">#{item.theme}</span>
                 </div>
-                <h3 className="font-display font-semibold text-foreground group-hover:text-[#9C7A2E]">{item.title}</h3>
+                <h3 className="font-display font-semibold text-foreground group-hover:text-gold-dark">{item.title}</h3>
                 <p className="text-sm italic text-muted-foreground mt-1 line-clamp-2">&ldquo;{item.verse.slice(0,140)}...&rdquo; — {item.verseRef}</p>
                 <p className="text-sm text-foreground/80 mt-2 line-clamp-2">{item.body.slice(0,160)}...</p>
-                <button onClick={() => { setBaseDate(new Date(item.dateObj)); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#9C7A2E] hover:gap-1.5 transition-all">Ler devocional →</button>
+                <button onClick={() => { setBaseDate(new Date(item.dateObj)); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-gold-dark hover:gap-1.5 transition-all">Ler devocional →</button>
               </article>
             ))}
           </div>
@@ -296,7 +296,7 @@ export default function Devocional() {
           <div className="flex items-center justify-center gap-2 mt-8">
             <span className="text-xs text-muted-foreground mr-2">Páginas:</span>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(p => (
-              <button key={p} onClick={() => setArchivePage(p)} className={`h-8 min-w-8 rounded-full px-3 text-xs font-bold border ${p===archivePage ? "bg-[#D4A24C] text-gray-900 border-[#D4A24C]" : "bg-background border-border text-muted-foreground hover:border-[#D4A24C]/30"}`}>{p}</button>
+              <button key={p} onClick={() => setArchivePage(p)} className={`h-8 min-w-8 rounded-full px-3 text-xs font-bold border ${p===archivePage ? "bg-gold text-gray-900 border-gold" : "bg-background border-border text-muted-foreground hover:border-gold/30"}`}>{p}</button>
             ))}
             {totalPages > 1 && <span className="text-xs text-muted-foreground ml-2">({archiveItems.length} no mês)</span>}
           </div>
@@ -315,3 +315,4 @@ export default function Devocional() {
     </main>
   );
 }
+

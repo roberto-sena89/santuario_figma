@@ -15,44 +15,44 @@ interface SubtemaTabsProps {
 }
 
 const styleAccent: Record<CollectionStyle, string> = {
-  mulher: "from-[#E8B4B8]/30 to-[#C9A84C]/20 ring-[#E8B4B8]/30",
-  homem: "from-[#2C5F7A]/30 to-[#8B7D3C]/20 ring-[#2C5F7A]/30",
+  mulher: "from-colecao-mulher/30 to-colecao-ouro/20 ring-colecao-mulher/30",
+  homem: "from-colecao-homem-deep/30 to-colecao-oliva/20 ring-colecao-homem-deep/30",
   generico: "from-accent/20 to-accent/5 ring-accent/30",
 };
 
 const styleActive: Record<CollectionStyle, string> = {
-  mulher: "bg-gradient-to-br from-[#E8B4B8]/20 to-[#C9A84C]/10 border-[#E8B4B8] text-[#E8B4B8]",
-  homem: "bg-gradient-to-br from-[#2C5F7A]/25 to-[#8B7D3C]/10 border-[#2C5F7A] text-[#A8C5DD]",
+  mulher: "bg-gradient-to-br from-colecao-mulher/20 to-colecao-ouro/10 border-colecao-mulher text-colecao-mulher",
+  homem: "bg-gradient-to-br from-colecao-homem-deep/25 to-colecao-oliva/10 border-colecao-homem-deep text-colecao-homem",
   generico: "bg-accent/15 border-accent text-accent",
 };
 
 const styleInactive: Record<CollectionStyle, string> = {
-  mulher: "bg-card/60 border-border text-foreground hover:border-[#E8B4B8]/40 hover:bg-[#E8B4B8]/5",
-  homem: "bg-card/60 border-border text-foreground hover:border-[#2C5F7A]/40 hover:bg-[#2C5F7A]/5",
+  mulher: "bg-card/60 border-border text-foreground hover:border-colecao-mulher/40 hover:bg-colecao-mulher/5",
+  homem: "bg-card/60 border-border text-foreground hover:border-colecao-homem-deep/40 hover:bg-colecao-homem-deep/5",
   generico: "bg-card/60 border-border text-foreground hover:border-accent/40 hover:bg-accent/5",
 };
 
 const styleBadgeActive: Record<CollectionStyle, string> = {
-  mulher: "bg-[#E8B4B8]/20 text-[#E8B4B8] ring-1 ring-[#E8B4B8]/25",
-  homem: "bg-[#2C5F7A]/25 text-[#A8C5DD] ring-1 ring-[#2C5F7A]/30",
+  mulher: "bg-colecao-mulher/20 text-colecao-mulher ring-1 ring-colecao-mulher/25",
+  homem: "bg-colecao-homem-deep/25 text-colecao-homem ring-1 ring-colecao-homem-deep/30",
   generico: "bg-accent/15 text-accent ring-1 ring-accent/25",
 };
 
 const styleBadgeInactive: Record<CollectionStyle, string> = {
-  mulher: "bg-muted/70 text-muted-foreground group-hover:bg-[#E8B4B8]/10 group-hover:text-[#E8B4B8]",
-  homem: "bg-muted/70 text-muted-foreground group-hover:bg-[#2C5F7A]/10 group-hover:text-[#A8C5DD]",
+  mulher: "bg-muted/70 text-muted-foreground group-hover:bg-colecao-mulher/10 group-hover:text-colecao-mulher",
+  homem: "bg-muted/70 text-muted-foreground group-hover:bg-colecao-homem-deep/10 group-hover:text-colecao-homem",
   generico: "bg-muted/70 text-muted-foreground group-hover:bg-accent/10 group-hover:text-accent",
 };
 
 const styleDotActive: Record<CollectionStyle, string> = {
-  mulher: "bg-[#E8B4B8]",
-  homem: "bg-[#A8C5DD]",
+  mulher: "bg-colecao-mulher",
+  homem: "bg-colecao-homem",
   generico: "bg-accent",
 };
 
 const styleDotInactive: Record<CollectionStyle, string> = {
-  mulher: "bg-border group-hover:bg-[#E8B4B8]/50",
-  homem: "bg-border group-hover:bg-[#A8C5DD]/50",
+  mulher: "bg-border group-hover:bg-colecao-mulher/50",
+  homem: "bg-border group-hover:bg-colecao-homem/50",
   generico: "bg-border group-hover:bg-accent/50",
 };
 
@@ -170,3 +170,4 @@ export default function SubtemaTabs({
     </div>
   );
 }
+

@@ -130,7 +130,7 @@ export default function Quiz() {
           {recorde > 0 && fase !== "jogo" && (
             <p className="text-center text-sm text-muted-foreground mb-8">
               🏆 Teu recorde neste tema:{" "}
-              <strong className="text-[#D4A24C]">
+              <strong className="text-gold">
                 {recorde}/{quiz.perguntas.length}
               </strong>
             </p>
@@ -149,7 +149,7 @@ export default function Quiz() {
               </p>
               <button
                 onClick={() => setFase("jogo")}
-                className="inline-flex h-11 items-center justify-center rounded-full bg-[#D4A24C] px-8 text-sm font-bold text-[#1A1409] transition-all hover:bg-[#C4933C] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                className="inline-flex h-11 items-center justify-center rounded-full bg-gold px-8 text-sm font-bold text-gold-ink transition-all hover:bg-gold-hover hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
               >
                 Começar o quiz
               </button>
@@ -165,9 +165,9 @@ export default function Quiz() {
                     key={i}
                     className={`h-1.5 flex-1 rounded-full ${
                       i < idx || (i === idx && respondida)
-                        ? "bg-[#D4A24C]"
+                        ? "bg-gold"
                         : i === idx
-                          ? "bg-[#D4A24C]/50"
+                          ? "bg-gold/50"
                           : "bg-border"
                     }`}
                   />
@@ -189,7 +189,7 @@ export default function Quiz() {
                   const escolhida = escolhas[idx] === i;
                   const certa = i === atual.correta;
                   let cls =
-                    "border-border bg-card hover:border-[#D4A24C]/45 hover:-translate-y-0.5";
+                    "border-border bg-card hover:border-gold/45 hover:-translate-y-0.5";
                   if (respondida && certa)
                     cls = "border-emerald-500/60 bg-emerald-500/10";
                   else if (respondida && escolhida)
@@ -204,9 +204,9 @@ export default function Quiz() {
                       onClick={() => responder(i)}
                       onKeyDown={(e) => navegarAlternativa(e, i)}
                       disabled={respondida}
-                      className={`rounded-xl border p-4 text-left text-sm text-foreground transition-all ${cls} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70`}
+                      className={`rounded-xl border p-4 text-left text-sm text-foreground transition-all ${cls} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70`}
                     >
-                      <span className="mr-2 font-bold text-[#E8B35E]">
+                      <span className="mr-2 font-bold text-gold-light">
                         {["A", "B", "C", "D"][i]}.
                       </span>
                       {alt}
@@ -222,9 +222,9 @@ export default function Quiz() {
               </div>
 
               {respondida && (
-                <div className="mt-4 rounded-xl border border-[#D4A24C]/25 bg-[#D4A24C]/5 p-4">
+                <div className="mt-4 rounded-xl border border-gold/25 bg-gold/5 p-4">
                   <p role="status" className="text-sm text-foreground">
-                    <strong className="text-[#E8B35E]">{atual.ref}</strong>
+                    <strong className="text-gold-light">{atual.ref}</strong>
                     {" — "}
                     {atual.explica}
                   </p>
@@ -235,7 +235,7 @@ export default function Quiz() {
                   </p>
                   <button
                     onClick={proxima}
-                    className="mt-3 inline-flex h-10 items-center rounded-full bg-[#D4A24C] px-6 text-sm font-bold text-[#1A1409] transition-all hover:bg-[#C4933C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                    className="mt-3 inline-flex h-10 items-center rounded-full bg-gold px-6 text-sm font-bold text-gold-ink transition-all hover:bg-gold-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                   >
                     {idx + 1 < quiz.perguntas.length
                       ? "Próxima pergunta →"
@@ -250,34 +250,34 @@ export default function Quiz() {
           {fase === "fim" && (
             <div>
               <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 text-center mb-6">
-                <p className="text-5xl font-display text-[#D4A24C] mb-2">
+                <p className="text-5xl font-display text-gold mb-2">
                   {acertos}/{quiz.perguntas.length}
                 </p>
                 <p className="text-foreground font-semibold mb-1">
                   {mensagemResultado(acertos, quiz.perguntas.length)}
                 </p>
                 {novoRecorde && (
-                  <p className="text-sm text-[#D4A24C] font-semibold">
+                  <p className="text-sm text-gold font-semibold">
                     🏆 Novo recorde pessoal!
                   </p>
                 )}
                 <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
                   <button
                     onClick={compartilhar}
-                    className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-6 text-sm font-semibold text-[#D4A24C] transition-all hover:bg-[#D4A24C]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-6 text-sm font-semibold text-gold transition-all hover:bg-gold/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                   >
                     {copiado ? "Copiado!" : "Desafiar alguém"}
                   </button>
                   <button
                     onClick={reiniciar}
-                    className="inline-flex h-11 items-center justify-center rounded-full border border-border px-6 text-sm font-semibold text-foreground transition-all hover:border-[#D4A24C]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                    className="inline-flex h-11 items-center justify-center rounded-full border border-border px-6 text-sm font-semibold text-foreground transition-all hover:border-gold/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                   >
                     Jogar de novo
                   </button>
                   {/* LINK INTERNO — Quiz → Plano de Leitura (engajamento vira hábito) */}
                   <a
                     href="#/plano"
-                    className="inline-flex h-11 items-center justify-center rounded-full bg-[#D4A24C] px-6 text-sm font-bold text-[#1A1409] transition-all hover:bg-[#C4933C] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-gold px-6 text-sm font-bold text-gold-ink transition-all hover:bg-gold-hover hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                   >
                     📖 Aprofundar no Plano de Leitura →
                   </a>
@@ -298,7 +298,7 @@ export default function Quiz() {
                     </p>
                     <p className="text-sm text-muted-foreground">
                       ✅ {p.alternativas[p.correta]} —{" "}
-                      <strong className="text-[#D4A24C]">{p.ref}</strong>
+                      <strong className="text-gold">{p.ref}</strong>
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">
                       {p.explica}
@@ -319,3 +319,4 @@ export default function Quiz() {
     </main>
   );
 }
+

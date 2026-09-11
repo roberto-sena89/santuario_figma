@@ -30,8 +30,8 @@ export default function EscalaSemanaCard() {
   return (
     <section aria-label="Escala da semana">
       <div className="flex items-center gap-3 mb-6">
-        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-[#D4A24C]/15 ring-1 ring-[#D4A24C]/20">
-          <svg className="h-5 w-5 text-[#B8860B] dark:text-[#E8B35E]" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-gold/15 ring-1 ring-gold/20">
+          <svg className="h-5 w-5 text-gold-deep dark:text-gold-light" viewBox="0 0 32 32" fill="none" aria-hidden="true">
             <rect x="2" y="6" width="28" height="20" rx="3" stroke="currentColor" strokeWidth="1.5" opacity="0.5" />
             <rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" />
             <path d="M8 14h16M8 18h12" stroke="currentColor" strokeWidth="1" opacity="0.4" />
@@ -41,7 +41,7 @@ export default function EscalaSemanaCard() {
           <h2 className="font-display text-2xl font-semibold text-foreground">
             Escala da Semana
           </h2>
-          <p className="text-sm font-medium text-[#9C7A2E] dark:text-[#E8B35E]">
+          <p className="text-sm font-medium text-gold-dark dark:text-gold-light">
             {(() => {
               const monday = mondayOfWeek(semana);
               const nextSunday = new Date(monday);
@@ -112,7 +112,7 @@ export default function EscalaSemanaCard() {
                   return (
                     <div key={dia.key} className="px-3 py-2">
                       <div className="flex items-center gap-1.5">
-                        <span className="shrink-0 text-[10px] font-semibold leading-none text-[#C4933C] dark:text-[#E8B35E] tabular-nums">{dia.horario}H</span>
+                        <span className="shrink-0 text-[10px] font-semibold leading-none text-gold-hover dark:text-gold-light tabular-nums">{dia.horario}H</span>
                         <span className="h-2.5 w-px bg-border/60" aria-hidden="true" />
                         <span className="min-w-0 flex-1 truncate text-[11px] font-medium leading-none text-foreground/90" title={dia.titulo}>
                           {dia.titulo}
@@ -146,7 +146,7 @@ export default function EscalaSemanaCard() {
                             })}
                         </ul>
                       ) : (
-                        <p className="mt-1.5 text-[10px] italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-[#B8860B] dark:text-[#E8B35E]">#/escala</span></p>
+                        <p className="mt-1.5 text-[10px] italic text-muted-foreground">Escala a definir — edite em <span className="font-medium text-gold-deep dark:text-gold-light">#/escala</span></p>
                       )}
                     </div>
                   );
@@ -160,3 +160,4 @@ export default function EscalaSemanaCard() {
     </section>
   );
 }
+

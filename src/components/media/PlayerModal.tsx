@@ -144,18 +144,18 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative flex max-h-full w-full max-w-4xl flex-col overflow-hidden rounded-none bg-surface shadow-2xl ring-1 ring-[#D4A24C]/15 sm:rounded-3xl"
+        className="relative flex max-h-full w-full max-w-4xl flex-col overflow-hidden rounded-none bg-surface shadow-2xl ring-1 ring-gold/15 sm:rounded-3xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center gap-3 border-b border-[#D4A24C]/20 bg-gradient-to-r from-[#D4A24C]/10 via-surface2/60 to-surface2/80 px-4 py-3 sm:px-5">
-          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#D4A24C]/15 ring-1 ring-[#D4A24C]/25 text-[#E8B35E]">
+        <div className="flex items-center gap-3 border-b border-gold/20 bg-gradient-to-r from-gold/10 via-surface2/60 to-surface2/80 px-4 py-3 sm:px-5">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold/15 ring-1 ring-gold/25 text-gold-light">
             <Music className="h-4 w-4" aria-hidden="true" />
           </span>
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-semibold text-text sm:text-base">
               {formatDescricao(video)}
             </p>
-            <p className="truncate text-xs text-[#E8B35E]">
+            <p className="truncate text-xs text-gold-light">
               Player oficial do YouTube — a letra está no vídeo
             </p>
           </div>
@@ -164,7 +164,7 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Abrir ${formatDescricao(video)} no YouTube`}
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 text-[#E8B35E] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A24C]/60 hover:bg-[#D4A24C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20"
+            className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-gold/30 bg-gold/10 text-gold-light transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/60 hover:bg-gold/20 hover:shadow-lg hover:shadow-gold/20"
           >
             <ExternalLink className="h-4 w-4" aria-hidden="true" />
           </a>
@@ -179,7 +179,7 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
               onClick={alternarPlay}
               disabled={!pronto}
               aria-label={tocando ? `Pausar ${video.titulo ?? 'vídeo'}` : `Reproduzir ${video.titulo ?? 'vídeo'}`}
-              className="pointer-events-auto grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#D4A24C] text-gray-900 shadow-lg shadow-[#D4A24C]/30 transition-all duration-200 hover:scale-105 hover:bg-[#E8B35E] disabled:opacity-50"
+              className="pointer-events-auto grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold text-gray-900 shadow-lg shadow-gold/30 transition-all duration-200 hover:scale-105 hover:bg-gold-light disabled:opacity-50"
             >
               {tocando ? (
                 <Pause className="h-4 w-4 fill-current" aria-hidden="true" />
@@ -193,7 +193,7 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
               disabled={!pronto}
               aria-label={mudo ? 'Ativar som' : 'Desativar som'}
               title={mudo ? 'Ativar som' : 'Desativar som'}
-              className="pointer-events-auto grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/90 transition-all duration-200 hover:scale-105 hover:text-[#E8B35E] disabled:opacity-50"
+              className="pointer-events-auto grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/90 transition-all duration-200 hover:scale-105 hover:text-gold-light disabled:opacity-50"
             >
               {mudo || volumeMostrado === 0 ? (
                 <VolumeX className="h-4.5 w-4.5" aria-hidden="true" />
@@ -210,7 +210,7 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
               disabled={!pronto}
               onChange={(e) => mudarVolume(Number(e.target.value))}
               aria-label={`Volume de ${video.titulo ?? 'vídeo'}`}
-              className="pointer-events-auto h-1.5 w-24 cursor-pointer appearance-none rounded-full bg-white/25 accent-[#D4A24C] sm:w-32"
+              className="pointer-events-auto h-1.5 w-24 cursor-pointer appearance-none rounded-full bg-white/25 accent-gold sm:w-32"
             />
 
             <button
@@ -227,3 +227,4 @@ export default function PlayerModal({ video, onClose }: PlayerModalProps) {
     </div>
   );
 }
+

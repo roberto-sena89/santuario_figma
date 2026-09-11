@@ -91,6 +91,26 @@
   --color-sand-800: #20241F;
   --color-sand-900: #121412;
 
+  /* Marca — dourado e derivados (fonte única de verdade; não hardcodar hex) */
+  --color-gold: #D4A24C;
+  --color-gold-light: #E8B35E;
+  --color-gold-dark: #9C7A2E;
+  --color-gold-deep: #B8860B;
+  --color-gold-hover: #C4933C;
+  --color-gold-ink: #1A1409;
+
+  /* Coleções temáticas da Bíblia (mulher/homem) */
+  --color-colecao-mulher: #E8B4B8;
+  --color-colecao-homem: #A8C5DD;
+  --color-colecao-homem-deep: #2C5F7A;
+  --color-colecao-ouro: #C9A84C;
+  --color-colecao-oliva: #8B7D3C;
+
+  /* Modos de leitura da Bíblia */
+  --color-reader-paper: #FDF8F3;
+  --color-reader-sepia: #F4EBD9;
+  --color-reader-dark: #1A1410;
+
   /* Tipografia */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;

@@ -312,12 +312,12 @@ function CollectionSimpleList({
                 return (
                   <li
                     key={`${cv.book}-${cv.chapter}-${cv.verse}-${idx}`}
-                    className="group rounded-xl border border-border bg-background/40 p-4 sm:p-5 transition-colors duration-200 hover:border-[#D4A24C]/35"
+                    className="group rounded-xl border border-border bg-background/40 p-4 sm:p-5 transition-colors duration-200 hover:border-gold/35"
                   >
                     <div className="flex items-center justify-between gap-3 mb-2.5">
                       <button
                         onClick={() => onNavigateToBook?.(cv.book, cv.chapter, cv.verse)}
-                        className="inline-flex items-center gap-1.5 rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/25 px-3 py-1 text-[11px] font-semibold tracking-wide text-[#D4A24C] transition-colors hover:bg-[#D4A24C]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                        className="inline-flex items-center gap-1.5 rounded-full bg-gold/10 border border-gold/25 px-3 py-1 text-[11px] font-semibold tracking-wide text-gold transition-colors hover:bg-gold/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                         aria-label={`Abrir ${ref} na Bíblia`}
                       >
                         {ref}
@@ -360,3 +360,4 @@ function CollectionSimpleList({
     </article>
   );
 }
+

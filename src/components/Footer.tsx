@@ -118,19 +118,19 @@ export default function Footer({ onNavigate }: FooterProps) {
     >
       {/* Camadas decorativas — profundidade sem ruído */}
       <div
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/50 to-transparent"
+        className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent"
         aria-hidden="true"
       />
       <div
-        className="absolute -top-48 left-1/2 -translate-x-1/2 h-96 w-[700px] rounded-full bg-[#D4A24C]/[0.07] blur-3xl pointer-events-none"
+        className="absolute -top-48 left-1/2 -translate-x-1/2 h-96 w-[700px] rounded-full bg-gold/[0.07] blur-3xl pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-52 -left-32 h-96 w-96 rounded-full bg-[#D4A24C]/[0.05] blur-3xl pointer-events-none"
+        className="absolute -bottom-52 -left-32 h-96 w-96 rounded-full bg-gold/[0.05] blur-3xl pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute -bottom-52 -right-32 h-96 w-96 rounded-full bg-[#D4A24C]/[0.04] blur-3xl pointer-events-none"
+        className="absolute -bottom-52 -right-32 h-96 w-96 rounded-full bg-gold/[0.04] blur-3xl pointer-events-none"
         aria-hidden="true"
       />
       <div
@@ -158,11 +158,11 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div className="lg:col-span-5">
             <div className="flex items-center gap-3.5 mb-7">
               <div
-                className="relative grid h-12 w-12 place-items-center rounded-full bg-[#D4A24C]/15 ring-1 ring-[#D4A24C]/30 shadow-sm shadow-[#D4A24C]/20 transition-all duration-300 group-hover:shadow-md group-hover:shadow-[#D4A24C]/40"
+                className="relative grid h-12 w-12 place-items-center rounded-full bg-gold/15 ring-1 ring-gold/30 shadow-sm shadow-gold/20 transition-all duration-300 group-hover:shadow-md group-hover:shadow-gold/40"
                 aria-hidden="true"
               >
                 <svg
-                  className="h-6 w-6 text-[#E8B35E]"
+                  className="h-6 w-6 text-gold-light"
                   viewBox="0 0 32 32"
                   fill="none"
                   aria-hidden="true"
@@ -181,14 +181,14 @@ export default function Footer({ onNavigate }: FooterProps) {
                     {CHURCH.shortName}
                   </span>
                   {CHURCH.name.split(CHURCH.shortName)[1] && (
-                    <span className="font-display text-[15px] font-normal italic leading-none text-[#E8B35E]/90">
+                    <span className="font-display text-[15px] font-normal italic leading-none text-gold-light/90">
                       {CHURCH.name.split(CHURCH.shortName)[1].trim()}
                     </span>
                   )}
                 </div>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#D4A24C]" aria-hidden="true" />
-                  <span className="text-xs uppercase tracking-[0.22em] text-[#E8B35E] font-medium">
+                  <span className="h-1 w-1 rounded-full bg-gold" aria-hidden="true" />
+                  <span className="text-xs uppercase tracking-[0.22em] text-gold-light font-medium">
                     {CHURCH.slogan}
                   </span>
                 </div>
@@ -201,13 +201,13 @@ export default function Footer({ onNavigate }: FooterProps) {
 
             {/* Status indicator — cultos */}
             {hoursUntil && (
-              <div className="mt-6 inline-flex flex-col items-start gap-1 rounded-2xl border border-[#D4A24C]/30 bg-[#D4A24C]/10 backdrop-blur-sm px-4 py-2.5 shadow-sm shadow-[#D4A24C]/10">
+              <div className="mt-6 inline-flex flex-col items-start gap-1 rounded-2xl border border-gold/30 bg-gold/10 backdrop-blur-sm px-4 py-2.5 shadow-sm shadow-gold/10">
                 <span className="flex items-center gap-2.5">
                   <span className="relative flex h-2 w-2">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success/70 opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
                   </span>
-                  <span className="text-[11px] font-semibold text-[#E8B35E]">
+                  <span className="text-[11px] font-semibold text-gold-light">
                     Próximo culto {hoursUntil}
                   </span>
                 </span>
@@ -228,7 +228,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${s.label} da igreja`}
-                  className="group relative grid h-10 w-10 place-items-center rounded-full border border-[#D4A24C]/25 bg-[#D4A24C]/5 text-[#E8B35E]/80 transition-all duration-300 hover:scale-105 hover:border-[#D4A24C]/60 hover:bg-[#D4A24C]/15 hover:text-[#E8B35E] hover:shadow-md hover:shadow-[#D4A24C]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
+                  className="group relative grid h-10 w-10 place-items-center rounded-full border border-gold/25 bg-gold/5 text-gold-light/80 transition-all duration-300 hover:scale-105 hover:border-gold/60 hover:bg-gold/15 hover:text-gold-light hover:shadow-md hover:shadow-gold/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
                 >
                   <svg
                     className="h-4 w-4 transition-transform duration-300 group-hover:scale-110"
@@ -245,10 +245,10 @@ export default function Footer({ onNavigate }: FooterProps) {
 
           {/* Newsletter col — 7/12 */}
           <div className="lg:col-span-7 flex flex-col">
-            <div className="rounded-2xl border border-[#D4A24C]/15 bg-gradient-to-br from-[#D4A24C]/10 via-transparent to-graphite-soft/20 p-6 sm:p-8 shadow-sm shadow-[#D4A24C]/5">
+            <div className="rounded-2xl border border-gold/15 bg-gradient-to-br from-gold/10 via-transparent to-graphite-soft/20 p-6 sm:p-8 shadow-sm shadow-gold/5">
               <div className="mb-4 flex items-center gap-3">
-                <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E]/90 leading-none">
+                <span className="block h-px w-8 bg-gradient-to-r from-transparent to-gold/60" aria-hidden="true" />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gold-light/90 leading-none">
                   Palavra diária
                 </span>
               </div>
@@ -279,7 +279,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <button
                   type="submit"
                   disabled={subscribed}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-[#D4A24C] px-6 py-3 text-[13.5px] font-semibold text-gray-900 shadow-sm transition-all duration-200 hover:bg-[#C4933C] hover:shadow-md hover:shadow-[#D4A24C]/25 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite disabled:opacity-60"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-[13.5px] font-semibold text-gray-900 shadow-sm transition-all duration-200 hover:bg-gold-hover hover:shadow-md hover:shadow-gold/25 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite disabled:opacity-60"
                 >
                   {subscribed ? (
                     <>
@@ -334,7 +334,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <ContactRow icon="phone">
                   <a
                     href={`tel:${CHURCH.phone.replace(/\D/g, "")}`}
-                    className="text-graphite-fg/75 transition-colors hover:text-[#E8B35E]"
+                    className="text-graphite-fg/75 transition-colors hover:text-gold-light"
                   >
                     {CHURCH.phone}
                   </a>
@@ -342,17 +342,17 @@ export default function Footer({ onNavigate }: FooterProps) {
                 <ContactRow icon="mail">
                   <a
                     href={`mailto:${CHURCH.email}`}
-                    className="break-all text-graphite-fg/75 transition-colors hover:text-[#E8B35E]"
+                    className="break-all text-graphite-fg/75 transition-colors hover:text-gold-light"
                   >
                     {CHURCH.email}
                   </a>
                 </ContactRow>
               </div>
 
-              <div className="rounded-xl border border-[#D4A24C]/15 bg-[#D4A24C]/5 px-5 py-5">
+              <div className="rounded-xl border border-gold/15 bg-gold/5 px-5 py-5">
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="block h-px w-6 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-                  <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E]/90 leading-none">
+                  <span className="block h-px w-6 bg-gradient-to-r from-transparent to-gold/60" aria-hidden="true" />
+                  <h3 className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-gold-light/90 leading-none">
                     Horários dos Cultos
                   </h3>
                 </div>
@@ -364,7 +364,7 @@ export default function Footer({ onNavigate }: FooterProps) {
                       <span>18h <span className="text-graphite-fg/45">·</span> Igreja Sede</span>
                     </div>
                   </li>
-                  <li className="flex items-start gap-4 pt-3 border-t border-[#D4A24C]/10">
+                  <li className="flex items-start gap-4 pt-3 border-t border-gold/10">
                     <span className="flex-shrink-0 w-20 text-[12.5px] font-medium uppercase tracking-wider text-graphite-fg/55 pt-px">Quarta</span>
                     <div className="flex flex-col gap-1.5 text-[12.5px] leading-snug tabular-nums text-graphite-fg/85">
                       <span>19h <span className="text-graphite-fg/45">·</span> Culto de Ensino <span className="text-graphite-fg/45">·</span> Igreja Sede</span>
@@ -380,7 +380,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             BLOCO 3 — Versículo editorial + bottom bar
             ════════════════════════════════════════════════════ */}
         <div className="mt-20">
-          <figure className="relative w-full overflow-hidden rounded-2xl border border-[#D4A24C]/20 text-center shadow-sm shadow-[#D4A24C]/5">
+          <figure className="relative w-full overflow-hidden rounded-2xl border border-gold/20 text-center shadow-sm shadow-gold/5">
             {/* Imagem de fundo - public/fotos/rodape/4.jpg */}
             <img
               src="/fotos/rodape/4.jpg"
@@ -394,22 +394,22 @@ export default function Footer({ onNavigate }: FooterProps) {
             <div className="relative z-10 px-8 py-16 sm:px-12 sm:py-20 lg:py-24">
               {/* Ornamento superior */}
               <div className="mb-5 flex items-center justify-center gap-3">
-                <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#D4A24C]/50" aria-hidden="true" />
-                <span className="font-serif text-[14px] text-[#D4A24C]/80 leading-none" aria-hidden="true">✦</span>
-                <span className="block h-px w-10 bg-gradient-to-l from-transparent to-[#D4A24C]/50" aria-hidden="true" />
+                <span className="block h-px w-10 bg-gradient-to-r from-transparent to-gold/50" aria-hidden="true" />
+                <span className="font-serif text-[14px] text-gold/80 leading-none" aria-hidden="true">✦</span>
+                <span className="block h-px w-10 bg-gradient-to-l from-transparent to-gold/50" aria-hidden="true" />
               </div>
               {/* Aspas decorativas grandes */}
-              <span className="pointer-events-none absolute left-4 top-4 font-serif text-[64px] leading-none text-[#D4A24C]/20 select-none" aria-hidden="true">“</span>
-              <span className="pointer-events-none absolute right-4 bottom-2 font-serif text-[64px] leading-none text-[#D4A24C]/20 select-none" aria-hidden="true">”</span>
+              <span className="pointer-events-none absolute left-4 top-4 font-serif text-[64px] leading-none text-gold/20 select-none" aria-hidden="true">“</span>
+              <span className="pointer-events-none absolute right-4 bottom-2 font-serif text-[64px] leading-none text-gold/20 select-none" aria-hidden="true">”</span>
               <blockquote className="font-bible text-[19px] sm:text-[21px] italic leading-[1.6] text-white/90 max-w-xl mx-auto text-balance [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">
                 Porque dele, e por ele, e para ele são todas as coisas.
               </blockquote>
               <figcaption className="mt-5 inline-flex items-center gap-2">
-                <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
-                <cite className="not-italic text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
+                <span className="block h-px w-6 bg-gold/40" aria-hidden="true" />
+                <cite className="not-italic text-[10.5px] font-semibold uppercase tracking-[0.28em] text-gold-light leading-none [text-shadow:0_1px_6px_rgba(0,0,0,0.6)]">
                   Romanos 11:36
                 </cite>
-                <span className="block h-px w-6 bg-[#D4A24C]/40" aria-hidden="true" />
+                <span className="block h-px w-6 bg-gold/40" aria-hidden="true" />
               </figcaption>
             </div>
           </figure>
@@ -441,7 +441,7 @@ function FooterTitle({ children }: { children: React.ReactNode }) {
       <h2 className="text-xs font-bold uppercase tracking-[0.22em] text-graphite-fg/80">
         {children}
       </h2>
-      <div className="mt-3 h-px w-10 bg-gradient-to-r from-[#D4A24C]/70 to-transparent" />
+      <div className="mt-3 h-px w-10 bg-gradient-to-r from-gold/70 to-transparent" />
     </div>
   );
 }
@@ -467,12 +467,12 @@ function FooterColumn({
           <li key={page}>
             <button
               onClick={() => onNavigate(page)}
-              className="group inline-flex items-baseline gap-2.5 text-graphite-fg/75 transition-colors duration-150 hover:text-[#E8B35E]"
+              className="group inline-flex items-baseline gap-2.5 text-graphite-fg/75 transition-colors duration-150 hover:text-gold-light"
             >
               {numbered && (
                 <span
                   aria-hidden="true"
-                  className="font-serif text-[10px] font-light text-graphite-fg/40 tabular-nums transition-colors duration-150 group-hover:text-[#E8B35E]"
+                  className="font-serif text-[10px] font-light text-graphite-fg/40 tabular-nums transition-colors duration-150 group-hover:text-gold-light"
                 >
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -480,7 +480,7 @@ function FooterColumn({
               <span className="relative">
                 {label}
                 <span
-                  className="absolute -bottom-0.5 left-0 h-px w-0 bg-[#D4A24C] transition-all duration-300 group-hover:w-full"
+                  className="absolute -bottom-0.5 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full"
                   aria-hidden="true"
                 />
               </span>
@@ -508,7 +508,7 @@ function ContactRow({
 
   return (
     <div className="flex items-start gap-3 group">
-      <span className="mt-0.5 grid h-7 w-7 place-items-center rounded-md bg-[#D4A24C]/15 text-[#E8B35E]/85 ring-1 ring-[#D4A24C]/20 transition-colors duration-200 group-hover:bg-[#D4A24C]/25 group-hover:text-[#E8B35E]">
+      <span className="mt-0.5 grid h-7 w-7 place-items-center rounded-md bg-gold/15 text-gold-light/85 ring-1 ring-gold/20 transition-colors duration-200 group-hover:bg-gold/25 group-hover:text-gold-light">
         <svg
           className="h-3.5 w-3.5"
           fill="none"
@@ -528,3 +528,4 @@ function ContactRow({
     </div>
   );
 }
+

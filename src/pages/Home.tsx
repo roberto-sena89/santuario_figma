@@ -64,7 +64,7 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => navigate("cultos")}
-              className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/30 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/45 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-gold to-gold-hover text-gray-900 font-semibold px-7 py-2.5 rounded-full shadow-lg shadow-gold/30 ring-1 ring-gold-deep/40 transition-all duration-300 hover:shadow-xl hover:shadow-gold/45 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
             >
               Ver horários dos cultos
             </button>
@@ -83,17 +83,17 @@ export default function Home({ onNavigate }: HomeProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <button
             onClick={() => navigate("cultos")}
-            className="group w-full -mt-7 relative z-10 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 rounded-2xl border border-[#D4A24C]/30 bg-card px-5 py-4 text-left shadow-lg shadow-black/20 transition-all hover:border-[#D4A24C]/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+            className="group w-full -mt-7 relative z-10 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 rounded-2xl border border-gold/30 bg-card px-5 py-4 text-left shadow-lg shadow-black/20 transition-all hover:border-gold/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
           >
             <span className="relative flex h-2.5 w-2.5 flex-shrink-0" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4A24C]/60" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#D4A24C]" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
             </span>
             <span className="text-sm text-foreground">
               <strong className="font-bold">Próximo culto {proximoCulto.dataLabel}:</strong>{" "}
               {proximoCulto.title} · {proximoCulto.day} {proximoCulto.time} · {proximoCulto.location}
             </span>
-            <span className="sm:ml-auto inline-flex items-center gap-1 text-sm font-bold text-[#D4A24C] flex-shrink-0">
+            <span className="sm:ml-auto inline-flex items-center gap-1 text-sm font-bold text-gold flex-shrink-0">
               Ver agenda
               <svg className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -107,7 +107,7 @@ export default function Home({ onNavigate }: HomeProps) {
             <section className="py-20 bg-muted/40" aria-label="Ministérios">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
-                  <p className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3 mx-auto">
+                  <p className="inline-flex items-center justify-center rounded-full bg-gold/15 border border-gold/30 px-4 py-1.5 text-gold-dark text-xs font-semibold uppercase tracking-[0.18em] mb-3 mx-auto">
                     Comunidade
                   </p>
                   <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
@@ -121,15 +121,15 @@ export default function Home({ onNavigate }: HomeProps) {
                   {featuredMinistries.map((m) => (
                     <div
                       key={m.id}
-                      className="group bg-gradient-to-b from-card to-card/60 border border-border/70 rounded-2xl p-6 hover:shadow-xl hover:shadow-[#D4A24C]/15 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
+                      className="group bg-gradient-to-b from-card to-card/60 border border-border/70 rounded-2xl p-6 hover:shadow-xl hover:shadow-gold/15 hover:border-gold/40 hover:-translate-y-1 transition-all duration-300"
                     >
                       <div
-                        className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4 bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#9C7A2E] transition-transform duration-300 group-hover:scale-110 shadow-sm"
+                        className="w-11 h-11 rounded-xl flex items-center justify-center text-xl mb-4 bg-gold/10 border border-gold/25 text-gold-dark transition-transform duration-300 group-hover:scale-110 shadow-sm"
                         aria-hidden="true"
                       >
                         {m.icon}
                       </div>
-                      <h3 className="font-display font-semibold text-foreground text-base mb-2 group-hover:text-[#9C7A2E] transition-colors">
+                      <h3 className="font-display font-semibold text-foreground text-base mb-2 group-hover:text-gold-dark transition-colors">
                         {m.name}
                       </h3>
                       <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3">
@@ -141,7 +141,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 <div className="text-center mt-10">
                   <button
                     onClick={() => navigate("ministerios")}
-                    className="group inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-6 py-3 text-sm font-medium text-[#9C7A2E] transition-all duration-200 hover:border-[#D4A24C]/70 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0"
+                    className="group inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-6 py-3 text-sm font-medium text-gold-dark transition-all duration-200 hover:border-gold/70 hover:bg-gold/20 hover:-translate-y-0.5 active:translate-y-0"
                   >
                     Ver todos os ministérios
                     <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -184,7 +184,7 @@ export default function Home({ onNavigate }: HomeProps) {
                       <div className="mt-auto">
                         <button
                           onClick={() => navigate("palavra-do-dia")}
-                          className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/35 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                          className="inline-flex items-center justify-center bg-gradient-to-r from-gold to-gold-hover text-gray-900 font-semibold text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg shadow-gold/35 ring-1 ring-gold-deep/40 transition-all duration-300 hover:shadow-xl hover:shadow-gold/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
                         >
                           Leia mais
                         </button>
@@ -210,7 +210,7 @@ export default function Home({ onNavigate }: HomeProps) {
                       <div className="mt-auto">
                         <button
                           onClick={() => navigate("devocional")}
-                          className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg shadow-[#D4A24C]/35 ring-1 ring-[#B8860B]/40 transition-all duration-300 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                          className="inline-flex items-center justify-center bg-gradient-to-r from-gold to-gold-hover text-gray-900 font-semibold text-sm sm:text-base px-7 py-2.5 rounded-full shadow-lg shadow-gold/35 ring-1 ring-gold-deep/40 transition-all duration-300 hover:shadow-xl hover:shadow-gold/50 hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
                         >
                           Ler o Devocional completo
                         </button>
@@ -237,8 +237,8 @@ export default function Home({ onNavigate }: HomeProps) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/35" />
             </div>
             <div className="relative z-10 flex flex-col items-center justify-center p-5 sm:p-6 text-center">
-              <span className="grid h-9 w-9 place-items-center rounded-lg bg-[#D4A24C]/20 ring-1 ring-[#D4A24C]/30 backdrop-blur-sm mb-3 shadow-md shadow-[#D4A24C]/15">
-                <svg className="w-5 h-5 text-[#E8B35E]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <span className="grid h-9 w-9 place-items-center rounded-lg bg-gold/20 ring-1 ring-gold/30 backdrop-blur-sm mb-3 shadow-md shadow-gold/15">
+                <svg className="w-5 h-5 text-gold-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
               </span>
@@ -250,7 +250,7 @@ export default function Home({ onNavigate }: HomeProps) {
               </p>
               <button
                 onClick={() => navigate("biblia")}
-                className="inline-flex items-center justify-center bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 text-sm font-semibold px-6 py-2.5 rounded-full shadow-md shadow-[#D4A24C]/25 ring-1 ring-[#B8860B]/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center justify-center bg-gradient-to-r from-gold to-gold-hover text-gray-900 text-sm font-semibold px-6 py-2.5 rounded-full shadow-md shadow-gold/25 ring-1 ring-gold-deep/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
               >
                 Ler Bíblia Agora
               </button>
@@ -277,7 +277,7 @@ export default function Home({ onNavigate }: HomeProps) {
           aria-hidden="true"
         />
         <div className="relative z-10 mx-auto max-w-3xl px-4 py-16 sm:py-20 text-center">
-          <p className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D4A24C]/12 border border-[#D4A24C]/25 px-4 py-1.5 text-[#9C7A2E] dark:text-[#D4A24C] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
+          <p className="inline-flex items-center justify-center gap-2 rounded-full bg-gold/12 border border-gold/25 px-4 py-1.5 text-gold-dark dark:text-gold text-xs font-semibold uppercase tracking-[0.18em] mb-3">
             Primeira visita
             <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" aria-hidden="true" />
           </p>
@@ -292,7 +292,7 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={() => navigate("quem-somos")}
-              className="group inline-flex items-center gap-2 rounded-full bg-[#D4A24C] hover:bg-[#C4933C] px-7 py-3.5 text-sm sm:text-base font-semibold text-gray-900 shadow-lg shadow-[#D4A24C]/25 ring-1 ring-[#B8860B]/40 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/45 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
+              className="group inline-flex items-center gap-2 rounded-full bg-gold hover:bg-gold-hover px-7 py-3.5 text-sm sm:text-base font-semibold text-gray-900 shadow-lg shadow-gold/25 ring-1 ring-gold-deep/40 transition-all duration-200 hover:shadow-xl hover:shadow-gold/45 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
             >
               Conheça nossa história
               <svg
@@ -307,7 +307,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </button>
             <button
               onClick={() => onNavigate("missoes")}
-              className="group inline-flex items-center gap-2.5 rounded-full border border-[#D4A24C]/50 bg-[#D4A24C]/10 px-7 py-3.5 text-sm sm:text-base font-medium text-[#D4A24C] backdrop-blur-sm transition-all duration-200 hover:border-[#D4A24C]/80 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
+              className="group inline-flex items-center gap-2.5 rounded-full border border-gold/50 bg-gold/10 px-7 py-3.5 text-sm sm:text-base font-medium text-gold backdrop-blur-sm transition-all duration-200 hover:border-gold/80 hover:bg-gold/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-graphite"
             >
               <svg className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
@@ -324,7 +324,7 @@ export default function Home({ onNavigate }: HomeProps) {
       <section className="py-12 bg-muted/30" aria-label="Programação da semana">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
-            <p className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/10 border border-[#D4A24C]/20 px-3 py-1 text-[#9C7A2E] text-[11px] font-semibold uppercase tracking-[0.16em] mb-2">
+            <p className="inline-flex items-center justify-center rounded-full bg-gold/10 border border-gold/20 px-3 py-1 text-gold-dark text-[11px] font-semibold uppercase tracking-[0.16em] mb-2">
               Programação da semana
             </p>
             <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
@@ -352,11 +352,11 @@ export default function Home({ onNavigate }: HomeProps) {
             >
               {/* fio superior + brilho lateral + pontos sutis */}
               <div
-                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/40 to-transparent"
+                className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent"
                 aria-hidden="true"
               />
               <div
-                className="absolute -top-32 right-[-10%] h-80 w-80 rounded-full bg-[#D4A24C]/[0.06] blur-3xl pointer-events-none"
+                className="absolute -top-32 right-[-10%] h-80 w-80 rounded-full bg-gold/[0.06] blur-3xl pointer-events-none"
                 aria-hidden="true"
               />
               <div
@@ -370,7 +370,7 @@ export default function Home({ onNavigate }: HomeProps) {
               <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
                   <div>
-                    <p className="inline-flex items-center justify-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#9C7A2E] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
+                    <p className="inline-flex items-center justify-center rounded-full bg-gold/15 border border-gold/30 px-4 py-1.5 text-gold-dark text-xs font-semibold uppercase tracking-[0.18em] mb-3">
                       Em Breve
                     </p>
                     <h2 className="font-display text-3xl sm:text-4xl font-normal text-foreground">
@@ -379,7 +379,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   </div>
                   <button
                     onClick={() => navigate("cultos")}
-                    className="group inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-5 py-2.5 text-sm font-medium text-[#9C7A2E] transition-all duration-200 hover:border-[#D4A24C]/70 hover:bg-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 flex-shrink-0"
+                    className="group inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-5 py-2.5 text-sm font-medium text-gold-dark transition-all duration-200 hover:border-gold/70 hover:bg-gold/20 hover:-translate-y-0.5 active:translate-y-0 flex-shrink-0"
                   >
                     Ver todos
                     <svg className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -391,10 +391,10 @@ export default function Home({ onNavigate }: HomeProps) {
                   {nextEvents.map((event) => (
                     <article
                       key={event.id}
-                      className="group bg-gradient-to-b from-[#151A19] to-[#0F1414] border border-[#2A302D] rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-black/30 hover:border-[#D4A24C]/40 hover:-translate-y-1 transition-all duration-300"
+                      className="group bg-gradient-to-b from-surface to-background border border-border rounded-2xl overflow-hidden hover:shadow-xl hover:shadow-black/30 hover:border-gold/40 hover:-translate-y-1 transition-all duration-300"
                                     >
                                       {event.highlight && (
-                                        <div className="bg-gradient-to-r from-[#D4A24C] to-[#C4933C] px-4 py-1.5">
+                                        <div className="bg-gradient-to-r from-gold to-gold-hover px-4 py-1.5">
                                                                             <span className="inline-flex items-center gap-1.5 text-gray-900 text-xs font-bold uppercase tracking-wide">
                                                                               <span aria-hidden="true">⭐</span>
                                                                               Destaque
@@ -403,20 +403,20 @@ export default function Home({ onNavigate }: HomeProps) {
                                       )}
                                       <div className="p-6">
                                                         <time
-                                                          className="inline-flex items-center gap-1.5 text-[#D4A24C] text-xs font-semibold uppercase tracking-wide"
+                                                          className="inline-flex items-center gap-1.5 text-gold text-xs font-semibold uppercase tracking-wide"
                                                           dateTime={event.date}
                                                         >
                                                           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                                           {formatDate(event.date)} · {event.time}
                                                         </time>
-                                                        <h3 className="font-display text-lg font-semibold text-white mt-3 mb-2 group-hover:text-[#D4A24C] transition-colors">
+                                                        <h3 className="font-display text-lg font-semibold text-white mt-3 mb-2 group-hover:text-gold transition-colors">
                                                           {event.title}
                                                         </h3>
                                                         <p className="text-white/75 text-sm leading-relaxed mb-5">
                                           {event.description}
                                         </p>
                                         <div className="flex items-center gap-2 text-white/60 text-xs border-t border-white/10 pt-4">
-                          <svg className="w-3.5 h-3.5 flex-shrink-0 text-[#D4A24C]" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <svg className="w-3.5 h-3.5 flex-shrink-0 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           </svg>
                           <span>{event.location}</span>
@@ -438,7 +438,7 @@ export default function Home({ onNavigate }: HomeProps) {
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Badge + título sutis */}
                 <div className="text-center mb-10">
-                  <p className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D4A24C]/12 border border-[#D4A24C]/25 px-4 py-1.5 text-[#9C7A2E] dark:text-[#D4A24C] text-xs font-semibold uppercase tracking-[0.18em] mb-3">
+                  <p className="inline-flex items-center justify-center gap-2 rounded-full bg-gold/12 border border-gold/25 px-4 py-1.5 text-gold-dark dark:text-gold text-xs font-semibold uppercase tracking-[0.18em] mb-3">
                     Navegue pelo site
                   </p>
                   <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground/75">
@@ -484,12 +484,12 @@ export default function Home({ onNavigate }: HomeProps) {
                     <button
                       key={item.page}
                       onClick={() => navigate(item.page)}
-                      className="group relative bg-card/80 border border-border/60 rounded-2xl p-7 text-left backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-1 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-muted"
+                      className="group relative bg-card/80 border border-border/60 rounded-2xl p-7 text-left backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-1 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-muted"
                     >
-                      <div className="inline-flex w-12 h-12 items-center justify-center rounded-xl bg-[#D4A24C]/10 border border-[#D4A24C]/25 text-[#D4A24C] mb-4 transition-all duration-300 group-hover:bg-[#D4A24C]/15 group-hover:border-[#D4A24C]/40 group-hover:shadow-sm group-hover:shadow-[#D4A24C]/20">
+                      <div className="inline-flex w-12 h-12 items-center justify-center rounded-xl bg-gold/10 border border-gold/25 text-gold mb-4 transition-all duration-300 group-hover:bg-gold/15 group-hover:border-gold/40 group-hover:shadow-sm group-hover:shadow-gold/20">
                         {item.icon}
                       </div>
-                      <div className="font-display font-semibold text-foreground text-base mb-1 group-hover:text-[#D4A24C] transition-colors">
+                      <div className="font-display font-semibold text-foreground text-base mb-1 group-hover:text-gold transition-colors">
                         {item.label}
                       </div>
                       <div className="text-muted-foreground/80 text-sm leading-relaxed">{item.desc}</div>
@@ -503,3 +503,4 @@ export default function Home({ onNavigate }: HomeProps) {
     </main>
   );
 }
+

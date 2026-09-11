@@ -53,7 +53,7 @@ export default function QuemSomos() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                 </div>
         <div className="relative h-full flex flex-col items-center justify-end pb-12 text-center px-4">
-                  <p className="inline-flex items-center rounded-full bg-[#D4A24C]/15 border border-[#D4A24C]/30 px-4 py-1.5 text-[#E8B35E] text-xs font-semibold uppercase tracking-[0.18em]">
+                  <p className="inline-flex items-center rounded-full bg-gold/15 border border-gold/30 px-4 py-1.5 text-gold-light text-xs font-semibold uppercase tracking-[0.18em]">
                     Nossa História
                   </p>
                   <h1 className="font-display text-3xl sm:text-5xl font-bold text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)]">
@@ -67,7 +67,7 @@ export default function QuemSomos() {
         <section className="grid lg:grid-cols-2 gap-12 items-start mb-20" aria-labelledby="quem-historia">
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-[#D4A24C]/15 text-xl shadow-sm shadow-[#D4A24C]/20 ring-1 ring-[#D4A24C]/20" aria-hidden="true">
+              <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-gold/15 text-xl shadow-sm shadow-gold/20 ring-1 ring-gold/20" aria-hidden="true">
                 📖
               </span>
               <h2 id="quem-historia" className="font-display text-2xl sm:text-3xl font-light text-foreground">
@@ -87,22 +87,22 @@ export default function QuemSomos() {
             </div>
           </div>
           <div className="space-y-5">
-            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
-              <div className="text-4xl font-display font-bold text-[#E8B35E] mb-2" aria-hidden="true">
+            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
+              <div className="text-4xl font-display font-bold text-gold-light mb-2" aria-hidden="true">
                 {new Date().getFullYear() - CHURCH.founded}+
               </div>
               <div className="font-semibold text-foreground"><span className="sr-only">{new Date().getFullYear() - CHURCH.founded} </span>Anos de ministério</div>
               <div className="text-muted-foreground text-sm">Desde {CHURCH.founded}</div>
             </div>
-            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
-              <div className="text-4xl font-display font-bold text-[#E8B35E] mb-2" aria-hidden="true">
+            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
+              <div className="text-4xl font-display font-bold text-gold-light mb-2" aria-hidden="true">
                 {CHURCH.members}+
               </div>
               <div className="font-semibold text-foreground"><span className="sr-only">{CHURCH.members} </span>Membros ativos</div>
               <div className="text-muted-foreground text-sm">E crescendo a cada dia</div>
             </div>
-            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-[#D4A24C]/40 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
-              <div className="text-4xl font-display font-bold text-[#E8B35E] mb-2" aria-hidden="true">7</div>
+            <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
+              <div className="text-4xl font-display font-bold text-gold-light mb-2" aria-hidden="true">7</div>
               <div className="font-semibold text-foreground"><span className="sr-only">7 </span>Ministérios ativos</div>
               <div className="text-muted-foreground text-sm">Servindo a cidade</div>
             </div>
@@ -123,7 +123,7 @@ export default function QuemSomos() {
                   </div>
 
                   <div className="grid sm:grid-cols-3 gap-6 mb-12">
-                    <div className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+                    <div className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-gold/30 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
                       <h3 className="font-display text-lg font-semibold text-foreground mb-1 uppercase tracking-[0.05em]">
                         Nossa Missão
                       </h3>
@@ -132,7 +132,7 @@ export default function QuemSomos() {
                         Glorificar a Deus fazendo discípulos de Jesus Cristo em todos os âmbitos da vida, edificando o corpo de Cristo com a Palavra e o Espírito.
                       </p>
                     </div>
-                    <div className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+                    <div className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-gold/30 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
                       <h3 className="font-display text-lg font-semibold text-foreground mb-1 uppercase tracking-[0.05em]">
                         Nossa Visão
                       </h3>
@@ -141,7 +141,7 @@ export default function QuemSomos() {
                         Ser uma igreja relevante, acolhedora e transformadora, que alcance gerações e comunidades com o amor de Cristo, impactando nossa cidade e além.
                       </p>
                     </div>
-                    <div className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+                    <div className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-gold/30 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
                       <h3 className="font-display text-lg font-semibold text-foreground mb-1 uppercase tracking-[0.05em]">
                         Nossos Valores
                       </h3>
@@ -156,7 +156,7 @@ export default function QuemSomos() {
                   <h3 className="sr-only">Valores</h3>
                   <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {VALUES.map((v, i) => (
-                      <div key={i} className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-5 transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/8 hover:-translate-y-0.5">
+                      <div key={i} className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-5 transition-all duration-300 hover:border-gold/30 hover:shadow-lg hover:shadow-gold/8 hover:-translate-y-0.5">
                         <h4 className="font-display font-semibold text-foreground text-sm mb-2 uppercase tracking-[0.04em]">
                           {v.title}
                         </h4>
@@ -181,7 +181,7 @@ export default function QuemSomos() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {CHURCH.leadership.map((leader, i) => (
-              <div key={i} className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10 hover:-translate-y-0.5">
+              <div key={i} className="group bg-card/80 backdrop-blur-sm border border-border/20 rounded-2xl p-7 transition-all duration-300 hover:border-gold/30 hover:shadow-lg hover:shadow-gold/10 hover:-translate-y-0.5">
                 <h3 className="font-display font-semibold text-foreground text-base mb-1 uppercase tracking-[0.04em]">
                   {leader.name}
                 </h3>
@@ -196,7 +196,7 @@ export default function QuemSomos() {
         </section>
 
         {/* LINK INTERNO — Primeira visita: Quem Somos → Cultos → Contato */}
-        <section aria-label="Primeira visita" className="mt-16 rounded-2xl border border-[#D4A24C]/25 bg-gradient-to-br from-[#D4A24C]/[0.08] to-transparent p-6 sm:p-8 text-center">
+        <section aria-label="Primeira visita" className="mt-16 rounded-2xl border border-gold/25 bg-gradient-to-br from-gold/[0.08] to-transparent p-6 sm:p-8 text-center">
           <h2 className="font-display text-2xl sm:text-3xl font-light text-foreground mb-2">
             Primeira vez por aqui?
           </h2>
@@ -206,13 +206,13 @@ export default function QuemSomos() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href="#/cultos"
-              className="inline-flex h-11 items-center justify-center rounded-full bg-[#D4A24C] px-8 text-sm font-bold text-[#1A1409] transition-all hover:bg-[#C4933C] hover:-translate-y-0.5"
+              className="inline-flex h-11 items-center justify-center rounded-full bg-gold px-8 text-sm font-bold text-gold-ink transition-all hover:bg-gold-hover hover:-translate-y-0.5"
             >
               Ver horários dos cultos →
             </a>
             <a
               href="#/contato"
-              className="inline-flex h-11 items-center justify-center rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-8 text-sm font-semibold text-[#9C7A2E] transition-colors hover:bg-[#D4A24C]/20"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-gold/30 bg-gold/10 px-8 text-sm font-semibold text-gold-dark transition-colors hover:bg-gold/20"
             >
               Falar conosco
             </a>
@@ -222,3 +222,4 @@ export default function QuemSomos() {
     </main>
   );
 }
+

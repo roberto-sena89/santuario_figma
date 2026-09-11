@@ -50,7 +50,7 @@ export default class ErrorBoundary extends Component<
                 window.location.hash = "#/";
                 window.location.reload();
               }}
-              className="inline-flex items-center justify-center rounded-full border border-[#D4A24C]/45 bg-gradient-to-r from-[#D4A24C]/20 to-[#C4933C]/12 px-5 py-2.5 text-sm font-semibold text-[#D4A24C] shadow-md shadow-black/20 transition-all duration-200 hover:border-[#D4A24C]/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="inline-flex items-center justify-center rounded-full border border-gold/45 bg-gradient-to-r from-gold/20 to-gold-hover/12 px-5 py-2.5 text-sm font-semibold text-gold shadow-md shadow-black/20 transition-all duration-200 hover:border-gold/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               Voltar ao início
             </button>
@@ -61,3 +61,4 @@ export default class ErrorBoundary extends Component<
     return this.props.children;
   }
 }
+

@@ -81,7 +81,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
           aria-hidden="true"
         />
         <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
-          <p className="inline-flex items-center justify-center rounded-full border border-[#D4A24C]/25 bg-gradient-to-r from-[#D4A24C]/15 to-[#C4933C]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-[#D4A24C] mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
+          <p className="inline-flex items-center justify-center rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-gold mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
             Palavra do Dia
           </p>
           <div className="mt-1 flex items-center justify-center gap-3">
@@ -109,7 +109,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
             <button
               onClick={copyVerse}
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-[#D4A24C]/25 bg-gradient-to-r from-[#D4A24C]/15 to-[#C4933C]/10 px-5 text-sm font-semibold text-[#D4A24C] shadow-md shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:border-[#D4A24C]/45 hover:from-[#D4A24C]/25 hover:to-[#C4933C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 px-5 text-sm font-semibold text-gold shadow-md shadow-black/20 backdrop-blur-sm transition-all duration-300 hover:border-gold/45 hover:from-gold/25 hover:to-gold-hover/20 hover:shadow-lg hover:shadow-gold/20 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
             >
               {copied ? (
                 <>
@@ -155,7 +155,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
           <div className="grid sm:grid-cols-3 gap-4">
             <button
               onClick={() => onNavigate("devocional")}
-              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-[#D4A24C]/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-gold/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
               <p className="text-2xl mb-2" aria-hidden="true">📖</p>
               <p className="font-semibold text-foreground text-sm mb-1">
@@ -164,13 +164,13 @@ export default function PalavraDodia({ onNavigate }: Props) {
               <p className="text-muted-foreground text-[13px] leading-relaxed mb-3 line-clamp-2">
                 {devocionalHoje.title} · {devocionalHoje.theme}
               </p>
-              <span className="text-xs font-bold text-[#D4A24C]">
+              <span className="text-xs font-bold text-gold">
                 Refletir →
               </span>
             </button>
             <button
               onClick={() => onNavigate("plano")}
-              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-[#D4A24C]/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-gold/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
               <p className="text-2xl mb-2" aria-hidden="true">📚</p>
               <p className="font-semibold text-foreground text-sm mb-1">
@@ -179,13 +179,13 @@ export default function PalavraDodia({ onNavigate }: Props) {
               <p className="text-muted-foreground text-[13px] leading-relaxed mb-3 line-clamp-2">
                 {leituraHoje.resumo}
               </p>
-              <span className="text-xs font-bold text-[#D4A24C]">
+              <span className="text-xs font-bold text-gold">
                 Ler na Bíblia →
               </span>
             </button>
             <button
               onClick={() => onNavigate("quiz")}
-              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-[#D4A24C]/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+              className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-gold/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
               <p className="text-2xl mb-2" aria-hidden="true">❓</p>
               <p className="font-semibold text-foreground text-sm mb-1">
@@ -194,7 +194,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
               <p className="text-muted-foreground text-[13px] leading-relaxed mb-3 line-clamp-2">
                 {quizSemana.tema} — 5 perguntas
               </p>
-              <span className="text-xs font-bold text-[#D4A24C]">
+              <span className="text-xs font-bold text-gold">
                 Testar a fé →
               </span>
             </button>
@@ -218,14 +218,14 @@ export default function PalavraDodia({ onNavigate }: Props) {
             {related.map((verse, i) => (
               <article
                 key={`${verse.ref}-${i}`}
-                className="group rounded-xl border border-border bg-background/40 p-5 transition-colors duration-200 hover:border-[#D4A24C]/35"
+                className="group rounded-xl border border-border bg-background/40 p-5 transition-colors duration-200 hover:border-gold/35"
               >
                 <p className="bible-verse-text mb-3">{verse.text}</p>
                 <div className="flex items-center justify-between gap-3">
-                  <span className="text-xs font-semibold tracking-wide text-[#D4A24C]">
+                  <span className="text-xs font-semibold tracking-wide text-gold">
                     {verse.ref}
                   </span>
-                  <span className="text-xs font-semibold text-[#D4A24C]/70">
+                  <span className="text-xs font-semibold text-gold/70">
                     #{verse.theme}
                   </span>
                 </div>
@@ -237,3 +237,4 @@ export default function PalavraDodia({ onNavigate }: Props) {
     </main>
   );
 }
+

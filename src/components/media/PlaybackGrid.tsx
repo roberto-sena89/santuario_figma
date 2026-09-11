@@ -500,15 +500,15 @@ export default function MusicasTab({
           ) : (
             <>
               <div className="mb-4 flex items-center justify-between gap-3">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A24C]/25 bg-[#D4A24C]/8 px-3 py-1.5 text-[11px] font-medium text-[#B8860B]/80 dark:text-[#E8B35E]/80">
-                  <span className="tabular-nums font-semibold text-[#D4A24C] dark:text-[#E8B35E]">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/25 bg-gold/8 px-3 py-1.5 text-[11px] font-medium text-gold-deep/80 dark:text-gold-light/80">
+                  <span className="tabular-nums font-semibold text-gold dark:text-gold-light">
                     {inicio + 1}–{Math.min(paginaSegura * itensPorPagina, filtradas.length)}{' '}
                   </span>
-                  de <span className="tabular-nums font-semibold text-[#D4A24C] dark:text-[#E8B35E]">{filtradas.length}</span> músicas
+                  de <span className="tabular-nums font-semibold text-gold dark:text-gold-light">{filtradas.length}</span> músicas
                 </span>
                 <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-surface2/60 px-3 py-1.5 text-[11px] font-medium text-muted">
-                  Página <span className="tabular-nums font-semibold text-[#B8860B] dark:text-[#E8B35E]">{paginaSegura}</span>
-                  de <span className="tabular-nums font-semibold text-[#B8860B] dark:text-[#E8B35E]">{totalPaginas}</span>
+                  Página <span className="tabular-nums font-semibold text-gold-deep dark:text-gold-light">{paginaSegura}</span>
+                  de <span className="tabular-nums font-semibold text-gold-deep dark:text-gold-light">{totalPaginas}</span>
                 </span>
               </div>
               {chunksInfo && chunksInfo.carregados < chunksInfo.total && (
@@ -530,7 +530,7 @@ export default function MusicasTab({
                   return (
                     <div
                       key={m.id}
-                      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#D4A24C]/15 hover:border-[#D4A24C]/30"
+                      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/60 bg-surface transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:shadow-gold/15 hover:border-gold/30"
                     >
                       <button
                         onClick={() => abrirPlayer(m)}
@@ -548,7 +548,7 @@ export default function MusicasTab({
                         {/* Overlay sutil no hover */}
                         <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                         <span className="pointer-events-none absolute inset-0 grid place-items-center bg-black/0 transition-[background-color] duration-300 group-hover:bg-black/20">
-                          <span className="flex h-11 w-16 items-center justify-center rounded-xl bg-[#D4A24C] text-gray-900 shadow-lg shadow-[#D4A24C]/40 transition-all duration-300 group-hover:scale-105 group-hover:bg-[#E8B35E] sm:h-12 sm:w-[4.5rem]">
+                          <span className="flex h-11 w-16 items-center justify-center rounded-xl bg-gold text-gray-900 shadow-lg shadow-gold/40 transition-all duration-300 group-hover:scale-105 group-hover:bg-gold-light sm:h-12 sm:w-[4.5rem]">
                             <svg
                               viewBox="0 0 24 24"
                               className="ml-0.5 h-5 w-5 sm:h-6 sm:w-6"
@@ -572,7 +572,7 @@ export default function MusicasTab({
                           onClick={() => abrirPlayer(m)}
                           title={`${descricao} — assistir no player`}
                           aria-label={`${descricao} — assistir no player`}
-                          className="line-clamp-2 text-left text-sm font-semibold leading-snug text-text transition-colors duration-200 group-hover:text-[#B8860B] dark:group-hover:text-[#E8B35E]"
+                          className="line-clamp-2 text-left text-sm font-semibold leading-snug text-text transition-colors duration-200 group-hover:text-gold-deep dark:group-hover:text-gold-light"
                         >
                           {descricao}
                         </button>
@@ -582,14 +582,14 @@ export default function MusicasTab({
                             onClick={() => {
                               try { localStorage.setItem("santuario:harpa_busca", numHino || m.titulo); } catch {}
                             }}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#9C7A2E] hover:text-[#D4A24C] hover:underline"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-gold-dark hover:text-gold hover:underline"
                           >
                             📖 ver letra {numHino ? `na Harpa nº ${numHino}` : "na Harpa Cristã"} →
                           </a>
                         )}
                         <p className="line-clamp-1 text-xs text-text2/70">
                           {m.tom ? (
-                            <span className="inline-flex items-center gap-1 font-medium text-[#B8860B] dark:text-[#E8B35E]">
+                            <span className="inline-flex items-center gap-1 font-medium text-gold-deep dark:text-gold-light">
                               <Music className="h-3.5 w-3.5" aria-hidden="true" /> {m.tom}
                             </span>
                           ) : (
@@ -602,8 +602,8 @@ export default function MusicasTab({
                           role="group"
                           aria-label="Ações do playback"
                         >
-                          <span className="mr-auto inline-flex min-w-0 items-center gap-1.5 rounded-full border border-[#D4A24C]/25 bg-[#D4A24C]/10 px-2.5 py-1 text-[10px] font-semibold text-[#B8860B] dark:text-[#E8B35E]">
-                            <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-[#D4A24C]/90 text-gray-900">
+                          <span className="mr-auto inline-flex min-w-0 items-center gap-1.5 rounded-full border border-gold/25 bg-gold/10 px-2.5 py-1 text-[10px] font-semibold text-gold-deep dark:text-gold-light">
+                            <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-gold/90 text-gray-900">
                               <IconeCategoria categoria={m.categoria} />
                             </span>
                             <span className="truncate">{m.categoria}</span>
@@ -619,8 +619,8 @@ export default function MusicasTab({
                             aria-pressed={ehFavorita}
                             className={`grid h-9 w-9 place-items-center rounded-lg border border-transparent text-sm transition-[color,background-color] duration-200 ${
                               ehFavorita
-                                ? 'text-[#D4A24C] bg-[#D4A24C]/10 border-[#D4A24C]/25'
-                                : 'text-text2/60 hover:text-[#D4A24C] hover:bg-[#D4A24C]/10 hover:border-[#D4A24C]/25'
+                                ? 'text-gold bg-gold/10 border-gold/25'
+                                : 'text-text2/60 hover:text-gold hover:bg-gold/10 hover:border-gold/25'
                             }`}
                           >
                             <Heart
@@ -651,7 +651,7 @@ export default function MusicasTab({
                   <button
                     onClick={() => irParaPagina(paginaSegura - 1)}
                     disabled={paginaSegura <= 1}
-                    className="inline-flex h-10 items-center rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-5 text-sm font-semibold text-[#B8860B] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D4A24C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none dark:text-[#E8B35E]"
+                    className="inline-flex h-10 items-center rounded-full border border-gold/40 bg-gold/10 px-5 text-sm font-semibold text-gold-deep transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold/20 hover:shadow-lg hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none dark:text-gold-light"
                   >
                     ‹ Anterior
                   </button>
@@ -667,8 +667,8 @@ export default function MusicasTab({
                         aria-current={p === paginaSegura ? 'page' : undefined}
                         className={`inline-flex h-10 w-10 items-center justify-center text-sm font-semibold transition ${
                           p === paginaSegura
-                            ? 'rounded-full bg-[#D4A24C] text-gray-900 border-2 border-[#E8B35E]/70 shadow-lg shadow-[#D4A24C]/30 scale-105'
-                            : 'rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/5 text-[#B8860B] hover:bg-[#D4A24C]/15 hover:shadow-md hover:shadow-[#D4A24C]/20 hover:-translate-y-0.5 dark:text-[#E8B35E]'
+                            ? 'rounded-full bg-gold text-gray-900 border-2 border-gold-light/70 shadow-lg shadow-gold/30 scale-105'
+                            : 'rounded-full border border-gold/30 bg-gold/5 text-gold-deep hover:bg-gold/15 hover:shadow-md hover:shadow-gold/20 hover:-translate-y-0.5 dark:text-gold-light'
                         }`}
                       >
                         {p}
@@ -679,7 +679,7 @@ export default function MusicasTab({
                   <button
                     onClick={() => irParaPagina(paginaSegura + 1)}
                     disabled={paginaSegura >= totalPaginas}
-                    className="inline-flex h-10 items-center rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-5 text-sm font-semibold text-[#B8860B] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D4A24C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none dark:text-[#E8B35E]"
+                    className="inline-flex h-10 items-center rounded-full border border-gold/40 bg-gold/10 px-5 text-sm font-semibold text-gold-deep transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold/20 hover:shadow-lg hover:shadow-gold/20 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none dark:text-gold-light"
                   >
                     Próximo ›
                   </button>
@@ -695,7 +695,7 @@ export default function MusicasTab({
                       onChange={(e) => setPaginaIr(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && irParaPaginaDireta()}
                       aria-label="Ir para página"
-                      className="inline-flex h-10 w-14 items-center justify-center rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-2 text-center text-sm font-semibold text-[#B8860B] outline-none transition-all duration-300 hover:bg-[#D4A24C]/20 focus:border-[#D4A24C]/70 focus:ring-2 focus:ring-[#D4A24C]/25 dark:text-[#E8B35E]"
+                      className="inline-flex h-10 w-14 items-center justify-center rounded-full border border-gold/40 bg-gold/10 px-2 text-center text-sm font-semibold text-gold-deep outline-none transition-all duration-300 hover:bg-gold/20 focus:border-gold/70 focus:ring-2 focus:ring-gold/25 dark:text-gold-light"
                     />
                     <span className="whitespace-nowrap">de {totalPaginas}</span>
                   </span>
@@ -705,7 +705,7 @@ export default function MusicasTab({
                     value={itensPorPagina}
                     onChange={(e) => setItensPorPagina(Number(e.target.value))}
                     aria-label="Itens por página"
-                    className="ml-2 h-9 cursor-pointer rounded-full border border-[#D4A24C]/40 bg-surface2 px-3 text-sm font-medium text-[#B8860B] outline-none transition-all duration-300 hover:border-[#D4A24C]/70 hover:bg-[#D4A24C]/10 focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 dark:text-[#E8B35E]"
+                    className="ml-2 h-9 cursor-pointer rounded-full border border-gold/40 bg-surface2 px-3 text-sm font-medium text-gold-deep outline-none transition-all duration-300 hover:border-gold/70 hover:bg-gold/10 focus:border-gold focus:ring-2 focus:ring-gold/25 dark:text-gold-light"
                   >
                     <option value={24}>24/pág</option>
                     <option value={55}>55/pág</option>
@@ -717,7 +717,7 @@ export default function MusicasTab({
                     onClick={irParaTopo}
                     title="Voltar ao topo do catálogo"
                     aria-label="Voltar ao topo do catálogo"
-                    className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 text-xs font-bold text-[#B8860B] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#D4A24C]/20 hover:shadow-lg hover:shadow-[#D4A24C]/20 dark:text-[#E8B35E]"
+                    className="ml-2 inline-flex h-9 w-9 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-xs font-bold text-gold-deep transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold/20 hover:shadow-lg hover:shadow-gold/20 dark:text-gold-light"
                   >
                     ↑
                   </button>
@@ -725,8 +725,8 @@ export default function MusicasTab({
               )}
 
               <div className="mt-8 text-center">
-              <div className="mx-auto mb-3 h-px w-16 bg-gradient-to-r from-transparent via-[#D4A24C]/50 to-transparent" />
-              <p className="text-xs text-[#B8860B]/60 dark:text-[#E8B35E]/60 tabular-nums">
+              <div className="mx-auto mb-3 h-px w-16 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+              <p className="text-xs text-gold-deep/60 dark:text-gold-light/60 tabular-nums">
                 {filtradas.length} de {lista.length} músicas · Curadoria do {IGREJA.nome}
               </p>
             </div>
@@ -743,3 +743,4 @@ function IconeCategoria({ categoria }: { categoria?: string }) {
   const Icon = (categoria && ICONES_CATEGORIA[categoria]) || FolderOpen;
   return <Icon className="h-3 w-3" aria-hidden="true" />;
 }
+

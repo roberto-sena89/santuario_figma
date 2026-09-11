@@ -28,7 +28,7 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
           <h1 className="font-display text-2xl text-foreground mb-3">Ministério não encontrado</h1>
           <button
             onClick={() => onNavigate("ministerios")}
-            className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-6 py-3 text-sm font-medium text-[#D4A24C] transition-all hover:bg-[#D4A24C]/20"
+            className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-6 py-3 text-sm font-medium text-gold transition-all hover:bg-gold/20"
           >
             ← Voltar aos ministérios
           </button>
@@ -69,7 +69,7 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
           style={{ background: `radial-gradient(ellipse at top, ${m.color}55, transparent 70%)` }}
           aria-hidden="true"
         />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/40 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
           <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-14 items-center">
@@ -99,9 +99,9 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
             {/* Direita — versículo do ministério */}
             {m.versiculo && (
               <div className="flex justify-end">
-                <figure className="w-full max-w-md rounded-2xl border border-[#D4A24C]/30 bg-black/40 px-6 py-7 sm:px-8 sm:py-8 backdrop-blur-md shadow-lg shadow-black/20">
+                <figure className="w-full max-w-md rounded-2xl border border-gold/30 bg-black/40 px-6 py-7 sm:px-8 sm:py-8 backdrop-blur-md shadow-lg shadow-black/20">
                   <span
-                    className="block font-serif text-4xl leading-none text-[#D4A24C] mb-3 drop-shadow-sm"
+                    className="block font-serif text-4xl leading-none text-gold mb-3 drop-shadow-sm"
                     aria-hidden="true"
                   >
                     ❝
@@ -110,10 +110,10 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
                     {m.versiculo.texto}
                   </blockquote>
                   <span
-                    className="mt-5 block h-px w-12 bg-gradient-to-r from-[#D4A24C]/70 to-transparent"
+                    className="mt-5 block h-px w-12 bg-gradient-to-r from-gold/70 to-transparent"
                     aria-hidden="true"
                   />
-                  <cite className="not-italic block mt-3 text-[#E8B35E] font-semibold text-sm uppercase tracking-[0.18em] [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
+                  <cite className="not-italic block mt-3 text-gold-light font-semibold text-sm uppercase tracking-[0.18em] [text-shadow:0_1px_4px_rgba(0,0,0,0.6)]">
                     {m.versiculo.referencia}
                   </cite>
                 </figure>
@@ -168,7 +168,7 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
                     {m.atividades.map((a) => (
                       <div
                         key={a.titulo}
-                        className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-5 backdrop-blur-sm shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#D4A24C]/30 hover:shadow-lg"
+                        className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-5 backdrop-blur-sm shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/30 hover:shadow-lg"
                       >
                         {/* Barra de cor dinâmica no topo */}
                         <div
@@ -288,14 +288,14 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
               <div>
                 <div className="mb-3 flex items-center gap-3">
                   <span
-                    className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60"
+                    className="block h-px w-8 bg-gradient-to-r from-transparent to-gold/60"
                     aria-hidden="true"
                   />
-                  <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+                  <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-gold/90 leading-none">
                     Equipe
                   </span>
                   <span
-                    className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60"
+                    className="block h-px w-8 bg-gradient-to-l from-transparent to-gold/60"
                     aria-hidden="true"
                   />
                 </div>
@@ -355,17 +355,17 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
               <div className="mb-3 flex items-center justify-center gap-3">
-                <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-                <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+                <span className="block h-px w-8 bg-gradient-to-r from-transparent to-gold/60" aria-hidden="true" />
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-gold/90 leading-none">
                   Galeria
                 </span>
-                <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+                <span className="block h-px w-8 bg-gradient-to-l from-transparent to-gold/60" aria-hidden="true" />
               </div>
               <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground">
                 Momentos do ministério
               </h2>
               <p className="text-muted-foreground mt-3 max-w-xl mx-auto text-base">
-                Adicione fotos em <code className="text-[#D4A24C]">public/fotos/ministerios/</code> para exibir aqui.
+                Adicione fotos em <code className="text-gold">public/fotos/ministerios/</code> para exibir aqui.
               </p>
             </div>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">

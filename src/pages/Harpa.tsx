@@ -120,7 +120,7 @@ export default function Harpa() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar por número ou título do hino..."
-            className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:border-[#D4A24C] focus:ring-2 focus:ring-[#D4A24C]/25 focus:outline-none transition-all duration-200"
+            className="w-full pl-10 pr-4 py-3 bg-card border border-border rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:ring-2 focus:ring-gold/25 focus:outline-none transition-all duration-200"
           />
         </div>
 
@@ -160,7 +160,7 @@ export default function Harpa() {
               onClick={() => setPage(Math.max(1, page - 1))}
               disabled={page === 1}
               aria-label="Página anterior"
-              className="inline-flex items-center gap-1 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-4 py-1.5 text-sm font-semibold text-[#E8B35E] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="inline-flex items-center gap-1 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-sm font-semibold text-gold-light transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-gold/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
               Anterior
@@ -179,8 +179,8 @@ export default function Harpa() {
                     aria-current={p === page ? "page" : undefined}
                     className={`h-11 w-11 rounded-full text-sm font-semibold transition-all duration-200 ${
                       p === page
-                        ? "bg-[#D4A24C] text-gray-900 border-2 border-[#E8B35E]/70 shadow-lg shadow-[#D4A24C]/30 scale-105"
-                        : "border border-[#D4A24C]/30 bg-[#D4A24C]/5 text-[#E8B35E] hover:bg-[#D4A24C]/15 hover:-translate-y-0.5"
+                        ? "bg-gold text-gray-900 border-2 border-gold-light/70 shadow-lg shadow-gold/30 scale-105"
+                        : "border border-gold/30 bg-gold/5 text-gold-light hover:bg-gold/15 hover:-translate-y-0.5"
                     }`}
                   >
                     {p}
@@ -193,7 +193,7 @@ export default function Harpa() {
               onClick={() => setPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
               aria-label="Próxima página"
-              className="inline-flex items-center gap-1 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/10 px-4 py-1.5 text-sm font-semibold text-[#E8B35E] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#D4A24C]/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
+              className="inline-flex items-center gap-1 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-sm font-semibold text-gold-light transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-gold/20 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none"
             >
               Próximo
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -238,8 +238,8 @@ function CanteJunto({
   }
   if (estado === "vazio") return null;
   return (
-    <div className="rounded-xl border border-[#D4A24C]/25 bg-[#D4A24C]/5 p-4">
-      <p className="text-xs font-semibold text-[#B8860B] dark:text-[#E8B35E] uppercase tracking-wide mb-2">
+    <div className="rounded-xl border border-gold/25 bg-gold/5 p-4">
+      <p className="text-xs font-semibold text-gold-deep dark:text-gold-light uppercase tracking-wide mb-2">
         {"\u{1F3B5} Cante junto"}
       </p>
       <div className="flex flex-col gap-2">
@@ -247,9 +247,9 @@ function CanteJunto({
           <button
             key={m.id}
             onClick={() => onAbrir(m)}
-            className="inline-flex items-center gap-2 rounded-full border border-[#D4A24C]/30 bg-background px-4 py-2 text-left text-sm font-semibold text-foreground transition-all hover:border-[#D4A24C]/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A24C]/70"
+            className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-background px-4 py-2 text-left text-sm font-semibold text-foreground transition-all hover:border-gold/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
           >
-            <svg className="h-4 w-4 flex-shrink-0 text-[#D4A24C]" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg className="h-4 w-4 flex-shrink-0 text-gold" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M8 5v14l11-7z" />
             </svg>
             <span className="min-w-0 truncate">
@@ -276,7 +276,7 @@ function HymnCard({
   return (
     <article
       aria-labelledby={`hino-${hymn.number}-titulo`}
-      className={`group overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-[#D4A24C]/30 hover:shadow-lg hover:shadow-[#D4A24C]/10 ${
+      className={`group overflow-hidden rounded-2xl border border-border/60 bg-card/80 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-gold/30 hover:shadow-lg hover:shadow-gold/10 ${
         open ? "sm:col-span-2 xl:col-span-3" : ""
       }`}
     >
@@ -288,11 +288,11 @@ function HymnCard({
         className="w-full text-left px-6 py-4 flex items-center justify-between gap-4 hover:bg-muted/30 transition-colors"
       >
         <span className="flex items-center gap-3">
-          <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-[#D4A24C]/10 font-display font-bold text-[#E8B35E] ring-1 ring-[#D4A24C]/20 transition-transform duration-300 group-hover:scale-110" aria-hidden="true">
+          <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-gold/10 font-display font-bold text-gold-light ring-1 ring-gold/20 transition-transform duration-300 group-hover:scale-110" aria-hidden="true">
             {hymn.number}
           </span>
           <span className="min-w-0">
-            <span id={`hino-${hymn.number}-titulo`} className="block font-display font-semibold text-foreground text-base leading-snug transition-colors duration-200 group-hover:text-[#E8B35E]">
+            <span id={`hino-${hymn.number}-titulo`} className="block font-display font-semibold text-foreground text-base leading-snug transition-colors duration-200 group-hover:text-gold-light">
               {hymn.number}. {hymn.title}
             </span>
             <span className="block text-xs text-muted-foreground mt-0.5">
@@ -303,7 +303,7 @@ function HymnCard({
         </span>
         <svg
           className={`h-4 w-4 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${
-            open ? "rotate-180 text-[#D4A24C]" : ""
+            open ? "rotate-180 text-gold" : ""
           }`}
           fill="none"
           viewBox="0 0 24 24"
@@ -320,7 +320,7 @@ function HymnCard({
           <div className="space-y-6">
             {hymn.verses.map((verse, i) => (
               <div key={i}>
-                <p className="text-xs font-semibold text-[#B8860B] dark:text-[#E8B35E] uppercase tracking-wide mb-2">
+                <p className="text-xs font-semibold text-gold-deep dark:text-gold-light uppercase tracking-wide mb-2">
                   {i + 1}ª Estrofe
                 </p>
                 <p className="font-bible text-foreground/90 text-base leading-[1.9] whitespace-pre-line italic">
@@ -329,8 +329,8 @@ function HymnCard({
               </div>
             ))}
             {hymn.chorus && (
-              <div className="border-l-2 border-[#D4A24C]/50 pl-5 py-1">
-                <p className="text-xs font-semibold text-[#B8860B] dark:text-[#E8B35E] uppercase tracking-wide mb-2">
+              <div className="border-l-2 border-gold/50 pl-5 py-1">
+                <p className="text-xs font-semibold text-gold-deep dark:text-gold-light uppercase tracking-wide mb-2">
                   Refrão
                 </p>
                 <p className="font-bible text-foreground/90 text-base leading-[1.9] whitespace-pre-line italic">
@@ -346,7 +346,7 @@ function HymnCard({
                 onClick={() => {
                   try { localStorage.setItem("santuario:playback_busca", hymn.title); } catch {}
                 }}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-4 py-2 text-xs font-bold text-[#9C7A2E] hover:bg-[#D4A24C]/20 transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-xs font-bold text-gold-dark hover:bg-gold/20 transition-colors"
               >
                 🎵 buscar "{hymn.title}" nos Playbacks →
               </a>

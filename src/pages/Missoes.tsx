@@ -20,14 +20,14 @@ export default function Missoes({ onNavigate }: MissoesProps) {
           backgroundPosition: "center 30%",
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-[#047857]/35 via-background/85 to-background/90" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#D4A24C]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-700/35 via-background/85 to-background/90" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
           <div className="max-w-3xl">
             <div className="mb-5 flex items-center gap-3">
-              <span className="block h-px w-10 bg-gradient-to-r from-transparent to-[#D4A24C]/80" aria-hidden="true" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#E8B35E] leading-none drop-shadow-sm">
+              <span className="block h-px w-10 bg-gradient-to-r from-transparent to-gold/80" aria-hidden="true" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-gold-light leading-none drop-shadow-sm">
                 {m.nome}
               </span>
             </div>
@@ -50,10 +50,10 @@ export default function Missoes({ onNavigate }: MissoesProps) {
               <div className="mb-6">
                 <div className="mb-3 flex items-center gap-3">
                   <span
-                    className="block h-px w-10 bg-gradient-to-r from-transparent to-[#047857]/70"
+                    className="block h-px w-10 bg-gradient-to-r from-transparent to-emerald-700/70"
                     aria-hidden="true"
                   />
-                  <span className="text-xs font-bold uppercase tracking-[0.28em] text-[#6EE7B7] leading-none">
+                  <span className="text-xs font-bold uppercase tracking-[0.28em] text-emerald-300 leading-none">
                     Nossa missão e propósito
                   </span>
                 </div>
@@ -87,13 +87,13 @@ export default function Missoes({ onNavigate }: MissoesProps) {
             <div>
               <div className="mb-3 flex items-center gap-3">
                 <span
-                  className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60"
+                  className="block h-px w-8 bg-gradient-to-r from-transparent to-gold/60"
                   aria-hidden="true"
                 />
-                <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-[#D4A24C]/90 leading-none">
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-gold/90 leading-none">
                   Equipe
                 </span>
-                <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+                <span className="block h-px w-8 bg-gradient-to-l from-transparent to-gold/60" aria-hidden="true" />
               </div>
 
               <div className="grid gap-4">
@@ -167,11 +167,11 @@ export default function Missoes({ onNavigate }: MissoesProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="mb-3 flex items-center justify-center gap-3">
-              <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none">
+              <span className="block h-px w-8 bg-gradient-to-r from-transparent to-gold/60" aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-light leading-none">
                 Campo
               </span>
-              <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+              <span className="block h-px w-8 bg-gradient-to-l from-transparent to-gold/60" aria-hidden="true" />
             </div>
             <h2 id="missoes-campo" className="font-display text-2xl sm:text-3xl font-normal text-foreground">
               Missionários apoiados
@@ -203,7 +203,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                     <div className="mb-3 flex items-center gap-2">
                       <div className="h-1 w-1 rounded-full" style={{ backgroundColor: c.bg }} aria-hidden="true" />
                       <span
-                        className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-[#E8B35E]"
+                        className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-gold-light"
                       >
                         Missionário
                       </span>
@@ -233,11 +233,11 @@ export default function Missoes({ onNavigate }: MissoesProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="mb-3 flex items-center justify-center gap-3">
-              <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none">
+              <span className="block h-px w-8 bg-gradient-to-r from-transparent to-gold/60" aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-light leading-none">
                 Eventos
               </span>
-              <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+              <span className="block h-px w-8 bg-gradient-to-l from-transparent to-gold/60" aria-hidden="true" />
             </div>
             <h2 id="missoes-eventos" className="font-display text-2xl sm:text-3xl font-normal text-foreground">
               Conferências missionárias
@@ -275,13 +275,13 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                         aria-hidden="true"
                       />
                       <span
-                        className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-[#E8B35E]"
+                        className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-gold-light"
                       >
                         {conf.destaque ? "Conferência" : "Evento"}
                       </span>
                     </div>
                     {conf.destaque && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-[#D4A24C]/15 text-[#E8B35E] text-xs font-bold uppercase tracking-wide px-3 py-1 ring-1 ring-[#D4A24C]/25">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-gold/15 text-gold-light text-xs font-bold uppercase tracking-wide px-3 py-1 ring-1 ring-gold/25">
                         Destaque
                       </span>
                     )}
@@ -291,7 +291,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                   </h3>
                   <div className="flex flex-col gap-1.5 mb-4">
                     <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className="grid h-5 w-5 place-items-center rounded-md bg-muted/60 text-[#D4A24C]" aria-hidden="true">
+                      <span className="grid h-5 w-5 place-items-center rounded-md bg-muted/60 text-gold" aria-hidden="true">
                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -299,7 +299,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                       {conf.data}
                     </span>
                     <span className="inline-flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className="grid h-5 w-5 place-items-center rounded-md bg-muted/60 text-[#D4A24C]" aria-hidden="true">
+                      <span className="grid h-5 w-5 place-items-center rounded-md bg-muted/60 text-gold" aria-hidden="true">
                         <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         </svg>
@@ -322,11 +322,11 @@ export default function Missoes({ onNavigate }: MissoesProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="mb-3 flex items-center justify-center gap-3">
-              <span className="block h-px w-8 bg-gradient-to-r from-transparent to-[#D4A24C]/60" aria-hidden="true" />
-              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-[#E8B35E] leading-none">
+              <span className="block h-px w-8 bg-gradient-to-r from-transparent to-gold/60" aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-[0.28em] text-gold-light leading-none">
                 Mídia
               </span>
-              <span className="block h-px w-8 bg-gradient-to-l from-transparent to-[#D4A24C]/60" aria-hidden="true" />
+              <span className="block h-px w-8 bg-gradient-to-l from-transparent to-gold/60" aria-hidden="true" />
             </div>
             <h2 id="missoes-midia" className="font-display text-2xl sm:text-3xl font-normal text-foreground">
               Fotos e vídeos
@@ -404,9 +404,9 @@ export default function Missoes({ onNavigate }: MissoesProps) {
         <div className="relative max-w-3xl mx-auto px-4 text-center">
           {/* Ornamento superior */}
           <div className="mb-4 flex items-center justify-center gap-3">
-            <span className="block h-px w-12 bg-gradient-to-r from-transparent to-[#D4A24C]/70" aria-hidden="true" />
-            <span className="font-serif text-[16px] text-[#E8B35E] drop-shadow-sm" aria-hidden="true">✦</span>
-            <span className="block h-px w-12 bg-gradient-to-l from-transparent to-[#D4A24C]/70" aria-hidden="true" />
+            <span className="block h-px w-12 bg-gradient-to-r from-transparent to-gold/70" aria-hidden="true" />
+            <span className="font-serif text-[16px] text-gold-light drop-shadow-sm" aria-hidden="true">✦</span>
+            <span className="block h-px w-12 bg-gradient-to-l from-transparent to-gold/70" aria-hidden="true" />
           </div>
 
           <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-white leading-[1.15] mb-4 tracking-tight drop-shadow-md">
@@ -420,16 +420,16 @@ export default function Missoes({ onNavigate }: MissoesProps) {
           {/* Versículo bíblico — faixa com card de apoio */}
           <figure className="mx-auto mb-8 max-w-xl rounded-2xl border border-white/10 bg-black/25 px-5 py-5 backdrop-blur-[2px]">
             <blockquote className="font-bible text-xl sm:text-2xl italic leading-[1.5] text-white drop-shadow-md text-balance font-medium">
-              <span className="text-[#E8B35E] not-italic font-serif" aria-hidden="true">“</span>
+              <span className="text-gold-light not-italic font-serif" aria-hidden="true">“</span>
               <span className="px-0.5">Ide por todo o mundo, pregai o evangelho a toda criatura.</span>
-              <span className="text-[#E8B35E] not-italic font-serif" aria-hidden="true">”</span>
+              <span className="text-gold-light not-italic font-serif" aria-hidden="true">”</span>
             </blockquote>
             <figcaption className="mt-4 flex items-center justify-center gap-3">
-              <span className="block h-px w-8 bg-[#D4A24C]/70" aria-hidden="true" />
-              <cite className="not-italic text-[11px] font-bold uppercase tracking-[0.3em] text-[#E8B35E] leading-none drop-shadow-sm">
+              <span className="block h-px w-8 bg-gold/70" aria-hidden="true" />
+              <cite className="not-italic text-[11px] font-bold uppercase tracking-[0.3em] text-gold-light leading-none drop-shadow-sm">
                 Marcos 16:15
               </cite>
-              <span className="block h-px w-8 bg-[#D4A24C]/70" aria-hidden="true" />
+              <span className="block h-px w-8 bg-gold/70" aria-hidden="true" />
             </figcaption>
           </figure>
 
@@ -437,7 +437,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
             <button
               onClick={() => onNavigate("contribuicoes")}
               aria-label="Apoie a obra missionária"
-              className="group inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A24C] to-[#C4933C] text-gray-900 font-semibold px-7 py-3 rounded-full shadow-lg shadow-[#D4A24C]/30 transition-all duration-200 hover:shadow-xl hover:shadow-[#D4A24C]/50 hover:-translate-y-0.5 active:translate-y-0"
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-gold to-gold-hover text-gray-900 font-semibold px-7 py-3 rounded-full shadow-lg shadow-gold/30 transition-all duration-200 hover:shadow-xl hover:shadow-gold/50 hover:-translate-y-0.5 active:translate-y-0"
             >
               Apoie a obra
               <svg
