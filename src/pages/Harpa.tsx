@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import SectionHero from "../components/ui/SectionHero";
 import { Music } from "lucide-react";
 import type { HarpaHino } from "../data/harpaCompleta";
 import PlayerModal from "../components/media/PlayerModal.jsx";
@@ -58,19 +59,19 @@ export default function Harpa() {
   if (!loaded) {
     return (
       <main id="main-content" className="min-h-screen bg-background pt-16">
-        {/* Header hero com imagem de fundo - /fotos/harpa/1.jpg */}
-        <section className="relative overflow-hidden">
-          <img src="/fotos/harpa/1.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" width={1100} height={1680} aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
-          <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
-          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
-            <div className="mb-0 max-w-2xl text-left">
-              <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">Hinario</p>
-              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">Harpa Crista</h1>
-              <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed"><span>Hinos classicos do hinario cristao.</span></p>
-            </div>
+        <SectionHero
+          image="/fotos/harpa/1.jpg"
+          imageWidth={1100}
+          imageHeight={1680}
+          label="Harpa Cristã"
+          containerClassName="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14"
+        >
+          <div className="mb-0 max-w-2xl text-left">
+            <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">Hinario</p>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">Harpa Crista</h1>
+            <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed"><span>Hinos classicos do hinario cristao.</span></p>
           </div>
-        </section>
+        </SectionHero>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col items-center justify-center py-24 text-muted-foreground">
             <svg className="h-8 w-8 animate-spin mb-4" viewBox="0 0 24 24" stroke="currentColor">
@@ -86,19 +87,17 @@ export default function Harpa() {
 
   return (
     <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
-      {/* Header hero com imagem de fundo - /fotos/harpa/1.jpg */}
-      <section className="relative overflow-hidden">
-        <img src="/fotos/harpa/1.jpg" alt="" className="absolute inset-0 w-full h-full object-cover object-center" loading="eager" aria-hidden="true" />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
-        <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
-          <div className="mb-0 max-w-2xl text-left">
+      <SectionHero
+        image="/fotos/harpa/1.jpg"
+        label="Harpa Cristã"
+        containerClassName="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14"
+      >
+        <div className="mb-0 max-w-2xl text-left">
             <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">Hinario</p>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight [text-shadow:0_2px_14px_rgba(0,0,0,0.6)]">Harpa Crista</h1>
             <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed"><span>Hinos classicos do hinario cristao. Busque por numero ou titulo. Hinos com {"\u{1F3B5}"} têm playback para cantar junto.</span></p>
           </div>
-        </div>
-      </section>
+      </SectionHero>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         {/* Search */}

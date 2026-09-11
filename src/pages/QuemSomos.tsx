@@ -1,4 +1,5 @@
 import { CHURCH } from "../data/church";
+import SectionHero from "../components/ui/SectionHero";
 import { BookOpen } from "lucide-react";
 
 const STAINED_IMAGE =
@@ -40,28 +41,21 @@ export default function QuemSomos() {
 
   return (
     <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
-      {/* Hero */}
-      <section className="relative h-72 sm:h-96 overflow-hidden">
-        <div className="absolute inset-0" aria-hidden="true">
-                  <img
-                    src={STAINED_IMAGE}
-                    alt=""
-                    className="w-full h-full object-cover opacity-70 saturate-[0.5]"
-                    loading="lazy"
-                    width={1200}
-                    height={700}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                </div>
-        <div className="relative h-full flex flex-col items-center justify-end pb-12 text-center px-4">
+      <SectionHero
+        variant="compact"
+        image={STAINED_IMAGE}
+        imageWidth={1200}
+        imageHeight={700}
+        imageClassName="opacity-70 saturate-[0.5]"
+        label="Quem somos"
+      >
                   <p className="inline-flex items-center rounded-full bg-gold/15 border border-gold/30 px-4 py-1.5 text-gold-light text-xs font-semibold uppercase tracking-[0.18em]">
                     Nossa História
                   </p>
                   <h1 className="font-display text-3xl sm:text-5xl font-bold text-white [text-shadow:0_2px_12px_rgba(0,0,0,0.4)]">
                     Quem Somos
                   </h1>
-                </div>
-      </section>
+      </SectionHero>
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Story */}

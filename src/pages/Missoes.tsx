@@ -1,4 +1,5 @@
 import { CHURCH } from "../data/church";
+import SectionHero from "../components/ui/SectionHero";
 import { MISSOES } from "../data/missoes";
 import type { Page } from "../components/Navigation";
 import { Clapperboard } from "lucide-react";
@@ -12,20 +13,13 @@ export default function Missoes({ onNavigate }: MissoesProps) {
 
   return (
     <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
-      {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          backgroundImage: "url('/fotos/ministerios/missões/3.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center 30%",
-        }}
+      <SectionHero
+        image="/fotos/ministerios/missões/3.jpg"
+        imagePosition="center 30%"
+        label={m.nome}
+        containerClassName="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-700/35 via-background/85 to-background/90" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
-          <div className="max-w-3xl">
+        <div className="max-w-3xl">
             <div className="mb-5 flex items-center gap-3">
               <span className="block h-px w-10 bg-gradient-to-r from-transparent to-gold/80" aria-hidden="true" />
               <span className="text-[11px] font-bold uppercase tracking-[0.28em] text-gold-light leading-none drop-shadow-sm">
@@ -38,9 +32,8 @@ export default function Missoes({ onNavigate }: MissoesProps) {
             <p className="text-white/85 text-lg sm:text-xl leading-relaxed max-w-2xl drop-shadow-sm">
               {m.resumo}
             </p>
-          </div>
         </div>
-      </section>
+      </SectionHero>
 
       {/* Sobre + Liderança lado a lado */}
       <section className="py-16 bg-background">

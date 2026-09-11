@@ -86,10 +86,7 @@ export default function Home({ onNavigate }: HomeProps) {
             onClick={() => navigate("cultos")}
             className="group w-full -mt-7 relative z-10 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 rounded-2xl border border-gold/30 bg-card px-5 py-4 text-left shadow-lg shadow-black/20 transition-all hover:border-gold/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
           >
-            <span className="relative flex h-2.5 w-2.5 flex-shrink-0" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/60" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-gold" />
-            </span>
+            <span className="h-2.5 w-2.5 flex-shrink-0 rounded-full bg-gold shadow-[0_0_8px_rgba(212,162,76,0.8)]" aria-hidden="true" />
             <span className="text-sm text-foreground">
               <strong className="font-bold">Próximo culto {proximoCulto.dataLabel}:</strong>{" "}
               {proximoCulto.title} · {proximoCulto.day} {proximoCulto.time} · {proximoCulto.location}

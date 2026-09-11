@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import SectionHero from "../components/ui/SectionHero";
 import { getDevotionalByDate, getAllDevotionals, getDevotionalsByMonth } from "../data/devotionals";
 import { BIBLE_BOOKS } from "../data/bibleBooks";
 import { encodeBibleHash } from "../data/bibleUtils";
@@ -79,20 +80,15 @@ export default function Devocional() {
 
   return (
     <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
-      {/* Hero - replica estrutura Palavra do Dia mas com wallpaper do devocional */}
-      <section className="relative py-12 sm:py-14 overflow-hidden" aria-label="Devocional do dia">
-        <img
-          src={wallpaper}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          loading="eager"
-          width={1280}
-          height={960}
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80" aria-hidden="true" />
-        <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.35), transparent 70%)" }} />
-        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
+      <SectionHero
+        image={wallpaper}
+        imageWidth={1280}
+        imageHeight={960}
+        overlay="b"
+        glowOpacity={0.35}
+        label="Devocional do dia"
+        containerClassName="relative z-10 max-w-3xl mx-auto px-4 py-12 sm:py-14 text-center"
+      >
           <p className="inline-flex items-center justify-center rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-gold mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
             Devocional Diário
           </p>
@@ -149,8 +145,7 @@ export default function Devocional() {
             </button>
           </div>
 
-        </div>
-      </section>
+      </SectionHero>
 
       {/* Conteúdo: Pensamento + Oração - fiel ao devocionaldiario.com.br */}
       <section className="py-10 sm:py-14 bg-background">

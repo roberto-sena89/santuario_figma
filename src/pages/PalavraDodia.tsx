@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { BookOpen, Library, CircleHelp } from "lucide-react";
+import SectionHero from "../components/ui/SectionHero";
+import { BookOpen, Library, CircleHelp, Check, Copy, Share2 } from "lucide-react";
 import {
   getPalavraDoDia,
   getVersiculosDoTema,
@@ -63,25 +64,14 @@ export default function PalavraDodia({ onNavigate }: Props) {
 
   return (
     <main id="main-content" className="min-h-screen bg-background pt-16">
-      {/* Hero card */}
-      <section
-        className="relative py-12 sm:py-14 overflow-hidden"
-        aria-label="Versículo do dia"
+      <SectionHero
+        image="/fotos/palavra-do-dia/2.jpg"
+        imageWidth={1000}
+        imageHeight={571}
+        overlay="b"
+        label="Versículo do dia"
+        containerClassName="relative z-10 max-w-3xl mx-auto px-4 py-12 sm:py-14 text-center"
       >
-        <img
-          src="/fotos/palavra-do-dia/2.jpg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          loading="eager"
-          width={1000}
-          height={571}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/80"
-          aria-hidden="true"
-        />
-        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
           <p className="inline-flex items-center justify-center rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-gold mb-3 shadow-md shadow-black/20 backdrop-blur-sm">
             Palavra do Dia
           </p>
@@ -114,16 +104,12 @@ export default function PalavraDodia({ onNavigate }: Props) {
             >
               {copied ? (
                 <>
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <Check className="w-4 h-4" aria-hidden="true" />
                   Copiado!
                 </>
               ) : (
                 <>
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
+                  <Copy className="w-4 h-4" aria-hidden="true" />
                   Copiar versículo
                 </>
               )}
@@ -132,14 +118,11 @@ export default function PalavraDodia({ onNavigate }: Props) {
               onClick={share}
               className="inline-flex h-11 items-center justify-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:bg-white/15 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
+              <Share2 className="w-4 h-4" aria-hidden="true" />
               Compartilhar
             </button>
           </div>
-        </div>
-      </section>
+      </SectionHero>
 
       {/* Continue o seu dia — pontes para o resto do site */}
       <section className="py-14 bg-background border-y border-border/40" aria-label="Continue o seu dia">

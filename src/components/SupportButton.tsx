@@ -12,11 +12,10 @@ export default function SupportButton({ onNavigate }: SupportButtonProps) {
       className="group relative inline-flex items-center gap-2 rounded-full border border-gold/25 bg-gradient-to-r from-gold/15 to-gold-hover/10 pl-2.5 pr-4 py-2 text-gold backdrop-blur-md shadow-lg shadow-black/20 transition-all duration-300 hover:bg-gold/25 hover:border-gold/45 hover:shadow-xl hover:shadow-gold/20 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       aria-label="Apoie a obra - contribuições"
     >
-      {/* Pulse sutil (menos intenso que o PrayerButton) */}
+      {/* Contorno estático (sem pulso) */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-full bg-gold/20 animate-ping"
-        style={{ animationDuration: "4s" }}
+        className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-gold/25"
       />
 
       {/* Ícone com container glass */}

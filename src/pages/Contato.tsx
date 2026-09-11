@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SectionHero from "../components/ui/SectionHero";
 import { CHURCH } from "../data/church";
 import { Mail, Clock } from "lucide-react";
 
@@ -59,18 +60,12 @@ export default function Contato() {
   return (
     <main id="main-content" tabIndex={-1} className="min-h-screen bg-background pt-16">
       {/* Header hero com imagem de fundo - /fotos/fale-conosco/1.jpg */}
-      <section className="relative overflow-hidden">
-        <img
-          src="/fotos/fale-conosco/1.jpg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          loading="eager"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/60 to-black/70" aria-hidden="true" />
-        <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ background: "radial-gradient(ellipse at center top, rgba(212,162,76,0.28), transparent 70%)" }} />
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
-          <div className="mb-0 max-w-2xl text-left">
+      <SectionHero
+        image="/fotos/fale-conosco/1.jpg"
+        label="Fale conosco"
+        containerClassName="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16"
+      >
+        <div className="mb-0 max-w-2xl text-left">
             <p className="inline-flex items-center rounded-full bg-white/10 border border-white/20 backdrop-blur-sm px-4 py-1.5 text-white text-xs font-semibold uppercase tracking-[0.18em] mb-4">
               Fale Conosco
             </p>
@@ -80,9 +75,8 @@ export default function Contato() {
             <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed">
               <span>Tem perguntas, pedidos de oracao ou quer saber mais sobre nossa igreja? Estamos aqui para ajudar.</span>
             </p>
-          </div>
         </div>
-      </section>
+      </SectionHero>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
         <div className="grid lg:grid-cols-[1fr_380px] gap-12">

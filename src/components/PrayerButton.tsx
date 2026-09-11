@@ -17,7 +17,7 @@ import { HandHeart, ChevronRight } from "lucide-react";
  * com glow suave no hover). Regra do site: 1 sistema de icones.
  *
  * Recursos visuais:
- *  - Pulso suave pra chamar atencao sem ser intrusivo (3s)
+ *  - Halo estático (dieta de movimento: sem pulso)
  *  - Glow ambar cresce no hover
  *  - Seta que aparece no hover
  *  - Anel de foco acessivel
@@ -44,11 +44,10 @@ export default function PrayerButton() {
       className="group relative inline-flex items-center gap-3 rounded-full bg-gold pl-3 pr-5 py-3 text-gray-900 shadow-lg shadow-gold/30 transition-all duration-300 hover:scale-[1.03] hover:shadow-2xl hover:shadow-gold/45 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       aria-label="Pedir oração pelo WhatsApp - equipe de intercessão, sigilo pastoral"
     >
-      {/* Halo de pulso (nao-interativo) */}
+      {/* Halo estático (sem pulso) */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-full bg-gold/45 animate-ping"
-        style={{ animationDuration: "3s" }}
+        className="pointer-events-none absolute inset-0 rounded-full bg-gold/15"
       />
 
       {/* Icone em container com glow suave no hover */}

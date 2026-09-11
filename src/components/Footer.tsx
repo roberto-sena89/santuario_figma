@@ -204,8 +204,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               <div className="mt-6 inline-flex flex-col items-start gap-1 rounded-2xl border border-gold/30 bg-gold/10 backdrop-blur-sm px-4 py-2.5 shadow-sm shadow-gold/10">
                 <span className="flex items-center gap-2.5">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success/70 opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-success shadow-[0_0_8px_rgba(149,158,150,0.8)]" />
                   </span>
                   <span className="text-[11px] font-semibold text-gold-light">
                     Próximo culto {hoursUntil}
