@@ -395,7 +395,7 @@ export default function Navigation({
                 className={`group inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70 focus-visible:ring-offset-2 focus-visible:ring-offset-card ${
                   currentPage === "oracoes"
                     ? "bg-gold-hover text-gray-900 shadow-gold/40"
-                    : "bg-gold text-gray-900 shadow-gold/30 hover:shadow-gold/45"
+                    : "border border-gold/40 bg-transparent text-gold-light hover:border-gold/60 hover:bg-gold/10"
                 }`}
               >
                 {"🙏 Mural de Oração"}

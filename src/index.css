@@ -111,6 +111,11 @@
   --color-reader-sepia: #F4EBD9;
   --color-reader-dark: #1A1410;
 
+  /* HIERARQUIA DE CTA (regra canônica — 1 primário por tela):
+     primário:   bg-gold text-gold-ink hover:bg-gold-hover (ação principal)
+     secundário: border-gold/40 text-gold-light hover:bg-gold/10 (alternativa)
+     terciário:  text-muted-foreground hover:text-gold hover:underline (fuga) */
+
   /* Tipografia */
   --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
