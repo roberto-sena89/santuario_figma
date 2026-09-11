@@ -23,10 +23,8 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
         {/* Header */}
                 <PageTitle
                   eyebrow="Comunidade"
-                  eyebrowIcon="🤝"
                   title="Nossos Ministerios"
                   subtitle="Cada ministerio e um braco do corpo de Cristo em acao. Conheca como voce pode contribuir e encontrar seu lugar na nossa familia."
-                  subtitleIcon="👥"
                   align="left"
                 />
 
@@ -76,4 +74,6 @@ export default function Ministerios({ onNavigate }: MinisteriosProps) {
     </main>
   );
 }
+
+
 

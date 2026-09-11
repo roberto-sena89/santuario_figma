@@ -1,6 +1,7 @@
 import { CHURCH } from "../data/church";
 import { MISSOES } from "../data/missoes";
 import type { Page } from "../components/Navigation";
+import { Clapperboard } from "lucide-react";
 
 interface MissoesProps {
   onNavigate: (page: Page) => void;
@@ -372,7 +373,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                     />
                   ) : (
                     <div className="text-center p-6">
-                      <span className="text-4xl block mb-2">🎬</span>
+                      <span className="mb-2 block" aria-hidden="true"><Clapperboard className="h-10 w-10 text-gold" aria-hidden="true" /></span>
                       <p className="text-sm">{v.titulo}</p>
                       <p className="text-xs text-muted-foreground/60 mt-1">Adicione o ID do vídeo nos dados</p>
                     </div>

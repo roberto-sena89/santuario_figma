@@ -6,6 +6,7 @@
 import { useState, useRef, useEffect } from "react";
 import type { Subtema, CollectionStyle } from "../../data/bibleCollections";
 import { generateShareImage, shareImage } from "./ShareImage";
+import { BookOpen, HandHeart } from "lucide-react";
 
 const FAV_KEY = "iegv_bible_collection_favs";
 
@@ -263,7 +264,7 @@ export default function SubtemaView({
           id="reflexao-titulo"
           className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-foreground/80 mb-3 flex items-center gap-2"
         >
-          <span aria-hidden="true">📖</span> Reflexão
+          <BookOpen className="mr-1.5 inline h-4 w-4" aria-hidden="true" /> Reflexão
         </h2>
         <p className="text-foreground/90 leading-relaxed text-[15px] sm:text-base">
           {subtema.reflexao}
@@ -282,7 +283,7 @@ export default function SubtemaView({
           id="oracao-titulo"
           className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-foreground/80 mb-3 flex items-center gap-2"
         >
-          <span aria-hidden="true">🙏</span> Oração
+          <HandHeart className="mr-1.5 inline h-4 w-4" aria-hidden="true" /> Oração
         </h2>
         <p className="font-bible text-[17px] sm:text-lg italic leading-[1.7] text-foreground/90">
           {subtema.oracao}
@@ -337,4 +338,5 @@ export default function SubtemaView({
     </article>
   );
 }
+
 

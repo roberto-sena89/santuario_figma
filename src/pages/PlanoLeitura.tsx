@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Flame } from "lucide-react";
 import PageTitle from "../components/ui/PageTitle";
 import {
   PLANO_365,
@@ -142,7 +143,7 @@ export default function PlanoLeitura() {
                     : "border-border text-muted-foreground"
                 }`}
               >
-                <span aria-hidden="true">🔥 </span>
+                <Flame className="mr-1 inline h-4 w-4 text-gold" aria-hidden="true" />
                 <span className="sr-only">Sequência atual: </span>
                 {streak} {streak === 1 ? "dia seguido" : "dias seguidos"}
               </span>
@@ -248,4 +249,3 @@ export default function PlanoLeitura() {
     </main>
   );
 }
-

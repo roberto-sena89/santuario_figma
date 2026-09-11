@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   Archive,
   Bird,
+  BookOpen,
   Cross,
   Flame,
   FolderOpen,
@@ -274,7 +275,7 @@ export default function MusicasTab({
       'Todah',
       'Em Adoração',
       'Backing Track',
-      'Cante Comigo Tocando🎹',
+      'Cante Comigo Tocando',
       'The Best Karaoke Bluetooth Speakers With Wire',
       'Erika Natyelle lançado pela Todah Network em novembro',
       'Cantor Cristão 28',
@@ -584,7 +585,7 @@ export default function MusicasTab({
                             }}
                             className="inline-flex items-center gap-1 text-xs font-semibold text-gold-dark hover:text-gold hover:underline"
                           >
-                            📖 ver letra {numHino ? `na Harpa nº ${numHino}` : "na Harpa Cristã"} →
+                            <BookOpen className="h-3.5 w-3.5" aria-hidden="true" /> ver letra {numHino ? `na Harpa nº ${numHino}` : "na Harpa Cristã"} →
                           </a>
                         )}
                         <p className="line-clamp-1 text-xs text-text2/70">
@@ -743,4 +744,3 @@ function IconeCategoria({ categoria }: { categoria?: string }) {
   const Icon = (categoria && ICONES_CATEGORIA[categoria]) || FolderOpen;
   return <Icon className="h-3 w-3" aria-hidden="true" />;
 }
-

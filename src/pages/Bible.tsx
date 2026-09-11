@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { Menu, X, ChevronRight } from "lucide-react";
 import { BIBLE_BOOKS, AT_BOOKS, NT_BOOKS, type BibleBook } from "../data/bibleBooks";
 import { loadArcBook, getChapterVerses, ARC_TRANSLATION, ARC_FULL_NAME, type ArcBible, type ArcBook } from "../data/arcCompleta";
 import {
@@ -820,9 +821,7 @@ export default function Bible() {
                   onClick={() => setSidebarOpen(true)}
                   className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-lg bg-card hover:bg-muted"
                 >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
+                  <Menu className="h-4 w-4" aria-hidden="true" />
                   Navegar
                 </button>
                 {selectedBook && (
@@ -1281,9 +1280,7 @@ function ThemeResultPanel({
           className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-border text-muted-foreground transition-colors hover:border-gold/40 hover:text-gold focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           aria-label="Fechar resultados"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <X className="h-4 w-4" aria-hidden="true" />
         </button>
       </div>
 
@@ -1480,4 +1477,3 @@ function BibleWelcome({
     </section>
   );
 }
-

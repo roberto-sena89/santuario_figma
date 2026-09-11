@@ -1,4 +1,5 @@
 import { CHURCH } from "../data/church";
+import { BookOpen } from "lucide-react";
 
 const STAINED_IMAGE =
   "https://images.unsplash.com/photo-1769184615259-e609796f63e3?w=1200&h=700&fit=crop&auto=format";
@@ -68,7 +69,7 @@ export default function QuemSomos() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-gold/15 text-xl shadow-sm shadow-gold/20 ring-1 ring-gold/20" aria-hidden="true">
-                📖
+                <BookOpen className="h-5 w-5 text-gold" aria-hidden="true" />
               </span>
               <h2 id="quem-historia" className="font-display text-2xl sm:text-3xl font-light text-foreground">
                 Uma história de fé e crescimento
@@ -222,4 +223,3 @@ export default function QuemSomos() {
     </main>
   );
 }
-

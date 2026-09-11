@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { HandHeart, Flame } from "lucide-react";
 import PageTitle from "../components/ui/PageTitle";
 import {
   getRitualDoDia,
@@ -235,11 +236,11 @@ export default function Momento() {
                   : "bg-gold text-gold-ink hover:bg-gold-hover hover:-translate-y-0.5"
               }`}
             >
-              <span aria-hidden="true">{amem ? "🙏 Amém de hoje registrado" : "🙏 Amém"}</span>
+              {amem ? (<><HandHeart className="mr-1.5 inline h-4 w-4" aria-hidden="true" /> Amém de hoje registrado</>) : (<><HandHeart className="mr-1.5 inline h-4 w-4" aria-hidden="true" /> Amém</>)}
               <span className="sr-only">{amem ? "Amém de hoje registrado" : "Amém"}</span>
             </button>
             <p role="status" className="text-sm text-muted-foreground mt-3">
-              <span aria-hidden="true">🔥 </span>{streak} {streak === 1 ? "dia seguido" : "dias seguidos"} ·{" "}
+              <Flame className="mr-1 inline h-4 w-4 text-gold" aria-hidden="true" />{streak} {streak === 1 ? "dia seguido" : "dias seguidos"} ·{" "}
               {total} {total === 1 ? "momento" : "momentos"} no total
             </p>
           </section>
@@ -273,4 +274,3 @@ export default function Momento() {
     </main>
   );
 }
-

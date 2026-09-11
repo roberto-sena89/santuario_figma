@@ -1,3 +1,4 @@
+import { Menu, ChevronRight } from "lucide-react";
 /**
  * Visualização principal de uma coleção temática.
  *
@@ -163,9 +164,7 @@ function CollectionWithSubtemas({
             onClick={() => setSidebarOpen(true)}
             className="inline-flex items-center gap-2 px-3 py-1.5 text-sm border border-border rounded-lg bg-card hover:bg-muted"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+            <Menu className="h-4 w-4" aria-hidden="true" />
             Subtemas
           </button>
         </div>
@@ -360,4 +359,3 @@ function CollectionSimpleList({
     </article>
   );
 }
-

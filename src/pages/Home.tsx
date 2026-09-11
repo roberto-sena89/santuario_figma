@@ -6,6 +6,7 @@ import { MINISTERIOS } from "../data/ministerios";
 import { CHURCH } from "../data/church";
 import type { Page } from "../components/Navigation";
 import EscalaSemanaCard from "../components/EscalaSemanaCard";
+import { Star } from "lucide-react";
 
 const HERO_IMAGE = "/fotos/homepage/1.jfif";
 
@@ -396,7 +397,7 @@ export default function Home({ onNavigate }: HomeProps) {
                                       {event.highlight && (
                                         <div className="bg-gradient-to-r from-gold to-gold-hover px-4 py-1.5">
                                                                             <span className="inline-flex items-center gap-1.5 text-gray-900 text-xs font-bold uppercase tracking-wide">
-                                                                              <span aria-hidden="true">⭐</span>
+                                                                              <Star className="h-3 w-3" fill="currentColor" aria-hidden="true" />
                                                                               Destaque
                                                                             </span>
                                                                           </div>
@@ -503,4 +504,3 @@ export default function Home({ onNavigate }: HomeProps) {
     </main>
   );
 }
-

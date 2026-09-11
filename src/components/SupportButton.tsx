@@ -1,4 +1,5 @@
 import { type Page } from "./Navigation";
+import { HandCoins, ChevronRight } from "lucide-react";
 
 interface SupportButtonProps {
   onNavigate: (page: Page) => void;
@@ -21,7 +22,7 @@ export default function SupportButton({ onNavigate }: SupportButtonProps) {
       {/* Ícone com container glass */}
       <span className="relative grid h-8 w-8 flex-shrink-0 place-items-center rounded-full bg-white/20 shadow-inner transition-transform duration-300 group-hover:scale-110">
         <span className="text-base leading-none drop-shadow-sm" aria-hidden="true">
-          🕊️
+          <HandCoins className="h-4 w-4 text-gold" aria-hidden="true" />
         </span>
       </span>
 

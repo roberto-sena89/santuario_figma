@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { CHURCH } from "../data/church";
+import { Mail, Clock } from "lucide-react";
 
 type FormState = "idle" | "sending" | "success" | "error";
 
@@ -89,7 +90,7 @@ export default function Contato() {
           <div className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-3 mb-6">
               <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-gold/15 text-lg shadow-sm shadow-gold/20 ring-1 ring-gold/20" aria-hidden="true">
-                ✉️
+                <Mail className="h-5 w-5 text-gold" aria-hidden="true" />
               </span>
               <h2 className="font-display text-xl font-semibold text-foreground">
                 Envie uma mensagem
@@ -304,7 +305,7 @@ export default function Contato() {
                         <div className="bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-5">
                           <div className="flex items-center gap-2 mb-3">
                             <span className="grid h-7 w-7 place-items-center rounded-lg bg-gold/15 text-sm ring-1 ring-gold/20" aria-hidden="true">
-                              🕐
+                              <Clock className="h-3.5 w-3.5 text-gold" aria-hidden="true" />
                             </span>
                             <h3 className="font-semibold text-foreground text-sm">Horários dos cultos</h3>
                           </div>
@@ -322,4 +323,3 @@ export default function Contato() {
     </main>
   );
 }
-

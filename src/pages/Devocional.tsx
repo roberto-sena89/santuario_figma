@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { getDevotionalByDate, getAllDevotionals, getDevotionalsByMonth } from "../data/devotionals";
 import { BIBLE_BOOKS } from "../data/bibleBooks";
 import { encodeBibleHash } from "../data/bibleUtils";
+import { BookOpen, HandHeart } from "lucide-react";
 
 const WALLPAPERS = [
   "/fotos/devocional/1.jpg",
@@ -121,7 +122,7 @@ export default function Devocional() {
             href={verseRefToBibleHash(devotional.verseRef)}
             className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-bold text-gold-light backdrop-blur-sm transition-colors hover:bg-gold/30 hover:text-white"
           >
-            📖 Ler {devotional.verseRef} na Bíblia →
+            <BookOpen className="h-3.5 w-3.5" aria-hidden="true" /> Ler {devotional.verseRef} na Bíblia →
           </a>
 
           {/* Navegação de dias - como devocionaldiario Anterior/Próximo */}
@@ -206,7 +207,7 @@ export default function Devocional() {
                       }}
                       className="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-2 text-xs font-bold text-gray-900 shadow-md shadow-gold/25 transition-colors hover:bg-gold-hover"
                     >
-                      🙏 Compartilhar no Mural de Oração →
+                      <HandHeart className="h-4 w-4" aria-hidden="true" /> Compartilhar no Mural de Oração →
                     </a>
                   </div>
                 </div>
@@ -315,4 +316,3 @@ export default function Devocional() {
     </main>
   );
 }
-

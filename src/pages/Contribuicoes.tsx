@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CHURCH } from "../data/church";
 import PageTitle from "../components/ui/PageTitle";
+import { ShieldCheck, MessageCircle } from "lucide-react";
 
 export default function Contribuicoes() {
   const [copied, setCopied] = useState<string | null>(null);
@@ -31,10 +32,8 @@ export default function Contribuicoes() {
         {/* Header */}
                 <PageTitle
                                                   eyebrow="Contribuições"
-                                                  eyebrowIcon="🕊️"
                                                   title="Apoie a Obra"
                                                   subtitle="Sua contribuicao financia os ministerios da igreja, as acoes sociais e a missao evangelistica. Cada oferta e um ato de adoracao e parceria com o trabalho de Deus."
-                                                  subtitleIcon="🎁"
                                                   align="center"
                                                 />
                 <div className="text-center max-w-3xl mx-auto my-10">
@@ -119,7 +118,7 @@ export default function Contribuicoes() {
                       <div className="group bg-card/80 backdrop-blur-sm border border-border rounded-2xl p-6 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:shadow-gold/10">
                         <div className="flex items-center gap-3 mb-4">
                           <span className="grid h-9 w-9 place-items-center rounded-xl bg-gold/15 text-base ring-1 ring-gold/20" aria-hidden="true">
-                            🛡️
+                            <ShieldCheck className="h-4 w-4 text-gold" aria-hidden="true" />
                           </span>
                           <h2 className="font-display text-lg font-semibold text-foreground">
                             Transparência
@@ -149,7 +148,7 @@ export default function Contribuicoes() {
                       <div className="bg-gold/8 border border-gold/25 rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-gold/10">
                         <div className="flex items-center gap-3 mb-3">
                           <span className="grid h-9 w-9 place-items-center rounded-xl bg-gold/15 text-base ring-1 ring-gold/20" aria-hidden="true">
-                            💬
+                            <MessageCircle className="h-4 w-4 text-gold" aria-hidden="true" />
                           </span>
                           <div>
                             <p className="text-foreground font-medium text-sm">
@@ -176,4 +175,3 @@ export default function Contribuicoes() {
               </main>
             );
           }
-

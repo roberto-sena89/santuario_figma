@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { CHURCH } from "../data/church";
+import { House, BookOpen, CalendarDays, Users, Music, Sparkles, Mail, Heart, Globe, ChevronDown, ChevronRight, HandHeart, HandCoins } from "lucide-react";
 
 export type Page =
   | "home"
@@ -36,61 +37,61 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { label: "Início", page: "home", icon: <HomeIcon />, group: "core" },
+  { label: "Início", page: "home", icon: <House className="h-full w-full" />, group: "core" },
   {
     label: "Bíblia",
     page: "biblia",
-    icon: <BookIcon />,
+    icon: <BookOpen className="h-full w-full" />,
     group: "core",
     submenuLabel: "Estudo da Palavra",
     submenu: [
-      { label: "Bíblia Sagrada", page: "biblia", icon: <BookIcon />, desc: "Leia, estude e marque versículos" },
-      { label: "Plano de Leitura", page: "plano", icon: <BookIcon />, desc: "A Bíblia inteira em 365 dias" },
-      { label: "Quiz Bíblico", page: "quiz", icon: <SparklesIcon />, desc: "Teste o que você aprendeu" },
+      { label: "Bíblia Sagrada", page: "biblia", icon: <BookOpen className="h-full w-full" />, desc: "Leia, estude e marque versículos" },
+      { label: "Plano de Leitura", page: "plano", icon: <BookOpen className="h-full w-full" />, desc: "A Bíblia inteira em 365 dias" },
+      { label: "Quiz Bíblico", page: "quiz", icon: <Sparkles className="h-full w-full" />, desc: "Teste o que você aprendeu" },
     ],
   },
   {
     label: "Devocional",
     page: "devocional",
-    icon: <HeartIcon />,
+    icon: <Heart className="h-full w-full" />,
     group: "core",
     submenuLabel: "Devocionais — do rápido ao profundo",
     submenu: [
-      { label: "Palavra do Dia", page: "palavra-do-dia", icon: <SparklesIcon />, desc: "Um versículo para hoje" },
-      { label: "Momento com Deus", page: "momento", icon: <HeartIcon />, desc: "Versículo + reflexão em 5 minutos" },
-      { label: "Devocional Diário", page: "devocional", icon: <HeartIcon />, desc: "Reflexão completa + oração" },
+      { label: "Palavra do Dia", page: "palavra-do-dia", icon: <Sparkles className="h-full w-full" />, desc: "Um versículo para hoje" },
+      { label: "Momento com Deus", page: "momento", icon: <Heart className="h-full w-full" />, desc: "Versículo + reflexão em 5 minutos" },
+      { label: "Devocional Diário", page: "devocional", icon: <Heart className="h-full w-full" />, desc: "Reflexão completa + oração" },
     ],
   },
   {
     label: "Louvor",
     page: "playbacks",
-    icon: <MusicIcon />,
+    icon: <Music className="h-full w-full" />,
     group: "core",
     submenuLabel: "Música e adoração",
     submenu: [
-      { label: "Playbacks", page: "playbacks", icon: <MusicIcon />, desc: "Bases instrumentais para louvar" },
-      { label: "Harpa Cristã", page: "harpa", icon: <SparklesIcon />, desc: "Hinos e cânticos de adoração" },
+      { label: "Playbacks", page: "playbacks", icon: <Music className="h-full w-full" />, desc: "Bases instrumentais para louvar" },
+      { label: "Harpa Cristã", page: "harpa", icon: <Sparkles className="h-full w-full" />, desc: "Hinos e cânticos de adoração" },
     ],
   },
   {
     label: "Igreja",
     page: "quem-somos",
-    icon: <UsersIcon />,
+    icon: <Users className="h-full w-full" />,
     group: "core",
     submenuLabel: "Conheça a igreja",
     submenu: [
-      { label: "Quem Somos", page: "quem-somos", icon: <UsersIcon />, desc: "Nossa história, missão e liderança" },
-      { label: "Cultos e Agenda", page: "cultos", icon: <CalendarIcon />, desc: "Horários, escala e eventos" },
-      { label: "Ministérios", page: "ministerios", icon: <SparklesIcon />, desc: "Conheça nossos departamentos e grupos", hash: "#/ministerios" },
-      { label: "Missões", page: "missoes", icon: <GlobeIcon />, desc: "Conheça a obra missionária" },
-      { label: "Contato", page: "contato", icon: <MailIcon />, desc: "Fale conosco, endereço e WhatsApp" },
+      { label: "Quem Somos", page: "quem-somos", icon: <Users className="h-full w-full" />, desc: "Nossa história, missão e liderança" },
+      { label: "Cultos e Agenda", page: "cultos", icon: <CalendarDays className="h-full w-full" />, desc: "Horários, escala e eventos" },
+      { label: "Ministérios", page: "ministerios", icon: <Sparkles className="h-full w-full" />, desc: "Conheça nossos departamentos e grupos", hash: "#/ministerios" },
+      { label: "Missões", page: "missoes", icon: <Globe className="h-full w-full" />, desc: "Conheça a obra missionária" },
+      { label: "Contato", page: "contato", icon: <Mail className="h-full w-full" />, desc: "Fale conosco, endereço e WhatsApp" },
     ],
   },
 ];
 
 const MORE_ITEMS: NavItem[] = [
-  { label: "Mural de Oração", page: "oracoes", icon: <HeartIcon />, group: "more" },
-  { label: "Contribuições", page: "contribuicoes", icon: <HeartIcon />, group: "more" },
+  { label: "Mural de Oração", page: "oracoes", icon: <HandHeart className="h-full w-full" />, group: "more" },
+  { label: "Contribuições", page: "contribuicoes", icon: <HandCoins className="h-full w-full" />, group: "more" },
 ];
 
 const allMobileItems = [...NAV_ITEMS, ...MORE_ITEMS];
@@ -279,7 +280,7 @@ export default function Navigation({
                         aria-controls={`submenu-${item.page}`}
                       >
                         {item.label}
-                        <svg
+                        <ChevronDown
                           className={`h-3.5 w-3.5 transition-transform duration-200 ${
                             isOpen ? "rotate-180" : ""
                           }`}
@@ -287,14 +288,7 @@ export default function Navigation({
                           viewBox="0 0 24 24"
                           stroke="currentColor"
                           aria-hidden="true"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
+                         />
                         <span
                           className={`absolute inset-x-3.5 -bottom-px h-[2px] rounded-full bg-accent transition-transform duration-300 origin-center ${
                             subActive || isOpen
@@ -398,7 +392,7 @@ export default function Navigation({
                     : "border border-gold/40 bg-transparent text-gold-light hover:border-gold/60 hover:bg-gold/10"
                 }`}
               >
-                {"🙏 Mural de Oração"}
+                <HandHeart className="h-3 w-3" aria-hidden="true" /> Mural de Oração
                 <svg
                   className="h-2.5 w-2.5 transition-transform duration-300 group-hover:translate-x-0.5"
                   fill="none"
@@ -424,7 +418,7 @@ export default function Navigation({
                     : "bg-gold text-gray-900 shadow-gold/30 hover:shadow-gold/45"
                 }`}
               >
-                🕊️ Apoie a Obra
+                <HandCoins className="h-3 w-3" aria-hidden="true" /> Apoie a Obra
                 <svg
                   className="h-2.5 w-2.5 transition-transform duration-300 group-hover:translate-x-0.5"
                   fill="none"
@@ -524,7 +518,7 @@ export default function Navigation({
                           <span className="flex-1 truncate text-left">
                             {item.label}
                           </span>
-                          <svg
+                          <ChevronDown
                             className={`h-3.5 w-3.5 flex-shrink-0 transition-transform duration-200 ${
                               open ? "rotate-180" : ""
                             }`}
@@ -532,14 +526,7 @@ export default function Navigation({
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                             aria-hidden="true"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M19 9l-7 7-7-7"
-                            />
-                          </svg>
+                           />
                         </button>
 
                         {open && (
@@ -631,121 +618,3 @@ export default function Navigation({
     </>
   );
 }
-
-function HomeIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3m10-11v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-      />
-    </svg>
-  );
-}
-
-function BookIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-      />
-    </svg>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-      />
-    </svg>
-  );
-}
-
-function UsersIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"
-      />
-    </svg>
-  );
-}
-
-function MusicIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
-      />
-    </svg>
-  );
-}
-
-function SparklesIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-      />
-    </svg>
-  );
-}
-
-function MailIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-      />
-    </svg>
-  );
-}
-
-function HeartIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-      />
-    </svg>
-  );
-}
-
-function GlobeIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a15 15 0 010 18 15 15 0 010-18z"
-      />
-    </svg>
-  );
-}
-

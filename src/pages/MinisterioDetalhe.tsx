@@ -1,6 +1,7 @@
 import { MINISTERIOS, type Ministry } from "../data/ministerios";
 import { CHURCH } from "../data/church";
 import type { Page } from "../components/Navigation";
+import { HandHeart } from "lucide-react";
 
 interface MinisterioDetalheProps {
   id: string;
@@ -24,7 +25,7 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
     return (
       <main id="main-content" className="min-h-screen bg-background pt-16">
         <div className="max-w-3xl mx-auto px-4 py-24 text-center">
-          <p className="text-4xl mb-4">🙏</p>
+          <p className="mb-4" aria-hidden="true"><HandHeart className="mx-auto h-10 w-10 text-gold" aria-hidden="true" /></p>
           <h1 className="font-display text-2xl text-foreground mb-3">Ministério não encontrado</h1>
           <button
             onClick={() => onNavigate("ministerios")}

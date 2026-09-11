@@ -1,4 +1,5 @@
 import { CHURCH } from "../data/church";
+import { HandHeart, ChevronRight } from "lucide-react";
 
 /**
  * Botao flutuante de Pedido de Oracao.
@@ -12,9 +13,8 @@ import { CHURCH } from "../data/church";
  *  - Tooltip no hover: "Sigilo pastoral" + "Tiago 5:14"
  *  - Mensagem WhatsApp cita Tiago 5:14 e oferece confidencialidade
  *
- * Icone: SVG personalizado de maos em oracao (palmas unidas,
- * com glow suave no hover). Substitui o emoji ?? que tinha
- * problemas de encoding em alguns clients.
+ * Icone: HandHeart do lucide-react (palmas unidas em container
+ * com glow suave no hover). Regra do site: 1 sistema de icones.
  *
  * Recursos visuais:
  *  - Pulso suave pra chamar atencao sem ser intrusivo (3s)
@@ -62,15 +62,13 @@ export default function PrayerButton() {
           className="absolute inset-0 rounded-full bg-white/0 transition-colors duration-300 group-hover:bg-white/15"
         />
 
-        {/* Emoji de maos em oracao 🙏 (escape Unicode pra evitar
-            problemas de encoding do arquivo). Universalmente
-            reconhecido: "pedido de oracao" em qualquer cultura. */}
+        {/* HandHeart do lucide (regra do site: 1 sistema de icones) */}
         <span
           aria-hidden="true"
           className="relative text-2xl leading-none drop-shadow-sm transition-transform duration-300 group-hover:scale-110"
           style={{ fontFamily: "system-ui, -apple-system, 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif" }}
         >
-          {"\u{1F64F}"}
+          <HandHeart className="relative h-6 w-6 text-gray-900 transition-transform duration-300 group-hover:scale-110" aria-hidden="true" />
         </span>
       </span>
 
@@ -108,3 +106,5 @@ export default function PrayerButton() {
     </a>
   );
 }
+
+

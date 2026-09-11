@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { HandHeart, NotebookPen, Globe, Smartphone, Sparkles } from "lucide-react";
 import PageTitle from "../components/ui/PageTitle";
 import { CHURCH } from "../data/church";
 import {
@@ -118,10 +119,10 @@ export default function Oracoes() {
 
           <div className="flex flex-wrap items-center gap-2 mb-6">
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
-              🙏 {totalOracoes} orações
+              <HandHeart className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" /> {totalOracoes} orações
             </span>
             <span className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
-              📝 {pedidos.length} pedidos
+              <NotebookPen className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" /> {pedidos.length} pedidos
             </span>
             <span
               title={
@@ -131,7 +132,7 @@ export default function Oracoes() {
               }
               className="inline-flex items-center rounded-full border border-border px-3 py-1 text-xs text-muted-foreground"
             >
-              {modo === "kv" ? "🌍 Mural da comunidade" : "📱 Mural neste aparelho"}
+              {modo === "kv" ? (<><Globe className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" /> Mural da comunidade</>) : (<><Smartphone className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" /> Mural neste aparelho</>)}
             </span>
           </div>
 
@@ -243,7 +244,7 @@ export default function Oracoes() {
             <p className="text-sm text-muted-foreground">Carregando mural...</p>
           ) : ordenados.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              Nenhum pedido aqui ainda. Seja o primeiro a publicar acima. 🙏
+              Nenhum pedido aqui ainda. Seja o primeiro a publicar acima.
             </p>
           ) : (
             <div className="grid gap-4">
@@ -272,7 +273,7 @@ export default function Oracoes() {
                     {p.testemunho && (
                       <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-3.5 mb-3">
                         <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-400 mb-1">
-                          ✨ Testemunho — Deus respondeu
+                          <Sparkles className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" /> Testemunho — Deus respondeu
                         </p>
                         <p className="text-sm text-foreground">{p.testemunho.texto}</p>
                       </div>
@@ -289,7 +290,7 @@ export default function Oracoes() {
                         }`}
                         aria-label={`Orar por este pedido (${p.oracoes} orações)`}
                       >
-                        <span aria-hidden="true">🙏</span>
+                        <HandHeart className="h-4 w-4" aria-hidden="true" />
                         {votado ? "Orando" : "Estou orando"} · {p.oracoes}
                       </button>
                       {!p.testemunho && testAberto !== p.id && (
@@ -361,4 +362,3 @@ export default function Oracoes() {
     </main>
   );
 }
-

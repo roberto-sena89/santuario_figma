@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Music } from "lucide-react";
 import type { HarpaHino } from "../data/harpaCompleta";
 import PlayerModal from "../components/media/PlayerModal.jsx";
 import {
@@ -348,7 +349,7 @@ function HymnCard({
                 }}
                 className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-4 py-2 text-xs font-bold text-gold-dark hover:bg-gold/20 transition-colors"
               >
-                🎵 buscar "{hymn.title}" nos Playbacks →
+                <Music className="h-3.5 w-3.5" aria-hidden="true" /> buscar "{hymn.title}" nos Playbacks →
               </a>
               <span className="text-[11px] text-muted-foreground self-center">+ {hymn.number} • biblioteca com 15k playbacks</span>
             </div>

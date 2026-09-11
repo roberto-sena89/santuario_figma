@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BookOpen, Library, CircleHelp } from "lucide-react";
 import {
   getPalavraDoDia,
   getVersiculosDoTema,
@@ -157,7 +158,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
               onClick={() => onNavigate("devocional")}
               className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-gold/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
-              <p className="text-2xl mb-2" aria-hidden="true">📖</p>
+              <p className="mb-2" aria-hidden="true"><BookOpen className="mx-auto h-6 w-6 text-gold" aria-hidden="true" /></p>
               <p className="font-semibold text-foreground text-sm mb-1">
                 Devocional de hoje
               </p>
@@ -172,7 +173,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
               onClick={() => onNavigate("plano")}
               className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-gold/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
-              <p className="text-2xl mb-2" aria-hidden="true">📚</p>
+              <p className="mb-2" aria-hidden="true"><Library className="mx-auto h-6 w-6 text-gold" aria-hidden="true" /></p>
               <p className="font-semibold text-foreground text-sm mb-1">
                 Leitura de hoje — dia {diaDoAno(hoje)}
               </p>
@@ -187,7 +188,7 @@ export default function PalavraDodia({ onNavigate }: Props) {
               onClick={() => onNavigate("quiz")}
               className="group text-left rounded-xl border border-border bg-card/60 p-5 transition-all duration-200 hover:border-gold/40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
             >
-              <p className="text-2xl mb-2" aria-hidden="true">❓</p>
+              <p className="mb-2" aria-hidden="true"><CircleHelp className="mx-auto h-6 w-6 text-gold" aria-hidden="true" /></p>
               <p className="font-semibold text-foreground text-sm mb-1">
                 Quiz da semana
               </p>
@@ -237,4 +238,3 @@ export default function PalavraDodia({ onNavigate }: Props) {
     </main>
   );
 }
-

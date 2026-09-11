@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import PageTitle from "../components/ui/PageTitle";
 import { getQuizDaSemana, mensagemResultado } from "../data/quiz";
 import { isoWeek } from "../data/escala";
+import { Trophy, BookOpen, CircleCheck, CircleX } from "lucide-react";
 
 type Fase = "intro" | "jogo" | "fim";
 
@@ -129,7 +130,7 @@ export default function Quiz() {
 
           {recorde > 0 && fase !== "jogo" && (
             <p className="text-center text-sm text-muted-foreground mb-8">
-              🏆 Teu recorde neste tema:{" "}
+              <Trophy className="mr-1 inline h-4 w-4" aria-hidden="true" /> Teu recorde neste tema:{" "}
               <strong className="text-gold">
                 {recorde}/{quiz.perguntas.length}
               </strong>
@@ -139,7 +140,7 @@ export default function Quiz() {
           {/* INTRO */}
           {fase === "intro" && (
             <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 text-center">
-              <p className="text-4xl mb-4" aria-hidden="true">📖</p>
+              <p className="mb-4" aria-hidden="true"><BookOpen className="mx-auto h-10 w-10 text-gold" aria-hidden="true" /></p>
               <h2 className="font-display text-2xl text-foreground mb-2">
                 {quiz.perguntas.length} perguntas, 1 verdade
               </h2>
@@ -211,10 +212,10 @@ export default function Quiz() {
                       </span>
                       {alt}
                       {respondida && certa && (
-                        <span className="ml-2" aria-hidden="true">✅</span>
+                        <CircleCheck className="ml-2 inline h-4 w-4 text-emerald-400" aria-hidden="true" />
                       )}
                       {respondida && escolhida && !certa && (
-                        <span className="ml-2" aria-hidden="true">❌</span>
+                        <CircleX className="ml-2 inline h-4 w-4 text-red-400" aria-hidden="true" />
                       )}
                     </button>
                   );
@@ -258,7 +259,7 @@ export default function Quiz() {
                 </p>
                 {novoRecorde && (
                   <p className="text-sm text-gold font-semibold">
-                    🏆 Novo recorde pessoal!
+                    <Trophy className="mr-1 inline h-4 w-4" aria-hidden="true" /> Novo recorde pessoal!
                   </p>
                 )}
                 <div className="flex flex-col sm:flex-row gap-3 justify-center mt-6">
@@ -279,7 +280,7 @@ export default function Quiz() {
                     href="#/plano"
                     className="inline-flex h-11 items-center justify-center rounded-full bg-gold px-6 text-sm font-bold text-gold-ink transition-all hover:bg-gold-hover hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/70"
                   >
-                    📖 Aprofundar no Plano de Leitura →
+                    <BookOpen className="h-4 w-4" aria-hidden="true" /> Aprofundar no Plano de Leitura →
                   </a>
                 </div>
               </div>
@@ -297,7 +298,7 @@ export default function Quiz() {
                       {i + 1}. {p.pergunta}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      ✅ {p.alternativas[p.correta]} —{" "}
+                      <CircleCheck className="mr-1 inline h-4 w-4 text-emerald-400" aria-hidden="true" /> {p.alternativas[p.correta]} —{" "}
                       <strong className="text-gold">{p.ref}</strong>
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">
@@ -319,4 +320,3 @@ export default function Quiz() {
     </main>
   );
 }
-

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getEscala, formatSemana, isoWeek, mondayOfWeek, PAPEIS_POR_DIA, papelParaLista, ORDEM_DIAS, DIAS_SEMANA_OPCOES } from "../data/escala";
+import { MapPin, ClipboardList } from "lucide-react";
 
 export default function Cultos() {
   const [semanaAtual, setSemanaAtual] = useState(() => isoWeek(new Date()));
@@ -49,7 +50,7 @@ export default function Cultos() {
               href="#/contato"
               className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/15 px-4 py-1.5 text-xs font-bold text-gold-light backdrop-blur-sm transition-colors hover:bg-gold/30 hover:text-white"
             >
-              📍 Ver endereço e como chegar →
+              <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> Ver endereço e como chegar →
             </a>
           </div>
         </div>
@@ -60,7 +61,7 @@ export default function Cultos() {
         <section aria-labelledby="escala-titulo" className="mb-12">
           <div className="flex items-center gap-3 mb-6">
             <span className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-2xl bg-gold/15 text-xl shadow-sm shadow-gold/20 ring-1 ring-gold/20" aria-hidden="true">
-              📋
+              <ClipboardList className="h-5 w-5 text-gold" aria-hidden="true" />
             </span>
             <div>
               <h2 id="escala-titulo" className="font-display text-2xl font-semibold text-foreground">
@@ -181,4 +182,3 @@ export default function Cultos() {
     </main>
   );
 }
-
