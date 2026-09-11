@@ -32,14 +32,13 @@ interface NavItem {
   group?: "core" | "more";
   submenu?: { label: string; page: Page; icon: React.ReactNode; desc: string; hash?: string }[];
   submenuLabel?: string;
-  /** Pai também navega pra sua página ao clicar (além de abrir o dropdown) */
   navigateParent?: boolean;
 }
 
 const NAV_ITEMS: NavItem[] = [
   { label: "Início", page: "home", icon: <HomeIcon />, group: "core" },
   {
-    label: "Bíblia",
+    label: "Palavra",
     page: "biblia",
     icon: <BookIcon />,
     group: "core",
@@ -55,23 +54,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   { label: "Agenda", page: "cultos", icon: <CalendarIcon />, group: "core" },
   {
-    label: "Ministérios",
-    page: "ministerios",
-    icon: <UsersIcon />,
-    group: "core",
-    submenuLabel: "Conheça os ministérios",
-    submenu: [
-      { label: "Ministério de Louvor", page: "ministerios", icon: <SparklesIcon />, desc: "Adoração corporativa nos cultos", hash: "#/ministerios/louvor" },
-      { label: "Ministério de Jovens", page: "ministerios", icon: <UsersIcon />, desc: "Jovens de 15 a 30 anos", hash: "#/ministerios/jovens" },
-      { label: "Ministério Infantil", page: "ministerios", icon: <HeartIcon />, desc: "Ensino bíblico para crianças", hash: "#/ministerios/criancas" },
-      { label: "Ministério de Intercessão", page: "ministerios", icon: <SparklesIcon />, desc: "Oração pela comunidade", hash: "#/ministerios/intercessao" },
-      { label: "Ministério da Família", page: "ministerios", icon: <HeartIcon />, desc: "Apoio e comunhão para casais", hash: "#/ministerios/casais" },
-      { label: "Diaconia Social", page: "ministerios", icon: <UsersIcon />, desc: "Ação social e assistência", hash: "#/ministerios/diaconia" },
-      { label: "Ministério de Missões", page: "missoes", icon: <GlobeIcon />, desc: "Conheça a obra missionária" },
-    ],
-  },
-  {
-    label: "Multimídia",
+    label: "Louvor",
     page: "playbacks",
     icon: <MusicIcon />,
     group: "core",
@@ -82,13 +65,15 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    label: "Sobre",
+    label: "Igreja",
     page: "quem-somos",
-    icon: <InfoIcon />,
+    icon: <UsersIcon />,
     group: "core",
     submenuLabel: "Conheça a igreja",
     submenu: [
       { label: "Quem Somos", page: "quem-somos", icon: <UsersIcon />, desc: "Nossa história, missão e liderança" },
+      { label: "Ministérios", page: "ministerios", icon: <SparklesIcon />, desc: "Conheça nossos departamentos e grupos", hash: "#/ministerios" },
+      { label: "Missões", page: "missoes", icon: <GlobeIcon />, desc: "Conheça a obra missionária" },
       { label: "Contato", page: "contato", icon: <MailIcon />, desc: "Fale conosco, endereço e WhatsApp" },
     ],
   },
@@ -128,7 +113,6 @@ export default function Navigation({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close submenu on outside click
   useEffect(() => {
     if (!openSubmenu) return;
     const onClick = (e: MouseEvent) => {
@@ -141,7 +125,6 @@ export default function Navigation({
     return () => document.removeEventListener("mousedown", onClick);
   }, [openSubmenu]);
 
-  // Close mobile menu on ESC
   useEffect(() => {
     if (!menuOpen) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
@@ -149,12 +132,10 @@ export default function Navigation({
     return () => window.removeEventListener("keydown", onKey);
   }, [menuOpen]);
 
-  // Reset mobile submenu state when menu closes
   useEffect(() => {
     if (!menuOpen) setMobileOpenSubmenu(null);
   }, [menuOpen]);
 
-  // Lock scroll on mobile menu open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
@@ -171,7 +152,6 @@ export default function Navigation({
     window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
   };
 
-  // Apoie acende só em Contribuições (MORE_ITEMS também alimenta o drawer mobile)
   const isMoreActive = currentPage === "contribuicoes";
 
   return (
@@ -188,7 +168,6 @@ export default function Navigation({
         }`}
         role="banner"
       >
-        {/* Linha de progresso de leitura */}
         <div
           className="absolute bottom-0 inset-x-0 h-[2px] bg-border/40 overflow-hidden"
           aria-hidden="true"
@@ -201,7 +180,6 @@ export default function Navigation({
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between gap-4">
-            {/* ════════════ LOGO ════════════ */}
             <button
               onClick={() => navigate("home")}
               className="group flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-card rounded-lg pr-2"
@@ -215,7 +193,6 @@ export default function Navigation({
                     fill="none"
                     aria-hidden="true"
                   >
-                    {/* Bíblia aberta */}
                     <path
                       d="M16 10c-1.6-1.2-3.8-1.6-6.5-1.4-.6 0-1 .5-1 1v10.6c0 .6.5 1 1 1C12.2 21 14.4 21.4 16 22.6c1.6-1.2 3.8-1.6 6.5-1.4.6 0 1-.5 1-1V9.6c0-.6-.5-1-1-1-2.7-.2-4.9.2-6.5 1.4z"
                       fill="currentColor"
@@ -257,7 +234,6 @@ export default function Navigation({
               </div>
             </button>
 
-            {/* ════════════ DESKTOP NAV ════════════ */}
             <nav
               className="hidden lg:flex items-center gap-0.5"
               aria-label="Navegação principal"
@@ -310,7 +286,6 @@ export default function Navigation({
                             d="M19 9l-7 7-7-7"
                           />
                         </svg>
-                        {/* Underline indicator */}
                         <span
                           className={`absolute inset-x-3.5 -bottom-px h-[2px] rounded-full bg-accent transition-transform duration-300 origin-center ${
                             subActive || isOpen
@@ -393,7 +368,6 @@ export default function Navigation({
                     aria-current={active ? "page" : undefined}
                   >
                     {item.label}
-                    {/* Underline indicator */}
                     <span
                       className={`absolute inset-x-3.5 -bottom-px h-[2px] rounded-full bg-accent transition-transform duration-300 origin-center ${
                         active
@@ -406,7 +380,6 @@ export default function Navigation({
                 );
               })}
 
-              {/* Botão Mural de Oração — versão compacta do Apoie a Obra */}
               <button
                 onClick={() => navigate("oracoes")}
                 aria-current={currentPage === "oracoes" ? "page" : undefined}
@@ -416,7 +389,7 @@ export default function Navigation({
                     : "bg-[#D4A24C] text-gray-900 shadow-[#D4A24C]/30 hover:shadow-[#D4A24C]/45"
                 }`}
               >
-                {"\u{1F64F} Mural de Oração"}
+                {"🙏 Mural de Oração"}
                 <svg
                   className="h-2.5 w-2.5 transition-transform duration-300 group-hover:translate-x-0.5"
                   fill="none"
@@ -433,7 +406,6 @@ export default function Navigation({
                 </svg>
               </button>
 
-              {/* Botão Apoie a Obra — navega direto para Contribuições */}
               <button
                 onClick={() => navigate("contribuicoes")}
                 aria-current={isMoreActive ? "page" : undefined}
@@ -461,9 +433,7 @@ export default function Navigation({
               </button>
             </nav>
 
-            {/* ════════════ RIGHT CONTROLS ════════════ */}
             <div className="flex items-center gap-1.5">
-              {/* Hamburger */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="lg:hidden grid h-11 w-11 place-items-center rounded-full text-foreground/70 transition-all duration-200 hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-card"
@@ -493,7 +463,6 @@ export default function Navigation({
           </div>
         </div>
 
-        {/* ════════════ MOBILE MENU (drawer) ════════════ */}
         <div
           id="mobile-menu"
           className={`lg:hidden absolute inset-x-0 top-full origin-top transition-all duration-300 ${
@@ -639,7 +608,6 @@ export default function Navigation({
                 })}
               </div>
 
-              {/* Mobile bottom strip */}
               <div className="mt-3 border-t border-border/60 pt-3">
                 <p className="text-[11px] text-muted-foreground/70">
                   {CHURCH.name}
@@ -650,15 +618,10 @@ export default function Navigation({
         </div>
       </header>
 
-      {/* Spacer para o header fixo não cobrir conteúdo */}
       <div aria-hidden="true" className="h-16" />
     </>
   );
 }
-
-/* ════════════════════════════════════════════════════
-   Ícones SVG inline — leves, sem dependência externa
-   ════════════════════════════════════════════════════ */
 
 function HomeIcon() {
   return (
@@ -759,19 +722,6 @@ function HeartIcon() {
         strokeLinejoin="round"
         strokeWidth={1.7}
         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-      />
-    </svg>
-  );
-}
-
-function InfoIcon() {
-  return (
-    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.7}
-        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
       />
     </svg>
   );

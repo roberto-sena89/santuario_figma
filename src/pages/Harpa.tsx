@@ -26,6 +26,20 @@ export default function Harpa() {
     });
   }, []);
 
+  // Ponte Playbacks → Harpa: consome busca deixada pelo card de playback
+  useEffect(() => {
+    if (!loaded) return;
+    try {
+      const v = localStorage.getItem("santuario:harpa_busca");
+      if (v && v.trim()) {
+        setQuery(v.trim());
+        setPage(1);
+        setExpanded(null);
+      }
+      localStorage.removeItem("santuario:harpa_busca");
+    } catch {}
+  }, [loaded]);
+
   const hymns = useMemo(() => {
     if (!searchRef.current) return [];
     return searchRef.current(query);
@@ -325,6 +339,19 @@ function HymnCard({
               </div>
             )}
             <CanteJunto titulo={hymn.title} onAbrir={onOuvir} />
+            {/* LINK INTERNO 4 — Harpa → Playbacks */}
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href="#/playbacks"
+                onClick={() => {
+                  try { localStorage.setItem("santuario:playback_busca", hymn.title); } catch {}
+                }}
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#D4A24C]/30 bg-[#D4A24C]/10 px-4 py-2 text-xs font-bold text-[#9C7A2E] hover:bg-[#D4A24C]/20 transition-colors"
+              >
+                🎵 buscar "{hymn.title}" nos Playbacks →
+              </a>
+              <span className="text-[11px] text-muted-foreground self-center">+ {hymn.number} • biblioteca com 15k playbacks</span>
+            </div>
           </div>
         </div>
       )}

@@ -99,6 +99,18 @@ export default function MusicasTab({
   const [carregandoInicial, setCarregandoInicial] = useState(true);
   const [buscaDebounced, setBuscaDebounced] = useState('');
 
+  // Ponte Harpa → Playbacks: consome busca deixada pela página da Harpa
+  useEffect(() => {
+    try {
+      const v = localStorage.getItem("santuario:playback_busca");
+      if (v && v.trim()) {
+        setBusca(v.trim());
+        setPagina(1);
+      }
+      localStorage.removeItem("santuario:playback_busca");
+    } catch {}
+  }, []);
+
   // Loading inicial para evitar flash de conteúdo
   useEffect(() => {
     const t = setTimeout(() => setCarregandoInicial(false), 350);
@@ -137,8 +149,10 @@ export default function MusicasTab({
       if (artistaSel && m.artista !== artistaSel) return false;
       // Harpa Cristã pode estar no título OU no artista (ex.: "HARPA CRISTA - HINO 03", artista "Desconhecido")
       const isHarpa = /harpa\s*crist/.test(normalizar(`${m.titulo} ${m.artista || ''}`));
-      // Harpa Cristã só aparece quando o botão está pressionado; fora dele, sai da lista principal
-      if (isHarpa !== soHarpa) return false;
+      // Com busca ativa, mostra tudo (a busca vinda da Harpa precisa achar
+      // tanto versões Harpa quanto versões de artistas). Sem busca, o toggle
+      // Harpa separa os dois universos.
+      if (!q && isHarpa !== soHarpa) return false;
       if (
         q &&
         !(
@@ -508,6 +522,11 @@ export default function MusicasTab({
                 {itensPagina.map((m) => {
                   const ehFavorita = favoritas.includes(m.id);
                   const descricao = formatDescricao(m);
+                  const isHarpa = /harpa\s*crist/i.test(`${m.titulo} ${m.artista || ''}`);
+                  const numHino = (() => {
+                    const mm = m.titulo.match(/hino\s*#?\s*(\d+)/i);
+                    return mm ? mm[1] : null;
+                  })();
                   return (
                     <div
                       key={m.id}
@@ -557,6 +576,17 @@ export default function MusicasTab({
                         >
                           {descricao}
                         </button>
+                        {isHarpa && (
+                          <a
+                            href="#/harpa"
+                            onClick={() => {
+                              try { localStorage.setItem("santuario:harpa_busca", numHino || m.titulo); } catch {}
+                            }}
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-[#9C7A2E] hover:text-[#D4A24C] hover:underline"
+                          >
+                            📖 ver letra {numHino ? `na Harpa nº ${numHino}` : "na Harpa Cristã"} →
+                          </a>
+                        )}
                         <p className="line-clamp-1 text-xs text-text2/70">
                           {m.tom ? (
                             <span className="inline-flex items-center gap-1 font-medium text-[#B8860B] dark:text-[#E8B35E]">
