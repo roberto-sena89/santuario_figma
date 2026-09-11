@@ -44,6 +44,13 @@ export default function Cultos() {
             <p className="mt-6 inline-flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3 text-sm sm:text-base text-white/90 max-w-xl leading-relaxed">
               <span>Nossa programacao semanal e os proximos eventos especiais. Venha fazer parte desta comunidade!</span>
             </p>
+            {/* LINK INTERNO — Cultos → Contato (endereço e como chegar) */}
+            <a
+              href="#/contato"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-[#D4A24C]/40 bg-[#D4A24C]/15 px-4 py-1.5 text-xs font-bold text-[#E8B35E] backdrop-blur-sm transition-colors hover:bg-[#D4A24C]/30 hover:text-white"
+            >
+              📍 Ver endereço e como chegar →
+            </a>
           </div>
         </div>
       </section>
