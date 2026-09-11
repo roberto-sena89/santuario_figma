@@ -22,6 +22,7 @@ const Contribuicoes = lazy(() => import("./pages/Contribuicoes"));
 const Contato = lazy(() => import("./pages/Contato"));
 const Missoes = lazy(() => import("./pages/Missoes"));
 const MinisterioDetalhe = lazy(() => import("./pages/MinisterioDetalhe"));
+const EscalaVoluntarios = lazy(() => import("./pages/EscalaVoluntarios"));
 const AdminScale = lazy(() => import("./components/AdminScale"));
 import { CHURCH } from "./data/church";
 import { MINISTERIOS } from "./data/ministerios";
@@ -31,7 +32,7 @@ const NO_FOOTER_PAGES: Page[] = ["admin"];
 const ALL_PAGES: Page[] = [
   "home", "biblia", "palavra-do-dia", "devocional", "quiz", "plano", "playbacks",
   "harpa", "cultos", "ministerios", "quem-somos", "contribuicoes",
-  "contato", "admin", "missoes", "oracoes", "momento",
+  "contato", "admin", "missoes", "oracoes", "momento", "escala-voluntarios",
 ];
 
 /**
@@ -113,6 +114,7 @@ export default function App() {
       missoes: `Missões — ${CHURCH.shortName}`,
       oracoes: `Mural de Oração — ${CHURCH.shortName}`,
       momento: `Momento com Deus — ${CHURCH.shortName}`,
+      "escala-voluntarios": `Escala de Voluntários — ${CHURCH.shortName}`,
     };
     document.title = activeMinistry
       ? `${MINISTERIOS.find((x) => x.id === activeMinistry)?.name ?? "Ministério"} — ${CHURCH.shortName}`
@@ -211,6 +213,8 @@ export default function App() {
               return <Oracoes />;
             case "momento":
               return <Momento />;
+            case "escala-voluntarios":
+              return <EscalaVoluntarios />;
             default:
               return <Home onNavigate={navigate} />;
           }

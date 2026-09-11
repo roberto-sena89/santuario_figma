@@ -19,7 +19,8 @@ export type Page =
   | "quiz"
   | "plano"
   | "oracoes"
-  | "momento";
+  | "momento"
+  | "escala-voluntarios";
 
 interface NavProps {
   currentPage: Page;
@@ -81,7 +82,7 @@ const NAV_ITEMS: NavItem[] = [
     submenuLabel: "Conheça a igreja",
     submenu: [
       { label: "Quem Somos", page: "quem-somos", icon: <Users className="h-full w-full" />, desc: "Nossa história, missão e liderança" },
-      { label: "Cultos e Agenda", page: "cultos", icon: <CalendarDays className="h-full w-full" />, desc: "Horários, escala e eventos" },
+      { label: "Cultos e Agenda", page: "cultos", icon: <CalendarDays className="h-full w-full" />, desc: "Horários, endereço e o que esperar" },
       { label: "Ministérios", page: "ministerios", icon: <Sparkles className="h-full w-full" />, desc: "Conheça nossos departamentos e grupos", hash: "#/ministerios" },
       { label: "Missões", page: "missoes", icon: <Globe className="h-full w-full" />, desc: "Conheça a obra missionária" },
       { label: "Contato", page: "contato", icon: <Mail className="h-full w-full" />, desc: "Fale conosco, endereço e WhatsApp" },
