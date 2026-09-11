@@ -156,7 +156,7 @@ export default function PlanoLeitura() {
                       : "border-border opacity-40 grayscale text-muted-foreground"
                   }`}
                 >
-                  <span aria-hidden="true">{s.emoji}</span>
+                  <s.icon className="h-3.5 w-3.5" aria-hidden="true" />
                   <span className="sr-only">{s.nome}{s.ok ? ", conquistado" : `, falta ${s.dias} dias`}</span>
                 </span>
               ))}

@@ -33,8 +33,6 @@ export interface PessoaMissao {
 export const MISSOES = {
   id: "missoes",
   nome: "Ministério de Missões",
-  icone: "🌍",
-  cor: "#047857",
   resumo:
     "Levar o evangelho até os confins da terra. Saídas missionárias, apoio a missionários e treinamento de obreiros para o campo.",
   descricao:

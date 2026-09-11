@@ -24,12 +24,11 @@ export const IGREJA = {
     {
       dia: 'Domingo',
       horarios: ['09h00 — Escola Bíblica Dominical', '18h00 — Culto de Celebração'],
-      icon: '🕊️',
     },
-    { dia: 'Terça-feira', horarios: ['20h00 — Culto de Oração'], icon: '🙏' },
-    { dia: 'Quarta-feira', horarios: ['20h00 — Estudo Bíblico'], icon: '📖' },
-    { dia: 'Sexta-feira', horarios: ['20h00 — Culto de Jovens'], icon: '🔥' },
-    { dia: 'Sábado', horarios: ['19h00 — Ensaio do Ministério de Música'], icon: '🎤' },
+    { dia: 'Terça-feira', horarios: ['20h00 — Culto de Oração'] },
+    { dia: 'Quarta-feira', horarios: ['20h00 — Estudo Bíblico'] },
+    { dia: 'Sexta-feira', horarios: ['20h00 — Culto de Jovens'] },
+    { dia: 'Sábado', horarios: ['19h00 — Ensaio do Ministério de Música'] },
   ],
   // Fotos reais da igreja (coloque os arquivos em public/fotos/ e referencie aqui).
   // Deixe vazio ('') para usar o placeholder decorativo.

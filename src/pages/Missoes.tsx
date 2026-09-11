@@ -94,24 +94,22 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                 {/* Líder */}
                 <div className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
                   <div
-                    className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: "linear-gradient(to right, #047857, #04785700)" }}
+                    className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-emerald-700 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                     aria-hidden="true"
                   />
                   <div className="p-5">
                     <div className="mb-2.5 flex items-center gap-2">
-                      <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#047857" }} aria-hidden="true" />
-                      <span className="text-xs font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#6EE7B7" }}>
+                      <div className="h-1 w-1 rounded-full bg-emerald-700" aria-hidden="true" />
+                      <span className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-emerald-300">
                         Ministério de Missões
                       </span>
                     </div>
                     <h3 className="font-display font-semibold text-foreground text-[15px] leading-tight">
                       {m.liderMissao.nome}
                     </h3>
-                    <div
-                      className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1"
-                      style={{ backgroundColor: "#04785725", color: "#6EE7B7", borderColor: "#04785750" }}
-                    >
+                      <div
+                        className="mt-1.5 inline-flex items-center rounded-full bg-emerald-700/15 px-2.5 py-0.5 text-xs font-medium text-emerald-300 ring-1 ring-emerald-700/30"
+                      >
                       {m.liderMissao.papel}
                     </div>
                     <p className="text-muted-foreground text-[13px] leading-relaxed mt-2.5">
@@ -124,14 +122,13 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                 {m.obreiros.map((ob) => (
                   <div key={ob.id} className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
                     <div
-                      className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      style={{ background: "linear-gradient(to right, #D4A24C, #D4A24C00)" }}
+                      className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                       aria-hidden="true"
                     />
                     <div className="p-5">
                       <div className="mb-2.5 flex items-center gap-2">
-                        <div className="h-1 w-1 rounded-full" style={{ backgroundColor: "#D4A24C" }} aria-hidden="true" />
-                        <span className="text-xs font-semibold uppercase tracking-[0.22em] leading-none" style={{ color: "#E8B35E" }}>
+                        <div className="h-1 w-1 rounded-full bg-gold" aria-hidden="true" />
+                        <span className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-gold-light">
                           Obreiro
                         </span>
                       </div>
@@ -139,8 +136,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                         {ob.nome}
                       </h3>
                       <div
-                        className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1"
-                        style={{ backgroundColor: "#D4A24C25", color: "#E8B35E", borderColor: "#D4A24C50" }}
+                        className="mt-1.5 inline-flex items-center rounded-full bg-gold/15 px-2.5 py-0.5 text-xs font-medium text-gold-light ring-1 ring-gold/30"
                       >
                         {ob.papel}
                       </div>
@@ -177,8 +173,8 @@ export default function Missoes({ onNavigate }: MissoesProps) {
           <div className="grid sm:grid-cols-2 gap-5">
             {m.missionarios.map((mis, i) => {
               const cores = [
-                { bg: "#047857", nome: "Região Norte", icon: "🌳" },
-                { bg: "#0369A1", nome: "Campo — África", icon: "🌍" },
+                { nome: "Região Norte", barra: "from-emerald-700", dot: "bg-emerald-700", chip: "bg-emerald-700/15 ring-emerald-700/30" },
+                { nome: "Campo — África", barra: "from-sky-700", dot: "bg-sky-700", chip: "bg-sky-700/15 ring-sky-700/30" },
               ];
               const c = cores[i % cores.length];
               return (
@@ -188,14 +184,13 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                 >
                   {/* Glow sutil no hover */}
                   <div
-                    className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: `linear-gradient(to right, ${c.bg}, ${c.bg}00)` }}
+                    className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r to-transparent ${c.barra} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
                     aria-hidden="true"
                   />
                   <div className="p-6 sm:p-7">
                     {/* Indicador de cor (sem emoji) */}
                     <div className="mb-3 flex items-center gap-2">
-                      <div className="h-1 w-1 rounded-full" style={{ backgroundColor: c.bg }} aria-hidden="true" />
+                      <div className={`h-1 w-1 rounded-full ${c.dot}`} aria-hidden="true" />
                       <span
                         className="text-xs font-semibold uppercase tracking-[0.22em] leading-none text-gold-light"
                       >
@@ -206,8 +201,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                       {mis.nome}
                     </h3>
                     <div
-                      className="mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1"
-                      style={{ backgroundColor: `${c.bg}25`, color: "#E8B35E", borderColor: `${c.bg}50` }}
+                      className={`mt-1.5 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium text-gold-light ring-1 ${c.chip}`}
                     >
                       {mis.papel}
                     </div>
@@ -248,14 +242,12 @@ export default function Missoes({ onNavigate }: MissoesProps) {
               >
                 {/* Glow sutil no hover */}
                 <div
-                  className="absolute inset-x-0 top-0 h-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                  style={{ background: `linear-gradient(to right, ${conf.destaque ? "#D4A24C" : "#047857"}, transparent)` }}
+                  className={`absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r to-transparent ${conf.destaque ? "from-gold" : "from-emerald-700"} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
                   aria-hidden="true"
                 />
                 {conf.destaque && (
                   <div
-                    className="absolute inset-0 opacity-[0.04] pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse at top, #D4A24C, transparent 70%)" }}
+                    className="absolute inset-0 opacity-[0.04] pointer-events-none bg-[radial-gradient(ellipse_at_top,var(--color-gold),transparent_70%)]"
                     aria-hidden="true"
                   />
                 )}
@@ -264,8 +256,7 @@ export default function Missoes({ onNavigate }: MissoesProps) {
                     {/* Indicador de cor (sem emoji) */}
                     <div className="flex items-center gap-2">
                       <div
-                        className="h-1 w-1 rounded-full"
-                        style={{ backgroundColor: conf.destaque ? "#D4A24C" : "#047857" }}
+                        className={`h-1 w-1 rounded-full ${conf.destaque ? "bg-gold" : "bg-emerald-700"}`}
                         aria-hidden="true"
                       />
                       <span

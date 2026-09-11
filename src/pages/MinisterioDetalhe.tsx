@@ -132,11 +132,11 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
               {/* Cabeçalho da seção */}
               <div className="flex items-center gap-3 mb-5">
                 <span
-                  className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl text-xl ring-1 ring-black/5 shadow-sm"
+                  className="grid h-11 w-11 flex-shrink-0 place-items-center rounded-xl ring-1 ring-black/5 shadow-sm"
                   style={{ backgroundColor: `${m.color}20`, color: m.color }}
                   aria-hidden="true"
                 >
-                  {m.icon}
+                  <m.icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <div>
                   <h2 className="font-display text-2xl sm:text-3xl font-normal text-foreground leading-tight">
@@ -384,7 +384,7 @@ export default function MinisterioDetalhe({ id, onNavigate }: MinisterioDetalheP
                       e.currentTarget.style.display = "none";
                       const parent = e.currentTarget.parentElement!;
                       parent.classList.add("flex", "items-center", "justify-center");
-                      parent.innerHTML = `<span class="text-4xl text-muted-foreground/50">${m.icon}</span>`;
+                      parent.innerHTML = `<span class="text-4xl text-muted-foreground/50">✦</span>`;
                     }}
                   />
                 </div>

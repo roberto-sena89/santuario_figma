@@ -1,4 +1,4 @@
-/**
+import { Sprout, Flame, Bird, Mountain, Crown, type LucideIcon } from "lucide-react";/**
  * PLANO DE LEITURA ANUAL — a Bíblia inteira em 365 dias.
  * Gera as porções a partir de BIBLE_BOOKS (1189 capítulos no total):
  * os primeiros 94 dias têm 4 capítulos, os demais têm 3.
@@ -139,11 +139,11 @@ export function calcularStreak(dias: Set<number>, hojeDia: number): number {
 
 /** Selos por marco de dias lidos. */
 export const SELOS = [
-  { dias: 7, emoji: "🌱", nome: "Primeira semana" },
-  { dias: 30, emoji: "🔥", nome: "Mês de fogo" },
-  { dias: 100, emoji: "⛰️", nome: "100 dias" },
-  { dias: 200, emoji: "🦅", nome: "200 dias" },
-  { dias: 365, emoji: "👑", nome: "Bíblia completa" },
+  { dias: 7, icon: Sprout, nome: "Primeira semana" },
+  { dias: 30, icon: Flame, nome: "Mês de fogo" },
+  { dias: 100, icon: Mountain, nome: "100 dias" },
+  { dias: 200, icon: Bird, nome: "200 dias" },
+  { dias: 365, icon: Crown, nome: "Bíblia completa" },
 ];
 
 export function selosConquistados(totalLidos: number) {

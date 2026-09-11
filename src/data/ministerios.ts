@@ -1,7 +1,9 @@
+import { Music, Sparkles, Baby, Cross, HeartHandshake, HandCoins, Globe, type LucideIcon } from "lucide-react";
+
 export interface Ministry {
   id: string;
   name: string;
-  icon: string;
+  icon: LucideIcon;
   description: string;
   leader: string;
   /** Equipe de liderança/obreiros — o primeiro item é o líder (cor do ministério).
@@ -14,7 +16,7 @@ export interface Ministry {
   /* Conteúdo enriquecido das páginas dedicadas */
   versiculo?: { texto: string; referencia: string };
   resumo?: string;
-  atividades?: { titulo: string; descricao: string; icon: string }[];
+  atividades?: { titulo: string; descricao: string }[];
   beneficios?: string[];
   requisitos?: string[];
   galeria?: string[];
@@ -24,7 +26,7 @@ export const MINISTERIOS: Ministry[] = [
   {
     id: "louvor",
     name: "Ministério de Louvor",
-    icon: "♪",
+    icon: Music,
     description:
       "Responsável pela adoração corporativa nos cultos. Cantores, músicos e técnicos de som trabalham juntos para criar uma atmosfera de adoração genuína.",
     leader: "Ev. Renato Costa",
@@ -45,9 +47,9 @@ export const MINISTERIOS: Ministry[] = [
     resumo:
       "Conduzimos a igreja em adoração a Deus através da música, preparando cada detalhe para que a presença do Senhor seja o centro dos nossos cultos.",
     atividades: [
-      { titulo: "Cantores", descricao: "Vocal principal e apoio, com ensaios semanais de repertório e harmonia.", icon: "🎤" },
-      { titulo: "Músicos", descricao: "Instrumentistas de teclado, violão, guitarra, baixo, bateria e outros.", icon: "🎸" },
-      { titulo: "Técnicos de som", descricao: "Operação de mesa de som, iluminação e projeção nos cultos.", icon: "🎛️" },
+      { titulo: "Cantores", descricao: "Vocal principal e apoio, com ensaios semanais de repertório e harmonia." },
+      { titulo: "Músicos", descricao: "Instrumentistas de teclado, violão, guitarra, baixo, bateria e outros." },
+      { titulo: "Técnicos de som", descricao: "Operação de mesa de som, iluminação e projeção nos cultos." },
     ],
     beneficios: [
       "Crescer espiritualmente através da adoração",
@@ -66,7 +68,7 @@ export const MINISTERIOS: Ministry[] = [
   {
     id: "jovens",
     name: "Ministério de Jovens",
-    icon: "✦",
+    icon: Sparkles,
     description:
       "Um espaço para jovens de 15 a 30 anos crescerem na fé, construírem amizades saudáveis e descobrirem seu propósito em Deus.",
     leader: "Pr. Felipe Andrade",
@@ -87,9 +89,9 @@ export const MINISTERIOS: Ministry[] = [
     resumo:
       "Um movimento vibrante que reúne a juventude da igreja para adoração, ensino, comunhão e propósito, formando a próxima geração de líderes.",
     atividades: [
-      { titulo: "Encontros semanais", descricao: "Cultos jovens com louvor, palavra e dinâmicas toda sexta.", icon: "🎉" },
-      { titulo: "Grupos de discipulado", descricao: "Pequenos grupos para crescimento e amizades profundas.", icon: "📖" },
-      { titulo: "Ação social jovem", descricao: "Mutirões e visitas a lares e comunidades.", icon: "🤲" },
+      { titulo: "Encontros semanais", descricao: "Cultos jovens com louvor, palavra e dinâmicas toda sexta." },
+      { titulo: "Grupos de discipulado", descricao: "Pequenos grupos para crescimento e amizades profundas." },
+      { titulo: "Ação social jovem", descricao: "Mutirões e visitas a lares e comunidades." },
     ],
     beneficios: [
       "Fazer parte de uma geração que busca a Deus",
@@ -108,7 +110,7 @@ export const MINISTERIOS: Ministry[] = [
   {
     id: "criancas",
     name: "Ministério Infantil",
-    icon: "★",
+    icon: Baby,
     description:
       "Ensino bíblico lúdico e criativo para crianças de 4 a 12 anos. Teatro, música, artesanato e histórias bíblicas de forma divertida e significativa.",
     leader: "Dna. Patrícia Souza",
@@ -129,9 +131,9 @@ export const MINISTERIOS: Ministry[] = [
     resumo:
       "Cuidamos das nossas crianças com amor e excelência, plantando a semente da Palavra no coração dos pequenos de forma lúdica e segura.",
     atividades: [
-      { titulo: "Escola bíblica", descricao: "Ensino adaptado por faixa etária com histórias e atividades.", icon: "📚" },
-      { titulo: "Teatro e música", descricao: "Apresentações e cânticos infantis nos cultos.", icon: "🎭" },
-      { titulo: "Oficinas criativas", descricao: "Artesanato e brincadeiras que reforçam o ensino.", icon: "🎨" },
+      { titulo: "Escola bíblica", descricao: "Ensino adaptado por faixa etária com histórias e atividades." },
+      { titulo: "Teatro e música", descricao: "Apresentações e cânticos infantis nos cultos." },
+      { titulo: "Oficinas criativas", descricao: "Artesanato e brincadeiras que reforçam o ensino." },
     ],
     beneficios: [
       "Ver crianças crescendo no conhecimento de Deus",
@@ -150,7 +152,7 @@ export const MINISTERIOS: Ministry[] = [
   {
     id: "intercessao",
     name: "Ministério de Intercessão",
-    icon: "✝",
+    icon: Cross,
     description:
       "O coração que bate pela igreja. Nossos intercessores se dedicam à oração regular pela comunidade, pelo país e pelas nações.",
     leader: "Dna. Maria Helena",
@@ -171,9 +173,9 @@ export const MINISTERIOS: Ministry[] = [
     resumo:
       "Um exército de joelhos que sustenta a igreja em oração, intercedendo pelos cultos, lideranças, famílias, cidade e nações.",
     atividades: [
-      { titulo: "Vigílias de oração", descricao: "Noites de intercessão e adoração mensais.", icon: "🕯️" },
-      { titulo: "Mural de pedidos", descricao: "Recebemos e intercedemos por pedidos da igreja e visitantes.", icon: "📋" },
-      { titulo: "Intercessão por eventos", descricao: "Cobertura de oração para cultos e programações.", icon: "🙏" },
+      { titulo: "Vigílias de oração", descricao: "Noites de intercessão e adoração mensais." },
+      { titulo: "Mural de pedidos", descricao: "Recebemos e intercedemos por pedidos da igreja e visitantes." },
+      { titulo: "Intercessão por eventos", descricao: "Cobertura de oração para cultos e programações." },
     ],
     beneficios: [
       "Crescimento na vida de oração",
@@ -192,7 +194,7 @@ export const MINISTERIOS: Ministry[] = [
   {
     id: "casais",
     name: "Ministério da Família",
-    icon: "♥",
+    icon: HeartHandshake,
     description:
       "Suporte, ensinamento e comunhão para casais em todas as etapas do casamento. Seminários, aconselhamento e encontros regulares.",
     leader: "Pr. João e Pra. Tânia Silva",
@@ -213,9 +215,9 @@ export const MINISTERIOS: Ministry[] = [
     resumo:
       "Fortalecemos casamentos através de ensino bíblico, comunhão e apoio mútuo, ajudando famílias a florescerem em todas as estações.",
     atividades: [
-      { titulo: "Encontros mensais", descricao: "Noites temáticas para casais com jantar e ensino.", icon: "🍽️" },
-      { titulo: "Seminários", descricao: "Cursos sobre comunicação, finanças e vida conjugal.", icon: "📘" },
-      { titulo: "Aconselhamento", descricao: "Suporte pastoral e aconselhamento para casais.", icon: "💬" },
+      { titulo: "Encontros mensais", descricao: "Noites temáticas para casais com jantar e ensino." },
+      { titulo: "Seminários", descricao: "Cursos sobre comunicação, finanças e vida conjugal." },
+      { titulo: "Aconselhamento", descricao: "Suporte pastoral e aconselhamento para casais." },
     ],
     beneficios: [
       "Casamento fortalecido pela Palavra",
@@ -234,7 +236,7 @@ export const MINISTERIOS: Ministry[] = [
   {
     id: "diaconia",
     name: "Diaconia Social",
-    icon: "◆",
+    icon: HandCoins,
     description:
       "Ação social e assistência às famílias em necessidade. Distribuição de alimentos, roupas e apoio às comunidades vulneráveis.",
     leader: "Diac. Carlos Roberto",
@@ -255,9 +257,9 @@ export const MINISTERIOS: Ministry[] = [
     resumo:
       "Levamos o amor de Cristo em ações práticas: cestas básicas, roupas, visitas e apoio a famílias em situação de vulnerabilidade.",
     atividades: [
-      { titulo: "Distribuição de alimentos", descricao: "Montagem e entrega de cestas básicas mensais.", icon: "🥫" },
-      { titulo: "Arrecadações", descricao: "Campanhas de roupas, agasalhos e alimentos.", icon: "🧺" },
-      { titulo: "Visitas e apoio", descricao: "Assistência a famílias e comunidades carentes.", icon: "🤝" },
+      { titulo: "Distribuição de alimentos", descricao: "Montagem e entrega de cestas básicas mensais." },
+      { titulo: "Arrecadações", descricao: "Campanhas de roupas, agasalhos e alimentos." },
+      { titulo: "Visitas e apoio", descricao: "Assistência a famílias e comunidades carentes." },
     ],
     beneficios: [
       "Exercitar a fé em obras práticas",
@@ -276,7 +278,7 @@ export const MINISTERIOS: Ministry[] = [
   {
     id: "evangelismo",
     name: "Ministério de Missões",
-    icon: "◉",
+    icon: Globe,
     description:
       "Saídas regulares de evangelismo nas praças, hospitais e presídios. Treinamento em evangelismo pessoal e alcance de novos convertidos.",
     leader: "Ev. Marcos Oliveira",
@@ -297,9 +299,9 @@ export const MINISTERIOS: Ministry[] = [
     resumo:
       "Cumprimos o ide de Jesus: levamos o evangelho às ruas, hospitais e além, treinando obreiros e mobilizando a igreja para as missões.",
     atividades: [
-      { titulo: "Saídas evangelísticas", descricao: "Ação em praças, hospitais e presídios.", icon: "📣" },
-      { titulo: "Treinamento", descricao: "Capacitação em evangelismo pessoal e discipulado.", icon: "🎓" },
-      { titulo: "Apoio a missionários", descricao: "Sustento e intercessão por missionários no campo.", icon: "🌍" },
+      { titulo: "Saídas evangelísticas", descricao: "Ação em praças, hospitais e presídios." },
+      { titulo: "Treinamento", descricao: "Capacitação em evangelismo pessoal e discipulado." },
+      { titulo: "Apoio a missionários", descricao: "Sustento e intercessão por missionários no campo." },
     ],
     beneficios: [
       "Participar da maior obra: ganhar almas",

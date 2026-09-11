@@ -6,7 +6,7 @@
 import { useState, useRef, useEffect } from "react";
 import type { Subtema, CollectionStyle } from "../../data/bibleCollections";
 import { generateShareImage, shareImage } from "./ShareImage";
-import { BookOpen, HandHeart } from "lucide-react";
+import { BookOpen, HandHeart, Flower2, Swords, Sparkles, type LucideIcon } from "lucide-react";
 
 const FAV_KEY = "iegv_bible_collection_favs";
 
@@ -38,7 +38,7 @@ const styleAccents: Record<CollectionStyle, {
   cardHover: string;
   reflexao: string;
   oracao: string;
-  deco: string;
+  deco: LucideIcon;
 }> = {
   mulher: {
     hero: "bg-gradient-to-br from-colecao-mulher/15 via-colecao-ouro/10 to-transparent",
@@ -48,7 +48,7 @@ const styleAccents: Record<CollectionStyle, {
     cardHover: "hover:border-colecao-mulher/60 hover:shadow-lg hover:shadow-colecao-mulher/10",
     reflexao: "from-colecao-mulher/10 to-transparent border-colecao-mulher/30",
     oracao: "from-colecao-ouro/10 to-transparent border-colecao-ouro/30",
-    deco: "🌸",
+    deco: Flower2,
   },
   homem: {
     hero: "bg-gradient-to-br from-colecao-homem-deep/15 via-colecao-oliva/10 to-transparent",
@@ -58,7 +58,7 @@ const styleAccents: Record<CollectionStyle, {
     cardHover: "hover:border-colecao-homem-deep/60 hover:shadow-lg hover:shadow-colecao-homem-deep/10",
     reflexao: "from-colecao-homem-deep/10 to-transparent border-colecao-homem-deep/30",
     oracao: "from-colecao-oliva/10 to-transparent border-colecao-oliva/30",
-    deco: "⚔️",
+    deco: Swords,
   },
   generico: {
     hero: "bg-gradient-to-br from-accent/15 to-transparent",
@@ -68,7 +68,7 @@ const styleAccents: Record<CollectionStyle, {
     cardHover: "hover:border-accent/40 hover:shadow-md",
     reflexao: "from-accent/10 to-transparent border-accent/30",
     oracao: "from-accent/10 to-transparent border-accent/30",
-    deco: "✨",
+    deco: Sparkles,
   },
 };
 
@@ -187,9 +187,9 @@ export default function SubtemaView({
       >
         <span
           aria-hidden="true"
-          className="absolute top-4 right-4 text-4xl opacity-20"
+          className="absolute top-4 right-4 opacity-20"
         >
-          {c.deco}
+          <c.deco className="h-9 w-9" aria-hidden="true" />
         </span>
         <p className="text-[10.5px] font-semibold uppercase tracking-[0.28em] text-muted-foreground mb-4">
           Versículo em destaque
@@ -338,5 +338,3 @@ export default function SubtemaView({
     </article>
   );
 }
-
-
